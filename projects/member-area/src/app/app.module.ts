@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { AppComponent } from './app.component';
-import { AppRouting } from './app.routing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
+import { AppRoutingModule } from './app-routing';
+import { AppComponent } from './app.component';
+import { ShareModule } from './common/share.module';
 
 @NgModule({
   declarations: [
@@ -12,10 +11,8 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
   ],
   imports: [
     BrowserModule,
-    AppRouting,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule
+    AppRoutingModule,
+    ShareModule
   ],
   providers: [],
   bootstrap: [AppComponent]

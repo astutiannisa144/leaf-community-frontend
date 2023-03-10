@@ -4,10 +4,10 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 
 @Component({
-    selector : 'app-post-home',
-    templateUrl : './post-home.component.html'
+    selector : 'app-activity-event',
+    templateUrl : './event.component.html'
 })
-export class PostHomeComponent{
+export class EventComponent{
     constructor(
         private router : Router
     ){}

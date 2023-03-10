@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'member-area'`, () => {
+  it(`should have as title 'admin-area'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('member-area');
+    expect(app.title).toEqual('admin-area');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('member-area app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('admin-area app is running!');
   });
 });
