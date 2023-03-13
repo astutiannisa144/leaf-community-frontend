@@ -1,0 +1,63 @@
+<div class="grid justify-content-center">
+  <div class="col-8">
+
+    <!-- <div class="flex font-small">
+      <p-breadcrumb  [model]="items" [home]="home"></p-breadcrumb>
+    </div> -->
+    <div class="grid justify-content-start block col-12">
+      <button style="background-color: 29BA7B;" pButton pRipple type="button" class="p-button-success w-full h-3rem">
+        <p class="w-full" style="font-weight: 700;">Create New Thread</p>
+      </button>
+
+      <div class="surface-card mt-4 p-4 shadow-2 border-round">
+
+        <div class="col-12 flex my-0">
+          <div class="field w-full">
+            <label for="username1" class="block">
+              <p class="my-0">Post Title</p>
+            </label>
+            <input class="w-full" id="username1" type="username" aria-describedby="username1-help" pInputText />
+            <small id="username1-help" class="block">
+              <p class="my-0">Enter post title</p>
+            </small>
+          </div>
+        </div>
+
+        <div class="grid flex">
+          <div class="col-6 mr-1">
+            <div class="field w-full ">
+              <p>Post Content</p>
+              <span class="p-float-label">
+                <textarea class="w-full" id="float-input" rows="5" cols="30" pInputTextarea></textarea>
+                <label for="float-input">Post Content</label>
+              </span>
+            </div>
+          </div>
+
+          <div class="col-5 ml-1">
+            <p>Post Category</p>
+            <p-dropdown [style]="{'width' : '31rem'}" placeholder="Select post category" optionLabel="name"
+              [showClear]="true"></p-dropdown>
+          </div>
+        </div>
+
+        <hr class="mb-3" style="height:2px;border-width:0;color:rgb(227, 227, 227);background-color:rgb(221, 221, 221)">
+        <div class="justify-content-start mb-2">
+          <i class="pi pi-image mr-3" style="font-size: 2rem; font-weight: 600; color: #22C55E;"></i>
+          <i class="pi pi-list ml-2" style="font-size: 2rem; font-weight: 600; color: #22C55E;"></i>
+        </div>
+
+        <p-fileUpload chooseIcon="pi pi-upload" uploadIcon="pi pi-arrow-up" cancelIcon="pi pi-times"></p-fileUpload>
+
+        <div class="justify-content-end flex mt-3">
+          <button style="background-color: 29BA7B;" pButton pRipple type="button"
+            class="p-button-success w-2 h-3rem">
+            <p class="w-full" style="font-weight: 700;">Create Post</p>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>

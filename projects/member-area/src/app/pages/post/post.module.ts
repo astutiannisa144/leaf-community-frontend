@@ -1,21 +1,17 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ChipModule } from 'primeng/chip';
-import {CardModule} from 'primeng/card';
-import {TableModule} from 'primeng/table';
-import {ButtonModule} from 'primeng/button';
-import {InputTextModule} from 'primeng/inputtext';
-import {DropdownModule} from 'primeng/dropdown';
-import {InputTextareaModule} from 'primeng/inputtextarea';
-import {FileUploadModule} from 'primeng/fileupload';
+
+import { NgModule } from '@angular/core';
 import { PostHomeComponent } from './post-home/post-home.component';
 import { PostRouting } from './post.routing';
+import { ShareModule } from '../../../../../base-area/src/app/common/share.module';
+import { PostCreateComponent } from './post-create/post-create.component';
 
 @NgModule({
     declarations: [
-       PostHomeComponent
+        PostHomeComponent,
+        PostCreateComponent
     ],
     imports: [
         PostRouting,
@@ -23,15 +19,7 @@ import { PostRouting } from './post.routing';
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
-        ChipModule,
-        TableModule,
-        CardModule,
-        ButtonModule,
-        InputTextModule,
-        DropdownModule,
-        InputTextModule,
-        InputTextareaModule,
-        FileUploadModule
+        ShareModule
     ]
 })
 export class PostModule { }
