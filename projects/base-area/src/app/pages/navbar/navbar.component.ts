@@ -50,7 +50,8 @@ export class NavbarComponent {
         {
           label: 'My Event',
           icon: 'pi pi-fw pi-calendar-times',
-          routerLink: '/activities/my-event'
+          routerLink: '/my-activities/event'
+
         }
         ],
         
@@ -66,13 +67,14 @@ export class NavbarComponent {
         {
           label: 'My Course',
           icon: 'pi pi-fw pi-book',
-          routerLink: '/activities/my-course'
+          routerLink: '/my-activities/course'
         }
         ],
         
       },
       {
-        label: 'Artikel',
+        label: 'Article',
+        routerLink: '/articles'
       },
     ];
   }
