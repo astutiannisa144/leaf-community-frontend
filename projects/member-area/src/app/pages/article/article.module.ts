@@ -3,18 +3,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NgModule } from '@angular/core';
-import { PostHomeComponent } from './post-home/post-home.component';
-import { PostRouting } from './post.routing';
 import { ShareModule } from '../../../../../base-area/src/app/common/share.module';
-import { PostCreateComponent } from './post-create/post-create.component';
+import { ArticleHomeComponent } from './article-home/article-home.component';
+import { ArticleRouting } from './article.routing';
 
 @NgModule({
     declarations: [
-        PostHomeComponent,
-        PostCreateComponent
+        ArticleHomeComponent
     ],
     imports: [
-        PostRouting,
+        ArticleRouting,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
@@ -22,4 +20,4 @@ import { PostCreateComponent } from './post-create/post-create.component';
         ShareModule
     ]
 })
-export class PostModule { }
+export class ArticleModule { }

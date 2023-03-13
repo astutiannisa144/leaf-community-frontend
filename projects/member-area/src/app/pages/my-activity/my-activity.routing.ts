@@ -1,17 +1,17 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { EventComponent } from "./event/event.component";
-import { CourseComponent } from "./course/course.component";
+import { MyEventComponent } from "./my-event/my-event.component";
+import { MyCourseComponent } from "./my-course/course.component";
 
 const postRoutes : Routes = [
     {   
         path : 'event',
-        component : EventComponent
+        component : MyEventComponent
     },
 
     {   
         path : 'course',
-        component : CourseComponent
+        component : MyCourseComponent
     },
     
 ]   
@@ -26,6 +26,6 @@ const postRoutes : Routes = [
     ]
 
 })
-export class ActivityRouting{
+export class MyActivityRouting{
 
 }

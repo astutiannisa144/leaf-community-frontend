@@ -3,11 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing';
 import { AppComponent } from './app.component';
-import { ShareModule } from './common/share.module';
+import { ShareModule } from '../../../base-area/src/app/common/share.module';
+import { LoginComponent } from './pages/login/login.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

@@ -37,51 +37,42 @@ export class NavbarComponent {
   ];
     this.items = [
       {
-        label: 'Student Class',
-        items: [{
-          label: 'All Class',
-          icon: 'pi pi-fw pi-chevron-right',
-          routerLink: '/classes'
-        },
-        {
-          label: 'Enrolled Class',
-          icon: 'pi pi-fw pi-chevron-right',
-          routerLink: '/classes/class-student'
-
-        },
-
-        ]
+        label: 'Home',
+        routerLink: '/posts'
       },
       {
-        label: 'Master Data',
+        label: 'Event',
         items: [{
-          label: 'Class Master',
-          icon: 'pi pi-fw pi-plus',
-          routerLink: '/company'
+          label: 'Event Menu',
+          icon: 'pi pi-fw pi-calendar-plus',
+          routerLink: '/activities/event'
         },
         {
-          label: 'Student Master',
-          icon: 'pi pi-fw pi-plus',
-          routerLink: '/product'
-
-        },
-        {
-          label: 'Teacher Master',
-          icon: 'pi pi-fw pi-plus',
-          routerLink: '/product'
-
-        },
-        ]
-      },
-      {
-        label: 'Teacher Class',
-        items: [{
-          label: 'Teacher Assigned Class',
-          icon: 'pi pi-fw pi-plus',
-          routerLink: '/classes/class-teacher'
+          label: 'My Event',
+          icon: 'pi pi-fw pi-calendar-times',
+          routerLink: '/activities/my-event'
         }
         ],
         
+      },
+
+      {
+        label: 'Course',
+        items: [{
+          label: 'Course Menu',
+          icon: 'pi pi-fw pi-briefcase',
+          routerLink: '/activities/course'
+        },
+        {
+          label: 'My Course',
+          icon: 'pi pi-fw pi-book',
+          routerLink: '/activities/my-course'
+        }
+        ],
+        
+      },
+      {
+        label: 'Artikel',
       },
     ];
   }

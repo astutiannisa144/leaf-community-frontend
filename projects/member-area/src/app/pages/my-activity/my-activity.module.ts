@@ -3,18 +3,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NgModule } from '@angular/core';
-import { PostHomeComponent } from './post-home/post-home.component';
-import { PostRouting } from './post.routing';
 import { ShareModule } from '../../../../../base-area/src/app/common/share.module';
-import { PostCreateComponent } from './post-create/post-create.component';
+import { MyEventComponent } from './my-event/my-event.component';
+import { MyActivityRouting } from './my-activity.routing';
+import { MyCourseComponent } from './my-course/course.component';
 
 @NgModule({
     declarations: [
-        PostHomeComponent,
-        PostCreateComponent
+        MyEventComponent,
+        MyCourseComponent
     ],
     imports: [
-        PostRouting,
+        MyActivityRouting,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
@@ -22,4 +22,4 @@ import { PostCreateComponent } from './post-create/post-create.component';
         ShareModule
     ]
 })
-export class PostModule { }
+export class MyActivityModule { }

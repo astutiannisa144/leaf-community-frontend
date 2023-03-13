@@ -5,7 +5,7 @@ import { Subscription } from "rxjs";
 
 @Component({
     selector: 'app-activity-event',
-    templateUrl: './event.component.html',
+    templateUrl: './my-event.component.html',
     template: `
     <div (mouseenter)="onHover()" (mouseleave)="onLeave()" class="hoverable-element">Hover me!</div>
     `,
@@ -19,7 +19,13 @@ import { Subscription } from "rxjs";
        
      },
 
-     :host ::ng-deep .p-checkbox .p-checkbox-box {
+     :host ::ng-deep .tabview-custom{
+        background: #ffffff;
+    border-color: #22C55E;
+    color: #22C55E; 
+     },
+
+    :host ::ng-deep .p-checkbox .p-checkbox-box {
     border: 2px solid #ced4da;
     background: #ffffff;
     width: 22px;
@@ -38,7 +44,7 @@ import { Subscription } from "rxjs";
 
 
 })
-export class EventComponent {
+export class MyEventComponent {
     constructor(
         private router: Router
     ) { }

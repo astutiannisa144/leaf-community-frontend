@@ -5,7 +5,7 @@ import { Subscription } from "rxjs";
 
 @Component({
     selector: 'app-activity-event',
-    templateUrl: './event.component.html',
+    templateUrl: './course.component.html',
     template: `
     <div (mouseenter)="onHover()" (mouseleave)="onLeave()" class="hoverable-element">Hover me!</div>
     `,
@@ -38,7 +38,7 @@ import { Subscription } from "rxjs";
 
 
 })
-export class EventComponent {
+export class MyCourseComponent {
     constructor(
         private router: Router
     ) { }
