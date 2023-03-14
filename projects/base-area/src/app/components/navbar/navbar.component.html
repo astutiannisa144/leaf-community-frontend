@@ -1,13 +1,16 @@
-<p-menubar class="justify-content-center" [model]="items">
-  <ng-template pTemplate="start">
-    <p-image class="ml-6" src="assets/img/logo.png"
-      alt="Image" width="150"></p-image>
-  </ng-template>
+<div class="menubar-container shadow-2">
+  <p-menubar class="justify-content-center" [model]="items">
+    <ng-template pTemplate="start">
+      <p-image class="ml-6" src="assets/img/logo.png"
+        alt="Image" width="150"></p-image>
+    </ng-template>
+  
+    <ng-template pTemplate="end">
+      <p-avatar image="assets/img/unnamed.jpg" styleClass="mr-2" size="large" shape="circle"
+        (click)="menu.toggle($event)"></p-avatar>
+      <p-tieredMenu #menu [model]="itemProfile" [popup]="true"></p-tieredMenu>
+    </ng-template>
+  </p-menubar>
+</div>
 
-  <ng-template pTemplate="end">
-    <p-avatar image="assets/img/unnamed.jpg" styleClass="mr-2" size="large" shape="circle"
-      (click)="menu.toggle($event)"></p-avatar>
-    <p-tieredMenu #menu [model]="itemProfile" [popup]="true"></p-tieredMenu>
-  </ng-template>
-</p-menubar>
 <router-outlet></router-outlet>
