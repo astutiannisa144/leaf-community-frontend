@@ -1,6 +1,3 @@
-import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChipModule } from 'primeng/chip';
 import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
@@ -13,22 +10,17 @@ import { NgModule } from '@angular/core';
 import { AvatarModule } from 'primeng/avatar';
 import { ImageModule } from 'primeng/image';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
-import { NavbarModule } from 'projects/base-area/src/app/pages/navbar/navbar.module';
 import { CheckboxModule } from 'primeng/checkbox';
 import { RadioButtonModule } from 'primeng/radiobutton';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TabViewModule } from 'primeng/tabview';
 import { PasswordModule } from 'primeng/password';
+import { TieredMenuModule } from 'primeng/tieredmenu';
+import { MenubarModule } from 'primeng/menubar';
 
 
 @NgModule({
     declarations: [],
     imports: [
-        CommonModule,
-        FormsModule,
-        // BrowserAnimationsModule,
-        ReactiveFormsModule,
-        HttpClientModule,
         ChipModule,
         TableModule,
         CardModule,
@@ -41,18 +33,15 @@ import { PasswordModule } from 'primeng/password';
         AvatarModule,
         ImageModule,
         BreadcrumbModule,
-        NavbarModule,
         CheckboxModule,
         RadioButtonModule,
-        TabViewModule
+
+        TabViewModule,
+        TieredMenuModule,
+        MenubarModule,
 
     ],
     exports: [
-        CommonModule,
-        // BrowserAnimationsModule,
-        FormsModule,
-        ReactiveFormsModule,
-        HttpClientModule,
         ChipModule,
         TableModule,
         CardModule,
@@ -63,14 +52,13 @@ import { PasswordModule } from 'primeng/password';
         AvatarModule,
         ImageModule,
         BreadcrumbModule,
-        NavbarModule,
         CheckboxModule,
         RadioButtonModule,
         TabViewModule,
         InputTextModule,
-        PasswordModule
-
-
+        PasswordModule,
+        TieredMenuModule,
+        MenubarModule,
     ]
 })
 export class ShareModule { }

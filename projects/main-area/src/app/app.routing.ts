@@ -1,12 +1,9 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { LoginComponent } from "./pages/login/login.component";
+import { memberRoutes } from "../../../member-area/src/app/app-routing"
 
 const appRoutes : Routes = [
-    {   
-        path : 'login',
-        component : LoginComponent
-    }
+    ...memberRoutes,
     
 ]
 

@@ -1,22 +1,16 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './pages/login/login.component';
 import { AppRouting } from './app.routing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
-import { ChipModule } from 'primeng/chip';
-import {CardModule} from 'primeng/card';
-import {TableModule} from 'primeng/table';
-import {ButtonModule} from 'primeng/button';
-import {InputTextModule} from 'primeng/inputtext';
-import {PasswordModule} from 'primeng/password';
+import { ShareModule } from '../../../base-area/src/app/common/share.module';
+import { NavbarModule } from 'projects/base-area/src/app/components/navbar/navbar.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -24,11 +18,8 @@ import {PasswordModule} from 'primeng/password';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ChipModule,
-    CardModule,
-    ButtonModule,
-    InputTextModule,
-    PasswordModule
+    ShareModule,
+    NavbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

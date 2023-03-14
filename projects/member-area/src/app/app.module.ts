@@ -5,16 +5,18 @@ import { AppRoutingModule } from './app-routing';
 import { AppComponent } from './app.component';
 import { ShareModule } from '../../../base-area/src/app/common/share.module';
 import { LoginComponent } from './pages/login/login.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    LoginComponent
+    AppComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
-    ShareModule
+    ShareModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
