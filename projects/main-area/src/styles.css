@@ -1,4 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
-p {
-    font-family: 'Montserrat', sans-serif;
-  } 
+
+
+* {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+}
+
+body {
+  background-color: #F2F8F4;
+}
+
+:host ::ng-deep .p-breadcrumb {
+  background: #0da350 !important;
+}
+
+:host ::ng-deep .p-breadcrumb ul li .p-menuitem-link .p-menuitem-text {
+  color: #fff !important;
+}
+
+:host ::ng-deep .p-breadcrumb ul li .p-breadcrumb-chevron {
+  color: #fff !important;
+}
+
+:host ::ng-deep .p-breadcrumb ul li:last-child .p-menuitem-text {
+  color: #fff !important;
+  font-weight: 600;
+}
+
+

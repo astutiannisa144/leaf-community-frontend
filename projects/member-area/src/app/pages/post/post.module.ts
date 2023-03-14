@@ -8,6 +8,7 @@ import { PostRouting } from './post.routing';
 import { ShareModule } from '../../../../../base-area/src/app/common/share.module';
 import { PostCreateComponent } from './post-create/post-create.component';
 
+
 @NgModule({
     declarations: [
         PostHomeComponent,
@@ -19,7 +20,8 @@ import { PostCreateComponent } from './post-create/post-create.component';
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
-        ShareModule
+        ShareModule,
+        
     ]
 })
 export class PostModule { }
