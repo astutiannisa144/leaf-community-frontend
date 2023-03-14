@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { ShareModule } from 'projects/base-area/src/app/common/share.module';
 import { NavbarComponent } from 'projects/base-area/src/app/components/navbar/navbar.component';
 import { LoginComponent } from './pages/login/login.component';
+import { CommonModule } from '@angular/common';
 
 export const memberRoutes: Routes = [
 
@@ -48,7 +50,8 @@ export const memberRoutes: Routes = [
   ],
   imports: [
     RouterModule.forRoot(memberRoutes),
-    ShareModule
+    ShareModule, ReactiveFormsModule,
+    FormsModule, CommonModule
   ],
   exports: [RouterModule]
 })
