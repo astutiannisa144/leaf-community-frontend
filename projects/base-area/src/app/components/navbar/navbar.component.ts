@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import {MenuItem} from 'primeng/api';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'navbar',
@@ -8,10 +8,10 @@ import {MenuItem} from 'primeng/api';
 })
 
 export class NavbarComponent {
-  
+
   constructor(
-    private router : Router
-  ){
+    private router: Router
+  ) {
 
   }
 
@@ -21,20 +21,20 @@ export class NavbarComponent {
   ngOnInit() {
     this.itemProfile = [
       {
-          label: 'Hello, User!',
+        label: 'Hello, User!',
 
       },
       {
-          label: 'Edit Profile',
-          icon: 'pi pi-fw pi-pencil',
-          
+        label: 'Edit Profile',
+        icon: 'pi pi-fw pi-pencil',
+
       },
       {
         label: 'Log out',
         icon: 'pi pi-fw pi-sign-out',
-        routerLink : '/login'
-    }
-  ];
+        routerLink: '/login'
+      }
+    ];
     this.items = [
       {
         label: 'Home',
@@ -54,7 +54,7 @@ export class NavbarComponent {
 
         }
         ],
-        
+
       },
 
       {
@@ -70,7 +70,7 @@ export class NavbarComponent {
           routerLink: '/my-activities/course'
         }
         ],
-        
+
       },
       {
         label: 'Article',
@@ -79,7 +79,7 @@ export class NavbarComponent {
     ];
   }
 
-  onLogout(){
+  onLogout() {
     localStorage.clear()
     this.router.navigateByUrl('/login')
   }
