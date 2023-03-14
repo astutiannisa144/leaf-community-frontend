@@ -5,7 +5,7 @@ import { Subscription } from "rxjs";
 
 @Component({
     selector: 'app-activity-event',
-    templateUrl: './event.component.html',
+    templateUrl: './event-payment.component.html',
     template: `
     <div (mouseenter)="onHover()" (mouseleave)="onLeave()" class="hoverable-element">Hover me!</div>
     `,
@@ -14,8 +14,8 @@ import { Subscription } from "rxjs";
        background-color: #fff;
      }
      .hoverable-element:hover {
-       background-color: #e9ecef;
-       border-radius : 7px;
+       background-color: #22C55E;
+       color: #fff;
        
      },
 
@@ -33,12 +33,17 @@ import { Subscription } from "rxjs";
             top: 0;
             width: 100%;
             z-index: 1;
-        }
+        },
+
+    :host ::ng-deep .p-chip.custom-chip {
+    background: #BA3276;
+    color: var(--primary-color-text);
+}
    `]
 
 
 })
-export class EventComponent {
+export class EventPaymentComponent {
     constructor(
         private router: Router
     ) { }
