@@ -5,7 +5,14 @@ import { Subscription } from "rxjs";
 
 @Component({
     selector : 'app-article-home',
-    templateUrl : './article-home.component.html'
+    templateUrl : './article-home.component.html',
+    styles: [`
+        :host ::ng-deep .p-chip.custom-chip {
+    background: var(--primary-color);
+    color: var(--primary-color-text);
+}
+    `
+    ]
 })
 export class ArticleHomeComponent{
     constructor(

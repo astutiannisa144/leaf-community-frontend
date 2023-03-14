@@ -35,9 +35,11 @@ import { MenubarModule } from 'primeng/menubar';
         BreadcrumbModule,
         CheckboxModule,
         RadioButtonModule,
+
         TabViewModule,
         TieredMenuModule,
         MenubarModule,
+
     ],
     exports: [
         ChipModule,

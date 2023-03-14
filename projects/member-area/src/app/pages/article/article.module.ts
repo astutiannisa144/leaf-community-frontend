@@ -6,10 +6,12 @@ import { NgModule } from '@angular/core';
 import { ShareModule } from '../../../../../base-area/src/app/common/share.module';
 import { ArticleHomeComponent } from './article-home/article-home.component';
 import { ArticleRouting } from './article.routing';
+import { ArticleDetailComponent } from './article-detail/article-detail.component';
 
 @NgModule({
     declarations: [
-        ArticleHomeComponent
+        ArticleHomeComponent,
+        ArticleDetailComponent
     ],
     imports: [
         ArticleRouting,

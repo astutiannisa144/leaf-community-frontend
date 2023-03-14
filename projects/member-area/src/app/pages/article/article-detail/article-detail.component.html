@@ -1,22 +1,12 @@
 <div class="grid justify-content-center mt-3">
-
+  <div class="col-2">
+    <p-button label="Back" icon="pi pi-angle-left" styleClass="p-button-outlined p-button-sm p-button-success">
+    </p-button>
+  </div>
+  <div class="col-9"></div>
+</div>
+<div class="grid justify-content-center mt-3">
   <div class="col-9">
-    <div class="grid align-items-center mb-3">
-      <i class="pi pi-chevron-left ml-1 mr-2" style="font-size: 1.5rem; color: #137C3B;">
-      </i>
-      <ul class="list-none p-0 m-0 flex font-medium">
-        <li>
-          <a class="text-500 no-underline line-height-3 cursor-pointer">Articles</a>
-        </li>
-        <li class="px-2">
-          <i class="pi pi-angle-right text-500 line-height-3"></i>
-        </li>
-        <li>
-          <span class="text-900 line-height-3">Article Detail</span>
-        </li>
-      </ul>
-    </div>
-
     <div class="text-xl font-medium text-900 mb-3 align-items-center flex">
       <i class="pi pi-book mr-2" style="font-size: 1.4rem; color: #22C55E;"></i>
       <span>Article</span>
@@ -25,38 +15,57 @@
 
       <div class="col-12">
         <div class="surface-card p-3 shadow-2 border-round">
-          <img alt="Logo Class" src="https://buildwithangga.com/storage/assets/thumbnails/thumbnail_vue_starter.png"
-            class="w-auto">
+          <div class="grid justify-content-center mt-4">
+            <div class="col-11">
+              <img alt="Logo Class" src="https://buildwithangga.com/storage/assets/thumbnails/thumbnail_vue_starter.png"
+                class="w-full h-15rem ">
 
-          <p class="my-1" style="font-weight: 600; font-size: 16px; text-align: justify;">Having trouble in fixing null
-            constraint error code?
-            Check this article out.</p>
+            </div>
+          </div>
+          <div class="grid justify-content-center ">
+            <div class="col-11">
+              <p class="my-2" style="font-weight: 600; font-size: 23px; text-align: justify;">Ever countered and Having
+                trouble in fixing null
+                constraint error code?
+                Check this article out.</p>
+              <p class="mb-5" style="font-weight: 400; font-size: 16px; text-align: justify;">Posted by <span
+                  style="color: #137C3B;">Yudha Hdr</span> on 22 March 2023</p>
 
-          <p class="my-1" style="font-weight: 400; font-size: 14px; text-align: justify;">The not null constraint is
-            caused by some form that supposedly be filled but is left empty... <span
-              style="color: #137C3B; font-weight: 700;"> See More </span> </p>
+              <p class="my-1" style="font-weight: 400; font-size: 16px; text-align: justify; line-height: 27px;">What
+                programming languages
+                have the largest developer communities? Millions of people use languages like Python and Java, as you
+                might think, but some lesser-known languages also have unexpectedly sizable user bases.
+                Programmers today have a wide range of options for novice developers. Students seek to choose
+                programming languages with active communities. The programming languages with the largest developer
+                communities behind them are not only simple to learn, but they also advance you. SlashData published a
+                report on the programming languages in 2023 and their community support. This article will discuss the
+                top programming languages in 2023 with the largest developer communities. <span
+                  style="color: #137C3B; font-weight: 700;"> See More </span> </p>
+            </div>
+          </div>
 
         </div>
       </div>
     </div>
   </div>
 
-  <div class="col-2 mt-5">
+  <div class="col-2 ">
     <div class="text-xl font-medium text-900 mb-3 align-items-center flex">
       <i class="pi pi-calendar mr-2" style="font-size: 1.4rem; color: #22C55E;"></i>
       <span>Training & Events</span>
     </div>
-    <div class="surface-card p-4 shadow-2 border-round">
+    <div class="surface-card p-3 shadow-2 border-round m-0">
       <img alt="Logo Class" src="https://buildwithangga.com/storage/assets/thumbnails/thumbnail_vue_starter.png"
         class="w-full">
 
       <div class="grid my-0">
         <div class="col flex my-0">
+          <i class="pi pi-building mb-2 mr-1" style="font-size: 20px; color: #a4a4a4;"></i>
           <p style="font-size: 14px; font-weight: 400;">Lawencon</p>
 
         </div>
         <div class="col justify-content-end flex my-0">
-          <i class="pi pi-calendar mb-2 mr-2" style="font-size: 20px; color: #a4a4a4;"></i>
+          <i class="pi pi-calendar mb-2 mr-1" style="font-size: 20px; color: #a4a4a4;"></i>
           <p style="font-size: 14px; font-weight: 400;">Events</p>
         </div>
       </div>
@@ -80,8 +89,13 @@
               class="pi pi-money-bill mr-2" style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>Rp 220.000
           </p>
 
+          <p-chip styleClass="mr-2  custom-chip">
+            <p class="my-1" style="font-size: 12px; font-weight: 500;">Information Technology</p>
+          </p-chip>
+
         </div>
       </div>
     </div>
+
   </div>
 </div>
