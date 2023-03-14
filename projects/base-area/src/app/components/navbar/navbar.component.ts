@@ -4,7 +4,19 @@ import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'navbar',
-  templateUrl: './navbar.component.html'
+  templateUrl: './navbar.component.html',
+  styles: [
+    `:host ::ng-deep .p-menubar {
+        border: 0;
+        border-radius: 0;
+    }`,
+    `.menubar-container {
+        position: sticky;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+    }`
+]
 })
 
 export class NavbarComponent {
