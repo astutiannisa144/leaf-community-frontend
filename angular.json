@@ -28,7 +28,7 @@
               "projects/main-area/src/styles.css",
               "node_modules/ngx-toastr/toastr.css",
               "node_modules/primeicons/primeicons.css",
-              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+              "node_modules/primeng/resources/themes/saga-green/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeflex/primeflex.css"
             ],
@@ -94,7 +94,7 @@
               "projects/main-area/src/styles.css",
               "node_modules/ngx-toastr/toastr.css",
               "node_modules/primeicons/primeicons.css",
-              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+              "node_modules/primeng/resources/themes/saga-green/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeflex/primeflex.css"
             ],
@@ -128,7 +128,7 @@
               "projects/member-area/src/styles.css",
               "node_modules/ngx-toastr/toastr.css",
               "node_modules/primeicons/primeicons.css",
-              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+              "node_modules/primeng/resources/themes/saga-green/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeflex/primeflex.css"
             ],
@@ -195,7 +195,7 @@
               "projects/member-area/src/styles.css",
               "node_modules/ngx-toastr/toastr.css",
               "node_modules/primeicons/primeicons.css",
-              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+              "node_modules/primeng/resources/themes/saga-green/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeflex/primeflex.css"
             ],
@@ -229,7 +229,7 @@
               "projects/admin-area/src/styles.css",
               "node_modules/ngx-toastr/toastr.css",
               "node_modules/primeicons/primeicons.css",
-              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+              "node_modules/primeng/resources/themes/saga-green/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeflex/primeflex.css"
             ],
@@ -296,7 +296,7 @@
               "projects/admin-area/src/styles.css",
               "node_modules/ngx-toastr/toastr.css",
               "node_modules/primeicons/primeicons.css",
-              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+              "node_modules/primeng/resources/themes/saga-green/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeflex/primeflex.css"
             ],
@@ -330,7 +330,7 @@
               "projects/base-area/src/styles.css",
               "node_modules/ngx-toastr/toastr.css",
               "node_modules/primeicons/primeicons.css",
-              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+              "node_modules/primeng/resources/themes/saga-green/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeflex/primeflex.css"
             ],
@@ -397,7 +397,7 @@
               "projects/base-area/src/styles.css",
               "node_modules/ngx-toastr/toastr.css",
               "node_modules/primeicons/primeicons.css",
-              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+              "node_modules/primeng/resources/themes/saga-green/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeflex/primeflex.css"
             ],

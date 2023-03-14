@@ -5,7 +5,7 @@ import { Subscription } from "rxjs";
 
 @Component({
     selector: 'app-activity-event',
-    templateUrl: './course.component.html',
+    templateUrl: './my-course.component.html',
     template: `
     <div (mouseenter)="onHover()" (mouseleave)="onLeave()" class="hoverable-element">Hover me!</div>
     `,
