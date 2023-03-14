@@ -9,7 +9,6 @@ const routes: Routes = [
     path : 'login',
     component : LoginComponent
 },
-
   {   
     path : 'posts',
     loadChildren : ()=> import("./pages/post/post.module").then(c => c.PostModule),

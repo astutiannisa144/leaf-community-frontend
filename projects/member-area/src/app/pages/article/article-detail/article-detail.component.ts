@@ -4,16 +4,24 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 
 @Component({
-    selector : 'app-article-detail',
-    templateUrl : './article-detail.component.html'
+    selector: 'app-article-detail',
+    templateUrl: './article-detail.component.html',
+    styles: [`
+        :host ::ng-deep .p-chip.custom-chip {
+    background: #BA3276;
+    color: var(--primary-color-text);
+}
+    `
+    ]
+
 })
 
-export class ArticleDetailComponent{
+export class ArticleDetailComponent {
     constructor(
-        private router : Router
-    ){}
+        private router: Router
+    ) { }
 
-    onCreatePost(){
+    onCreatePost() {
         this.router.navigateByUrl('/posts/create')
     }
 }

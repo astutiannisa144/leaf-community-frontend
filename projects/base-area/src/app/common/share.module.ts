@@ -46,7 +46,6 @@ import { PasswordModule } from 'primeng/password';
         RadioButtonModule,
         TabViewModule
 
-
     ],
     exports: [
         CommonModule,

@@ -2,6 +2,8 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { EventComponent } from "./event/event.component";
 import { CourseComponent } from "./course/course.component";
+import { CourseDetailComponent } from "./course/course-detail.component";
+import { EventDetailComponent } from "./event/event-detail.component";
 
 const postRoutes : Routes = [
     {   
@@ -12,6 +14,16 @@ const postRoutes : Routes = [
     {   
         path : 'course',
         component : CourseComponent
+    },
+
+    {   
+        path : 'course-detail',
+        component : CourseDetailComponent
+    },
+
+    {   
+        path : 'event-detail',
+        component : EventDetailComponent
     },
     
 ]   

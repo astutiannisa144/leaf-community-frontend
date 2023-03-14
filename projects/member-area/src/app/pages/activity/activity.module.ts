@@ -7,11 +7,15 @@ import { ShareModule } from '../../../../../base-area/src/app/common/share.modul
 import { EventComponent } from './event/event.component';
 import { ActivityRouting } from './activity.routing';
 import { CourseComponent } from './course/course.component';
+import { EventDetailComponent } from './event/event-detail.component';
+import { CourseDetailComponent } from './course/course-detail.component';
 
 @NgModule({
     declarations: [
         EventComponent,
-        CourseComponent
+        CourseComponent,
+        EventDetailComponent,
+        CourseDetailComponent
     ],
     imports: [
         ActivityRouting,
