@@ -22,7 +22,11 @@
     "lib": [
       "ES2022",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@pojo/*" : ["projects/base-area/src/app/pojo/*"],
+      "@service/*" : ["projects/base-area/src/app/service/*"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
