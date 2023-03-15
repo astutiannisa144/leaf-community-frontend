@@ -1,4 +1,68 @@
-<div class="grid justify-content-center mt-3">
+<!-- <pre>
+  {{ postList | json }}
+</pre> -->
+
+<div class="flex justify-content-center">
+  <div class="col-8 mt-2">
+    <div class="text-xl font-medium text-900 mb-3 align-items-center flex">
+      <i class="pi pi-home mr-2" style="font-size: 1.4rem; color: #22C55E;"></i>
+      <span>Posts Home</span>
+    </div>
+    <button pButton pRipple type="button" class="p-button-primary w-full h-3rem">
+      <p class="w-full" style="font-weight: 700;" routerLink="/posts/create">Create New Post</p>
+    </button>
+    <div class="surface-card mt-4 p-4 shadow-2 border-round" *ngFor="let pl of postList">
+      <div class="col-12 flex my-0">
+        <p-avatar image="../../../assets/img/unnamed.jpg" styleClass="mr-3" size="large"
+          [style]="{'background-color':'#2196F3', 'color': '#ffffff'}" shape="circle">
+        </p-avatar>
+        <p class="my-3" style="font-weight: 500; font-size: 20px; display: flex;">Yudha H</p>
+      </div>
+      <div class="grid">
+      </div>
+      <div class="col-12">
+        <div class="text-xl font-medium text-900">
+          <p class="my-0">What programming languange most people are using? </p>
+        </div>
+        <div class="font-small mb-3 ">
+          <p class="text-justify mt-2"
+            style="text-align: justify; font-size: 17px; font-weight: 400; line-height: 25px;">Im new in
+            programming, so i wonder what programming languange are the most promising in the Information
+            Technology Industry Company job vacancy. What programming languange should i start to use?</p>
+        </div>
+        <div class="justify-content-between flex mt-2">
+          <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" alt="Image" width="92%">
+          </p-image>
+          <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" alt="Image" width="92%">
+          </p-image>
+          <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" alt="Image" width="92%">
+          </p-image>
+        </div>
+        <div class="font-small mt-2 mb-3 ">
+          <p>Posted on 09:00 22/02/2023</p>
+        </div>
+        <div class="grid">
+          <div class="col-2">
+            <p style="font-size: 18px; font-weight: 400;"> <i class="pi pi-heart-fill mr-3"
+                style="font-size: 20px; font-weight: 600; color: #C94C0A;"></i>21 Likes</p>
+          </div>
+          <div class="col-3">
+            <p style="font-size: 18px; font-weight: 400;"> <i class="pi pi-comments mr-3"
+                style="font-size: 20px; font-weight: 600; color: #FCAC26;"></i>12 Comments</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-2 mt-2">
+    <div class="text-xl font-medium text-900 mb-3 align-items-center flex">
+      <i class="pi pi-calendar mr-2" style="font-size: 1.4rem; color: #22C55E;"></i>
+      <span>Training & Events</span>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="grid justify-content-center mt-3">
   <div class="col-8">
     <div class="text-xl font-medium text-900 mb-3 align-items-center flex">
       <i class="pi pi-home mr-2" style="font-size: 1.4rem; color: #22C55E;"></i>
@@ -8,9 +72,7 @@
       <button pButton pRipple type="button" class="p-button-primary w-full h-3rem">
         <p class="w-full" style="font-weight: 700;" routerLink="/posts/create">Create New Post</p>
       </button>
-
-      <div class="surface-card mt-4 p-4 shadow-2 border-round">
-
+      <div class="surface-card mt-4 p-4 shadow-2 border-round" *ngFor="let pl of postList">
         <div class="col-12 flex my-0">
           <p-avatar image="../../../assets/img/unnamed.jpg" styleClass="mr-3" size="large"
             [style]="{'background-color':'#2196F3', 'color': '#ffffff'}" shape="circle">
@@ -18,50 +80,42 @@
           <p class="my-3" style="font-weight: 500; font-size: 20px; display: flex;">Yudha H</p>
         </div>
         <div class="grid">
-
         </div>
         <div class="col-12">
           <div class="text-xl font-medium text-900">
             <p class="my-0">What programming languange most people are using? </p>
           </div>
           <div class="font-small mb-3 ">
-            <p class="text-justify mt-2" style="text-align: justify; font-size: 17px; font-weight: 400; line-height: 25px;">Im new in
+            <p class="text-justify mt-2"
+              style="text-align: justify; font-size: 17px; font-weight: 400; line-height: 25px;">Im new in
               programming, so i wonder what programming languange are the most promising in the Information
               Technology Industry Company job vacancy. What programming languange should i start to use?</p>
           </div>
           <div class="justify-content-between flex mt-2">
-            <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" alt="Image" width="290">
+            <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" alt="Image" width="92%">
             </p-image>
-            <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" alt="Image" width="290">
+            <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" alt="Image" width="92%">
             </p-image>
-            <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" alt="Image" width="290">
+            <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" alt="Image" width="92%">
             </p-image>
           </div>
           <div class="font-small mt-2 mb-3 ">
             <p>Posted on 09:00 22/02/2023</p>
           </div>
-
           <div class="grid">
             <div class="col-2">
-              <!-- <button style="font-size: 50px; font-weight: 600; color: #C94C0A;" pButton  type="button" icon="pi pi-heart-fill" class="p-button-rounded p-button-Danger p-button-text" ></button> -->
               <p style="font-size: 18px; font-weight: 400;"> <i class="pi pi-heart-fill mr-3"
                   style="font-size: 20px; font-weight: 600; color: #C94C0A;"></i>21 Likes</p>
             </div>
-
             <div class="col-3">
               <p style="font-size: 18px; font-weight: 400;"> <i class="pi pi-comments mr-3"
                   style="font-size: 20px; font-weight: 600; color: #FCAC26;"></i>12 Comments</p>
             </div>
-
           </div>
-
-
         </div>
-
       </div>
     </div>
   </div>
-
   <div class="col-2">
     <div class="text-xl font-medium text-900 mb-3 align-items-center flex">
       <i class="pi pi-calendar mr-2" style="font-size: 1.4rem; color: #22C55E;"></i>
@@ -70,21 +124,17 @@
     <div class="surface-card p-3 shadow-2 border-round m-0">
       <img alt="Logo Class" src="https://buildwithangga.com/storage/assets/thumbnails/thumbnail_vue_starter.png"
         class="w-full">
-
       <div class="grid my-0">
         <div class="col flex my-0">
           <i class="pi pi-building mb-2 mr-1" style="font-size: 20px; color: #a4a4a4;"></i>
           <p style="font-size: 14px; font-weight: 400;">Lawencon</p>
-
         </div>
         <div class="col justify-content-end flex my-0">
           <i class="pi pi-calendar mb-2 mr-1" style="font-size: 20px; color: #a4a4a4;"></i>
           <p style="font-size: 14px; font-weight: 400;">Events</p>
         </div>
       </div>
-
       <p class="my-1" style="font-weight: 700; font-size: 20px;">Vue Js Course</p>
-
       <div class="grid">
         <div class="col align-items-center">
           <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"> <i
@@ -101,13 +151,11 @@
           <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"> <i
               class="pi pi-money-bill mr-2" style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>Rp 220.000
           </p>
-
           <p-chip styleClass="custom-chip">
             <p class="my-1" style="font-size: 12px; font-weight: 500;">Information Technology</p>
           </p-chip>
-
         </div>
       </div>
     </div>
   </div>
-</div>
+</div> -->
