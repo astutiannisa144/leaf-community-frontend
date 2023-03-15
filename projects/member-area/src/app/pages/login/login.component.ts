@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { Title } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
-import { LoginReq } from "@pojo/login/login-req";
+import { LoginReq } from "@dto/login/login-req";
 import { UserService } from "@service/user-service";
 
 @Component({

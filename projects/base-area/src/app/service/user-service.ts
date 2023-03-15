@@ -2,8 +2,8 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { BASE_URL } from "../constant/base.service";
-import { LoginReq } from "@pojo/login/login-req";
-import { LoginRes } from "@pojo/login/login-res";
+import { LoginReq } from "@dto/login/login-req";
+import { LoginRes } from "@dto/login/login-res";
 
 @Injectable({
     providedIn : 'root'
