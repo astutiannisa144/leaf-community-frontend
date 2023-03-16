@@ -71,6 +71,8 @@ export class EventComponent implements OnInit{
     ngOnInit(): void {
         this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.EV).subscribe(result => {
             this.eventList = result
+           
+            
         })
         this.category$ = this.categoryService.getCategory().subscribe(result => {
             this.categoryList = result
