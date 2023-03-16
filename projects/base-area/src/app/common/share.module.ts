@@ -18,6 +18,7 @@ import { TieredMenuModule } from 'primeng/tieredmenu';
 import { MenubarModule } from 'primeng/menubar';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { CalendarModule } from 'primeng/calendar';
 
 @NgModule({
     declarations: [],
@@ -40,7 +41,8 @@ import { InputSwitchModule } from 'primeng/inputswitch';
         TieredMenuModule,
         MenubarModule,
         ProgressBarModule,
-        InputSwitchModule
+        InputSwitchModule,
+        CalendarModule
     ],
     exports: [
         ChipModule,
@@ -61,7 +63,8 @@ import { InputSwitchModule } from 'primeng/inputswitch';
         TieredMenuModule,
         MenubarModule,
         ProgressBarModule,
-        InputSwitchModule
+        InputSwitchModule,
+        CalendarModule
     ]
 })
 export class ShareModule { }

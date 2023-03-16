@@ -1,0 +1,110 @@
+<div class="justify-content-center flex">
+    <div class="col-10 justify-content-start mt-3 flex p-0">
+      <div class="col-4 ml-2 justify-content-start flex p-0 mb-4">
+  
+        <div class="align-items-center flex">
+          <button pButton pRipple type="button" icon="pi pi-arrow-left" class="p-button-rounded p-button-primary"
+            routerLink="/activities/course"></button>
+  
+          <ul class="list-none p-0 m-0 flex align-items-center font-medium ml-3">
+            <li>
+              <a class="text-500 no-underline line-height-3 cursor-pointer">Courses</a>
+            </li>
+            <li class="px-2">
+              <i class="pi pi-angle-right text-500  line-height-3"></i>
+            </li>
+            <li>
+              <span class="text-900 line-height-3">Create Course</span>
+            </li>
+          </ul>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+  
+  <div class="flex justify-content-center">
+    <div class="col-8 justify-content-center flex align-items-center">
+      <div class="surface-card p-4 shadow-2 border-round w-full justify-content-center flex">
+        <div class="col-10 p-4">
+          <div>
+            <label for="course-title" class="block text-900 font-medium mb-2">Course Title</label>
+            <input id="course-title" type="text" placeholder="Course title" pInputText class="w-full mb-3 rounded">
+  
+            <label for="description" class="block text-900 font-medium mb-2">Course Desctiption</label>
+            <textarea id="description" rows="5" placeholder="Course description" cols="30" pInputTextarea
+              [autoResize]="true" class="w-full mb-3 rounded"></textarea>
+  
+            <div class="flex p-0">
+              <div class="col pl-0">
+                <label for="provider" class="block text-900 font-medium mb-2">Provider Name</label>
+                <input id="provider" type="text" placeholder="Course provider" pInputText class="w-full mb-3 rounded">
+              </div>
+  
+              <div class="col pr-0">
+                <label for="provider-address" class="block text-900 font-medium mb-2">Location</label>
+                <input id="provider-address" type="text" placeholder="Course location" pInputText
+                  class="w-full mb-3 rounded">
+              </div>
+            </div>
+  
+            <div class="flex p-0">
+              <div class="col pl-0">
+                <div class="flex">
+                  <div class="col p-0 justify-content-start">
+                    <label for="calendar-start" class="block text-900 font-medium mb-2">Course Date</label>
+                  </div>
+                  <div class="col p-0 flex justify-content-end">
+                    <button pButton pRipple label="Schedule" icon="pi pi-plus"
+                      class="w-8 justify-content-center p-button-info p-button-sm top-2"></button>
+                  </div>
+                </div>
+                <div class="field col-12 p-0">
+                  <p-calendar styleClass="w-full" id="calendar-start" placeholder="Course date" [(ngModel)]="courseDate"
+                    [showIcon]="true" inputId="icon"></p-calendar>
+                </div>
+              </div>
+  
+              <div class="col p-0 mt-1">
+                <div class="field col-12">
+                  <label for="timeOnly" class="block text-900 font-medium mb-2">Course Time</label>
+                  <p-calendar styleClass="w-full" [(ngModel)]="courseTime" icon="pi pi-plus" placeholder="Course time"
+                    [timeOnly]="true" inputId="timeonly"></p-calendar>
+                </div>
+              </div>
+            </div>
+  
+            <div class="flex">
+              <div class="col">
+                <div class="block p-0">
+                  <label for="coursePrice" class="block text-900 font-medium mb-2">Course Price</label>
+                  <div class="p-inputgroup">
+                    <div class="block"></div>
+                    <span class="p-inputgroup-addon">$</span>
+                    <input id="coursePrice" type="text" pInputText placeholder="Price">
+                    <span class="p-inputgroup-addon">.00</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="block p-0">
+                  <label for="coursePrice" class="block text-900 font-medium mb-2">Course Photo</label>
+                  <div class="file-btn-container block">
+                    <p-fileUpload id="coursePhoto" chooseIcon="pi pi-fw pi-upload" chooseLabel="Upload" mode="basic"
+                      name="demo[]" url="./upload.php" accept="image/*">
+                    </p-fileUpload>
+                  </div>
+                </div>
+              </div>
+  
+            </div>
+  
+            <div class="flex justify-content-center mt-5 ">
+              <button pButton pRipple label="Create New Course" icon="pi pi-calendar-plus" class="w-full"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

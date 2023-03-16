@@ -10,6 +10,10 @@ import { Subscription } from "rxjs";
         :host ::ng-deep .p-chip.custom-chip {
     background: #BA3276;
     color: var(--primary-color-text);
+},
+:host ::ng-deep .p-chip.custom-chip {
+    background: var(--primary-color);
+    color: var(--primary-color-text);
 }
     `
     ]
