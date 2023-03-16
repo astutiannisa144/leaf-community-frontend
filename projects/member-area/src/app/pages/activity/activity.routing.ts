@@ -18,12 +18,12 @@ const postRoutes : Routes = [
     },
 
     {   
-        path : 'course-detail',
+        path : 'course-detail/:id',
         component : CourseDetailComponent
     },
 
     {   
-        path : 'event-detail',
+        path : 'event-detail/:id',
         component : EventDetailComponent
     },
     

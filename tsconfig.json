@@ -24,7 +24,7 @@
       "dom"
     ],
     "paths": {
-      "@pojo/*" : ["projects/base-area/src/app/pojo/*"],
+      "@dto/*" : ["projects/base-area/src/app/dto/*"],
       "@service/*" : ["projects/base-area/src/app/service/*"]
     }
   },
