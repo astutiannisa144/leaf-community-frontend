@@ -26,6 +26,38 @@ import { Subscription } from "rxjs";
        
      },
 
+     .event {
+  transition: transform .5s;
+
+  &::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 2s cubic-bezier(.165, .84, .44, 1);
+    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .15);
+    content: '';
+    opacity: 0;
+    z-index: -1;
+  }
+
+  &:hover,
+  &:focus {
+    transform: scale3d(1.006, 1.006, 1);
+
+    &::after {
+      opacity: 1;
+    }
+  }
+}
+
+     .event:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+}
+
+
      
 
      :host ::ng-deep .p-checkbox .p-checkbox-box {
@@ -45,19 +77,19 @@ import { Subscription } from "rxjs";
         }
    `],
 
-   
+
 
 
 },
 )
-export class EventComponent implements OnInit{
-    private event$? : Subscription
-    eventList? : ActivityRes[]
-    private category$? : Subscription
-    categoryList? : CategoryRes[]
+export class EventComponent implements OnInit {
+    private event$?: Subscription
+    eventList?: ActivityRes[]
+    private category$?: Subscription
+    categoryList?: CategoryRes[]
     page = 1
-    categories=this.fb.group({
-        category:[[]],
+    categories = this.fb.group({
+        category: [[]],
 
     })
     // category=new FormControl('')
@@ -65,11 +97,11 @@ export class EventComponent implements OnInit{
     constructor(
         private router: Router,
         private activityService: ActivityService,
-        private categoryService:CategoryService,
-        private fb:FormBuilder
+        private categoryService: CategoryService,
+        private fb: FormBuilder
     ) { }
     ngOnInit(): void {
-        this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.EV).subscribe(result => {
+        this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page, ACTIVITY_TYPE.EV).subscribe(result => {
             this.eventList = result
            
             
@@ -78,26 +110,26 @@ export class EventComponent implements OnInit{
             this.categoryList = result
         })
         this.categories.get('category')?.valueChanges.subscribe(result => {
-            const temp=result as any;
+            const temp = result as any;
             console.log(result);
-            if(!temp.length){
-                
-                this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.EV).subscribe(result => {
+            if (!temp.length) {
+
+                this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page, ACTIVITY_TYPE.EV).subscribe(result => {
                     this.eventList = result
                 })
-            }else{
-                this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.EV,temp).subscribe(result => {
+            } else {
+                this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page, ACTIVITY_TYPE.EV, temp).subscribe(result => {
                     this.eventList = result
                 })
             }
         })
-        
-     
+
+
     }
 
-   onCategory(id:string){
-    
-   }
+    onCategory(id: string) {
+
+    }
 
     // category: string[] = [];
     sorting: string[] = [];

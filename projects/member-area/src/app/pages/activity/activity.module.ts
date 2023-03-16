@@ -10,6 +10,8 @@ import { CourseComponent } from './course/course.component';
 import { EventDetailComponent } from './event/event-detail.component';
 import { CourseDetailComponent } from './course/course-detail.component';
 import { EventPaymentComponent } from './event/event-payment.component';
+import { EventCreateComponent } from './event-create/event-create.component';
+import { CourseCreateComponent } from './course-create/course-create.component';
 
 @NgModule({
     declarations: [
@@ -17,7 +19,9 @@ import { EventPaymentComponent } from './event/event-payment.component';
         CourseComponent,
         EventDetailComponent,
         CourseDetailComponent,
-        EventPaymentComponent
+        EventPaymentComponent,
+        EventCreateComponent,
+        CourseCreateComponent
     ],
     imports: [
         ActivityRouting,

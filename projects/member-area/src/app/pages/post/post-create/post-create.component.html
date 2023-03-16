@@ -32,20 +32,20 @@
           <label for="username1" class="block">
             <p class="my-0">Post Category</p>
           </label>
-          <p-dropdown placeholder="Select post category" optionLabel="name" styleClass="w-full"
-            [showClear]="true"></p-dropdown>
+          <p-dropdown placeholder="Select post category" optionLabel="name" styleClass="w-full" [showClear]="true">
+          </p-dropdown>
         </div>
       </div>
       <div class="col-12" *ngIf="inputImage">
         <hr class="mb-5" style="height:2px;border-width:0;color:rgb(227, 227, 227);background-color:rgb(221, 221, 221)">
-        <p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)" [multiple]="true"
-          accept="image/*">
+        <p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)" [multiple]="true" accept="image/*">
           <ng-template pTemplate="content">
             <ul *ngIf="uploadedFiles.length">
               <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
             </ul>
           </ng-template>
         </p-fileUpload>
+        
       </div>
       <div class="col-12" *ngIf="inputPolling">
         <hr class="mb-5" style="height:2px;border-width:0;color:rgb(227, 227, 227);background-color:rgb(221, 221, 221)">

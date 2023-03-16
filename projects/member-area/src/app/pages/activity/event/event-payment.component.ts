@@ -3,6 +3,11 @@ import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 
+interface City {
+    name: string,
+    code: string
+}
+
 @Component({
     selector: 'app-activity-event',
     templateUrl: './event-payment.component.html',
@@ -44,9 +49,14 @@ import { Subscription } from "rxjs";
 
 })
 export class EventPaymentComponent {
-    constructor(
-        private router: Router
-    ) { }
+
+    displayModal!: boolean;
+    selectedCity1!: City;
+    cities!: City[];
+
+    showModalDialog() {
+        this.displayModal = true;
+    }
 
     onCreatePost() {
         this.router.navigateByUrl('/posts/create')
@@ -58,4 +68,18 @@ export class EventPaymentComponent {
     onHover() { }
 
     onLeave() { }
+
+
+
+    constructor(
+        private router: Router
+    ) {
+        this.cities = [
+            { name: 'New York', code: 'NY' },
+            { name: 'Rome', code: 'RM' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Paris', code: 'PRS' }
+        ];
+    }
 }

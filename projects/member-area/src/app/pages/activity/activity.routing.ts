@@ -5,6 +5,8 @@ import { CourseComponent } from "./course/course.component";
 import { CourseDetailComponent } from "./course/course-detail.component";
 import { EventDetailComponent } from "./event/event-detail.component";
 import { EventPaymentComponent } from "./event/event-payment.component";
+import { EventCreateComponent } from "./event-create/event-create.component";
+import { CourseCreateComponent } from "./course-create/course-create.component";
 
 const postRoutes : Routes = [
     {   
@@ -31,6 +33,18 @@ const postRoutes : Routes = [
         path : 'event-payment',
         component : EventPaymentComponent
     },
+
+    {   
+        path : 'event-create',
+        component : EventCreateComponent
+    },
+
+    {   
+        path : 'course-create',
+        component : CourseCreateComponent
+    },
+
+
 ]   
 
 @NgModule({
