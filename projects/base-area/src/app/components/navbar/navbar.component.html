@@ -2,12 +2,11 @@
   <p-menubar class="justify-content-center" [model]="items">
     <ng-template pTemplate="start">
       <p-image class="ml-6" src="assets/img/logo.png"
-        alt="Image" width="150"></p-image>
+        alt="Image" width="110"></p-image>
     </ng-template>
   
     <ng-template pTemplate="end">
-      <p-avatar image="assets/img/unnamed.jpg" styleClass="mr-2" size="large" shape="circle"
-        (click)="menu.toggle($event)"></p-avatar>
+      <img class="mr-2" style="border-radius: 50%;" width="45" src="assets/img/unnamed.jpg" alt="" (click)="menu.toggle($event)">
       <p-tieredMenu #menu [model]="itemProfile" [popup]="true"></p-tieredMenu>
     </ng-template>
   </p-menubar>

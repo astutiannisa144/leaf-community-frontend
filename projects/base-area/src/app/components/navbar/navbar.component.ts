@@ -44,7 +44,7 @@ export class NavbarComponent {
       {
         label: 'Log out',
         icon: 'pi pi-fw pi-sign-out',
-        routerLink: '/login'
+        command: () => this.onLogout()
       }
     ];
     this.items = [
@@ -72,6 +72,7 @@ export class NavbarComponent {
       },
 
       {
+        icon: 'pi pi-fw pi-briefcase',
         label: 'Course',
         items: [{
           label: 'Course Menu',
@@ -87,6 +88,7 @@ export class NavbarComponent {
 
       },
       {
+        icon: 'pi pi-fw pi-book',
         label: 'Article',
         routerLink: '/articles'
       },
