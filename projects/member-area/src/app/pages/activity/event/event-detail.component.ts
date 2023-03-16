@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
+import { ActivityRes } from "@dto/activity/activity-res";
+import { ActivityService } from "@service/activity.service";
 import { Subscription } from "rxjs";
 
 @Component({
@@ -43,11 +45,25 @@ import { Subscription } from "rxjs";
 
 
 })
-export class EventDetailComponent {
+export class EventDetailComponent implements OnInit{
+    private event$? : Subscription
+    event! : ActivityRes
+    activityId!:string
     constructor(
-        private router: Router
-    ) { }
+        private router: Router,
+        private activityService:ActivityService,
+        private activatedRoute :ActivatedRoute
 
+    ) { }
+        ngOnInit(): void {
+            this.activatedRoute.params.subscribe(result=>{
+                this.activityId=result['id']
+                this.event$ = this.activityService.getById(this.activityId).subscribe(result => {
+                    this.event = result
+                })
+            })
+           
+        }
     onCreatePost() {
         this.router.navigateByUrl('/posts/create')
     }
