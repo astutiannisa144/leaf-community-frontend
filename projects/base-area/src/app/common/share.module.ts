@@ -16,7 +16,8 @@ import { TabViewModule } from 'primeng/tabview';
 import { PasswordModule } from 'primeng/password';
 import { TieredMenuModule } from 'primeng/tieredmenu';
 import { MenubarModule } from 'primeng/menubar';
-
+import { ProgressBarModule } from 'primeng/progressbar';
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 @NgModule({
     declarations: [],
@@ -35,11 +36,11 @@ import { MenubarModule } from 'primeng/menubar';
         BreadcrumbModule,
         CheckboxModule,
         RadioButtonModule,
-
         TabViewModule,
         TieredMenuModule,
         MenubarModule,
-
+        ProgressBarModule,
+        InputSwitchModule
     ],
     exports: [
         ChipModule,
@@ -59,6 +60,8 @@ import { MenubarModule } from 'primeng/menubar';
         PasswordModule,
         TieredMenuModule,
         MenubarModule,
+        ProgressBarModule,
+        InputSwitchModule
     ]
 })
 export class ShareModule { }
