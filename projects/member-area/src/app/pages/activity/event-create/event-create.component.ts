@@ -16,7 +16,7 @@ export class EventCreateComponent{
     items!: MenuItem[];
     
     home!: MenuItem;
-
+    
     ngOnInit() {
         this.items = [
             {label: '<p>Home</p>', escape: false, routerLink: '/posts'},

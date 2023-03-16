@@ -30,7 +30,7 @@ const postRoutes : Routes = [
     },
     
     {   
-        path : 'event-payment',
+        path : 'event-payment/:id',
         component : EventPaymentComponent
     },
 
@@ -40,7 +40,7 @@ const postRoutes : Routes = [
     },
 
     {   
-        path : 'course-create',
+        path : 'course-create/:id',
         component : CourseCreateComponent
     },
 
