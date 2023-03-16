@@ -1,6 +1,13 @@
 import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormControl } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
+import { ActivityRes } from "@dto/activity/activity-res";
+import { CategoryRes } from "@dto/category/category-res";
+import { ActivityService } from "@service/activity.service";
+import { CategoryService } from "@service/category.service";
+import { ACTIVITY_LIMIT } from "projects/base-area/src/app/constant/activity-limit";
+import { ACTIVITY_TYPE } from "projects/base-area/src/app/constant/activity-type";
 import { Subscription } from "rxjs";
 
 @Component({
@@ -43,19 +50,57 @@ import { Subscription } from "rxjs";
 
 },
 )
-export class CourseComponent {
-    constructor(
-        private router: Router
-    ) { }
+export class CourseComponent implements OnInit{
+    private course$? : Subscription
+    courseList? : ActivityRes[]
+    private category$? : Subscription
+    categoryList? : CategoryRes[]
+    page = 1
+    categories=this.fb.group({
+        category:[[]],
 
-    onCreatePost() {
-        this.router.navigateByUrl('/posts/create')
+    })
+    // category=new FormControl('')
+
+    constructor(
+        private router: Router,
+        private activityService: ActivityService,
+        private categoryService:CategoryService,
+        private fb:FormBuilder
+    ) { }
+    ngOnInit(): void {
+        this.course$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.CO).subscribe(result => {
+            this.courseList = result
+        })
+        this.category$ = this.categoryService.getCategory().subscribe(result => {
+            this.categoryList = result
+        })
+        this.categories.get('category')?.valueChanges.subscribe(result => {
+            const temp=result as any;
+            console.log(result);
+            if(!temp.length){
+                
+                this.course$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.CO).subscribe(result => {
+                    this.courseList = result
+                })
+            }else{
+                this.course$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.CO,temp).subscribe(result => {
+                    this.courseList = result
+                })
+            }
+        })
+        
+     
     }
 
-    category: string[] = [];
+   onCategory(id:string){
+    
+   }
+
+    // category: string[] = [];
     sorting: string[] = [];
 
     onHover() { }
-
+    
     onLeave() { }
 }
