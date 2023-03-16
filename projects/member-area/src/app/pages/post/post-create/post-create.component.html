@@ -38,8 +38,7 @@
       </div>
       <div class="col-12" *ngIf="inputImage">
         <hr class="mb-5" style="height:2px;border-width:0;color:rgb(227, 227, 227);background-color:rgb(221, 221, 221)">
-        <p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)" [multiple]="true"
-          accept="image/*">
+        <p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)" [multiple]="true" accept="image/*">
           <ng-template pTemplate="content">
             <ul *ngIf="uploadedFiles.length">
               <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
@@ -49,13 +48,27 @@
       </div>
       <div class="col-12" *ngIf="inputPolling">
         <hr class="mb-5" style="height:2px;border-width:0;color:rgb(227, 227, 227);background-color:rgb(221, 221, 221)">
-        <div class="surface-card p-5 border-1 border-round" style="color:rgb(227, 227, 227)">
-          <div style="color: black;">halo halo halo</div>
+        <div class="surface-card p-4 border-1 border-round" style="color:rgb(227, 227, 227)">
+          <div class="field" style="color: black;">
+            <div class="flex justify-content-end">
+              <button pButton pRipple type="button" icon="pi pi-times"
+                class="p-button-rounded p-button-secondary p-button-text" (click)="showInputPolling()"></button>
+            </div>
+            <label for="username1" class="block">
+              <p class="my-0">Polling Title</p>
+            </label>
+            <input class="w-full" id="username1" type="username" aria-describedby="username1-help"
+              placeholder="Enter polling title" pInputText />
+          </div>
         </div>
       </div>
       <div class="col-12">
         <div class="justify-content-between flex mt-3">
           <div class="flex align-items-center ml-2">
+            <button pButton pRipple type="button" icon="pi pi-image"
+              class="p-button-rounded p-button-secondary p-button-text" (click)="showInputImage()"></button>
+            <button pButton pRipple type="button" icon="pi pi-list"
+              class="p-button-rounded p-button-secondary p-button-text" (click)="showInputPolling()"></button>
             <i class="pi pi-image mr-3" style="font-size: 2rem; font-weight: 600; color: #22C55E;"
               (click)="showInputImage()"></i>
             <i class="pi pi-list ml-2" style="font-size: 2rem; font-weight: 600; color: #22C55E;"
