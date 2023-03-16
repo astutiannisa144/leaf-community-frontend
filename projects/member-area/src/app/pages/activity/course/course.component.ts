@@ -52,9 +52,10 @@ import { Subscription } from "rxjs";
 )
 export class CourseComponent implements OnInit{
     private course$? : Subscription
-    courseList? : ActivityRes[]
+    courseList : ActivityRes[]=[]
     private category$? : Subscription
-    categoryList? : CategoryRes[]
+    categoryList : CategoryRes[]=[]
+    activityTypeId!:string
     page = 1
     categories=this.fb.group({
         category:[[]],
@@ -70,7 +71,9 @@ export class CourseComponent implements OnInit{
     ) { }
     ngOnInit(): void {
         this.course$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.CO).subscribe(result => {
+            this.activityTypeId=result[0].activityTypeId
             this.courseList = result
+
         })
         this.category$ = this.categoryService.getCategory().subscribe(result => {
             this.categoryList = result

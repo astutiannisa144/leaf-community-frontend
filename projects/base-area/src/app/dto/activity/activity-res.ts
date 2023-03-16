@@ -3,6 +3,7 @@ import { ScheduleRes } from "./schedule-res";
 export interface ActivityRes {
       id:string;
 	  activityCode:string;
+	  activityTypeId:string;
 	  activityTypeCode:string;
 	  activityTypeName:string;
 	  categoryCode:string;
