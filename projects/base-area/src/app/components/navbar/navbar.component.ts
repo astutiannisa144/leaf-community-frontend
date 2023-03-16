@@ -49,10 +49,12 @@ export class NavbarComponent {
     ];
     this.items = [
       {
+        icon: 'pi pi-fw pi-home',
         label: 'Home',
         routerLink: '/posts'
       },
       {
+        icon: 'pi pi-fw pi-calendar',
         label: 'Event',
         items: [{
           label: 'Event Menu',
