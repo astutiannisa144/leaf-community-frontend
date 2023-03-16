@@ -8,6 +8,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ShareModule } from '../../../base-area/src/app/common/share.module';
 import { NavbarModule } from 'projects/base-area/src/app/components/navbar/navbar.module';
 import { TokenInterceptor } from 'projects/base-area/src/app/interceptor/token.interceptor';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { TokenInterceptor } from 'projects/base-area/src/app/interceptor/token.i
   ],
   providers: [
     { provide : HTTP_INTERCEPTORS, useClass : TokenInterceptor, multi : true },
+    MessageService
   ],
   bootstrap: [AppComponent]
 })
