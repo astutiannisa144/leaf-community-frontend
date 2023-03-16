@@ -45,7 +45,7 @@
             </ul>
           </ng-template>
         </p-fileUpload>
-        
+
       </div>
       <div class="col-12" *ngIf="inputPolling">
         <hr class="mb-5" style="height:2px;border-width:0;color:rgb(227, 227, 227);background-color:rgb(221, 221, 221)">
@@ -56,23 +56,25 @@
                 class="p-button-rounded p-button-secondary p-button-text" (click)="showInputPolling()"></button>
             </div>
             <label for="username1" class="block">
-              <p class="my-0">Polling Title</p>
+              <p class="my-0">Question</p>
             </label>
             <input class="w-full" id="username1" type="username" aria-describedby="username1-help"
-              placeholder="Enter polling title" pInputText />
+              placeholder="Enter question" pInputText />
+            <div class="mt-4 flex justify-content-between">
+              <input class="w-11" id="username1" type="username" aria-describedby="username1-help"
+                placeholder="Enter question" pInputText />
+              <button pButton pRipple type="button" icon="pi pi-trash"
+                class="p-button-rounded p-button-danger p-button-text"></button>
+            </div>
           </div>
         </div>
       </div>
       <div class="col-12">
         <div class="justify-content-between flex mt-3">
           <div class="flex align-items-center ml-2">
-            <button pButton pRipple type="button" icon="pi pi-image"
-              class="p-button-rounded p-button-secondary p-button-text" (click)="showInputImage()"></button>
-            <button pButton pRipple type="button" icon="pi pi-list"
-              class="p-button-rounded p-button-secondary p-button-text" (click)="showInputPolling()"></button>
-            <i class="pi pi-image mr-3" style="font-size: 2rem; font-weight: 600; color: #22C55E;"
+            <i class="pi pi-image mr-3" style="font-size: 2rem; font-weight: 500; color: #22C55E;"
               (click)="showInputImage()"></i>
-            <i class="pi pi-list ml-2" style="font-size: 2rem; font-weight: 600; color: #22C55E;"
+            <i class="pi pi-list ml-2" style="font-size: 2rem; font-weight: 500; color: #22C55E;"
               (click)="showInputPolling()"></i>
           </div>
           <button style="background-color: 29BA7B;" pButton pRipple type="button" class="p-button-primary w-2 h-3rem">

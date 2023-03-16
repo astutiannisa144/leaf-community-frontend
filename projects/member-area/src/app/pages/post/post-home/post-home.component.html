@@ -3,7 +3,7 @@
 </pre> -->
 
 <div class="flex justify-content-center">
-  <div class="col-8 mt-2">
+  <div class="col-7 mt-2">
     <div class="text-xl font-medium text-900 mb-3 align-items-center flex">
       <i class="pi pi-home mr-2" style="font-size: 1.4rem; color: #22C55E;"></i>
       <span>Posts Home</span>
@@ -11,53 +11,85 @@
     <button pButton pRipple type="button" class="p-button-primary w-full h-3rem">
       <p class="w-full" style="font-weight: 700;" routerLink="/posts/create">Create New Post</p>
     </button>
-    <div class="surface-card mt-4 p-4 shadow-2 border-round" *ngFor="let pl of postList">
-      <div class="col-12 flex my-0">
-        <p-avatar image="../../../assets/img/unnamed.jpg" styleClass="mr-3" size="large"
-          [style]="{'background-color':'#2196F3', 'color': '#ffffff'}" shape="circle">
-        </p-avatar>
-        <p class="my-3" style="font-weight: 500; font-size: 20px; display: flex;">Yudha H</p>
+    <div class="surface-card mt-4 p-5 shadow-2 border-round" *ngFor="let pl of postList">
+      <div class="flex align-items-center">
+        <img class="border-circle mr-2" src="http://localhost:1214/files/{{ pl.fileId }}" style="width: 50px; height: 50 px;" alt="profile">
+        <div>
+          <p style="font-weight: 450; font-size: 20px;">{{ pl.fullName }}</p>
+          <p style="font-size: 16px;">{{ pl.createdAt }}</p>
+        </div>
       </div>
-      <div class="grid">
-      </div>
-      <div class="col-12">
-        <div class="text-xl font-medium text-900">
-          <p class="my-0">What programming languange most people are using? </p>
+      <div class="mt-3">
+        <div class="text-xl font-medium text-900 my-2">
+          <p style="font-weight: 700; font-size: 20px;">{{ pl.title }}</p>
         </div>
         <div class="font-small mb-3 ">
-          <p class="text-justify mt-2"
-            style="text-align: justify; font-size: 17px; font-weight: 400; line-height: 25px;">Im new in
-            programming, so i wonder what programming languange are the most promising in the Information
-            Technology Industry Company job vacancy. What programming languange should i start to use?</p>
+          <p class="text-justify" style="text-align: justify; font-size: 17px; font-weight: 400; line-height: 25px;">{{
+            pl.content }}</p>
         </div>
-        <div class="justify-content-between flex mt-2">
-          <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" alt="Image" width="92%">
-          </p-image>
-          <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" alt="Image" width="92%">
-          </p-image>
-          <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" alt="Image" width="92%">
-          </p-image>
+        <!-- <div *ngIf="pl.file != null" class="flex gap-3">
+          <div *ngFor="let f of pl.file" class="w-6">
+            <p-image src="http://localhost:1214/files/{{ f }}"
+              alt="Image" imageClass="border-round-lg" width="100%">
+            </p-image>
+          </div>
+        </div> -->
+        <div *ngIf="pl.polling?.userPollingId != null">
+          <p-progressBar *ngFor="let p of pl.polling?.pollingDetail" [value]="p.percentage" styleClass="mt-3"></p-progressBar>
         </div>
-        <div class="font-small mt-2 mb-3 ">
-          <p>Posted on 09:00 22/02/2023</p>
-        </div>
-        <div class="grid">
+        <div class="flex">
           <div class="col-2">
             <p style="font-size: 18px; font-weight: 400;"> <i class="pi pi-heart-fill mr-3"
-                style="font-size: 20px; font-weight: 600; color: #C94C0A;"></i>21 Likes</p>
+                style="font-size: 20px; font-weight: 600; color: #C94C0A;"></i>{{ pl.likeSum }} Likes</p>
           </div>
           <div class="col-3">
             <p style="font-size: 18px; font-weight: 400;"> <i class="pi pi-comments mr-3"
-                style="font-size: 20px; font-weight: 600; color: #FCAC26;"></i>12 Comments</p>
+                style="font-size: 20px; font-weight: 600; color: #FCAC26;"></i>{{ pl.commentSum }} Comments</p>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="col-2 mt-2">
+  <div class="col-3 pl-6 mt-2">
     <div class="text-xl font-medium text-900 mb-3 align-items-center flex">
       <i class="pi pi-calendar mr-2" style="font-size: 1.4rem; color: #22C55E;"></i>
       <span>Training & Events</span>
+    </div>
+    <div class="surface-card p-3 shadow-2 border-round m-0">
+      <img alt="Logo Class" src="https://buildwithangga.com/storage/assets/thumbnails/thumbnail_vue_starter.png"
+        class="w-full">
+      <div class="grid my-0">
+        <div class="col flex my-0">
+          <i class="pi pi-building mb-2 mr-1" style="font-size: 20px; color: #a4a4a4;"></i>
+          <p style="font-size: 14px; font-weight: 400;">Lawencon</p>
+        </div>
+        <div class="col justify-content-end flex my-0">
+           <i class="pi pi-calendar mb-2 mr-1" style="font-size: 20px; color: #a4a4a4;"></i>
+          <p style="font-size: 14px; font-weight: 400;">Events</p>
+        </div>
+      </div>
+      <p class="my-1" style="font-weight: 700; font-size: 20px;">Vue Js Course</p>
+      <div class="grid">
+        <div class="col align-items-center">
+          <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"> <i
+              class="pi pi-map-marker mr-2" style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>Pakuwon
+            Tower</p>
+          <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"> <i
+              class="pi pi-calendar mr-2" style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>21
+            Januari
+            2023</p>
+          <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"> <i
+              class="pi pi-clock mr-2" style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>19:00
+            - 21:00
+          </p>
+          <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"> <i
+              class="pi pi-money-bill mr-2" style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>Rp 220.000
+          </p>
+          <p-chip styleClass="custom-chip">
+            <p class="my-1" style="font-size: 12px; font-weight: 500;">Information Technology</p>
+          </p-chip>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -121,41 +153,41 @@
       <i class="pi pi-calendar mr-2" style="font-size: 1.4rem; color: #22C55E;"></i>
       <span>Training & Events</span>
     </div>
-    <div class="surface-card p-3 shadow-2 border-round m-0">
-      <img alt="Logo Class" src="https://buildwithangga.com/storage/assets/thumbnails/thumbnail_vue_starter.png"
-        class="w-full">
-      <div class="grid my-0">
-        <div class="col flex my-0">
-          <i class="pi pi-building mb-2 mr-1" style="font-size: 20px; color: #a4a4a4;"></i>
-          <p style="font-size: 14px; font-weight: 400;">Lawencon</p>
+      <div class="surface-card p-3 shadow-2 border-round m-0">
+        <img alt="Logo Class" src="https://buildwithangga.com/storage/assets/thumbnails/thumbnail_vue_starter.png"
+          class="w-full">
+        <div class="grid my-0">
+          <div class="col flex my-0">
+            <i class="pi pi-building mb-2 mr-1" style="font-size: 20px; color: #a4a4a4;"></i>
+            <p style="font-size: 14px; font-weight: 400;">Lawencon</p>
+          </div>
+          <div class="col justify-content-end flex my-0">
+            <i class="pi pi-calendar mb-2 mr-1" style="font-size: 20px; color: #a4a4a4;"></i>
+            <p style="font-size: 14px; font-weight: 400;">Events</p>
+          </div>
         </div>
-        <div class="col justify-content-end flex my-0">
-          <i class="pi pi-calendar mb-2 mr-1" style="font-size: 20px; color: #a4a4a4;"></i>
-          <p style="font-size: 14px; font-weight: 400;">Events</p>
+        <p class="my-1" style="font-weight: 700; font-size: 20px;">Vue Js Course</p>
+        <div class="grid">
+          <div class="col align-items-center">
+            <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"> <i
+                class="pi pi-map-marker mr-2" style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>Pakuwon
+              Tower</p>
+            <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"> <i
+                class="pi pi-calendar mr-2" style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>21
+              Januari
+              2023</p>
+            <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"> <i
+                class="pi pi-clock mr-2" style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>19:00
+              - 21:00
+            </p>
+            <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"> <i
+                class="pi pi-money-bill mr-2" style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>Rp 220.000
+            </p>
+            <p-chip styleClass="custom-chip">
+              <p class="my-1" style="font-size: 12px; font-weight: 500;">Information Technology</p>
+            </p-chip>
+          </div>
         </div>
       </div>
-      <p class="my-1" style="font-weight: 700; font-size: 20px;">Vue Js Course</p>
-      <div class="grid">
-        <div class="col align-items-center">
-          <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"> <i
-              class="pi pi-map-marker mr-2" style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>Pakuwon
-            Tower</p>
-          <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"> <i
-              class="pi pi-calendar mr-2" style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>21
-            Januari
-            2023</p>
-          <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"> <i
-              class="pi pi-clock mr-2" style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>19:00
-            - 21:00
-          </p>
-          <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"> <i
-              class="pi pi-money-bill mr-2" style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>Rp 220.000
-          </p>
-          <p-chip styleClass="custom-chip">
-            <p class="my-1" style="font-size: 12px; font-weight: 500;">Information Technology</p>
-          </p-chip>
-        </div>
-      </div>
-    </div>
   </div>
 </div> -->
