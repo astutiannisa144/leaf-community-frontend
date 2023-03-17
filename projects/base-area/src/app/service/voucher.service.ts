@@ -1,19 +1,19 @@
 import { HttpClient } from "@angular/common/http"
 import { Injectable } from "@angular/core"
-import { CategoryRes } from "@dto/category/category-res"
+import { VoucherRes } from "@dto/voucher/voucher-res"
 import { Observable } from "rxjs"
 import { BASE_URL } from "../constant/base.service"
 
 @Injectable({
     providedIn: 'root'
 })
-export class CategoryService {
+export class VoucherService {
 
     constructor(private http: HttpClient) { }
 
-    getCategory(): Observable<CategoryRes[]> {
+    getVoucherByCode(code:string,id:string): Observable<VoucherRes> {
 
-        return this.http.get<CategoryRes[]>(`${BASE_URL}/categories`)
+        return this.http.get<VoucherRes>(`${BASE_URL}/vouchers/code?code=${code}&activityId=${id}`)
 
     }
 

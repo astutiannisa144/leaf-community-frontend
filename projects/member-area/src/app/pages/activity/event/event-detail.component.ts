@@ -47,7 +47,8 @@ import { Subscription } from "rxjs";
 })
 export class EventDetailComponent implements OnInit{
     private event$? : Subscription
-    event! : ActivityRes
+    event? : ActivityRes
+
     activityId!:string
     constructor(
         private router: Router,

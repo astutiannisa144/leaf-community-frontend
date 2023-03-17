@@ -1,8 +1,16 @@
 import { Component, OnInit } from "@angular/core";
+import { FormBuilder } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
+import { ActivityRes } from "@dto/activity/activity-res";
+import { BankAccountRes } from "@dto/bank-account/bank-account-res";
+import { VoucherRes } from "@dto/voucher/voucher-res";
+import { ActivityService } from "@service/activity.service";
+import { UserService } from "@service/user-service";
+import { UserActivityService } from "@service/user.activity.service";
+import { VoucherService } from "@service/voucher.service";
 import { Subscription } from "rxjs";
-
+import { UserActivityReq } from "../../../../../../base-area/src/app/dto/user-activity/user-activity-req"
 interface City {
     name: string,
     code: string
@@ -51,17 +59,101 @@ interface City {
 export class EventPaymentComponent {
 
     displayModal!: boolean;
-    selectedCity1!: City;
-    cities!: City[];
 
+    private event$? : Subscription
+    event? : ActivityRes
+    private bank$?:Subscription
+    bank?:BankAccountRes
+    private voucher$?:Subscription
+    voucher?:VoucherRes
+    activityId!:string
+    totalPrices!:number
+    paymentForm=this.fb.group({
+        activityId:[''],
+        voucherCode:[''],
+        file:this.fb.group({
+            fileContent:[''],
+            fileExtension:['']
+        }),
+       
+    })
+    constructor(
+        private router: Router,
+        private activityService:ActivityService,
+        private activatedRoute :ActivatedRoute,
+        private userService:UserService,
+        private voucherService:VoucherService,
+        private userActivityService:UserActivityService,
+        private fb:FormBuilder
+
+    ) { }
+        ngOnInit(): void {
+
+            this.activatedRoute.params.subscribe(result=>{
+                this.activityId=result['id']
+                this.event$ = this.activityService.getById(this.activityId).subscribe(result => {
+                    this.event = result
+                    this.totalPrices=this.event.price
+                })
+            })
+                this.bank$ = this.userService.getBank().subscribe(result => {
+                    this.bank = result
+                })
+        }
+        fileUpload(event: any) {
+            const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => {
+                    if (typeof reader.result === "string") resolve(reader.result)
+                };
+                reader.onerror = error => reject(error);
+            });
+    
+            for (let file of event.files) {
+                toBase64(file).then(result => {
+                    const resultBase64: string = result.substring(result.indexOf(",") + 1, result.length)
+                    const resultExtension = file.name.substring(file.name.indexOf(".") + 1, file.name.length)
+    
+    
+                    this.paymentForm.patchValue({
+                        file: {
+                            fileContent: resultBase64,
+                            fileExtension: resultExtension
+                        }
+                    })
+    
+                })
+            }
+        }
     showModalDialog() {
         this.displayModal = true;
     }
-
+    checkVoucher(){
+        this.voucher$=this.voucherService.getVoucherByCode(this.paymentForm.value.voucherCode!,this.event!.id).subscribe(result=>{
+            this.voucher=result
+            this.totalPrices-=this.voucher.discountPrice
+        })
+    }
     onCreatePost() {
         this.router.navigateByUrl('/posts/create')
     }
-
+    onPay(){
+       const data:UserActivityReq ={
+        activityId:this.event!.id,
+        file:{
+            fileContent:this.paymentForm.value.file?.fileContent!,
+            fileExtension:this.paymentForm.value.file?.fileExtension!
+        },
+       }
+       if(this.voucher?.discountPrice){
+        data.voucherCode=this.paymentForm.value.voucherCode!
+       }
+       this.userActivityService.insert(data).subscribe(result=>{
+        console.log(result.message);
+        
+       })
+    }
     category: string[] = [];
     sorting: string[] = [];
 
@@ -71,15 +163,5 @@ export class EventPaymentComponent {
 
 
 
-    constructor(
-        private router: Router
-    ) {
-        this.cities = [
-            { name: 'New York', code: 'NY' },
-            { name: 'Rome', code: 'RM' },
-            { name: 'London', code: 'LDN' },
-            { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' }
-        ];
-    }
+
 }

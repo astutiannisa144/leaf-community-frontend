@@ -1,10 +1,13 @@
+<pre>
+  {{paymentForm.value|json}}
+</pre>
 <div class="justify-content-center">
   <div class="col-10 flex mt-3">
     <div class="col-4 ml-2 justify-content-center flex">
 
       <div class="align-items-center flex">
         <button pButton pRipple type="button" icon="pi pi-arrow-left" class="p-button-rounded p-button-primary"
-          routerLink="/activities/event-detail"></button>
+          routerLink="/activities/event-detail/{{event?.id}}"></button>
 
         <ul class="list-none p-0 m-0 flex align-items-center font-medium ml-3">
           <li>
@@ -28,32 +31,28 @@
     </div>
   </div>
 </div>
-<div class="justify-content-center flex">
+<div class="justify-content-center flex" [formGroup]="paymentForm">
   <div class="col-10">
     <div class="surface-card p-3 shadow-2 border-round ">
       <div class="flex">
         <div class="col-8 p-4">
           <div class="surface-card p-3 shadow-2 border-round ">
-            <div class="flex">
+            <div class="flex" *ngIf="event">
               <img alt="Logo Class"
-                src="https://media.discordapp.net/attachments/1085059439872200774/1085059469429452820/image.png?width=1381&height=662"
+                src="http://localhost:1214/files/{{event.fileId!}}"
                 class="w-22rem h-11rem">
               <div class="ml-3">
                 <div class="col align-items-center p-0">
-                  <p class="mb-2" style="font-weight: 600; font-size: 21px; text-align: justify;">Mencapai 100 Juta
-                    Pertama
+                  <p class="mb-2" style="font-weight: 600; font-size: 21px; text-align: justify;">{{event.title}}
                   </p>
                   <p class="py-2 align-items-center flex" style="font-size: 16px; font-weight: 400;"> <i
                       class="pi pi-map-marker mr-3"
-                      style="font-size: 22px; font-weight: 400; color: #4CAF50;"></i>Pakuwon
-                    Tower</p>
+                      style="font-size: 22px; font-weight: 400; color: #4CAF50;"></i>{{event.locationAddress}}</p>
+                  <p class="py-2 align-items-center flex" style="font-size: 16px; font-weight: 400;" *ngFor="let sch of event.schedule"> <i
+                      class="pi pi-calendar mr-3" style="font-size: 22px; font-weight: 400; color: #4CAF50;"></i>{{sch.scheduleDate|date:'fullDate'}}</p>
                   <p class="py-2 align-items-center flex" style="font-size: 16px; font-weight: 400;"> <i
-                      class="pi pi-calendar mr-3" style="font-size: 22px; font-weight: 400; color: #4CAF50;"></i>21
-                    Januari
-                    2023</p>
-                  <p class="py-2 align-items-center flex" style="font-size: 16px; font-weight: 400;"> <i
-                      class="pi pi-clock mr-3" style="font-size: 22px; font-weight: 400; color: #4CAF50;"></i>19:00 -
-                    21:00
+                      class="pi pi-clock mr-3" style="font-size: 22px; font-weight: 400; color: #4CAF50;"></i>{{event.timeStart }}
+                      - {{event.timeEnd}}
                   </p>
 
                 </div>
@@ -74,11 +73,11 @@
                   Bank Account Number</p>
               </div>
 
-              <div class="col-6 p-0 align-items-center">
+              <div class="col-6 p-0 align-items-center" *ngIf="bank">
                 <p class="py-2 align-items-center justify-content-end flex" style="font-size: 16px; font-weight: 500;">
                   <img class="w-4rem h-3rem"
-                    src=" https://buatlogoonline.com/wp-content/uploads/2022/10/Logo-Bank-BCA-1.png" alt="">
-                  62777111851</p>
+                    src="http://localhost:1214/files/{{bank.fileId}}" alt="">
+                  {{bank.accountNumber}}</p>
                 <div class="flex justify-content-end p-0">
                   <p style="font-size: 14px;">*Please record your transfer evidence</p>
                 </div>
@@ -90,7 +89,7 @@
               <div class="file-btn-container">
                 <p-fileUpload chooseIcon="pi pi-fw pi-upload"
                   chooseLabel="Upload transfer evidence" mode="basic"
-                  name="demo[]" url="./upload.php" accept="image/*">
+                  name="demo[]" url="./upload.php" (onSelect)="fileUpload($event)" accept="image/*">
                 </p-fileUpload>
               </div>
 
@@ -109,16 +108,16 @@
                 <div class="flex">
                   <div class="col-6 p-0">
                     <p class="py-2 align-items-center justify-content-start flex"
-                      style="font-size: 14px; font-weight: 500;">e</p>
+                      style="font-size: 14px; font-weight: 500;">Price</p>
                     <p class="py-2 align-items-center justify-content-start flex"
-                      style="font-size: 14px; font-weight: 500;">Voucher Discount
+                      style="font-size: 14px; font-weight: 500;" *ngIf="voucher?.discountPrice">Voucher Discount
                     </p>
                   </div>
                   <div class="col-6 p-0">
                     <p class="py-2 align-items-center justify-content-end flex"
-                      style="font-size: 14px; font-weight: 500;">Rp 120.000</p>
-                    <p class="py-2 align-items-center justify-content-end  flex"
-                      style="font-size: 14px; font-weight: 500;">Rp 20.000
+                      style="font-size: 14px; font-weight: 500;">{{event?.price | currency: 'Rp ' :'symbol':'1.2-2'}}</p>
+                    <p class="py-2 align-items-center justify-content-end  flex" *ngIf="voucher?.discountPrice"
+                      style="font-size: 14px; font-weight: 500;">{{voucher?.discountPrice| currency: 'Rp ' :'symbol':'1.2-2'}}
                     </p>
                   </div>
                 </div>
@@ -135,9 +134,11 @@
                   </div>
                   <div class="col-6 p-0">
                     <p class="py-2 align-items-center justify-content-end flex"
-                      style="font-size: 14px; font-weight: 500; text-decoration: line-through;">Rp 120.000</p>
-                    <p class="py-2 align-items-center justify-content-end  flex"
-                      style="font-size: 14px; font-weight: 500;">Rp 100.000
+                      style="font-size: 14px; font-weight: 500;" *ngIf="!voucher?.discountPrice">{{event?.price | currency: 'Rp ' :'symbol':'1.2-2'}}</p>
+                      <p class="py-2 align-items-center justify-content-end flex"
+                      style="font-size: 14px; font-weight: 500; text-decoration: line-through;" *ngIf="voucher?.discountPrice">{{event?.price | currency: 'Rp ' :'symbol':'1.2-2'}}</p>
+                      <p class="py-2 align-items-center justify-content-end  flex"  *ngIf="voucher?.discountPrice"
+                      style="font-size: 14px; font-weight: 500;">{{event?.price!-voucher?.discountPrice!| currency: 'Rp ' :'symbol':'1.2-2'}}
                     </p>
                   </div>
 
@@ -146,7 +147,9 @@
                 <div class="col-12 p-0">
                   <div class="p-inputgroup w-full mt-2 ">
                     <span class="p-inputgroup-addon"><i class="pi pi-ticket"></i></span>
-                    <input type="text" pInputText placeholder="Voucher Code">
+                    <input type="text" formControlName="voucherCode" pInputText placeholder="Voucher Code">
+                    <button pButton pRipple type="button" (click)="checkVoucher()" label="Check Voucher" class="p-button-primary font-medium w-22"
+                   ></button>
                   </div>
                   <p class="py-2 align-items-center justify-content-start flex"
                     style="font-size: 14px; font-weight: 400; text-align: justify;">You only able to use one voucher
@@ -164,15 +167,15 @@
 
                     <div class="col-6 p-0">
                       <p class="py-2 align-items-center justify-content-end  flex"
-                        style="font-size: 1rem; font-weight: 500;">Rp 100.000
+                        style="font-size: 1rem; font-weight: 500;">{{totalPrices | currency: 'Rp ' :'symbol':'1.2-2'}}
 
                     </div>
 
                   </div>
 
                   <div class="justify-content-center flex">
-                    <button pButton pRipple type="button" label="Buy Event" class="p-button-primary font-medium w-full"
-                      routerLink="/activities/event-payment"></button>
+                    <button pButton pRipple type="button" label="Buy Event" (click)="onPay()" class="p-button-primary font-medium w-full"
+                      ></button>
 
 
 
@@ -188,3 +191,5 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
