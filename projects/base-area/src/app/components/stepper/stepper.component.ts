@@ -7,7 +7,7 @@ import { StepsModule } from 'primeng/steps';
   selector: 'app-stepper',
   template: `
    <div class="card">
-    <p-steps [model]="model" [readonly]="true"></p-steps>
+   <p-steps [model]="model" [readonly]="true"></p-steps>
   </div>
     `,
   standalone: true,

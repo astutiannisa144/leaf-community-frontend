@@ -19,6 +19,7 @@ import { MenubarModule } from 'primeng/menubar';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { CalendarModule } from 'primeng/calendar';
+import { StepsModule } from 'primeng/steps';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { CalendarModule } from 'primeng/calendar';
         ProgressBarModule,
         InputSwitchModule,
         CalendarModule,
+        StepsModule
     ],
     exports: [
         ChipModule,
@@ -66,6 +68,7 @@ import { CalendarModule } from 'primeng/calendar';
         ProgressBarModule,
         InputSwitchModule,
         CalendarModule,
+        StepsModule
     ]
 })
 export class ShareModule { }
