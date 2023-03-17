@@ -6,7 +6,7 @@
     </ng-template>
   
     <ng-template pTemplate="end">
-      <img class="mr-2" style="border-radius: 50%;" width="45" src="assets/img/unnamed.jpg" alt="" (click)="menu.toggle($event)">
+      <img class="mr-2 cursor-pointer" style="border-radius: 50%;" width="45" src="assets/img/unnamed.jpg" alt="" (click)="menu.toggle($event)">
       <p-tieredMenu #menu [model]="itemProfile" [popup]="true"></p-tieredMenu>
     </ng-template>
   </p-menubar>
