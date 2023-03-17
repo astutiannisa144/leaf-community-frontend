@@ -50,6 +50,7 @@ export class PostCreateComponent {
         this.title.setTitle('Leaf Community')
     }
 
+
     ngOnInit() {
         this.items = [
             { label: '<p>Home</p>', escape: false, routerLink: '/posts' },
@@ -120,17 +121,8 @@ export class PostCreateComponent {
     showInputImage() {
         if (this.inputPolling) {
             this.inputPolling = false
-            console.log(this.inputPolling)
-
-
-            this.post.get('polling')?.patchValue({
-                content: '',
-                expired: '',
-                pollingDetail: []
-            })
-
+            this.post.get('polling')?.reset()
             this.pollingChoice.clear()
-
             this.inputImage = !this.inputImage
 
         } else {
@@ -143,17 +135,25 @@ export class PostCreateComponent {
             this.inputImage = false
             this.uploadedFiles = []
             this.post.value.file = []
-
             this.inputPolling = !this.inputPolling
+
+        } else if (this.inputPolling) {
+            this.inputPolling = false
+            this.post.get('polling')?.reset()
+            this.pollingChoice.clear()
+
         } else {
             this.inputPolling = !this.inputPolling
         }
 
-        for (let i = 0; i < 2; i++) {
-            this.pollingChoice.push(this.fb.group({
-                content: [''],
-            }))
+        if (this.pollingChoice.length == 0) {
+            for (let i = 0; i < 2; i++) {
+                this.pollingChoice.push(this.fb.group({
+                    content: [''],
+                }))
+            }
         }
+
     }
 
     getPostCategory() {
@@ -161,6 +161,7 @@ export class PostCreateComponent {
             this.category = result
         })
     }
+    
 
     insertPost() {
         const data: PostReq = {
@@ -171,19 +172,17 @@ export class PostCreateComponent {
         }
 
         if (this.file.length) {
+            data.file = []
             this.file.value.forEach((f: any) => {
                 const fileTemp = f as any
-                data.file?.push({
-                    ...fileTemp
-                })
+                data.file?.push({ ...fileTemp })
             })
         }
 
         if (this.post.value.polling?.content) {
-            console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAA")
             data.polling = {
                 content: this.post.get('polling')?.value.content!,
-                expired: this.post.get('polling')?.value.expired!,
+                expired: convertUTCToLocalDateTime(this.post.get('polling')?.value.expired!),
                 pollingDetail: []
             }
 
@@ -196,13 +195,11 @@ export class PostCreateComponent {
         }
 
         this.post$ = this.postService.insertPost(data).subscribe(result => {
-            // this.router.navigateByUrl('/posts')
-            console.log("posted")
+            this.router.navigateByUrl('/posts')
         })
     }
 
     onRemove(event: any) {
-        console.log(event)
         const filter = this.uploadedFiles.map((f, i) => {
             if (f.name == event.file.name) {
                 return i
@@ -210,8 +207,6 @@ export class PostCreateComponent {
                 return -1
             }
         }).filter(f => f != -1)
-
-        console.log(filter)
 
         if (filter && filter.length) {
             this.file.removeAt(filter[0])
@@ -228,4 +223,14 @@ export class PostCreateComponent {
         this.category$?.unsubscribe()
     }
 
+}
+
+function convertUTCToLocalDate(date: any) {
+    const newDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
+    return newDate.toISOString().split('T')[0]
+}
+
+function convertUTCToLocalDateTime (date: any) {
+    const newDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
+    return newDate.toISOString()
 }
