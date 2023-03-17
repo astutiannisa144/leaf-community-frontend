@@ -7,55 +7,41 @@ import { MenuItem } from 'primeng/api';
     templateUrl: './register.component.html',
     styles: [
         `
-.c-stepper {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.c-stepper__item {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-}
-
-.c-stepper__item:before {
-    --size: 3rem;
-    content: "";
-    position: relative;
-    z-index: 1;
-    display: block;
-    width: var(--size);
-    height: var(--size);
-    border-radius: 50%;
-    margin: 1rem auto 0;
-}
-        
         `]
 })
 
 export class RegisterComponent {
     items!: MenuItem[];
-
+    activeIndex: number = 0
+    indexChange!: MenuItem[];
     registDetail = 1
 
     ngOnInit() {
         this.items = [{
-            label: '',
-            routerLink: 'personal'
+            label: 'Sign Up',
         },
         {
-            label: '',
-            routerLink: 'seat'
+            label: 'Details',
         },
         {
-            label: '',
-            routerLink: 'payment'
+            label: 'Verification',
         },
         ];
     }
 
-    showDetails(){
-        this.registDetail = 2
+    showDetails() {
+        this.registDetail++
+        this.activeIndex++
     }
+
+    backDetails() {
+        this.registDetail--
+        this.activeIndex--
+    }
+
+    onActiveIndexChange(event: any) {
+        console.log("Active index changed to: ", event.index);
+    }
+
+
 }

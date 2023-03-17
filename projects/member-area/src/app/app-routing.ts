@@ -7,6 +7,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { CommonModule } from '@angular/common';
 import { RegisterComponent } from './pages/register/register.component';
 import { StepperComponent } from "../../../base-area/src/app/components/stepper/stepper.component";
+import { TieredMenuCustomComponent } from "../../../base-area/src/app/components/tiered-menu/tiered-menu.component";
 
 export const memberRoutes: Routes = [
 
@@ -63,7 +64,8 @@ export const memberRoutes: Routes = [
         RouterModule.forRoot(memberRoutes),
         ShareModule, ReactiveFormsModule,
         FormsModule, CommonModule,
-        StepperComponent
+        StepperComponent,
+        TieredMenuCustomComponent
     ]
 })
 export class AppRoutingModule { }

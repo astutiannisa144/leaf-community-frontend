@@ -19,6 +19,7 @@ import { MenubarModule } from 'primeng/menubar';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { CalendarModule } from 'primeng/calendar';
+import { StepsModule } from 'primeng/steps';
 import { ToastModule } from 'primeng/toast';
 
 ToastModule
@@ -45,6 +46,7 @@ ToastModule
         ProgressBarModule,
         InputSwitchModule,
         CalendarModule,
+        StepsModule
     ],
     exports: [
         ChipModule,
@@ -67,6 +69,7 @@ ToastModule
         ProgressBarModule,
         InputSwitchModule,
         CalendarModule,
+        StepsModule
         ToastModule
     ]
 })
