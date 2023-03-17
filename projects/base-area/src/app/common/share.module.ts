@@ -19,8 +19,9 @@ import { MenubarModule } from 'primeng/menubar';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { CalendarModule } from 'primeng/calendar';
+import { ToastModule } from 'primeng/toast';
 
-
+ToastModule
 @NgModule({
     declarations: [],
     imports: [
@@ -66,6 +67,7 @@ import { CalendarModule } from 'primeng/calendar';
         ProgressBarModule,
         InputSwitchModule,
         CalendarModule,
+        ToastModule
     ]
 })
 export class ShareModule { }

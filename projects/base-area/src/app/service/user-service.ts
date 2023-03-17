@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { BASE_URL } from "../constant/base.service";
 import { LoginReq } from "@dto/login/login-req";
 import { LoginRes } from "@dto/login/login-res";
+import { BankAccountRes } from "@dto/bank-account/bank-account-res";
 
 @Injectable({
     providedIn : 'root'
@@ -20,6 +21,9 @@ export class UserService {
         })
     }
     
+    getBank():Observable<BankAccountRes>{
+        return this.http.get<BankAccountRes>(`${BASE_URL}/users/bank`)
+    }
     saveDataLogin(data : LoginRes) {
         localStorage.setItem('dataLogin', JSON.stringify(data))
     }

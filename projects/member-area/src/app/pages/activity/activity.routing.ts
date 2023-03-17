@@ -35,7 +35,7 @@ const postRoutes : Routes = [
     },
 
     {   
-        path : 'event-create',
+        path : 'event-create/:id',
         component : EventCreateComponent
     },
 
