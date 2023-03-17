@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http"
 import { Injectable } from "@angular/core"
+import { ActivityReq } from "@dto/activity/activity-req"
 import { ActivityRes } from "@dto/activity/activity-res"
 import { Observable } from "rxjs"
 import { BASE_URL } from "../constant/base.service"
@@ -30,5 +31,9 @@ export class ActivityService {
     }
     getById(id:string): Observable<ActivityRes>{
         return this.http.get<ActivityRes>(`${BASE_URL}/activities/${id}`);
+    }
+    insert(data:ActivityReq){
+        return this.http.post(`${BASE_URL}/activities`,data)
+
     }
 }
