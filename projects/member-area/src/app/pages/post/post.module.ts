@@ -7,6 +7,7 @@ import { PostHomeComponent } from './post-home/post-home.component';
 import { PostRouting } from './post.routing';
 import { ShareModule } from '../../../../../base-area/src/app/common/share.module';
 import { PostCreateComponent } from './post-create/post-create.component';
+import { TieredMenuCustomComponent } from "../../../../../base-area/src/app/components/tiered-menu/tiered-menu.component";
 
 
 @NgModule({
@@ -21,7 +22,7 @@ import { PostCreateComponent } from './post-create/post-create.component';
         ReactiveFormsModule,
         HttpClientModule,
         ShareModule,
-        
+        TieredMenuCustomComponent
     ]
 })
 export class PostModule { }
