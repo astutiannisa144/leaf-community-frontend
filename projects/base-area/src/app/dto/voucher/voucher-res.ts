@@ -6,4 +6,6 @@ export interface VoucherRes{
 	  expiredDate:Date;
 	  minimumPurchase:number;
 	  isActive:boolean;
+      message:string;
+      codeWarning:number
 }
