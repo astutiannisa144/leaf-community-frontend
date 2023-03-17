@@ -27,19 +27,28 @@
         </div>
 
         <div class="col flex justify-content-end p-0">
-          <ng-container>
-            <p-chip class="my-custom-chips"></p-chip>
-
-            <p-chip class="chip-custom mr-1">
-              <p class="my-1" style="font-size: 12px; font-weight: 500;">Premium</p>
-            </p-chip>
-            <p-chip styleClass="custom-chip">
-              <p class="my-1" style="font-size: 12px; font-weight: 500; ">Information Technology</p>
-            </p-chip>
-            <i pRipple class="pi pi-ellipsis-v cursor-pointer" (click)="menu.toggle($event)"
-              style="font-size: 19px;"></i>
-            <p-tieredMenu #menu [model]="postEdit" [popup]="true"></p-tieredMenu>
-          </ng-container>
+          <div class="align-items-center flex">
+            <ng-container>
+              <p-chip class="my-custom-chips"></p-chip>
+              <p-chip class="chip-custom mr-1">
+                <p class="my-1" style="font-size: 12px; font-weight: 500;">Premium</p>
+              </p-chip>
+              <p-chip styleClass="custom-chip">
+                <p class="my-1" style="font-size: 12px; font-weight: 500; ">Information Technology</p>
+              </p-chip>
+              <div class="mt-1 ml-2">
+                <app-tiered-menu [model]="postEdit" topSpace="8px" rightSpace="8px">
+                  <ng-template #content>
+                    <i class="pi pi-ellipsis-v cursor-pointer p-0"></i>
+                  </ng-template>
+                </app-tiered-menu>
+              </div>
+  
+              <!-- <i pRipple class="pi pi-ellipsis-v cursor-pointer" (click)="menu.toggle($event)"
+                style="font-size: 19px;"></i>
+              <p-tieredMenu #menu [model]="postEdit" [popup]="true"></p-tieredMenu> -->
+            </ng-container>
+          </div>
 
           <!-- <button type="button" pButton pRipple icon="pi pi-send" (click)="showEdit()"></button> -->
 
@@ -114,17 +123,15 @@
                 </div>
 
                 <div class="col-1 flex justify-content-end p-0">
-
-                  <i pRipple class="pi pi-ellipsis-v cursor-pointer" (click)="menu.toggle($event)"
-                    style="font-size: 19px; color: black;"></i>
-                  <p-tieredMenu #menu [model]="commentEdit" [popup]="true"></p-tieredMenu>
+                  <app-tiered-menu [model]="postEdit" topSpace="8px" rightSpace="8px">
+                    <ng-template #content>
+                      <i class="pi pi-ellipsis-v cursor-pointer p-0" style="color: black;"></i>
+                    </ng-template>
+                  </app-tiered-menu>
 
                 </div>
 
               </div>
-
-
-
             </div>
           </div>
         </div>

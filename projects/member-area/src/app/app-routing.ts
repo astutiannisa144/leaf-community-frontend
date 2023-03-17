@@ -5,12 +5,19 @@ import { ShareModule } from 'projects/base-area/src/app/common/share.module';
 import { NavbarComponent } from 'projects/base-area/src/app/components/navbar/navbar.component';
 import { LoginComponent } from './pages/login/login.component';
 import { CommonModule } from '@angular/common';
+import { RegisterComponent } from './pages/register/register.component';
+import { StepperComponent } from "../../../base-area/src/app/components/stepper/stepper.component";
 
 export const memberRoutes: Routes = [
 
   {
     path: 'login',
     component: LoginComponent
+  },
+
+  {
+    path: 'register',
+    component: RegisterComponent
   },
 
   {
@@ -42,17 +49,21 @@ export const memberRoutes: Routes = [
   },
 
 
+
+
 ];
 
 @NgModule({
-  declarations: [
-    LoginComponent
-  ],
-  imports: [
-    RouterModule.forRoot(memberRoutes),
-    ShareModule, ReactiveFormsModule,
-    FormsModule, CommonModule
-  ],
-  exports: [RouterModule]
+    declarations: [
+        LoginComponent,
+        RegisterComponent
+    ],
+    exports: [RouterModule],
+    imports: [
+        RouterModule.forRoot(memberRoutes),
+        ShareModule, ReactiveFormsModule,
+        FormsModule, CommonModule,
+        StepperComponent
+    ]
 })
 export class AppRoutingModule { }
