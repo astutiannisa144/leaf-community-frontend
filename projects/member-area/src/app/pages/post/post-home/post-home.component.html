@@ -43,7 +43,7 @@
                   </ng-template>
                 </app-tiered-menu>
               </div>
-  
+
               <!-- <i pRipple class="pi pi-ellipsis-v cursor-pointer" (click)="menu.toggle($event)"
                 style="font-size: 19px;"></i>
               <p-tieredMenu #menu [model]="postEdit" [popup]="true"></p-tieredMenu> -->
@@ -88,6 +88,18 @@
             <p style="font-size: 17px; font-weight: 400;"> <i class="pi pi-comments mr-2 cursor-pointer"
                 style="font-size: 20px; font-weight: 400; color: #979797;"></i>{{ pl.commentSum }} Comments</p>
           </div>
+          <div class="col-7 justify-content-end">
+            <p (mouseenter)="onHover()" (mouseleave)="onLeave()" class="bookmark-fill hoverable-element"
+              class="justify-content-end flex" style="font-size: 17px; font-weight: 400;"> <i
+                class="pi pi-bookmark-fill mr-2 cursor-pointer"
+                style="font-size: 20px; font-weight: 400; color: #0288D1;"></i></p>
+
+            <p (mouseenter)="onHover()" (mouseleave)="onLeave()" class="bookmark hoverable-element"
+              class="justify-content-end flex" style="font-size: 17px; font-weight: 400;"> <i
+                class="pi pi-bookmark mr-2 cursor-pointer"
+                style="font-size: 20px; font-weight: 400; color: #979797;"></i></p>
+          </div>
+
         </div>
         <div class="py-3">
           <hr size="2">

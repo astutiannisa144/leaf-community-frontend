@@ -48,6 +48,16 @@ import { MenuItem } from 'primeng/api';
   transition: transform 0.2s ease-in-out;
 }
 
+.pi-bookmark-fill:hover {
+  transform: scale(1.2);
+  transition: transform 0.2s ease-in-out;
+}
+
+.pi-bookmark:hover {
+  transform: scale(1.2);
+  transition: transform 0.2s ease-in-out;
+}
+
 
 
 
