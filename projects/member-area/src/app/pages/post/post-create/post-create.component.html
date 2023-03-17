@@ -1,19 +1,24 @@
+<pre>
+  {{ post.value | json }}
+  <!-- {{ category | json }} -->
+  <!-- {{ uploadedFiles | json }} -->
+</pre>
 <div class="flex justify-content-center">
   <div class="col-8">
-    <div class="surface-card mt-4 p-5 shadow-2 border-round">
+    <form class="surface-card mt-4 p-5 shadow-2 border-round" [formGroup]="post">
       <div class="field w-full col-12">
         <label for="username1" class="block">
           <p class="my-0">Post Title</p>
         </label>
         <input class="w-full" id="username1" type="username" aria-describedby="username1-help"
-          placeholder="Enter post title" pInputText />
+          placeholder="Enter post title" formControlName="title" maxlength="30" pInputText />
       </div>
       <div class="field w-full col-12">
         <label for="username1" class="block">
           <p class="my-0">Post Content</p>
         </label>
         <textarea class="w-full" id="float-input" rows="5" cols="30" placeholder="Enter post content"
-          [autoResize]="true" pInputTextarea></textarea>
+          [autoResize]="true" formControlName="content" pInputTextarea></textarea>
       </div>
       <div class="flex w-full">
         <div class="col-5">
@@ -24,7 +29,7 @@
               </label>
             </div>
             <div class="flex justify-content-start">
-              <p-inputSwitch></p-inputSwitch>
+              <p-inputSwitch formControlName="isPremium"></p-inputSwitch>
             </div>
           </div>
         </div>
@@ -32,23 +37,22 @@
           <label for="username1" class="block">
             <p class="my-0">Post Category</p>
           </label>
-          <p-dropdown placeholder="Select post category" optionLabel="name" styleClass="w-full" [showClear]="true">
+          <p-dropdown [options]="category" placeholder="Select post category" optionLabel="name" styleClass="w-full"
+            optionLabel="categoryName" optionValue="id" formControlName="categoryId" [showClear]="true">
           </p-dropdown>
         </div>
       </div>
       <div class="col-12" *ngIf="inputImage">
-        <hr class="mb-5" style="height:2px;border-width:0;color:rgb(227, 227, 227);background-color:rgb(221, 221, 221)">
-        <p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)" [multiple]="true" accept="image/*">
+        <p-fileUpload (onSelect)="onUpload($event)" (onRemove)="onRemove($event)" (onClear)="onClear()"
+          [multiple]="true" accept="image/*">
           <ng-template pTemplate="content">
-            <ul *ngIf="uploadedFiles.length">
+            <!-- <ul *ngIf="uploadedFiles.length">
               <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
-            </ul>
+            </ul> -->
           </ng-template>
         </p-fileUpload>
-
       </div>
-      <div class="col-12" *ngIf="inputPolling">
-        <hr class="mb-5" style="height:2px;border-width:0;color:rgb(227, 227, 227);background-color:rgb(221, 221, 221)">
+      <div class="col-12" *ngIf="inputPolling" formGroupName="polling">
         <div class="surface-card p-4 border-1 border-round" style="color:rgb(227, 227, 227)">
           <div class="field" style="color: black;">
             <div class="flex justify-content-end">
@@ -56,15 +60,25 @@
                 class="p-button-rounded p-button-secondary p-button-text" (click)="showInputPolling()"></button>
             </div>
             <label for="username1" class="block">
-              <p class="my-0">Question</p>
+              <p class="my-0">Polling Question</p>
             </label>
             <input class="w-full" id="username1" type="username" aria-describedby="username1-help"
-              placeholder="Enter question" pInputText />
-            <div class="mt-4 flex justify-content-between">
-              <input class="w-11" id="username1" type="username" aria-describedby="username1-help"
-                placeholder="Enter question" pInputText />
-              <button pButton pRipple type="button" icon="pi pi-trash"
-                class="p-button-rounded p-button-danger p-button-text"></button>
+              placeholder="Enter polling question" formControlName="content" pInputText />
+            <hr class="my-4"
+              style="height:2px;border-width:0;color:rgb(227, 227, 227);background-color:rgb(221, 221, 221)">
+            <div *ngFor="let p of pollingChoice.controls; let i=index" formArrayName="pollingDetail">
+              <div class="mt-4 flex justify-content-between" [formGroupName]="i">
+                <input class="w-full" id="username1" type="username" aria-describedby="username1-help"
+                  placeholder="Choice {{i+1}}" formControlName="content" pInputText />
+                <button pButton pRipple type="button" icon="pi pi-trash" (click)="removePollingChoice(i)"
+                  *ngIf="pollingChoice.length > 2" class="p-button-rounded p-button-danger p-button-text ml-2"></button>
+              </div>
+            </div>
+            <button pButton pRipple type="button" icon="pi pi-plus" label="Add choice" *ngIf="pollingChoice.length < 5"
+              class="p-button-info p-button-text mt-3" (click)="addPollingChoice()"></button>
+            <div class="flex flex-column mt-2 gap-2">
+              <label for="time">Polling expired</label>
+              <p-calendar [showTime]="true" [showSeconds]="true" inputId="time" styleClass="w-full" formControlName="expired"></p-calendar>
             </div>
           </div>
         </div>
@@ -79,11 +93,11 @@
           </div>
 
           <button style="background-color: 29BA7B;" pButton pRipple type="button" class="p-button-primary w-2 h-3rem">
-            <p class="w-full" style="font-weight: 700;">Create Post</p>
+            <p class="w-full" style="font-weight: 700;" (click)="insertPost()">Create Post</p>
           </button>
           
         </div>
       </div>
-    </div>
+    </form>
   </div>
 </div>
