@@ -13,7 +13,11 @@ export class ResponInterceptor implements HttpInterceptor{
             tap({
                 next: (event)=>{
                     if(event instanceof HttpResponse){
-                        if(event.body.message){
+                        if(event.body.message &&event.body.codeWarning && event.body.codeWarning==1){
+                            this.messageService.add({severity:'warn', summary:'Service Message', detail:event.body.message});
+
+                        }
+                        else if(event.body.message){
                             this.messageService.add({severity:'success', summary:'Service Message', detail:event.body.message});
                         }   
                            
@@ -21,10 +25,17 @@ export class ResponInterceptor implements HttpInterceptor{
                 },
                 error: (event)=>{
                     if(event instanceof HttpErrorResponse){
-                        this.messageService.add({severity:'error', summary:'Service Message', detail:event.error}); 
-                        if(event.status==401){
-                            this.router.navigateByUrl('/login')
-                        }      
+                        if(event.status==400 && event.error.codeWarning){
+                            this.messageService.add({severity:'warn', summary:'Service Message', detail:event.error.codeWarning}); 
+                            
+                        }
+                        else{
+                            this.messageService.add({severity:'error', summary:'Service Message', detail:event.error}); 
+                            if(event.status==401){
+                                this.router.navigateByUrl('/login')
+                            }    
+                        }
+                          
                     }
                 }
             })
