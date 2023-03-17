@@ -11,8 +11,8 @@
         <p style="color: #22C55E;">Create Member and Join Now</p>
       </div>
 
-      <button pButton pRipple label="Create Your Own Event" type="button"
-        class="mr-3 p-button-raised p-button-primary" routerLink="/activities/event-create"></button>
+      <button pButton pRipple label="Create Your Own Event" type="button" class="mr-3 p-button-raised p-button-primary"
+        routerLink="/activities/event-create"></button>
     </section>
   </div>
   <div class="col-12 md:col-6 overflow-hidden overflow-x: hidden;">
@@ -107,8 +107,8 @@
               - {{cl.timeEnd}}
             </p>
             <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"> <i
-                class="pi pi-money-bill mr-2" style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>Rp
-              {{cl.price}}
+                class="pi pi-money-bill mr-2" style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>
+              {{cl.price | currency: 'Rp ' :'symbol':'1.2-2'}}
             </p>
 
             <p-chip styleClass="custom-chip">
