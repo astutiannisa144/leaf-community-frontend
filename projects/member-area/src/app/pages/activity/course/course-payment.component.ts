@@ -17,8 +17,8 @@ interface City {
 }
 
 @Component({
-    selector: 'app-activity-event',
-    templateUrl: './event-payment.component.html',
+    selector: 'app-activity-course',
+    templateUrl: './course-payment.component.html',
     template: `
     <div (mouseenter)="onHover()" (mouseleave)="onLeave()" class="hoverable-element">Hover me!</div>
     `,
@@ -56,12 +56,12 @@ interface City {
 
 
 })
-export class EventPaymentComponent {
+export class CoursePaymentComponent {
 
     displayModal!: boolean;
 
-    private event$? : Subscription
-    event? : ActivityRes
+    private course$? : Subscription
+    course? : ActivityRes
     private bank$?:Subscription
     bank?:BankAccountRes
     private voucher$?:Subscription
@@ -91,9 +91,9 @@ export class EventPaymentComponent {
 
             this.activatedRoute.params.subscribe(result=>{
                 this.activityId=result['id']
-                this.event$ = this.activityService.getById(this.activityId).subscribe(result => {
-                    this.event = result
-                    this.totalPrices=this.event.price
+                this.course$ = this.activityService.getById(this.activityId).subscribe(result => {
+                    this.course = result
+                    this.totalPrices=this.course.price
                 })
             })
                 this.bank$ = this.userService.getBank().subscribe(result => {
@@ -130,7 +130,7 @@ export class EventPaymentComponent {
         this.displayModal = true;
     }
     checkVoucher(){
-        this.voucher$=this.voucherService.getVoucherByCode(this.paymentForm.value.voucherCode!,this.event!.id).subscribe(result=>{
+        this.voucher$=this.voucherService.getVoucherByCode(this.paymentForm.value.voucherCode!,this.course!.id).subscribe(result=>{
             this.voucher=result
             this.totalPrices-=this.voucher.discountPrice
         })
@@ -140,7 +140,7 @@ export class EventPaymentComponent {
     }
     onPay(){
        const data:UserActivityReq ={
-        activityId:this.event!.id,
+        activityId:this.course!.id,
         file:{
             fileContent:this.paymentForm.value.file?.fileContent!,
             fileExtension:this.paymentForm.value.file?.fileExtension!

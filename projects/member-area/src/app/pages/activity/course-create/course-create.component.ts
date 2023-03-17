@@ -99,18 +99,26 @@ export class CourseCreateComponent implements OnInit, AfterContentChecked {
         })
     }
     onChangeScheduleTimeStart() {
+        if(!this.activityForm.value.timeStartUtc){
+            
+        }else{
         const resultTemp = new Date(this.activityForm.value.timeStartUtc!)
         const localDate = convertUTCToLocalDateTime(resultTemp)
         this.activityForm.patchValue({
             timeStart: localDate
         })
     }
+    }
     onChangeScheduleTimeEnd() {
+        if(!this.activityForm.value.timeEndUtc){
+            
+        }else{
         const resultTemp = new Date(this.activityForm.value.timeEndUtc!)
         const localDate = convertUTCToLocalDateTime(resultTemp)
         this.activityForm.patchValue({
             timeEnd: localDate
         })
+    }
     }
     fileUpload(event: any) {
         const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {

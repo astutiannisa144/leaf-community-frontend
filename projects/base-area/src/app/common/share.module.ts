@@ -20,8 +20,9 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { CalendarModule } from 'primeng/calendar';
 import { StepsModule } from 'primeng/steps';
+import { ToastModule } from 'primeng/toast';
 
-
+ToastModule
 @NgModule({
     declarations: [],
     imports: [
@@ -69,6 +70,7 @@ import { StepsModule } from 'primeng/steps';
         InputSwitchModule,
         CalendarModule,
         StepsModule
+        ToastModule
     ]
 })
 export class ShareModule { }

@@ -1,10 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
+import { ActivityRes } from "@dto/activity/activity-res";
+import { ActivityService } from "@service/activity.service";
 import { Subscription } from "rxjs";
 
 @Component({
-    selector: 'app-activity-event',
+    selector: 'app-activity-course',
     templateUrl: './course-detail.component.html',
     template: `
     <div (mouseenter)="onHover()" (mouseleave)="onLeave()" class="hoverable-element">Hover me!</div>
@@ -18,8 +20,6 @@ import { Subscription } from "rxjs";
        color: #fff;
        
      },
-
-     
 
      :host ::ng-deep .p-checkbox .p-checkbox-box {
     border: 2px solid #ced4da;
@@ -35,19 +35,36 @@ import { Subscription } from "rxjs";
             top: 0;
             width: 100%;
             z-index: 1;
-        }
-   `],
+        },
 
-   
+    :host ::ng-deep .p-chip.custom-chip {
+    background: #BA3276;
+    color: var(--primary-color-text);
+}
+   `]
 
 
-},
-)
-export class CourseDetailComponent {
+})
+export class CourseDetailComponent implements OnInit{
+    private course$? : Subscription
+    course? : ActivityRes
+
+    activityId!:string
     constructor(
-        private router: Router
-    ) { }
+        private router: Router,
+        private activityService:ActivityService,
+        private activatedRoute :ActivatedRoute
 
+    ) { }
+        ngOnInit(): void {
+            this.activatedRoute.params.subscribe(result=>{
+                this.activityId=result['id']
+                this.course$ = this.activityService.getById(this.activityId).subscribe(result => {
+                    this.course = result
+                })
+            })
+           
+        }
     onCreatePost() {
         this.router.navigateByUrl('/posts/create')
     }

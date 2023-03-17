@@ -2,6 +2,6 @@ import { PollingDetailReq } from "./polling-detail-req";
 
 export interface PollingReq {
     content : string,
-    expired : Date,
+    expired : string,
     pollingDetail : PollingDetailReq[]
 }
