@@ -16,7 +16,7 @@
               style="font-size: 1.6rem; font-weight: 600; color: #137C3B;"></i>Register Account</p>
         </div>
         <form class="flex justify-content-center py-1">
-          <div class="col-10 mb-5" *ngIf="registDetail == 3">
+          <div class="col-10 mb-5" *ngIf="registDetail == 1">
             <label for="email1" class="block text-900 font-medium mb-2">Full Name</label>
             <input id="email1" type="text" placeholder="Full name" pInputText class="w-full mb-3">
 
@@ -79,7 +79,7 @@
 
           </div>
 
-          <div class="col-10" *ngIf="registDetail == 1">
+          <div class="col-10" *ngIf="registDetail == 3">
             <label for="email1" class="block text-900 font-medium mb-2 text-center">Enter 6-Digit Verification Code Sent
               to Your Email</label>
             <input id="email1" type="text" placeholder="6 Digit Code" class="text-center" pInputText
