@@ -1,3 +1,4 @@
+import { CommentRes } from "@dto/comment/comment-res";
 import { PollingRes } from "@dto/polling/polling-res";
 
 export interface PostRes {
@@ -12,8 +13,10 @@ export interface PostRes {
     likeSum  :number,
     commentSum : number, 
     createdAt : string,
+    showComment : boolean,
     likeId? : string,
     bookmarkId? : string,
-    polling? : PollingRes
-    file? : string[]
+    polling? : PollingRes,
+    file? : string[],
+    commentList : CommentRes[]
 }
