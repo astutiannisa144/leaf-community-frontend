@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { ActivityService } from '@service/activity.service';
 import { MenuItem } from 'primeng/api';
-
+import { Subscription } from 'rxjs';
+import { ActivityTypeRes } from '@dto/activity-type/activity-type-res';
 @Component({
   selector: 'navbar',
   templateUrl: './navbar.component.html',
@@ -20,9 +22,11 @@ import { MenuItem } from 'primeng/api';
 })
 
 export class NavbarComponent {
-
+  activityType$?:Subscription
+  activityTypeList:ActivityTypeRes[]=[]
   constructor(
-    private router: Router
+    private router: Router,
+    private activityService:ActivityService
   ) {
 
   }
@@ -31,6 +35,9 @@ export class NavbarComponent {
   itemProfile!: MenuItem[];
 
   ngOnInit() {
+    this.activityType$=this.activityService.getActivityType().subscribe(result=>{
+      this.activityTypeList=result
+    })
     this.itemProfile = [
       {
         label: 'Hello, User!',
@@ -59,7 +66,7 @@ export class NavbarComponent {
         items: [{
           label: 'Event Menu',
           icon: 'pi pi-fw pi-calendar-plus',
-          routerLink: '/activities/event'
+          command:()=>this.onEvent()
         },
         {
           label: 'My Event',
@@ -77,7 +84,7 @@ export class NavbarComponent {
         items: [{
           label: 'Course Menu',
           icon: 'pi pi-fw pi-briefcase',
-          routerLink: '/activities/course'
+          command:()=>this.onCourse()
         },
         {
           label: 'My Course',
@@ -99,4 +106,11 @@ export class NavbarComponent {
     localStorage.clear()
     this.router.navigateByUrl('/login')
   }
+  onEvent() {
+    this.router.navigateByUrl('/activities/event/'+this.activityTypeList[0].id)
+  }
+  onCourse() {
+    this.router.navigateByUrl('/activities/course/'+this.activityTypeList[1].id)
+  }
+
 }

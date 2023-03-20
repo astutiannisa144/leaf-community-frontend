@@ -86,12 +86,13 @@ export class MyEventComponent {
             this.categoryList = result
         })
         this.eventCreated$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.EV,undefined,ACTIVITY_CODE.PROFILE).subscribe(result => {
-            
-            
             this.eventListCreated = result
+            console.log(this.eventListCreated.length);
+            
         })
         this.categoryCreated$ = this.categoryService.getCategory().subscribe(result => {
             this.categoryListCreated = result
+
         })
 
         this.categories.get('category')?.valueChanges.subscribe(result => {

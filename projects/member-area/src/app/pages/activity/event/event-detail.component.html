@@ -24,7 +24,7 @@
   <div class="col-11">
     <div class="text-xl font-medium text-900 mb-3 align-items-center flex">
       <i class="pi pi-calendar mr-2" style="font-size: 1.4rem; color: #22C55E;"></i>
-      <span>Event Detail</span>
+      <span>Event Detail  <i *ngIf="memberId" (click)="onUpdate()" class="pi pi-fw pi-pencil hoverable-element"  ></i></span>
     </div>
     <div class="grid justify-content-center">
       <div class="col-12">
@@ -86,11 +86,11 @@
             </div>
 
             <div class="col-3 mt-3">
-              <div class="surface-card py-3 px-4 shadow-2 border-round ">
+              <div class="surface-card py-3 px-4 shadow-2 border-round  "*ngIf="!memberId">
                 <div class="grid flex">
                   <div class="col 12 justify-content-center flex">
                     <button pButton pRipple type="button" label="Buy Event" class="p-button-primary font-medium w-full"
-                      routerLink="/activities/event-payment/{{event?.id}}"></button>
+                      routerLink="/activities/event-payment/{{event?.id}}" ></button>
                   </div>
                 </div>
               </div>

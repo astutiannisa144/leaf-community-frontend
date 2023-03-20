@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http"
 import { Injectable } from "@angular/core"
+import { ActivityTypeRes } from "@dto/activity-type/activity-type-res"
 import { ActivityReq } from "@dto/activity/activity-req"
 import { ActivityRes } from "@dto/activity/activity-res"
 import { ResInsert } from "@dto/res-insert"
@@ -25,7 +26,7 @@ export class ActivityService {
         }else if(code =="purchase" && category){
             return this.http.get<ActivityRes[]>(`${BASE_URL}/activities?type=${type}&page=${page}&limit=${limit}&category=${category}&code=${code}`)
         }else if(code =="profile" && !category){
-            return this.http.get<ActivityRes[]>(`${BASE_URL}/activities?type=${type}&page=${page}&limit=${limit}&category=${category}&code=${code}`)
+            return this.http.get<ActivityRes[]>(`${BASE_URL}/activities?type=${type}&page=${page}&limit=${limit}&code=${code}`)
         }else {
             return this.http.get<ActivityRes[]>(`${BASE_URL}/activities?type=${type}&page=${page}&limit=${limit}&category=${category}&code=${code}`)
         }
@@ -36,5 +37,8 @@ export class ActivityService {
     insert(data:ActivityReq):Observable<ResInsert>{
         return this.http.post<ResInsert>(`${BASE_URL}/activities`,data)
 
+    }
+    getActivityType(): Observable<ActivityTypeRes[]>{
+        return this.http.get<ActivityTypeRes[]>(`${BASE_URL}/activities/type`);
     }
 }

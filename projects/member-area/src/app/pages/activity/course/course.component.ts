@@ -99,11 +99,14 @@ export class CourseComponent implements OnInit{
         private router: Router,
         private activityService: ActivityService,
         private categoryService:CategoryService,
-        private fb:FormBuilder
+        private fb:FormBuilder,
+        private activatedRoute:ActivatedRoute
     ) { }
     ngOnInit(): void {
+        this.activatedRoute.params.subscribe(result => {
+            this.activityTypeId=result['id']
+        })
         this.course$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.CO).subscribe(result => {
-            this.activityTypeId=result[0].activityTypeId
             this.courseList = result
 
         })
