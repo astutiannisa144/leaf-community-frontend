@@ -23,13 +23,17 @@ import { StepsModule } from 'primeng/steps';
 import { ToastModule } from 'primeng/toast';
 import { DialogModule } from 'primeng/dialog';
 import {ToolbarModule} from 'primeng/toolbar';
-
+import { TagModule } from 'primeng/tag';
+import {DividerModule} from 'primeng/divider';
+import {ConfirmPopupModule} from 'primeng/confirmpopup';
+import {MenuModule} from 'primeng/menu'
 
 ToastModule
 @NgModule({
     declarations: [],
     imports: [
         ChipModule,
+        ConfirmPopupModule,
         TableModule,
         CardModule,
         ButtonModule,
@@ -51,10 +55,16 @@ ToastModule
         CalendarModule,
         StepsModule,
         DialogModule,
-        ToolbarModule
+        ToolbarModule,
+        ToastModule,
+        TagModule,
+        DividerModule,
+        MenuModule
+
     ],
     exports: [
         ChipModule,
+        ConfirmPopupModule,
         TableModule,
         CardModule,
         ButtonModule,
@@ -77,7 +87,10 @@ ToastModule
         StepsModule,
         ToastModule,
         DialogModule,
-        ToolbarModule
+        ToolbarModule,
+        TagModule,
+        DividerModule,
+        MenuModule
     ]
 })
 export class ShareModule { }
