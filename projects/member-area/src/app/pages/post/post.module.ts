@@ -8,12 +8,13 @@ import { PostRouting } from './post.routing';
 import { ShareModule } from '../../../../../base-area/src/app/common/share.module';
 import { PostCreateComponent } from './post-create/post-create.component';
 import { TieredMenuCustomComponent } from "../../../../../base-area/src/app/components/tiered-menu/tiered-menu.component";
-
+import { PostImageComponent } from 'projects/base-area/src/app/components/post-image/post-image.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
     declarations: [
         PostHomeComponent,
-        PostCreateComponent
+        PostCreateComponent,
     ],
     imports: [
         PostRouting,
@@ -22,7 +23,9 @@ import { TieredMenuCustomComponent } from "../../../../../base-area/src/app/comp
         ReactiveFormsModule,
         HttpClientModule,
         ShareModule,
-        TieredMenuCustomComponent
+        TieredMenuCustomComponent,
+        PostImageComponent,
+        InfiniteScrollModule
     ]
 })
 export class PostModule { }
