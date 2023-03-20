@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core"
 import { ActivityTypeRes } from "@dto/activity-type/activity-type-res"
 import { ActivityReq } from "@dto/activity/activity-req"
 import { ActivityRes } from "@dto/activity/activity-res"
-import { ResInsert } from "@dto/res-insert"
+import { Response } from "@dto/response"
 import { Observable } from "rxjs"
 import { BASE_URL } from "../constant/base.service"
 
@@ -34,8 +34,8 @@ export class ActivityService {
     getById(id:string): Observable<ActivityRes>{
         return this.http.get<ActivityRes>(`${BASE_URL}/activities/${id}`);
     }
-    insert(data:ActivityReq):Observable<ResInsert>{
-        return this.http.post<ResInsert>(`${BASE_URL}/activities`,data)
+    insert(data:ActivityReq):Observable<Response>{
+        return this.http.post<Response>(`${BASE_URL}/activities`,data)
 
     }
     getActivityType(): Observable<ActivityTypeRes[]>{

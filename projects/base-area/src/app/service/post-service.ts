@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { PostReq } from "@dto/post/post-req-insert"
 import { PostRes } from "@dto/post/post-res"
-import { ResInsert } from "@dto/res-insert"
+import { Response } from "@dto/response"
 import { Observable } from "rxjs"
 import { BASE_URL } from "../constant/base.service"
 
@@ -21,8 +21,8 @@ export class PostService {
         }
     }
 
-    insertPost(data : PostReq) : Observable<ResInsert> {
-        return this.http.post<ResInsert>(`${BASE_URL}/posts`, data)
+    insertPost(data : PostReq) : Observable<Response> {
+        return this.http.post<Response>(`${BASE_URL}/posts`, data)
     }
     
 }
