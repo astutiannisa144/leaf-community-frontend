@@ -78,7 +78,6 @@ ToastModule
         ToastModule,
         DialogModule,
         ToolbarModule
-
     ]
 })
 export class ShareModule { }
