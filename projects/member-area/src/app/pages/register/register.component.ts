@@ -43,5 +43,10 @@ export class RegisterComponent {
         console.log("Active index changed to: ", event.index);
     }
 
+    displayModal! : boolean
+    showModalDialog() {
+        this.displayModal = true;
+    }
+
 
 }
