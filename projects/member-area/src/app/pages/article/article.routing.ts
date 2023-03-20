@@ -3,7 +3,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { ArticleHomeComponent } from "./article-home/article-home.component";
 import { ArticleDetailComponent } from "./article-detail/article-detail.component";
 
-const postRoutes : Routes = [
+const articleRoutes : Routes = [
     {   
         path : '',
         component : ArticleHomeComponent
@@ -23,7 +23,7 @@ const postRoutes : Routes = [
 
 @NgModule({
     imports : [
-        RouterModule.forChild(postRoutes)
+        RouterModule.forChild(articleRoutes)
     ],
 
     exports : [

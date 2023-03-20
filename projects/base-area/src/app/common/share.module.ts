@@ -21,6 +21,9 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import { CalendarModule } from 'primeng/calendar';
 import { StepsModule } from 'primeng/steps';
 import { ToastModule } from 'primeng/toast';
+import { DialogModule } from 'primeng/dialog';
+import {ToolbarModule} from 'primeng/toolbar';
+
 
 ToastModule
 @NgModule({
@@ -46,7 +49,9 @@ ToastModule
         ProgressBarModule,
         InputSwitchModule,
         CalendarModule,
-        StepsModule
+        StepsModule,
+        DialogModule,
+        ToolbarModule
     ],
     exports: [
         ChipModule,
@@ -70,7 +75,13 @@ ToastModule
         InputSwitchModule,
         CalendarModule,
         StepsModule,
+<<<<<<< HEAD
         ToastModule
+=======
+        ToastModule,
+        DialogModule,
+        ToolbarModule
+>>>>>>> 61b0c45b882c3d3a845d4335951fb291e388c882
     ]
 })
 export class ShareModule { }
