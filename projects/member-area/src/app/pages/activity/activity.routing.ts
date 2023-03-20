@@ -8,15 +8,16 @@ import { EventPaymentComponent } from "./event/event-payment.component";
 import { EventCreateComponent } from "./event-create/event-create.component";
 import { CourseCreateComponent } from "./course-create/course-create.component";
 import { CoursePaymentComponent } from "./course/course-payment.component";
+import { EventUpdateComponent } from "./event-update/event-update.component";
 
 const postRoutes : Routes = [
     {   
-        path : 'event',
+        path : 'event/:id',
         component : EventComponent
     },
 
     {   
-        path : 'course',
+        path : 'course/:id',
         component : CourseComponent
     },
 
@@ -46,6 +47,10 @@ const postRoutes : Routes = [
     {   
         path : 'course-create/:id',
         component : CourseCreateComponent
+    },
+    {   
+        path : 'event-update/:id',
+        component : EventUpdateComponent
     },
 
 

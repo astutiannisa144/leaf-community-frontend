@@ -13,6 +13,8 @@ import { EventPaymentComponent } from './event/event-payment.component';
 import { EventCreateComponent } from './event-create/event-create.component';
 import { CourseCreateComponent } from './course-create/course-create.component';
 import { CoursePaymentComponent } from './course/course-payment.component';
+import { TieredMenuCustomComponent } from 'projects/base-area/src/app/components/tiered-menu/tiered-menu.component';
+import { EventUpdateComponent } from './event-update/event-update.component';
 
 @NgModule({
     declarations: [
@@ -23,7 +25,8 @@ import { CoursePaymentComponent } from './course/course-payment.component';
         EventPaymentComponent,
         EventCreateComponent,
         CourseCreateComponent,
-        CoursePaymentComponent
+        CoursePaymentComponent,
+        EventUpdateComponent
     ],
     imports: [
         ActivityRouting,
@@ -31,7 +34,8 @@ import { CoursePaymentComponent } from './course/course-payment.component';
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
-        ShareModule
+        ShareModule,
+        TieredMenuCustomComponent
     ]
 })
 export class ActivityModule { }
