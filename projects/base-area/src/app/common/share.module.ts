@@ -69,7 +69,7 @@ ToastModule
         ProgressBarModule,
         InputSwitchModule,
         CalendarModule,
-        StepsModule
+        StepsModule,
         ToastModule
     ]
 })
