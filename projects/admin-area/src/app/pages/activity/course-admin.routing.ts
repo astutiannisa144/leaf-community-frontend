@@ -4,7 +4,7 @@ import { CourseAdminComponent } from "./course/course-admin.component";
 
 const articleRoutes : Routes = [
     {   
-        path : '',
+        path : 'courses',
         component : CourseAdminComponent
     },
     
