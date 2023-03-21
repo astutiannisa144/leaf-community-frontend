@@ -44,6 +44,7 @@ export class EventUpdateComponent implements OnInit, AfterContentChecked {
         schedules: this.fb.array([])
     });
     uploadedFiles: any[] = [];
+    uploadFile:any
     constructor(
         private router: Router,
         private activityService: ActivityService,
@@ -73,7 +74,10 @@ export class EventUpdateComponent implements OnInit, AfterContentChecked {
                      timeEnd: '0000-10-10T'+this.activity.timeEnd+'.000Z',
                     timeStartUtc: new Date('2020-10-10T'+this.activity.timeStart+'.000Z'),
                     timeEndUtc:new Date( '2020-10-10T'+this.activity.timeEnd+'.000Z'),
-                    
+                    file:{
+                        fileContent:this.activity.fileContent,
+                        fileExtension:this.activity.fileExtension
+                    }
                 })
                 for(let i=0;i<this.activity.schedule.length;i++){
                     console.log(this.activity.schedule[i].scheduleDate);
@@ -163,7 +167,7 @@ export class EventUpdateComponent implements OnInit, AfterContentChecked {
             toBase64(file).then(result => {
                 const resultBase64: string = result.substring(result.indexOf(",") + 1, result.length)
                 const resultExtension = file.name.substring(file.name.indexOf(".") + 1, file.name.length)
-
+                this.uploadFile=file
 
                 this.activityForm.patchValue({
                     file: {
