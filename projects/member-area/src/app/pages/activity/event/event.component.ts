@@ -99,11 +99,14 @@ export class EventComponent implements OnInit{
         private router: Router,
         private activityService: ActivityService,
         private categoryService:CategoryService,
-        private fb:FormBuilder
+        private fb:FormBuilder,
+        private activatedRoute:ActivatedRoute
     ) { }
     ngOnInit(): void {
+        this.activatedRoute.params.subscribe(result => {
+            this.activityTypeId=result['id']
+        })
         this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.EV).subscribe(result => {
-            this.activityTypeId=result[0].activityTypeId
             this.eventList = result
 
         })
