@@ -14,7 +14,7 @@ import { Subscription } from "rxjs";
     selector: 'app-activity-course',
     templateUrl: './course.component.html',
     template: `
-    <div (mouseenter)="onHover()" (mouseleave)="onLeave()" class="hoverable-element">Hover me!</div>
+    <div (mouseenter)="onHover()" (mouseleave)="onLeave()" class="hoverable-element    ">Hover me!</div>
     `,
     styles: [`
      .hoverable-element {
