@@ -3,6 +3,7 @@ import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ActivityRes } from "@dto/activity/activity-res";
 import { ActivityService } from "@service/activity.service";
+import { UserService } from "@service/user-service";
 import { Subscription } from "rxjs";
 
 @Component({
@@ -50,10 +51,12 @@ export class EventDetailComponent implements OnInit{
     event? : ActivityRes
 
     activityId!:string
+    memberId!:string
     constructor(
         private router: Router,
         private activityService:ActivityService,
-        private activatedRoute :ActivatedRoute
+        private activatedRoute :ActivatedRoute,
+        private userService:UserService
 
     ) { }
         ngOnInit(): void {
@@ -61,7 +64,12 @@ export class EventDetailComponent implements OnInit{
                 this.activityId=result['id']
                 this.event$ = this.activityService.getById(this.activityId).subscribe(result => {
                     this.event = result
+                    if(this.userService.userId==this.event.memberId){
+                        this.memberId=this.event.memberId
+                    }
+                    
                 })
+              
             })
            
         }
@@ -75,4 +83,7 @@ export class EventDetailComponent implements OnInit{
     onHover() { }
 
     onLeave() { }
+    onUpdate(){
+        this.router.navigateByUrl('/activities/event-update/'+this.event?.id)
+    }
 }

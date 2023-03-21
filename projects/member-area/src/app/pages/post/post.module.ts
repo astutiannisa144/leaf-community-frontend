@@ -9,7 +9,8 @@ import { ShareModule } from '../../../../../base-area/src/app/common/share.modul
 import { PostCreateComponent } from './post-create/post-create.component';
 import { TieredMenuCustomComponent } from "../../../../../base-area/src/app/components/tiered-menu/tiered-menu.component";
 import { ProfilePostComponent } from './post-profile/profile-post.component';
-
+import { PostImageComponent } from 'projects/base-area/src/app/components/post-image/post-image.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
     declarations: [
@@ -24,7 +25,9 @@ import { ProfilePostComponent } from './post-profile/profile-post.component';
         ReactiveFormsModule,
         HttpClientModule,
         ShareModule,
-        TieredMenuCustomComponent
+        TieredMenuCustomComponent,
+        PostImageComponent,
+        InfiniteScrollModule
     ]
 })
 export class PostModule { }

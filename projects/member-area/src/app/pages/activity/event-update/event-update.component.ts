@@ -3,45 +3,47 @@ import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { MenuItem } from 'primeng/api';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormArray, FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import { ActivityService } from "@service/activity.service";
 import { ActivityReq } from "@dto/activity/activity-req";
 import { CategoryService } from "@service/category.service";
 import { CategoryRes } from "@dto/category/category-res";
+import { ActivityRes } from "@dto/activity/activity-res";
 
 
 @Component({
-    selector: 'app-event-create',
-    templateUrl: './event-create.component.html',
+    selector: 'app-event-update',
+    templateUrl: './event-update.component.html',
 
 })
-export class EventCreateComponent implements OnInit, AfterContentChecked {
+export class EventUpdateComponent implements OnInit, AfterContentChecked {
     eventDate!: Date;
     eventTime!: Date;
     items!: MenuItem[];
-   
+    private activity$?: Subscription
+    activity?: ActivityRes
     private category$?: Subscription
     categoryList: CategoryRes[] = []
+    category1!: CategoryRes
     activityForm = this.fb.group({
-        activityTypeId: ['',Validators.required],
-        categoryId: ['',Validators.required],
+        categoryId: [''],
         memberId: [''],
-        title: ['',Validators.required],
-        description: ['',Validators.required],
-        provider: ['',Validators.required],
-        locationAddress: ['',Validators.required],
+        title: [''],
+        description: [''],
+        provider: [''],
+        locationAddress: [''],
         timeStart: [''],
         timeEnd: [''],
-        timeStartUtc: [''],
-        timeEndUtc: [''],
-        price: [Validators.required],
+        timeStartUtc: new Date(''),
+        timeEndUtc:new Date(''),
+        price: [''],
         file: this.fb.group({
             fileContent: [''],
             fileExtension: ['']
         }),
         schedules: this.fb.array([])
     });
-
+    uploadedFiles: any[] = [];
     constructor(
         private router: Router,
         private activityService: ActivityService,
@@ -58,19 +60,45 @@ export class EventCreateComponent implements OnInit, AfterContentChecked {
 
     ngOnInit() {
         this.activatedRoute.params.subscribe(result => {
-            console.log(result['id']);
-            this.activityForm.patchValue({
-                activityTypeId : result['id']
+            this.activity$ = this.activityService.getById(result['id']).subscribe(result => {
+                this.activity = result
+                this.activityForm.patchValue({
+                    title:this.activity.title,
+                    description:this.activity.description,
+                    categoryId:this.activity.categoryId,
+                    provider:this.activity.provider,
+                    price: String(this.activity.price),
+                    locationAddress:this.activity.locationAddress,
+                     timeStart:'0000-10-10T'+this.activity.timeStart+'.000Z',
+                     timeEnd: '0000-10-10T'+this.activity.timeEnd+'.000Z',
+                    timeStartUtc: new Date('2020-10-10T'+this.activity.timeStart+'.000Z'),
+                    timeEndUtc:new Date( '2020-10-10T'+this.activity.timeEnd+'.000Z'),
+                    
+                })
+                for(let i=0;i<this.activity.schedule.length;i++){
+                    console.log(this.activity.schedule[i].scheduleDate);
+                    
+                    
+                
+                    this.schedules.push(this.fb.group({
+                        id:this.activity.schedule[i].id,
+                        scheduleDateUtc: new Date(this.activity.schedule[i].scheduleDate),
+                        scheduleDate: new Date(this.activity.schedule[i].scheduleDate),
+                        ver:this.activity.schedule[i].ver
+                    }))
+
+                }
             })
            
         })
         this.category$ = this.categoryService.getCategory().subscribe(result => {
             this.categoryList = result
+            
         })
        
         this.items = [
             { label: '<p>Home</p>', escape: false, routerLink: '/posts' },
-            { label: '<p>Create Post</p>', escape: false, }
+            { label: '<p>Update Post</p>', escape: false, }
 
         ];
 
@@ -150,7 +178,8 @@ export class EventCreateComponent implements OnInit, AfterContentChecked {
 
     insert() {
         const activity: ActivityReq = {
-            activityTypeId: this.activityForm.value.activityTypeId!,
+            id:this.activity?.id,
+            activityTypeId: this.activity?.activityTypeId,
             categoryId: this.activityForm.value.categoryId!,
             title: this.activityForm.value.title!,
             description: this.activityForm.value.description!,
@@ -158,14 +187,15 @@ export class EventCreateComponent implements OnInit, AfterContentChecked {
             locationAddress: this.activityForm.value.locationAddress!,
             timeStart: this.activityForm.value.timeStart!,
             timeEnd: this.activityForm.value.timeEnd!,
-            price: this.activityForm.value.price!,
+            price: Number(this.activityForm.value.price!),
             file: {
                 fileContent: this.activityForm.value.file?.fileContent!,
                 fileExtension: this.activityForm.value.file?.fileExtension!
-            }
+            },
+            ver:this.activity?.ver
         }
         activity.schedule = [...this.schedules.value]
-        this.activityService.insert(activity).subscribe(result=>{
+        this.activityService.update(activity).subscribe(result=>{
 
         })
     }

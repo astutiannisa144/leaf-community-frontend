@@ -6,15 +6,17 @@ export interface ActivityRes {
 	  activityTypeId:string;
 	  activityTypeCode:string;
 	  activityTypeName:string;
+	  categoryId:string;
 	  categoryCode:string;
 	  categoryName:string;
 	  fullName:string;
+	  memberId:string
 	  title:string;
 	  description:string;
 	  provider:string;
 	  locationAddress:string;
-	  timeStart:Date;
-	  timeEnd :Date;
+	  timeStart:string;
+	  timeEnd :string;
 	  createdAt : Date ;
 	  price:number;
 	  fileId:string;
