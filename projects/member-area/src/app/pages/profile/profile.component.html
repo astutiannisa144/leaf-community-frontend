@@ -1,0 +1,140 @@
+<!-- <pre>
+  {{ postList | json }}
+</pre> -->
+<div class="flex justify-content-center mt-3 py-0">
+  <div class="col-3">
+    <div class="align-items-center flex">
+      <button pButton pRipple type="button" routerLink="/posts/profile" icon="pi pi-arrow-left"
+        class="p-button-rounded p-button-primary"></button>
+
+      <ul class="list-none p-0 m-0 flex align-items-center font-medium ml-3">
+        <li>
+          <a class="text-500 no-underline line-height-3 cursor-pointer">Post Profile</a>
+        </li>
+        <li class="px-2">
+          <i class="pi pi-angle-right text-500 line-height-3"></i>
+        </li>
+        <li>
+          <span class="text-900 line-height-3">Edit Profile</span>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+  <div class="col-8"></div>
+</div>
+
+<div class="flex justify-content-center py-0">
+  <div class="col-11 py-0">
+    <div class="surface-card mt-2 p-5 shadow-2 border-round">
+      <div class="flex">
+        <div class="col-6">
+          <div class="text-xl ml-3 font-medium text-900 mb-3 align-items-center flex">
+            <i class="pi pi-user-edit mr-2" style="font-size: 1.4rem; color: #22C55E;"></i>
+            <span>Profile Edit</span>
+          </div>
+          <div class="justify-content-center flex">
+            <img class="border-circle mr-2" src="assets/img/unnamed.jpg" style="width: 100px;" alt="profile">
+          </div>
+          <form class="flex justify-content-center">
+            <div class="col-10">
+              <label for="fullname" class="block text-900 font-medium mb-2">Full Name</label>
+              <input id="fullname" type="text" placeholder="Fullname" pInputText class="w-full mb-3">
+
+              <label for="address" class="block text-900 font-medium mb-2">Address</label>
+              <input id="address" type="text" placeholder="Address" pInputText class="w-full mb-3">
+
+              <label for="email" class="block text-900 font-medium mb-2">Email</label>
+              <input id="email" type="text" placeholder="Email" pInputText class="w-full mb-3">
+
+              <label for="password1" class="block text-900 font-medium mb-2">Password</label>
+              <p-password styleClass="w-full" placeholder="Password" [toggleMask]="true"></p-password>
+            </div>
+          </form>
+        </div>
+
+        <p-divider layout="vertical"></p-divider>
+
+        <div class="col-6">
+          <div class="text-xl ml-2 font-medium text-900 mb-2 align-items-center flex">
+            <i class="pi pi-briefcase mr-2" style="font-size: 1.4rem; color: #22C55E;"></i>
+            <span>Jobs & Position</span>
+          </div>
+          <div class="col-11">
+
+            <label for="email1" class="block text-900 font-medium mb-2">Company Name</label>
+            <input id="email1s" type="text" placeholder="Email address" pInputText class="w-full mb-3">
+
+            <div class="flex p-0">
+              <div class="col-6 pl-0">
+                <label for="industry" class="block text-900 font-medium mb-2">Industry</label>
+                <p-dropdown id="industry" styleClass="w-full mb-3" id="position" placeholder="Industry" optionValue="id"
+                  optionLabel="categoryName">
+                </p-dropdown>
+              </div>
+
+              <div class="col-6 pr-0">
+                <label for="position" class="block text-900 font-medium mb-2">Position</label>
+                <p-dropdown id="position" styleClass="w-full mb-3" placeholder="Position" optionValue="id"
+                  optionLabel="categoryName">
+                </p-dropdown>
+              </div>
+            </div>
+
+            <div class="text-xl ml-0 py-0 font-medium text-900 mb-4 align-items-center flex">
+              <i class="pi pi-globe mr-2" style="font-size: 1.4rem; color: #22C55E;"></i>
+              <span>Social Media</span>
+            </div>
+
+            <div class="flex p-0">
+              <div class="col-6 pl-0">
+                <div class="flex align-items-center mb-2">
+                  <i class="pi pi-twitter mr-2" style="font-size: 1.4rem; color: #55acee;"></i>
+                  <label for="twitter" class="block text-900 font-medium">Twitter</label>
+                </div>
+                <input id="twitter" type="text" placeholder="Twitter" pInputText class="w-full mb-3">
+              </div>
+
+              <div class="col-6 pr-0">
+                <div class="flex align-items-center mb-2">
+                  <i class="pi pi-instagram mr-2" style="font-size: 1.4rem; color: #e1306c;"></i>
+                  <label for="instagram" class="block text-900 font-medium">Instagram</label>
+                </div>
+                <input id="instagram" type="text" placeholder="Instagram" pInputText class="w-full mb-3">
+              </div>
+            </div>
+
+            <div class="flex p-0">
+              <div class="col-6 pl-0">
+                <div class="flex align-items-center mb-2">
+                  <i class="pi pi-facebook mr-2" style="font-size: 1.4rem; color: #4267B3;"></i>
+                  <label for="twitter" class="block text-900 font-medium">Facebook</label>
+                </div>
+                <input id="twitter" type="text" placeholder="Facebook" pInputText class="w-full mb-3">
+              </div>
+
+              <div class="col-6 pr-0">
+                <div class="flex align-items-center mb-2">
+                  <i class="pi pi-linkedin mr-2" style="font-size: 1.4rem; color: #0077B5;"></i>
+                  <label for="instagram" class="block text-900 font-medium">Linkedin</label>
+                </div>
+                <input id="instagram" type="text" placeholder="Linkedin" pInputText class="w-full mb-3">
+              </div>
+            </div>
+
+            <div class="flex p-0 justify-content-end">
+              <button pButton pRipple type="button" label="Cancel" class="p-button-secondary p-button-text"
+                routerLink="/posts/profile"></button>
+              <button pButton pRipple type="button" icon="pi pi-save" label="Save" class="p-button-info"></button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+
+    </div>
+  </div>
+
+</div>
