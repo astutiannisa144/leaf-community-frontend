@@ -27,6 +27,7 @@ import { TagModule } from 'primeng/tag';
 import {DividerModule} from 'primeng/divider';
 import {ConfirmPopupModule} from 'primeng/confirmpopup';
 import {MenuModule} from 'primeng/menu'
+import {ScrollTopModule} from 'primeng/scrolltop'
 
 ToastModule
 @NgModule({
@@ -59,7 +60,8 @@ ToastModule
         ToastModule,
         TagModule,
         DividerModule,
-        MenuModule
+        MenuModule,
+        ScrollTopModule
 
     ],
     exports: [
@@ -90,7 +92,8 @@ ToastModule
         ToolbarModule,
         TagModule,
         DividerModule,
-        MenuModule
+        MenuModule,
+        ScrollTopModule
     ]
 })
 export class ShareModule { }

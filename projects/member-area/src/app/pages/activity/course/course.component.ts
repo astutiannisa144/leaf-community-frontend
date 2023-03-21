@@ -11,7 +11,7 @@ import { ACTIVITY_TYPE } from "projects/base-area/src/app/constant/activity-type
 import { Subscription } from "rxjs";
 
 @Component({
-    selector: 'app-activity-event',
+    selector: 'app-activity-course',
     templateUrl: './course.component.html',
     template: `
     <div (mouseenter)="onHover()" (mouseleave)="onLeave()" class="hoverable-element">Hover me!</div>
@@ -74,13 +74,32 @@ import { Subscription } from "rxjs";
             top: 0;
             width: 100%;
             z-index: 1;
-        }
+        },
+    
+        :host ::ng-deep .custom-scrolltop{
+    width: 2rem;
+    height: 2rem;
+    border-radius: 4px;
+    background-color: var(--primary-color);
+
+    &:hover {
+        background-color: var(--primary-color);
+    }
+
+    .p-scrolltop-icon {
+        font-size: 1rem;
+        color: var(--primary-color-text);
+    }
+}
+
+        
    `],
 
    
 
 
 },
+
 )
 export class CourseComponent implements OnInit{
     private course$? : Subscription
@@ -106,7 +125,7 @@ export class CourseComponent implements OnInit{
         this.activatedRoute.params.subscribe(result => {
             this.activityTypeId=result['id']
         })
-        this.course$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.CO).subscribe(result => {
+        this.course$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.EV).subscribe(result => {
             this.courseList = result
 
         })
@@ -118,11 +137,11 @@ export class CourseComponent implements OnInit{
             console.log(result);
             if(!temp.length){
                 
-                this.course$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.CO).subscribe(result => {
+                this.course$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.EV).subscribe(result => {
                     this.courseList = result
                 })
             }else{
-                this.course$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.CO,temp).subscribe(result => {
+                this.course$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.EV,temp).subscribe(result => {
                     this.courseList = result
                 })
             }
@@ -134,7 +153,18 @@ export class CourseComponent implements OnInit{
    onCategory(id:string){
     
    }
-
+   onScroll(): void {
+    this.course$ = this.activityService.getActivityByType(ACTIVITY_LIMIT,  this.page++).subscribe(result => {
+      if (result) {
+        
+        if (this.courseList.length) {
+          this.courseList = [...this.courseList, ...result]
+        } else {
+          this.courseList = result
+        }
+      }
+    })
+  }
     // category: string[] = [];
     sorting: string[] = [];
 

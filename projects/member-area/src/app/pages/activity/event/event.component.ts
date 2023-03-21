@@ -74,13 +74,32 @@ import { Subscription } from "rxjs";
             top: 0;
             width: 100%;
             z-index: 1;
-        }
+        },
+    
+        :host ::ng-deep .custom-scrolltop{
+    width: 2rem;
+    height: 2rem;
+    border-radius: 4px;
+    background-color: var(--primary-color);
+
+    &:hover {
+        background-color: var(--primary-color);
+    }
+
+    .p-scrolltop-icon {
+        font-size: 1rem;
+        color: var(--primary-color-text);
+    }
+}
+
+        
    `],
 
    
 
 
 },
+
 )
 export class EventComponent implements OnInit{
     private event$? : Subscription
@@ -134,7 +153,18 @@ export class EventComponent implements OnInit{
    onCategory(id:string){
     
    }
-
+   onScroll(): void {
+    this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT,  this.page++).subscribe(result => {
+      if (result) {
+        
+        if (this.eventList.length) {
+          this.eventList = [...this.eventList, ...result]
+        } else {
+          this.eventList = result
+        }
+      }
+    })
+  }
     // category: string[] = [];
     sorting: string[] = [];
 
