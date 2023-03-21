@@ -47,7 +47,7 @@ import { Subscription } from "rxjs";
     transform: scale3d(1.006, 1.006, 1);
 
     &::after {
-      opacity: 1;
+      opacity: 1;     
     }
   }
 }
