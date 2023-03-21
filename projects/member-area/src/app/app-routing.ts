@@ -49,6 +49,13 @@ export const memberRoutes: Routes = [
 
   },
 
+  {
+    path: 'profile',
+    loadChildren: () => import("./pages/profile/profile.module").then(c => c.ProfileModule),
+    component: NavbarComponent
+
+  },
+
 
 
 

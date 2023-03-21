@@ -37,10 +37,16 @@ export class NavbarComponent {
 
       },
       {
-        label: 'Edit Profile',
-        icon: 'pi pi-fw pi-pencil',
+        label: 'My Profile',
+        icon: 'pi pi-fw pi-user',
+        routerLink: '/posts/profile'
 
       },
+      // {
+      //   label: 'Edit Profile',
+      //   icon: 'pi pi-fw pi-pencil',
+
+      // },
       {
         label: 'Log out',
         icon: 'pi pi-fw pi-sign-out',

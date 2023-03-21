@@ -3,22 +3,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NgModule } from '@angular/core';
-import { PostHomeComponent } from './post-home/post-home.component';
-import { PostRouting } from './post.routing';
+import {ProfileRouting } from './profile.routing';
 import { ShareModule } from '../../../../../base-area/src/app/common/share.module';
-import { PostCreateComponent } from './post-create/post-create.component';
 import { TieredMenuCustomComponent } from "../../../../../base-area/src/app/components/tiered-menu/tiered-menu.component";
-import { ProfilePostComponent } from './post-profile/profile-post.component';
+import { ProfileComponent } from './profile.component';
 
 
 @NgModule({
     declarations: [
-        PostHomeComponent,
-        PostCreateComponent,
-        ProfilePostComponent
+        ProfileComponent
     ],
     imports: [
-        PostRouting,
+        ProfileRouting,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
@@ -27,4 +23,4 @@ import { ProfilePostComponent } from './post-profile/profile-post.component';
         TieredMenuCustomComponent
     ]
 })
-export class PostModule { }
+export class ProfileModule { }
