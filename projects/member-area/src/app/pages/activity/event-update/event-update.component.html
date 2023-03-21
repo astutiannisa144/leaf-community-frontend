@@ -33,7 +33,7 @@
           <div>
             <label for="event-title" class="block text-900 font-medium mb-2">Event Title</label>
             <input id="event-title" formControlName="title" type="text" placeholder="Event title" pInputText
-              class="w-full mb-3 rounded" value="{{activity?.title}}">
+              class="w-full mb-3 rounded">
   
               <label for="event-title" class="block text-900 font-medium mb-2">Category</label>
               <p-dropdown [options]="categoryList" formControlName="categoryId" [autoDisplayFirst]="false"  optionValue="id" optionLabel="categoryName">
@@ -41,19 +41,19 @@
               
             <label for="description" class="block text-900 font-medium mb-2 mt-3">Event Desctiption</label>
             <textarea id="description" rows="5" placeholder="Event description" cols="30" pInputTextarea
-              [autoResize]="true"  value="{{activity?.description}}" formControlName="description" class="w-full mb-3 rounded"></textarea>
+              [autoResize]="true"  formControlName="description" class="w-full mb-3 rounded"></textarea>
   
             <div class="flex p-0">
               <div class="col pl-0">
                 <label for="provider" class="block text-900 font-medium mb-2">Provider Name</label>
                 <input id="provider" formControlName="provider" type="text" placeholder="Event provider" pInputText
-                  class="w-full mb-3 rounded"  value="{{activity?.provider}}" >
+                  class="w-full mb-3 rounded"  >
               </div>
   
               <div class="col pr-0">
                 <label for="provider-address" class="block text-900 font-medium mb-2">Location</label>
                 <input id="provider-address" formControlName="locationAddress" type="text" placeholder="Event location"
-                  pInputText class="w-full mb-3 rounded" value="{{activity?.locationAddress}}">
+                  pInputText class="w-full mb-3 rounded" >
               </div>
             </div>
   
@@ -112,7 +112,7 @@
                   <div class="p-inputgroup">
                     <div class="block"></div>
                     <span class="p-inputgroup-addon">$</span>
-                    <input formControlName="price" id="eventPrice" type="number" value="{{activity?.price}}" pInputText placeholder="Price">
+                    <input formControlName="price" id="eventPrice" type="number"  pInputText placeholder="Price">
                     <span class="p-inputgroup-addon">.00</span>
                   </div>
                 </div>
@@ -135,6 +135,7 @@
             </div>
   
             <div class="flex justify-content-center mt-5 ">
+             <button pButton type="button" routerLink="/activities/event-update/{{activity?.id}}" pRipple label="Cancel" icon="pi pi-calendar-plus" class="w-full"></button>
               <button pButton type="button" (click)="insert()" pRipple label="Update Event" icon="pi pi-calendar-plus" class="w-full"></button>
             </div>
           </div>

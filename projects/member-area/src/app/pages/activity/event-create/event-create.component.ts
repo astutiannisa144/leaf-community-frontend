@@ -3,7 +3,7 @@ import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { MenuItem } from 'primeng/api';
-import { FormArray, FormBuilder, FormControl, FormGroup } from "@angular/forms";
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { ActivityService } from "@service/activity.service";
 import { ActivityReq } from "@dto/activity/activity-req";
 import { CategoryService } from "@service/category.service";
@@ -23,18 +23,18 @@ export class EventCreateComponent implements OnInit, AfterContentChecked {
     private category$?: Subscription
     categoryList: CategoryRes[] = []
     activityForm = this.fb.group({
-        activityTypeId: [''],
-        categoryId: [''],
+        activityTypeId: ['',Validators.required],
+        categoryId: ['',Validators.required],
         memberId: [''],
-        title: [''],
-        description: [''],
-        provider: [''],
-        locationAddress: [''],
+        title: ['',Validators.required],
+        description: ['',Validators.required],
+        provider: ['',Validators.required],
+        locationAddress: ['',Validators.required],
         timeStart: [''],
         timeEnd: [''],
         timeStartUtc: [''],
         timeEndUtc: [''],
-        price: [],
+        price: [Validators.required],
         file: this.fb.group({
             fileContent: [''],
             fileExtension: ['']
