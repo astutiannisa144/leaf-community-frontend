@@ -34,9 +34,9 @@ export class EventUpdateComponent implements OnInit, AfterContentChecked {
         locationAddress: [''],
         timeStart: [''],
         timeEnd: [''],
-        timeStartUtc: [''],
-        timeEndUtc: [''],
-        price: [],
+        timeStartUtc: new Date(''),
+        timeEndUtc:new Date(''),
+        price: [''],
         file: this.fb.group({
             fileContent: [''],
             fileExtension: ['']
@@ -62,18 +62,29 @@ export class EventUpdateComponent implements OnInit, AfterContentChecked {
         this.activatedRoute.params.subscribe(result => {
             this.activity$ = this.activityService.getById(result['id']).subscribe(result => {
                 this.activity = result
+                this.activityForm.patchValue({
+                    title:this.activity.title,
+                    description:this.activity.description,
+                    categoryId:this.activity.categoryId,
+                    provider:this.activity.provider,
+                    price: String(this.activity.price),
+                    locationAddress:this.activity.locationAddress,
+                     timeStart:'0000-10-10T'+this.activity.timeStart+'.000Z',
+                     timeEnd: '0000-10-10T'+this.activity.timeEnd+'.000Z',
+                    timeStartUtc: new Date('2020-10-10T'+this.activity.timeStart+'.000Z'),
+                    timeEndUtc:new Date( '2020-10-10T'+this.activity.timeEnd+'.000Z'),
+                    
+                })
                 for(let i=0;i<this.activity.schedule.length;i++){
                     console.log(this.activity.schedule[i].scheduleDate);
-                    this.activityForm.patchValue({
-                        categoryId:this.activity.categoryId,
-                         timeStart:this.activity.timeStart,
-                         timeEnd: this.activity.timeEnd,
-                        timeStartUtc: this.activity.timeStart,
-                        timeEndUtc: this.activity.timeEnd,
-                    })
+                    
+                    
+                
                     this.schedules.push(this.fb.group({
+                        id:this.activity.schedule[i].id,
                         scheduleDateUtc: new Date(this.activity.schedule[i].scheduleDate),
-                        scheduleDate: new Date(this.activity.schedule[i].scheduleDate)
+                        scheduleDate: new Date(this.activity.schedule[i].scheduleDate),
+                        ver:this.activity.schedule[i].ver
                     }))
 
                 }
@@ -167,6 +178,7 @@ export class EventUpdateComponent implements OnInit, AfterContentChecked {
 
     insert() {
         const activity: ActivityReq = {
+            id:this.activity?.id,
             activityTypeId: this.activity?.activityTypeId,
             categoryId: this.activityForm.value.categoryId!,
             title: this.activityForm.value.title!,
@@ -175,14 +187,15 @@ export class EventUpdateComponent implements OnInit, AfterContentChecked {
             locationAddress: this.activityForm.value.locationAddress!,
             timeStart: this.activityForm.value.timeStart!,
             timeEnd: this.activityForm.value.timeEnd!,
-            price: this.activityForm.value.price!,
+            price: Number(this.activityForm.value.price!),
             file: {
                 fileContent: this.activityForm.value.file?.fileContent!,
                 fileExtension: this.activityForm.value.file?.fileExtension!
-            }
+            },
+            ver:this.activity?.ver
         }
         activity.schedule = [...this.schedules.value]
-        this.activityService.insert(activity).subscribe(result=>{
+        this.activityService.update(activity).subscribe(result=>{
 
         })
     }

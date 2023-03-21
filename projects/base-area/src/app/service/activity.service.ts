@@ -38,6 +38,10 @@ export class ActivityService {
         return this.http.post<Response>(`${BASE_URL}/activities`,data)
 
     }
+    update(data:ActivityReq):Observable<Response>{
+        return this.http.patch<Response>(`${BASE_URL}/activities`,data)
+
+    }
     getActivityType(): Observable<ActivityTypeRes[]>{
         return this.http.get<ActivityTypeRes[]>(`${BASE_URL}/activities/type`);
     }
