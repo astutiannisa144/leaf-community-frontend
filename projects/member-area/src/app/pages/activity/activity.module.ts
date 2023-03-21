@@ -15,7 +15,8 @@ import { CourseCreateComponent } from './course-create/course-create.component';
 import { CoursePaymentComponent } from './course/course-payment.component';
 import { TieredMenuCustomComponent } from 'projects/base-area/src/app/components/tiered-menu/tiered-menu.component';
 import { EventUpdateComponent } from './event-update/event-update.component';
-
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { CourseUpdateComponent } from './course-update/course-update.component';
 @NgModule({
     declarations: [
         EventComponent,
@@ -26,7 +27,8 @@ import { EventUpdateComponent } from './event-update/event-update.component';
         EventCreateComponent,
         CourseCreateComponent,
         CoursePaymentComponent,
-        EventUpdateComponent
+        EventUpdateComponent,
+        CourseUpdateComponent
     ],
     imports: [
         ActivityRouting,
@@ -35,7 +37,9 @@ import { EventUpdateComponent } from './event-update/event-update.component';
         ReactiveFormsModule,
         HttpClientModule,
         ShareModule,
-        TieredMenuCustomComponent
+        TieredMenuCustomComponent,
+        InfiniteScrollModule,
+        
     ]
 })
 export class ActivityModule { }
