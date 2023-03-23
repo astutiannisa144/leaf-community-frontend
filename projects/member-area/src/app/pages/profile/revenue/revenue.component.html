@@ -1,0 +1,397 @@
+<!-- <pre>
+  {{ postList | json }}
+</pre> -->
+
+<div class="flex justify-content-center">
+  <div class="col-3  pl-6 mt-2">
+
+    <div class="text-xl font-medium text-900 mb-3 align-items-center flex">
+      <i class="pi pi-user mr-2" style="font-size: 1.4rem; color: #22C55E;"></i>
+      <span>Your Profile</span>
+    </div>
+    <div class="surface-card p-3 shadow-2 border-round m-0">
+      <div class="flex justify-content-center mt-2">
+        <img alt="Logo Class" src="assets/img/unnamed.jpg" class="w-5" style="border-radius: 2%;">
+      </div>
+      <div class="col flex py-1 mt-2 justify-content-center">
+        <p class="text-base" style="font-weight: 500;">Yudha Hendrianto</p>
+      </div>
+      <div class="col flex py-0 justify-content-center">
+        <p class="text-sm" style="font-weight: 400;">Web Developer</p>
+      </div>
+      <div class="col py-3 justify-content-center flex">
+        <div class="col-8 justify-content-between flex">
+          <i class="pi pi-linkedin mr-2" style="font-size: 22px; font-weight: 500; color: #a4a4a4;"></i>
+          <i class="pi pi-facebook mr-2" style="font-size: 22px; font-weight: 500; color: #a4a4a4;"></i>
+          <i class="pi pi-twitter mr-2" style="font-size: 22px; font-weight: 500; color: #a4a4a4;"></i>
+          <i class="pi pi-instagram mr-2" style="font-size: 22px; font-weight: 500; color: #a4a4a4;"></i>
+        </div>
+      </div>
+
+      <div class="justify-content-center flex py-0">
+        <div class="col-12 align-items-center">
+          <p class="align-items-center flex" style="font-size: 0.875rem; font-weight: 500;"> <i class="pi pi-user mr-2"
+              style="font-size: 14px; font-weight: 500; color: #2b2b2b;"></i>Profile Details</p>
+
+          <p-divider></p-divider>
+
+          <div class="my-3 align-items-center">
+            <p class="align-items-center flex mb-1 text-sm" style="font-weight: 400; color: #878787;"> <i
+                class="pi pi-envelope mr-2" style="font-size: 13px; font-weight: 500; color: #878787;"></i>Email</p>
+            <p style="font-size: 0.875rem; font-weight: 400;">aduygans29@gmail.com</p>
+          </div>
+
+          <div class="my-3 align-items-center">
+            <p class="mb-1 text-sm" style="font-weight: 400; color: #878787;"><i class="pi pi-phone mr-2"
+                style="font-size: 13px; font-weight: 500; color: #878787;"></i>Phone Number</p>
+            <p style="font-size: 0.875rem; font-weight: 400;">08123456777</p>
+          </div>
+
+          <div class="my-3 align-items-center">
+            <p class="mb-1 text-sm" style="font-weight: 400; color: #878787;"><i class="pi pi-map-marker mr-2"
+                style="font-size: 13px; font-weight: 500; color: #878787;"></i>Place Address</p>
+            <p style="font-size: 0.875rem; font-weight: 400;">Planet of Bekasi</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-7 ml-4 mt-2">
+    <div class="text-xl font-medium text-900 mb-3 align-items-center flex">
+      <i class="pi pi-wallet
+      mr-2" style="font-size: 1.4rem; color: #22C55E;"></i>
+      <span>Revenue History</span>
+    </div>
+
+    <div class="surface-card p-3 shadow-2 border-round m-0">
+      <p-tabView styleClass="tabview-custom" class="p-0">
+        <p-tabPanel>
+          <ng-template pTemplate="header">
+            <i class="pi pi-calendar mr-2"></i>
+            <span>Event</span>
+          </ng-template>
+          <p-toolbar styleClass="mb-4 gap-2 block">
+            <div class="flex">
+              <div class="col-6">
+                <label class="mr-2" for="icon" style="font-size: 1rem; font-weight: 600;">Date start</label>
+                <p-calendar [showIcon]="true" inputId="icon"></p-calendar>
+              </div>
+              <div class="col-6 justify-content-end align-items-center flex">
+                <label class="mr-2" for="icon" style="font-size: 1rem; font-weight: 600;">Report</label>
+                <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help w-8"></button>
+              </div>
+            </div>
+            <div class="flex">
+              <div class="col">
+                <label class="mr-3" for="icon" style="font-size: 1rem; font-weight: 600;">Date end</label>
+                <p-calendar [showIcon]="true" inputId="icon"></p-calendar>
+             </div>
+            </div>
+
+            
+
+          </p-toolbar>
+
+          <p-table [tableStyle]="{'min-width': '60rem'}" [lazy]="true">
+            <ng-template pTemplate="caption">
+              <div class="flex align-items-center justify-content-between">
+                Revenue History
+                <p-button icon="pi pi-refresh"></p-button>
+              </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+              <tr>
+                <th>No.</th>
+                <th>Title</th>
+                <th>Content</th>
+                <th>Image</th>
+                <th>Action</th>
+                <th>Status</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product>
+              <tr>
+                <td>1</td>
+                <td><img src="https://buildwithangga.com/storage/assets/thumbnails/thumbnail_vue_starter.png"
+                    width="100" class="shadow-4" /></td>
+                <td>tes</td>
+                <td>tes</td>
+                <td>
+                  <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"></button>
+                  <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"></button>
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="summary">
+              <div class="flex align-items-center justify-content-between">
+              </div>
+            </ng-template>
+          </p-table>
+          <!-- <div class="flex p-0 justify-content-center">
+            <div class="col-12 py-0">
+              <p-toolbar styleClass="mb-4 gap-2 border-round-lg p-1">
+                <div class="col-12 flex">
+                  <img class="border-round mr-2"
+                    src="https://buildwithangga.com/storage/assets/thumbnails/thumbnail_vue_starter.png"
+                    style="width: 50px; height: 50 px;" alt="profile">
+                </div>
+              </p-toolbar>
+            </div>
+          </div> -->
+        </p-tabPanel>
+        <p-tabPanel header="Header II">
+          <ng-template pTemplate="header">
+            <i class="pi pi-briefcase mr-2"></i>
+            <span>Courses</span>
+          </ng-template>
+          <div class="surface-card mt-4 p-5 shadow-2 border-round" *ngFor="let pl of postList">
+            <div class="flex align-items-center">
+              <div class="col flex p-0">
+                <img class="border-circle mr-2" src="http://localhost:1214/files/{{ pl.fileId }}"
+                  style="width: 50px; height: 50 px;" alt="profile">
+                <div>
+                  <p style="font-weight: 450; font-size: 20px;">{{ pl.fullName }}</p>
+                  <p style="font-size: 16px;">{{ pl.createdAt }}</p>
+                </div>
+
+                <!-- <div class="col-12" *ngIf="editBtn">
+                  <input class="w-full" type="text" pInputText placeholder="Comment">
+                </div> -->
+              </div>
+
+              <div class="col flex justify-content-end p-0">
+                <div class="align-items-center flex">
+                  <ng-container>
+                    <p-tag [rounded]="true" severity="warning" class="mr-2">
+                      <p class="my-0 mx-1" style="font-size: 12px; font-weight: 500;">Premium</p>
+                    </p-tag>
+
+                    <p-tag [rounded]="true" severity="info">
+                      <p class="my-0 mx-1" style="font-size: 12px; font-weight: 500;">Information Technology</p>
+                    </p-tag>
+
+                    <div class="mt-1 ml-2">
+                      <app-tiered-menu [model]="postEdit" topSpace="8px" rightSpace="8px">
+                        <ng-template #content>
+                          <i class="pi pi-ellipsis-v cursor-pointer p-0"></i>
+                        </ng-template>
+                      </app-tiered-menu>
+                    </div>
+
+                    <!-- <i pRipple class="pi pi-ellipsis-v cursor-pointer" (click)="menu.toggle($event)"
+                      style="font-size: 19px;"></i>
+                    <p-tieredMenu #menu [model]="postEdit" [popup]="true"></p-tieredMenu> -->
+                  </ng-container>
+                </div>
+
+                <!-- <button type="button" pButton pRipple icon="pi pi-send" (click)="showEdit()"></button> -->
+
+
+
+              </div>
+
+            </div>
+            <div class="mt-3">
+              <div class="text-xl font-medium text-900 my-2">
+                <p style="font-weight: 700; font-size: 20px;">{{ pl.title }}</p>
+              </div>
+              <div class="font-small mb-3 ">
+                <p class="text-justify"
+                  style="text-align: justify; font-size: 17px; font-weight: 400; line-height: 25px;">{{
+                  pl.content }}</p>
+              </div>
+              <!-- <div *ngIf="pl.file != null" class="flex gap-3">
+                <div *ngFor="let f of pl.file" class="w-6">
+                  <p-image src="http://localhost:1214/files/{{ f }}"
+                    alt="Image" imageClass="border-round-lg" width="100%">
+                  </p-image>
+                </div>
+              </div> -->
+              <div *ngIf="pl.polling?.userPollingId != null">
+                <p-progressBar *ngFor="let p of pl.polling?.pollingDetail" [value]="p.percentage" styleClass="mt-3">
+                </p-progressBar>
+              </div>
+              <div class="flex">
+                <div class="col-2">
+                  <p (mouseenter)="onHover()" (mouseleave)="onLeave()" class="hoverable-element" class="likes"
+                    style="font-size: 17px; font-weight: 400;"> <i class="pi pi-heart-fill mr-2 cursor-pointer"
+                      style="font-size: 20px; font-weight: 600; color: #C94C0A;"></i>
+                    <i class=" pi pi-heart mr-2" style="font-size: 20px; font-weight: 400; color: #979797;"></i>
+                    {{ pl.likeSum }} Likes</p>
+                </div>
+                <div class="col-3">
+                  <p style="font-size: 17px; font-weight: 400;"> <i class="pi pi-comments mr-2 cursor-pointer"
+                      style="font-size: 20px; font-weight: 400; color: #979797;"></i>{{ pl.commentSum }} Comments</p>
+                </div>
+                <div class="col-7 justify-content-end">
+                  <p (mouseenter)="onHover()" (mouseleave)="onLeave()" class="bookmark-fill hoverable-element"
+                    class="justify-content-end flex" style="font-size: 17px; font-weight: 400;"> <i
+                      class="pi pi-bookmark-fill mr-2 cursor-pointer"
+                      style="font-size: 20px; font-weight: 400; color: #0288D1;"></i></p>
+
+                  <p (mouseenter)="onHover()" (mouseleave)="onLeave()" class="bookmark hoverable-element"
+                    class="justify-content-end flex" style="font-size: 17px; font-weight: 400;"> <i
+                      class="pi pi-bookmark mr-2 cursor-pointer"
+                      style="font-size: 20px; font-weight: 400; color: #979797;"></i></p>
+                </div>
+
+              </div>
+              <div class="py-3">
+                <hr size="2">
+              </div>
+
+              <div class="flex align-items-center">
+                <img class="border-circle mr-2" src="http://localhost:1214/files/{{ pl.fileId }}"
+                  style="width: 50px; height: 50 px;" alt="profile">
+                <div class="w-full">
+                  <div class="col-12 p-0">
+                    <div class="p-inputgroup">
+                      <input class="w-full" type="text" pInputText placeholder="Comment">
+                      <button type="button" pButton pRipple icon="pi pi-send" styleClass="p-button-warn"
+                        class="p-button-info"></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex align-items-center mt-4">
+                <img class="border-circle mr-2" src="http://localhost:1214/files/{{ pl.fileId }}"
+                  style="width: 50px; height: 50 px;" alt="profile">
+                <div class="w-full">
+                  <div class="surface-card pl-2 pr-1 py-2 border-1 border-round"
+                    style="border-radius: 6px; color:rgb(227, 227, 227);">
+                    <div class="flex p-0">
+                      <div class="col-11 flex p-0">
+                        <p
+                          style="text-align: justify; font-size: 15px; font-weight: 400; line-height: 25px; color: black;">
+                          Also the reason why PHP is oftenly use because of many companies are using website based
+                          application
+                          as
+                          their work desk helper.
+                        </p>
+                      </div>
+
+                      <div class="col-1 flex justify-content-end p-0">
+                        <app-tiered-menu [model]="postEdit" topSpace="8px" rightSpace="8px">
+                          <ng-template #content>
+                            <i class="pi pi-ellipsis-v cursor-pointer p-0" style="color: black;"></i>
+                          </ng-template>
+                        </app-tiered-menu>
+
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+            </div>
+          </div>
+        </p-tabPanel>
+      </p-tabView>
+    </div>
+  </div>
+
+</div>
+
+<!-- <div class="grid justify-content-center mt-3">
+  <div class="col-8">
+    <div class="text-xl font-medium text-900 mb-3 align-items-center flex">
+      <i class="pi pi-home mr-2" style="font-size: 1.4rem; color: #22C55E;"></i>
+      <span>Posts Home</span>
+    </div>
+    <div class="grid justify-content-start block col-12">
+      <button pButton pRipple type="button" class="p-button-primary w-full h-3rem">
+        <p class="w-full" style="font-weight: 700;" routerLink="/posts/create">Create New Post</p>
+      </button>
+      <div class="surface-card mt-4 p-4 shadow-2 border-round" *ngFor="let pl of postList">
+        <div class="col-12 flex my-0">
+          <p-avatar image="../../../assets/img/unnamed.jpg" styleClass="mr-3" size="large"
+            [style]="{'background-color':'#2196F3', 'color': '#ffffff'}" shape="circle">
+          </p-avatar>
+          <p class="my-3" style="font-weight: 500; font-size: 20px; display: flex;">Yudha H</p>
+        </div>
+        <div class="grid">
+        </div>
+        <div class="col-12">
+          <div class="text-xl font-medium text-900">
+            <p class="my-0">What programming languange most people are using? </p>
+          </div>
+          <div class="font-small mb-3 ">
+            <p class="text-justify mt-2"
+              style="text-align: justify; font-size: 17px; font-weight: 400; line-height: 25px;">Im new in
+              programming, so i wonder what programming languange are the most promising in the Information
+              Technology Industry Company job vacancy. What programming languange should i start to use?</p>
+          </div>
+          <div class="justify-content-between flex mt-2">
+            <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" alt="Image" width="92%">
+            </p-image>
+            <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" alt="Image" width="92%">
+            </p-image>
+            <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" alt="Image" width="92%">
+            </p-image>
+          </div>
+          <div class="font-small mt-2 mb-3 ">
+            <p>Posted on 09:00 22/02/2023</p>
+          </div>
+          <div class="grid">
+            <div class="col-2">
+              <p style="font-size: 18px; font-weight: 400;"> <i class="pi pi-heart-fill mr-3"
+                  style="font-size: 20px; font-weight: 600; color: #C94C0A;"></i>21 Likes</p>
+            </div>
+            <div class="col-3">
+              <p style="font-size: 18px; font-weight: 400;"> <i class="pi pi-comments mr-3"
+                  style="font-size: 20px; font-weight: 600; color: #FCAC26;"></i>12 Comments</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-2">
+    <div class="text-xl font-medium text-900 mb-3 align-items-center flex">
+      <i class="pi pi-calendar mr-2" style="font-size: 1.4rem; color: #22C55E;"></i>
+      <span>Training & Events</span>
+    </div>
+      <div class="surface-card p-3 shadow-2 border-round m-0">
+        <img alt="Logo Class" src="https://buildwithangga.com/storage/assets/thumbnails/thumbnail_vue_starter.png"
+          class="w-full">
+        <div class="grid my-0">
+          <div class="col flex my-0">
+            <i class="pi pi-building mb-2 mr-1" style="font-size: 20px; color: #a4a4a4;"></i>
+            <p style="font-size: 14px; font-weight: 400;">Lawencon</p>
+          </div>
+          <div class="col justify-content-end flex my-0">
+            <i class="pi pi-calendar mb-2 mr-1" style="font-size: 20px; color: #a4a4a4;"></i>
+            <p style="font-size: 14px; font-weight: 400;">Events</p>
+          </div>
+        </div>
+        <p class="my-1" style="font-weight: 700; font-size: 20px;">Vue Js Course</p>
+        <div class="grid">
+          <div class="col align-items-center">
+            <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"> <i
+                class="pi pi-map-marker mr-2" style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>Pakuwon
+              Tower</p>
+            <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"> <i
+                class="pi pi-calendar mr-2" style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>21
+              Januari
+              2023</p>
+            <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"> <i
+                class="pi pi-clock mr-2" style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>19:00
+              - 21:00
+            </p>
+            <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"> <i
+                class="pi pi-money-bill mr-2" style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>Rp 220.000
+            </p>
+            <p-chip styleClass="custom-chip">
+              <p class="my-1" style="font-size: 12px; font-weight: 500;">Information Technology</p>
+            </p-chip>
+          </div>
+        </div>
+      </div>
+  </div>
+</div> -->

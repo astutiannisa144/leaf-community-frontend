@@ -4,17 +4,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NgModule } from '@angular/core';
 import { ShareModule } from '../../../../../base-area/src/app/common/share.module';
-import { ArticleAdminRouting } from './article-admin.routing';
-import { ArticleCreateComponent } from './article-create/article-create.component';
-import { ArticleTableComponent } from './article-table/article-table.component';
+import { VoucherRouting } from './voucher.routing';
+import { VoucherCreateComponent } from './voucher-create/voucher-create.component';
+import { VoucherComponent } from './voucher-table/voucher.component';
 
 @NgModule({
     declarations: [
-        ArticleCreateComponent,
-        ArticleTableComponent
+        VoucherComponent,
+        VoucherCreateComponent
     ],
     imports: [
-        ArticleAdminRouting,
+        VoucherRouting,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
@@ -22,4 +22,4 @@ import { ArticleTableComponent } from './article-table/article-table.component';
         ShareModule
     ]
 })
-export class ArticleAdminModule { }
+export class VoucherModule { }

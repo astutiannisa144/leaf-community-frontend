@@ -13,8 +13,8 @@ import { UserService } from "@service/user-service";
 export class LoginComponent {
 
     login = this.fb.group({
-        email: ['aduygans29@gmail.com', [Validators.required]],
-        pass: ['yudha', [Validators.required]]
+        email: ['eronwahyu@gmail.com', [Validators.required]],
+        pass: ['eron', [Validators.required]]
     })
 
     private login$?: Subscription
@@ -37,7 +37,7 @@ export class LoginComponent {
 
             this.login$ = this.userService.login(data).subscribe(result => {
                 this.userService.saveDataLogin(result)
-                this.router.navigateByUrl('/posts')
+                this.router.navigateByUrl('/home')
             })
         }
     }

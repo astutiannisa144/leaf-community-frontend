@@ -22,7 +22,7 @@ export const memberRoutes: Routes = [
   },
 
   {
-    path: 'posts',
+    path: 'home',
     loadChildren: () => import("./pages/post/post.module").then(c => c.PostModule),
     component: NavbarComponent
 

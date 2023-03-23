@@ -37,7 +37,7 @@ export class LoginComponent {
 
             this.login$ = this.userService.login(data).subscribe(result => {
                 this.userService.saveDataLogin(result)
-                this.router.navigateByUrl('/posts')
+                this.router.navigateByUrl('/article/admin')
             })
         }
     }

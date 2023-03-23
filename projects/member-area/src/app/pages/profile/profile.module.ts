@@ -6,12 +6,16 @@ import { NgModule } from '@angular/core';
 import {ProfileRouting } from './profile.routing';
 import { ShareModule } from '../../../../../base-area/src/app/common/share.module';
 import { TieredMenuCustomComponent } from "../../../../../base-area/src/app/components/tiered-menu/tiered-menu.component";
-import { ProfileComponent } from './profile.component';
+import { ProfileComponent } from './profile/profile.component';
+import { RevenueComponent } from './revenue/revenue.component';
+import { ProfilePostComponent } from '../post/post-profile/profile-post.component';
 
 
 @NgModule({
     declarations: [
-        ProfileComponent
+        ProfileComponent,
+        RevenueComponent,
+        ProfilePostComponent
     ],
     imports: [
         ProfileRouting,

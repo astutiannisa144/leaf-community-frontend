@@ -3,13 +3,12 @@
     <div class="surface-card p-4 shadow-2 border-round w-full">
       <div class="flex justify-content-center mb-5">
         <p-chip styleClass="mr-2  custom-chip">
-          <p class="my-1 mx-1 text-lg" style="font-size: 12px; font-weight: 500;">Courses Table</p>
+          <p class="my-1 mx-1 text-lg" style="font-size: 12px; font-weight: 500;">Voucher Table</p>
         </p-chip>
       </div>
       <p-toolbar styleClass="mb-4 gap-2">
         <ng-template pTemplate="left">
-          <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"></button>
-          <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger"></button>
+          <button pButton pRipple label="Add Voucher" icon="pi pi-plus" class="p-button-primary mr-2" routerLink="/voucher/create"></button>
         </ng-template>
 
         <ng-template pTemplate="right">
@@ -19,20 +18,20 @@
         </ng-template>
       </p-toolbar>
 
-      <p-table [tableStyle]="{'min-width': '60rem'}" [lazy]="true">
+      <p-table styleClass="border-round-md" [tableStyle]="{'min-width': '60rem'}" [lazy]="true">
         <ng-template pTemplate="caption">
           <div class="flex align-items-center justify-content-between">
-            Manage Course Approvement
+            Manage Voucher
             <p-button icon="pi pi-refresh"></p-button>
           </div>
         </ng-template>
         <ng-template pTemplate="header">
           <tr>
             <th>No.</th>
-            <th>Member Name</th>
-            <th>Event Name</th>
-            <th>Transfer Evidence</th>
-            <th>Status</th>
+            <th>Voucher Code</th>
+            <th>Price Discount</th>
+            <th>Minimum Purchase</th>
+            <th>Expired Date</th>
             <th>Action</th>
           </tr>
         </ng-template>
