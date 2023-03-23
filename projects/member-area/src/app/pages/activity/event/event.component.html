@@ -21,7 +21,8 @@
   </div>
 </div>
 
-<div class="flex justify-content-center">
+<div class="flex justify-content-center" infinite-scroll (scrolled)="onScroll()">
+
   <div class="col-3 mt-3">
     <div class="text-xl font-medium text-900 mb-3 align-items-center flex">
       <i class="pi pi-filter mr-2" style="font-size: 1.4rem; color: #22C55E;"></i>
@@ -64,13 +65,13 @@
     </div>
   </div>
 
-  <div class="col-8 mt-3 ml-5">
+  <div class="col-8 mt-3 ml-5" >
     <div class="text-xl font-medium text-900 mb-3 align-items-center flex">
       <i class="pi pi-briefcase mr-2" style="font-size: 1.4rem; color: #22C55E;"></i>
       <span>Events</span>
     </div>
     <div class="flex flex-wrap justify-content-between">
-      <div class="surface-card event p-3 shadow-2 border-round m-0 mb-3 cursor-pointer" *ngFor="let cl of eventList"
+      <div class="surface-card event p-3 shadow-2 border-round m-0 mb-3 cursor-pointer     " *ngFor="let cl of eventList"
         routerLink="/activities/event-detail/{{cl.id}}">
         <img alt="Logo Class" src="http://localhost:1214/files/{{cl.fileId}}" class="w-17rem">
 
@@ -118,5 +119,6 @@
     </div>
 
   </div>
+  <p-scrollTop target="window" styleClass="custom-scrolltop" [threshold]="100" icon="pi pi-arrow-up"></p-scrollTop>
 
 </div>

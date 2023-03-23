@@ -1,8 +1,8 @@
-<!-- <pre>
-  {{ login.value | json }}
-</pre> -->
+<pre>
+  {{ registerForm.value | json }}
+</pre>
 
-<div class="flex justify-content-center align-items-center h-screen w-screen font-bold">
+<div class="flex justify-content-center align-items-center h-screen w-screen font-bold" >
   <div class="col-7">
     <div class="surface-card grid shadow-2 border-round">
       <div class="col-6 hidden lg:block justify-content-start p-0 m-0 ">
@@ -15,18 +15,18 @@
           <p style="font-size: 1.8rem; font-weight: 500;"> <i class="pi pi-user-plus mr-3"
               style="font-size: 1.6rem; font-weight: 600; color: #137C3B;"></i>Register Account</p>
         </div>
-        <form class="flex justify-content-center py-1">
+        <form class="flex justify-content-center py-1" [formGroup]="registerForm">
           <div class="col-10 mb-5" *ngIf="registDetail == 1">
             <label for="email1" class="block text-900 font-medium mb-2">Full Name</label>
-            <input id="email1" type="text" placeholder="Full name" pInputText class="w-full mb-3">
+            <input formControlName="fullName" type="text" placeholder="Full name" pInputText class="w-full mb-3">
 
             <label for="email1" class="block text-900 font-medium mb-2">Email</label>
-            <input id="email1" type="text" placeholder="Email address" pInputText class="w-full mb-3">
+            <input formControlName="email" id="email1" type="email" placeholder="Email address" pInputText class="w-full mb-3">
 
 
 
             <label for="password1" class="block text-900 font-medium mb-2">Password</label>
-            <input id="password1" type="password" placeholder="Password" pInputText class="w-full mb-3">
+            <input formControlName="pass" id="password1" type="password" placeholder="Password" pInputText class="w-full mb-3">
             <div>
 
               <div class="flex justify-content-center">
@@ -43,20 +43,20 @@
           <div class="col-10" *ngIf="registDetail == 2">
 
             <label for="email1" class="block text-900 font-medium mb-2">Phone Number</label>
-            <input id="email1" type="text" placeholder="Phone number" pInputText class="w-full mb-3">
+            <input formControlName="phoneNumber" id="email1" type="number" placeholder="Phone number" pInputText class="w-full mb-3">
 
             <label for="event-title" class="block text-900 font-medium mb-2">Address</label>
-            <input id="event-title" type="text" placeholder="Home address" pInputText class="w-full mb-3 rounded">
+            <input formControlName="address" id="event-title" type="text" placeholder="Home address" pInputText class="w-full mb-3 rounded">
             <label for="event-title" class="block text-900 font-medium mb-2">Company</label>
-            <input id="event-title" type="text" placeholder="Company name" pInputText class="w-full mb-3 rounded">
+            <input formControlName="companyName" id="event-title" type="text" placeholder="Company name" pInputText class="w-full mb-3 rounded">
             <div class="flex">
               <div class="col p-0">
-                <p-dropdown styleClass="w-full" placeholder="Industry" optionLabel="name" [showClear]="true">
+                <p-dropdown styleClass="w-full" placeholder="Industry" [options]="industryList" formControlName="industryId" optionValue="id" optionLabel="industryName" [showClear]="true">
                 </p-dropdown>
               </div>
               <div class="mx-1"></div>
               <div class="col p-0">
-                <p-dropdown styleClass="w-full" placeholder="Position" optionLabel="name" [showClear]="true">
+                <p-dropdown styleClass="w-full" placeholder="Position" [options]="positionList" formControlName="positionId" optionValue="id" optionLabel="positionName" [showClear]="true">
                 </p-dropdown>
               </div>
             </div>
@@ -82,7 +82,7 @@
           <div class="col-10" *ngIf="registDetail == 3">
             <label for="email1" class="block text-900 font-medium mb-2 text-center">Enter 6-Digit Verification Code Sent
               to Your Email</label>
-            <input id="email1" type="text" placeholder="6 Digit Code" class="text-center" pInputText
+            <input id="email1" formControlName="verificationCode" type="text" placeholder="6 Digit Code" class="text-center" pInputText
               class="w-full mb-3">
 
             <div class="flex align-items-center mt-3">

@@ -19,7 +19,9 @@ export interface ActivityRes {
 	  timeEnd :string;
 	  createdAt : Date ;
 	  price:number;
-	  fileId:string;
+	  fileId?:string;
+	  fileContent?:string,
+	  fileExtension?:string,
 	  ver :number;
 	 schedule : ScheduleRes[];
 }

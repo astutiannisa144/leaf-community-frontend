@@ -12,13 +12,13 @@ import { ActivityRes } from "@dto/activity/activity-res";
 
 
 @Component({
-    selector: 'app-event-update',
-    templateUrl: './event-update.component.html',
+    selector: 'app-course-update',
+    templateUrl: './course-update.component.html',
 
 })
-export class EventUpdateComponent implements OnInit, AfterContentChecked {
-    eventDate!: Date;
-    eventTime!: Date;
+export class CourseUpdateComponent implements OnInit, AfterContentChecked {
+    courseDate!: Date;
+    courseTime!: Date;
     items!: MenuItem[];
     private activity$?: Subscription
     activity?: ActivityRes
