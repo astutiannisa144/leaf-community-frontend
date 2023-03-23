@@ -4,8 +4,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 
 @Component({
-    selector: 'app-article-admin',
-    templateUrl: './article-admin.component.html',
+    selector: 'app-event-admin',
+    templateUrl: './event-admin.component.html',
     styles: [`
         :host ::ng-deep .p-chip.custom-chip {
     background: var(--primary-color);
@@ -14,6 +14,6 @@ import { Subscription } from "rxjs";
     `
     ]
 })
-export class ArticleAdminComponent {
+export class EventAdminComponent {
     
 }

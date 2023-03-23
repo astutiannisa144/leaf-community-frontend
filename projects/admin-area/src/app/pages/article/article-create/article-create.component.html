@@ -1,0 +1,87 @@
+<div class="flex justify-content-center w-screen mt-3 ml-3 py-0">
+  <div class="col-3">
+    <div class="align-items-center justify-content-center flex">
+      <button pButton pRipple type="button" routerLink="/article/admin" icon="pi pi-arrow-left"
+        class="p-button-rounded p-button-primary"></button>
+
+      <ul class="list-none p-0 m-0 flex align-items-center font-medium ml-3">
+
+        <li>
+          <a class="text-500 no-underline line-height-3 cursor-pointer">Article Table</a>
+        </li>
+
+        <li class="px-2">
+          <i class="pi pi-angle-right text-500 line-height-3"></i>
+        </li>
+
+        <li>
+          <span class="text-900 line-height-3">Article Create</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-8"></div>
+</div>
+
+<div class="flex justify-content-center align-items-center h-6 w-screen font-bold">
+  <div class="col-10">
+    <div class="surface-card p-4 shadow-2 border-round w-full">
+      <p-toolbar styleClass="mb-4 gap-2">
+        <div class="flex col-12">
+          <div class="col-12">
+            <div class="flex justify-content-center">
+              <div class="col-11 gap-2">
+                <div class="text-xl ml-0 py-0 font-medium text-900 mb-4 align-items-center flex">
+                  <i class="pi pi-book mr-2" style="font-size: 1.4rem; color: #22C55E;"></i>
+                  <span>Article Create</span>
+                </div>
+                <div class="flex p-0">
+                  <div class="col-6 pl-0">
+                    <div class="flex align-items-center mb-2">
+                      <label for="code" class="block text-900 font-medium">Article Title</label>
+                    </div>
+                    <input id="code" type="text" placeholder="Article title" pInputText class="w-full">
+                    <div class="py-2">
+                      <label for="code" class="block text-900 font-medium mb-2">Article Cover Photo</label>
+                      <div class="file-btn-container block">
+                        <p-fileUpload chooseIcon="pi pi-fw pi-upload" chooseLabel="Upload" mode="basic"
+                          [customUpload]="true" name="myFile[]" accept="image/*">
+                        </p-fileUpload>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-6 pl-0">
+                    <div class="flex align-items-center mb-2">
+                      <label for="code" class="block text-900 font-medium">Article Content</label>
+                    </div>
+                    <textarea rows="5" styleClass="w-full" class="w-full" cols="30" pInputTextarea
+                      [autoResize]="true"></textarea>
+                  </div>
+
+
+
+                </div>
+
+                <div class="flex p-0">
+                  <div class="col-6 pl-0">
+
+                  </div>
+                </div>
+
+                <div class="flex p-0 justify-content-end">
+                  <button pButton pRipple type="button" label="Cancel" class="p-button-secondary p-button-text"
+                    routerLink="/voucher"></button>
+                  <button pButton pRipple type="button" icon="pi pi-save" label="Create Voucher"
+                    class="p-button-info"></button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </p-toolbar>
+
+    </div>
+  </div>
+</div>

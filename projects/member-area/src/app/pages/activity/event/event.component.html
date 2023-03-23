@@ -21,7 +21,8 @@
   </div>
 </div>
 
-<div class="grid justify-content-center" infinite-scroll (scrolled)="onScroll()">
+<div class="flex justify-content-center" infinite-scroll (scrolled)="onScroll()">
+
   <div class="col-3 mt-3">
     <div class="text-xl font-medium text-900 mb-3 align-items-center flex">
       <i class="pi pi-filter mr-2" style="font-size: 1.4rem; color: #22C55E;"></i>
@@ -38,7 +39,6 @@
             <p-checkbox name="{{ct.categoryName}}" formControlName="category" value="{{ct.id}}" inputId="ms">
             </p-checkbox>
             <label for="ms">{{ct.categoryName}}</label>
-
           </div>
         </div>
 
@@ -61,9 +61,7 @@
             <label for="city4">Highest Price</label>
           </div>
         </div>
-
       </div>
-
     </div>
   </div>
 

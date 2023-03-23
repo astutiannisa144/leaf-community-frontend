@@ -16,10 +16,6 @@ const postRoutes : Routes = [
     },
 
 
-    {   
-        path : 'profile',
-        component : ProfilePostComponent
-    },
 
     
 ]   

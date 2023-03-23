@@ -3,7 +3,7 @@
     <div class="surface-card p-4 shadow-2 border-round w-full">
       <div class="flex justify-content-center mb-5">
         <p-chip styleClass="mr-2  custom-chip">
-          <p class="my-1 mx-1 text-lg" style="font-size: 12px; font-weight: 500;">Article Table</p>
+          <p class="my-1 mx-1 text-lg" style="font-size: 12px; font-weight: 500;">Events Table</p>
         </p-chip>
       </div>
       <p-toolbar styleClass="mb-4 gap-2">
@@ -22,18 +22,18 @@
       <p-table [tableStyle]="{'min-width': '60rem'}" [lazy]="true">
         <ng-template pTemplate="caption">
           <div class="flex align-items-center justify-content-between">
-            Manage Article
+            Manage Event Approvement
             <p-button icon="pi pi-refresh"></p-button>
           </div>
         </ng-template>
         <ng-template pTemplate="header">
           <tr>
             <th>No.</th>
-            <th>Title</th>
-            <th>Content</th>
-            <th>Image</th>
-            <th>Action</th>
+            <th>Member Name</th>
+            <th>Event Name</th>
+            <th>Transfer Evidence</th>
             <th>Status</th>
+            <th>Action</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-product>

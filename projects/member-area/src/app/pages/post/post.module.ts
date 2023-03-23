@@ -16,7 +16,6 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     declarations: [
         PostHomeComponent,
         PostCreateComponent,
-        ProfilePostComponent
     ],
     imports: [
         PostRouting,

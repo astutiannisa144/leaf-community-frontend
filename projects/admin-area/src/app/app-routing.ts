@@ -6,7 +6,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { CommonModule } from '@angular/common';
 import { StepperComponent } from "../../../base-area/src/app/components/stepper/stepper.component";
 import { TieredMenuCustomComponent } from "../../../base-area/src/app/components/tiered-menu/tiered-menu.component";
-import { NavbarAdminComponent } from 'projects/base-area/src/app/components/navbar/navbar-admin.component';
+import { NavbarComponent } from 'projects/base-area/src/app/components/navbar/navbar.component';
 
 export const adminRoutes: Routes = [
 
@@ -17,15 +17,20 @@ export const adminRoutes: Routes = [
   {
     path: 'article/admin',
     loadChildren: () => import("./pages/article/article-admin.module").then(c => c.ArticleAdminModule),
-    component: NavbarAdminComponent
+    component: NavbarComponent
   },
 
   {
-    path: 'courses/admin',
-    loadChildren: () => import("./pages/activity/course-admin.module").then(c => c.CourseAdminModule),
-    component: NavbarAdminComponent
+    path: 'activities/admin',
+    loadChildren: () => import("./pages/activity/activity-admin.module").then(c => c.CourseAdminModule),
+    component: NavbarComponent
   },
 
+  {
+    path: 'voucher',
+    loadChildren: () => import("./pages/voucher/voucher.module").then(c => c.VoucherModule),
+    component: NavbarComponent
+  },
 ];
 
 @NgModule({
