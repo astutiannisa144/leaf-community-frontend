@@ -11,20 +11,18 @@
     </div>
     <div class="surface-card p-3 shadow-2 border-round m-0">
       <div class="flex justify-content-center mt-2">
-        <img alt="Logo Class" src="assets/img/unnamed.jpg" class="w-5" style="border-radius: 2%;">
+        <img *ngIf="profile?.file" alt="Logo Class" src="http://localhost:1214/files/{{profile?.file?.fileId}}" class="w-5" style="border-radius: 2%;">
       </div>
       <div class="col flex py-1 mt-2 justify-content-center">
-        <p class="text-base" style="font-weight: 500;">Yudha Hendrianto</p>
+        <p class="text-base" style="font-weight: 500;">{{profile?.fullName}}</p>
       </div>
       <div class="col flex py-0 justify-content-center">
-        <p class="text-sm" style="font-weight: 400;">Web Developer</p>
+        <p class="text-sm" style="font-weight: 400;">{{profile?.job?.positionName}}</p>
       </div>
       <div class="col py-3 justify-content-center flex">
         <div class="col-8 justify-content-between flex">
-          <i class="pi pi-linkedin mr-2" style="font-size: 22px; font-weight: 500; color: #a4a4a4;"></i>
-          <i class="pi pi-facebook mr-2" style="font-size: 22px; font-weight: 500; color: #a4a4a4;"></i>
-          <i class="pi pi-twitter mr-2" style="font-size: 22px; font-weight: 500; color: #a4a4a4;"></i>
-          <i class="pi pi-instagram mr-2" style="font-size: 22px; font-weight: 500; color: #a4a4a4;"></i>
+          <a *ngFor="let data of profile?.profileSocialMedia"  href="{{data.profileLink}}" target="_blank"> <i  class="pi {{data.socialMedia.socialMediaIcon}} mr-2 hover:bg-green-50" style="font-size: 22px; font-weight: 500; color: #a4a4a4;">
+         </i></a> 
         </div>
       </div>
 
@@ -38,19 +36,19 @@
             <div class="my-3 align-items-center">
               <p class="align-items-center flex mb-1 text-sm" style="font-weight: 400; color: #878787;"> <i
                   class="pi pi-envelope mr-2" style="font-size: 13px; font-weight: 500; color: #878787;"></i>Email</p>
-              <p style="font-size: 0.875rem; font-weight: 400;">aduygans29@gmail.com</p>
+              <p style="font-size: 0.875rem; font-weight: 400;">{{email}}</p>
             </div>
   
             <div class="my-3 align-items-center">
               <p class="mb-1 text-sm" style="font-weight: 400; color: #878787;"><i class="pi pi-phone mr-2"
                   style="font-size: 13px; font-weight: 500; color: #878787;"></i>Phone Number</p>
-              <p style="font-size: 0.875rem; font-weight: 400;">08123456777</p>
+              <p style="font-size: 0.875rem; font-weight: 400;">{{profile?.phoneNumber}}</p>
             </div>
   
             <div class="my-3 align-items-center">
               <p class="mb-1 text-sm" style="font-weight: 400; color: #878787;"><i class="pi pi-map-marker mr-2"
                   style="font-size: 13px; font-weight: 500; color: #878787;"></i>Place Address</p>
-              <p style="font-size: 0.875rem; font-weight: 400;">Planet of Bekasi</p>
+              <p style="font-size: 0.875rem; font-weight: 400;">{{profile?.address}}</p>
             </div>
   
             <p-divider></p-divider>

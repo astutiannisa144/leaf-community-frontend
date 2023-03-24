@@ -5,6 +5,8 @@ import { BASE_URL } from "../constant/base.service";
 import { LoginReq } from "@dto/login/login-req";
 import { LoginRes } from "@dto/login/login-res";
 import { BankAccountRes } from "@dto/bank-account/bank-account-res";
+import { Response } from "@dto/response";
+import { UserReq } from "@dto/user/user-req";
 
 @Injectable({
     providedIn : 'root'
@@ -20,7 +22,13 @@ export class UserService {
             }
         })
     }
-    
+    register(data : UserReq) : Observable<Response>  {
+        return this.http.post<Response>(`${BASE_URL}/users/register`, data, {
+            headers:{
+                skip: 'true' 
+            }
+        })
+    }
     getBank():Observable<BankAccountRes>{
         return this.http.get<BankAccountRes>(`${BASE_URL}/users/bank`)
     }
@@ -59,5 +67,13 @@ export class UserService {
         }
         throw new Error('User Id is empty')
     }
+    get email():string {
+        const data = localStorage.getItem('dataLogin')
+        if(data) {
+            return JSON.parse(data).email
+        }
+        throw new Error('email is empty')
+    }
 
+   
 }

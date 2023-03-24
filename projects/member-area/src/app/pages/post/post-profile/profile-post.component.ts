@@ -7,6 +7,9 @@ import { PostService } from "@service/post-service";
 import { POST_LIMIT } from "projects/base-area/src/app/constant/post-limit";
 import { Subscription } from "rxjs";
 import { MenuItem } from 'primeng/api';
+import { ProfileService } from "@service/profile.service";
+import { UserService } from "@service/user-service";
+import { ProfileRes } from "@dto/profile/profile-res";
 
 @Component({
   selector: 'app-post-home',
@@ -86,16 +89,31 @@ export class ProfilePostComponent implements OnInit {
   private post$?: Subscription
   postList?: PostRes[]
   page = 1
+  profile$?:Subscription
+  profile?:ProfileRes
+  email!:string
+  
 
   constructor(
     private postService: PostService,
     private fb: FormBuilder,
     private title: Title,
-    private router: Router
+    private router: Router,
+    private profileService:ProfileService,
+    private userService:UserService
   ) {
     this.title.setTitle('Home')
   }
   ngOnInit(): void {
+    
+    
+    this.profile$=this.profileService.getProfile().subscribe(result=>{
+      this.profile=result
+      console.log("foto:"+ this.profile?.file?.fileId);
+      console.log("length"+this.profile?.profileSocialMedia[1].profileLink);
+      
+  })
+  this.email=this.userService.email
     this.getPost();
     this.postEdit! = [
       {
