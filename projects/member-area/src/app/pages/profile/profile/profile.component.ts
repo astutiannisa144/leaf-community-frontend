@@ -16,6 +16,8 @@ import { IndustryService } from "@service/industry.service";
 import { PositionService } from "@service/position.service";
 import { SocialMediaRes } from "@dto/social-media/social-media-res";
 import { SocialMediaServiceService } from "@service/social-media.service";
+import { LoginComponent } from "../../login/login.component";
+import { ProfileReq } from "@dto/profile/profile-req";
 
 @Component({
     selector: 'app-post-home',
@@ -39,16 +41,22 @@ export class ProfileComponent {
     socialMediaList:SocialMediaRes[]=[]
     email!:string
     profileForm=this.fb.group({
+        id:[''],
         fullName:[''],
         address:[''],
         email:[''],
         pass:[''],
-        companyName:[''],
-        industryId:[''],
-        positionId:[''],
+        job:this.fb.group({
+            id:[''],
+            companyName:[''],
+            industryId:[''],
+            positionId:[''],
+            ver:['']
+        }),
         ver:[''],
         socialMedias:this.fb.array([]),
         file:this.fb.group({
+            id:[''],
             fileContent:[''],
             fileExtension:[''],
             ver:['']
@@ -61,7 +69,8 @@ export class ProfileComponent {
         private fb:FormBuilder,
         private industryService:IndustryService,
         private positionService:PositionService,
-        private socialMediaService:SocialMediaServiceService
+        private socialMediaService:SocialMediaServiceService,
+        private router:Router
     ){}
     ngOnInit() {
         this.socialMedia$=this.socialMediaService.getAllSocialMedia().subscribe(res=>{
@@ -81,31 +90,45 @@ export class ProfileComponent {
             this.profile=result
 
             this.profileForm.patchValue({
-                fullName:result.fullName,
-                address:result.address,
+                id:this.profile.id,
+                fullName:this.profile.fullName,
+                address:this.profile.address,
                 email:this.userService.email,
-                companyName:result.job.companyName,
-                industryId:result.job.industryId,
-                positionId:result.job.positionId,
-                ver:result.ver,
+                job:{
+                    id:this.profile.job.id,
+                    companyName:this.profile.job.companyName,
+                    industryId:this.profile.job.industryId,
+                    positionId:this.profile.job.positionId,
+                    ver:String(this.profile.job.ver)
+                },
+                ver:this.profile.ver,
                 file:{
-                    fileContent:result.file.fileContent,
-                    fileExtension:result.file.fileExtension,
-                    ver:String(result.file.ver)
+                    id:this.profile.file.fileId!,
+                    fileContent:this.profile.file.fileContent,
+                    fileExtension:this.profile.file.fileExtension,
+                    ver:String(this.profile.file.ver)
                 }
             })
+            console.log(this.profile.profileSocialMedia.length);
             for(let i=0;i<this.profile.profileSocialMedia.length;i++){
-        
+                
+                
                 this.socialMedias.push(this.fb.group({
                     id:this.profile?.profileSocialMedia[i].id,
-                    username:this.profile?.profileSocialMedia[i].username,
+                    ver:String(this.profile.profileSocialMedia[i].ver),
                     socialMediaId:this.profile?.profileSocialMedia[i].socialMediaId,
-                    fileId:this.profile?.profileSocialMedia[i].socialMedia.file.fileId,
+                    profileId:this.profile.id,
+                    username:this.profile?.profileSocialMedia[i].username,
+               
                     socialMediaName:this.profile?.profileSocialMedia[i].socialMedia.socialMediaName,
                     socialMediaLink:this.profile?.profileSocialMedia[i].socialMedia.socialMediaLink,
                     socialMediaIcon:this.profile?.profileSocialMedia[i].socialMedia.socialMediaIcon
                 }))
-    
+                // id:string;
+                // ver:number;
+                // socialMediaId:string;
+                // profileId:string;
+                // username:string;
             }
         })
         this.industry$=this.industryService.getAllIndustry().subscribe(result=>{
@@ -117,7 +140,30 @@ export class ProfileComponent {
         this.email=this.userService.email
     
     }
+    fileUpload(event: any) {
+        const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                if (typeof reader.result === "string") resolve(reader.result)
+            };
+            reader.onerror = error => reject(error);
+        });
 
+        for (let file of event.files) {
+            toBase64(file).then(result => {
+                const resultBase64: string = result.substring(result.indexOf(",") + 1, result.length)
+                const resultExtension = file.name.substring(file.name.indexOf(".") + 1, file.name.length)
+                this.profileForm.patchValue({
+                    file: {
+                        fileContent: resultBase64,
+                        fileExtension: resultExtension
+                    }
+                })
+
+            })
+        }
+    }
     get socialMedias() {
         return this.profileForm.get('socialMedias') as FormArray
     }
@@ -127,6 +173,46 @@ export class ProfileComponent {
             username: new FormControl(''),
         }))
     }
+    onSave(){
+        const data:ProfileReq={
+        id:this.profileForm.value.id!,
+        fullName:this.profileForm.value.fullName!,
+        address:this.profileForm.value.address!,
+        job :{
+            id:this.profileForm.value.job?.id!,
+            ver:Number(this.profileForm.value.job?.ver!),
+            companyName:this.profileForm.value.job?.companyName!,
+            industryId:this.profileForm.value.job?.industryId!,
+            positionId:this.profileForm.value.job?.positionId!,
+        },
+        ver:Number(this.profileForm.value.ver!),
+        file:{
+            fileId:this.profileForm.value.file?.id!,
+            fileContent:this.profileForm.value.file?.fileContent!,
+            fileExtension:this.profileForm.value.file?.fileExtension!,
+            ver:Number(this.profileForm.value.file?.ver!)
+        },
+        profileSocialMedia:[]
+        }
 
+        for(let i =0;i<this.socialMedias.length;i++){
+            data.profileSocialMedia?.push({
+               id:this.socialMedias.value[i].id,
+                ver:this.socialMedias.value[i].ver,
+                socialMediaId:this.socialMedias.value[i].socialMediaId,
+                username:this.socialMedias.value[i].username,
+                profileId:this.socialMedias.value[i].profileId
+            })
+            // data.profileSocialMedia[i].id=this.socialMedias.value[i].id
+            // data.profileSocialMedia[i].ver=this.socialMedias.value[i].ver
+            // data.profileSocialMedia[i].socialMediaId=this.socialMedias.value[i].socialMediaId
+            // data.profileSocialMedia[i].username=this.socialMedias.value[i].username
+            // data.profileSocialMedia[i].profileId=this.socialMedias.value[i].profileId
+
+        }
+        this.profileService.update(data).subscribe(result=>{
+            this.router.navigateByUrl('/profile/')
+        })
+    }
    
 }
