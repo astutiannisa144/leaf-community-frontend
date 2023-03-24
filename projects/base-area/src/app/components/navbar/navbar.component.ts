@@ -30,7 +30,7 @@ export class NavbarComponent {
   roleCode = this.userService.roleCode
   items!: MenuItem[];
   itemProfile!: MenuItem[];
-
+  fileId!:string
   constructor(
     private router: Router,
     private activityService: ActivityService,
@@ -165,6 +165,7 @@ export class NavbarComponent {
   ]
 
   ngOnInit(): void {
+    this.fileId=this.userService.user.fileId!
     if (this.roleCode == Role.SuperAdmin) {
       this.items = this.adminNav
     }
