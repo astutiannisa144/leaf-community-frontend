@@ -28,6 +28,7 @@ import {DividerModule} from 'primeng/divider';
 import {ConfirmPopupModule} from 'primeng/confirmpopup';
 import {MenuModule} from 'primeng/menu'
 import {ScrollTopModule} from 'primeng/scrolltop'
+import { TooltipModule } from 'primeng/tooltip'
 
 
 ToastModule
@@ -62,8 +63,8 @@ ToastModule
         TagModule,
         DividerModule,
         MenuModule,
-        ScrollTopModule
-
+        ScrollTopModule,
+        TooltipModule,
     ],
     exports: [
         ChipModule,
@@ -94,7 +95,8 @@ ToastModule
         TagModule,
         DividerModule,
         MenuModule,
-        ScrollTopModule
+        ScrollTopModule,
+        TooltipModule,
     ]
 })
 export class ShareModule { }
