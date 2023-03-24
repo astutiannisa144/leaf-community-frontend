@@ -1,0 +1,48 @@
+<div class="flex justify-content-center align-items-center h-6 w-screen font-bold">
+    <div class="col-10">
+      <div class="surface-card p-4 shadow-2 border-round w-full">
+        <div class="flex justify-content-center mb-5">
+          <p-chip styleClass="mr-2  custom-chip">
+            <p class="my-1 mx-1 text-lg" style="font-size: 12px; font-weight: 500;">Member Premium Table</p>
+          </p-chip>
+        </div>
+  
+        <p-table styleClass="border-round-md" [tableStyle]="{'min-width': '60rem'}" [lazy]="true">
+          <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+              Member Premium
+              <p-button icon="pi pi-refresh"></p-button>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th>No.</th>
+              <th>Member Name</th>
+              <th>Subscription Type</th>
+              <th>Transfer Evidence</th>
+              <th>Payment Status</th>
+              <th>Action</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-product>
+            <tr>
+              <td>1</td>
+              <td><img src="https://buildwithangga.com/storage/assets/thumbnails/thumbnail_vue_starter.png" width="100"
+                  class="shadow-4" /></td>
+              <td>tes</td>
+              <td>tes</td>
+              <td>
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"></button>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+            </div>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+  

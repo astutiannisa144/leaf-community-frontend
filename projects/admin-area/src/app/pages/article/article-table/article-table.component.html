@@ -6,53 +6,46 @@
           <p class="my-1 mx-1 text-lg" style="font-size: 12px; font-weight: 500;">Article Table</p>
         </p-chip>
       </div>
-      <p-toolbar styleClass="mb-4 gap-2">
+      <p-toolbar styleClass="gap-2 mb-4">
         <ng-template pTemplate="left">
-          <button pButton pRipple label="New Article" icon="pi pi-plus" class="p-button-success mr-2" routerLink="/article/admin/create"></button>
+          <button pButton pRipple label="New Article" icon="pi pi-plus" class="p-button-primary mr-2"
+            routerLink="/article/admin/create"></button>
         </ng-template>
 
-        <ng-template pTemplate="right">
-          <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import"
-            class="mr-2 inline-block"></p-fileUpload>
-          <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
-        </ng-template>
       </p-toolbar>
 
-      <p-table [tableStyle]="{'min-width': '60rem'}" [lazy]="true">
-        <ng-template pTemplate="caption">
-          <div class="flex align-items-center justify-content-between">
-            Manage Article
-            <p-button icon="pi pi-refresh"></p-button>
+      <div class="grid justify-content-center">
+        <div class="col-12">
+          <div class="grid justify-content-start">
+            <div class="col-4">
+              <div class="surface-card p-3 shadow-1 border-round hover">
+                <img alt="Logo Class"
+                  src="https://buildwithangga.com/storage/assets/thumbnails/thumbnail_vue_starter.png    "
+                  class="w-full">
+
+                <p class="my-1" style="font-weight: 600; font-size: 16px; text-align: justify;">Vue js Article</p>
+
+                <p class="my-1" style="font-weight: 400; font-size: 14px; text-align: justify;">Vue Js is front-end
+                  framework<span class="cursor-pointer" routerLink="/articles/detail" style="color: #137C3B; font-weight: 700;"> ...See More </span> </p>
+
+                <div class="align-items-center justify-content-start flex mt-2">
+                  <button pButton pRipple label="Update" icon="pi pi-pencil" class="p-button-info mr-2 p-button-sm"
+                    routerLink="/article/admin/create"></button>
+                  <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger mr-2 p-button-sm"
+                    (click)="confirm($event)" ></button>
+                    <p-confirmPopup></p-confirmPopup>
+                </div>
+              </div>
+            </div>
+
+
+
+
+
           </div>
-        </ng-template>
-        <ng-template pTemplate="header">
-          <tr>
-            <th>No.</th>
-            <th>Title</th>
-            <th>Content</th>
-            <th>Image</th>
-            <th>Action</th>
-            <th>Status</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-product>
-          <tr>
-            <td>1</td>
-            <td><img src="https://buildwithangga.com/storage/assets/thumbnails/thumbnail_vue_starter.png" width="100"
-                class="shadow-4" /></td>
-            <td>tes</td>
-            <td>tes</td>
-            <td>
-              <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"></button>
-              <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"></button>
-            </td>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="summary">
-          <div class="flex align-items-center justify-content-between">
-          </div>
-        </ng-template>
-      </p-table>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>

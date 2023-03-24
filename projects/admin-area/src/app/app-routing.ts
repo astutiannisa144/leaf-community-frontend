@@ -31,6 +31,22 @@ export const adminRoutes: Routes = [
     loadChildren: () => import("./pages/voucher/voucher.module").then(c => c.VoucherModule),
     component: NavbarComponent
   },
+
+  {
+    path: 'premium',
+    loadChildren: () => import("./pages/approve-premium/approve-premium.module").then(c => c.ApprovePremiumModule),
+    component: NavbarComponent
+  },
+
+  
+
+  {
+    path: 'activity-history',
+    loadChildren: () => import("./pages/activity-history/activity-history.module").then(c => c.ActivityHistoryModule),
+    component: NavbarComponent
+  },
+
+
 ];
 
 @NgModule({

@@ -67,6 +67,7 @@ export class UserService {
         }
         throw new Error('User Id is empty')
     }
+
     get email():string {
         const data = localStorage.getItem('dataLogin')
         if(data) {

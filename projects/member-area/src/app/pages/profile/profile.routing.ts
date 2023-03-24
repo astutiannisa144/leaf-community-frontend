@@ -15,7 +15,7 @@ const postRoutes : Routes = [
     },
 
     {   
-        path : 'revenue',
+        path : 'history',
         component : RevenueComponent
     },
 
