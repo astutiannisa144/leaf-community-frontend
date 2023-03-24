@@ -39,6 +39,7 @@ export class VoucherComponent implements OnInit {
     getAllVoucher() {
         this.voucherList$ = this.voucherService.getAllVoucher().subscribe(result => {
             this.voucherList = result
+            this.voucherList.forEach(f => f.showEdit=false)
         })
     }
 
@@ -46,6 +47,10 @@ export class VoucherComponent implements OnInit {
         this.deleteVoucher$ = this.voucherService.deleteVoucher(id).subscribe(result => {
             this.getAllVoucher()
         })
+    }
+
+    editVoucher( idx : number ) {
+        this.voucherList[idx].showEdit = true
     }
 
     ngOnDestroy(): void {

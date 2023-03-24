@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { VoucherReq } from "@dto/voucher/voucher-req"
+import { VoucherReqUpdate } from "@dto/voucher/voucher-req-update"
 import { VoucherRes } from "@dto/voucher/voucher-res"
 import { Observable } from "rxjs"
 import { BASE_URL } from "../constant/base.service"
@@ -26,6 +27,10 @@ export class VoucherService {
 
     deleteVoucher( id : string ) : Observable<Response> {
         return this.http.delete<Response>(`${BASE_URL}/vouchers/${id}`)
+    }
+
+    updateVoucher( data : VoucherReqUpdate ) : Observable<Response> {
+        return this.http.patch<Response>(`${BASE_URL}/vouchers`, data)
     }
 
 }

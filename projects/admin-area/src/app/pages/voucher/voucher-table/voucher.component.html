@@ -29,24 +29,40 @@
           <tr>
             <th>No.</th>
             <th>Voucher Code</th>
+            <th>Expired Date</th>
             <th>Price Discount</th>
             <th>Minimum Purchase</th>
-            <th>Expired Date</th>
             <th>Action</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-vl let-i="rowIndex">
-          <tr>
+          <tr *ngIf="!vl.showEdit">
             <td>{{ i+1 }}</td>
             <td>{{ vl.voucherCode }}</td>
+            <td>{{ vl.expiredDate | date }}</td>
             <td>{{ vl.discountPrice | currency: 'Rp ' :'symbol':'1.2-2' }}</td>
             <td>{{ vl.minimumPurchase | currency: 'Rp ' :'symbol':'1.2-2' }}</td>
-            <td>{{ vl.expiredDate | date }}</td>
             <td>
               <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
-                pTooltip="Edit Voucher" tooltipPosition="bottom"></button>
+                pTooltip="Edit Voucher" tooltipPosition="bottom" (click)="editVoucher(i)"></button>
               <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
                 pTooltip="Delete Voucher" tooltipPosition="bottom" (click)="deleteVoucher( vl.id )"></button>
+            </td>
+          </tr>
+          <tr *ngIf="vl.showEdit">
+            <td>{{ i+1 }}</td>
+            <td>{{ vl.voucherCode }}</td>
+            <td><p-calendar  styleClass="w-full" id="expiredDate" placeholder="Expired date"
+                [showIcon]="true">
+              </p-calendar>
+            </td>
+            <td><input id="code" type="text" placeholder="Price discount" pInputText class="w-full"></td>
+            <td><input id="code" type="text" placeholder="Minimum purchase" pInputText class="w-full"></td>
+            <td>
+              <button pButton pRipple icon="pi pi-check" class="p-button-rounded p-button-info mr-2"
+                pTooltip="Save" tooltipPosition="bottom"></button>
+              <button pButton pRipple icon="pi pi-times" class="p-button-rounded p-button-danger"
+                pTooltip="Cancel" tooltipPosition="bottom"></button>
             </td>
           </tr>
         </ng-template>
