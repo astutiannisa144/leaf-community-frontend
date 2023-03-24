@@ -85,12 +85,7 @@
                 </div>
 
               </div>
-              <!-- <div *ngFor="let sch of activity?.schedule">
-                    <div class="field col-12 p-0">
-                        <p-calendar  styleClass="w-full" id="calendar-start" placeholder="Event date"
-                         aria-valuetext="sch.scheduleDate" [showIcon]="true" ></p-calendar>
-                      </div>
-                </div> -->
+
             </div>
 
             <div class="col p-0 mt-1">
@@ -123,18 +118,11 @@
             <div class="col">
               <div class="block p-0">
                 <label for="eventPrice" class="block text-900 font-medium mb-2">Event Photo</label>
-                <p>Old Photo</p>
+                
                 <div class="file-btn-container block" *ngIf="activity?.fileId">
-                  <p-image src="http://localhost:1214/files/{{activity?.fileId}}" alt="Image" width="250"></p-image>
-
-                  <!-- <p-fileUpload chooseIcon="pi pi-fw pi-upload" chooseLabel="Upload" mode="basic" [customUpload]="true"
-                    name="myFile[]" accept="image/*" url="./upload.php" (onSelect)="fileUpload($event)">
-                    <ng-template let-file pTemplate="file" class="dragdrop-area">
-                      <img src="http://localhost:1214/files/{{activity?.fileId}}" height="320px" width="200px">
-                    </ng-template>
-                  </p-fileUpload> -->
-                  <p>New Photo</p>
-                  <p-fileUpload name="demo[]" url="./upload.php" (onSelect)="fileUpload($event)" accept="image/*">
+                  <p-image src="data:image/{{activityForm.value.file?.fileExtension}};base64, {{activityForm.value.file?.fileContent}}" height="250 " width="250"  alt="Red dot" />
+             
+                  <p-fileUpload name="demo[]" url="./upload.php" mode="basic"  chooseIcon="pi pi-fw pi-upload" chooseLabel="Upload" (onSelect)="fileUpload($event)" accept="image/*">
                     <ul *ngIf="uploadedFiles.length">
                       <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
                   </ul>
