@@ -1,12 +1,12 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder } from "@angular/forms";
+import { FormArray, FormBuilder, Validators } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
 import { PostRes } from "@dto/post/post-res";
 import { PostService } from "@service/post-service";
 import { POST_LIMIT } from "projects/base-area/src/app/constant/post-limit";
 import { Subscription } from "rxjs";
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { ImageOption } from "projects/base-area/src/app/components/post-image/post-image.component";
 import { LikeService } from "@service/like-service";
 import { BookmarkService } from "@service/bookmark-service";
@@ -15,6 +15,9 @@ import { CommentReq } from "@dto/comment/comment-req";
 import { COMMENT_LIMIT } from "projects/base-area/src/app/constant/comment-limit";
 import { CommentRes } from "../../../../../../base-area/src/app/dto/comment/comment-res";
 import { UserService } from "@service/user-service";
+import { CategoryRes } from "@dto/category/category-res";
+import { CategoryService } from "@service/category.service";
+import { PostReq } from "@dto/post/post-req-insert";
 
 @Component({
   selector: 'app-post-home',
@@ -56,7 +59,26 @@ import { UserService } from "@service/user-service";
     .pi-bookmark:hover {
       transform: scale(1.2);
       transition: transform 0.2s ease-in-out;
-    }`]
+    }
+    
+    :host ::ng-deep .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
+    background: #F2D750;
+}
+
+    :host ::ng-deep .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
+    background: #F2D750;
+  }
+
+  :host ::ng-deep .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
+    background: #F2D750;
+}
+
+:host ::ng-deep .p-inputswitch.p-inputswitch-checked:not(.p-disabled):hover .p-inputswitch-slider{
+  background: #F2D750;
+
+}
+    
+    `]
 })
 export class PostHomeComponent implements OnInit {
 
@@ -65,15 +87,37 @@ export class PostHomeComponent implements OnInit {
   private comment$?: Subscription
   private bookmark$?: Subscription
   private commentList$?: Subscription
+  private category$?: Subscription
 
   commentEdit!: MenuItem[]
   postEdit!: MenuItem[]
   postList: PostRes[] = []
+  items!: MenuItem[];
+  home!: MenuItem;
+
+  inputImage = false
+  inputPolling = false
+
+  uploadedFiles: any[] = []
+  category: CategoryRes[] = []
 
   editBtn = false
-  fileId! : string
+  fileId!: string
   postPage = 1
   commentPage = 0
+
+  post = this.fb.group({
+    title: ['', [Validators.maxLength(30)]],
+    content: [''],
+    isPremium: [false],
+    categoryId: [''],
+    polling: this.fb.group({
+      content: [''],
+      expired: [''],
+      pollingDetail: this.fb.array([])
+    }),
+    file: this.fb.array([])
+  })
 
   comment = this.fb.group({
     postId: [''],
@@ -81,6 +125,8 @@ export class PostHomeComponent implements OnInit {
   })
 
   constructor(
+    private categoryService: CategoryService,
+    private messageService: MessageService,
     private userService: UserService,
     private postService: PostService,
     private likeService: LikeService,
@@ -94,6 +140,16 @@ export class PostHomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.items = [
+      { label: '<p>Home</p>', escape: false, routerLink: '/posts' },
+      { label: '<p>Create Post</p>', escape: false, }
+
+    ];
+
+    this.home = { icon: 'pi pi-home', routerLink: '/posts' };
+
+    this.getPostCategory()
+
     this.fileId = this.userService.user.fileId
     this.getPost()
     this.postEdit! = [
@@ -195,7 +251,7 @@ export class PostHomeComponent implements OnInit {
             postId: id,
             content: ''
           })
-          this.commentPage+=COMMENT_LIMIT
+          this.commentPage += COMMENT_LIMIT
         }
       })
     } else {
@@ -208,7 +264,7 @@ export class PostHomeComponent implements OnInit {
   showMoreComment(idx: number, id: string) {
     this.commentList$ = this.commentService.getCommentByPost(this.commentPage, COMMENT_LIMIT, id).subscribe(result => {
       this.postList[idx].commentList = [...this.postList[idx].commentList, ...result]
-      this.commentPage+=COMMENT_LIMIT
+      this.commentPage += COMMENT_LIMIT
     })
   }
 
@@ -263,10 +319,185 @@ export class PostHomeComponent implements OnInit {
     },
   ]
 
+
+
+
+
+  get file() {
+    return this.post.get('file') as FormArray
+  }
+
+  get pollingChoice() {
+    return this.post.get('polling')?.get('pollingDetail') as FormArray
+  }
+
+  getPollingChoice(i: number) {
+    return this.pollingChoice.at(i) as FormArray
+  }
+
+  addPollingChoice() {
+    if (this.pollingChoice.length < 5) {
+      this.pollingChoice.push(this.fb.group({
+        content: [''],
+      }))
+    }
+  }
+
+  removePollingChoice(i: number) {
+    this.pollingChoice.removeAt(i)
+  }
+
+  onUpload(event: any) {
+    this.messageService.add({ severity: 'info', summary: 'File Uploaded', detail: '' });
+
+    const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        if (typeof reader.result === "string") resolve(reader.result)
+      };
+      reader.onerror = error => reject(error);
+    });
+
+    for (let file of event.files) {
+      toBase64(file).then(result => {
+        const resultBase64 = result.substring(result.indexOf(",") + 1, result.length)
+        const resultExtension = file.name.substring(file.name.indexOf(".") + 1, file.name.length)
+
+        const filter = this.uploadedFiles.filter(f => f.name == file.name)
+
+        if (this.uploadedFiles.length == 0 || filter.length == 0) {
+          this.file.push(this.fb.group({
+            fileContent: resultBase64,
+            fileExtension: resultExtension,
+            fileName: file.name
+          }))
+          this.uploadedFiles.push(file);
+        }
+      })
+    }
+  }
+
+  showInputImage() {
+    if (this.inputPolling) {
+      this.inputPolling = false
+      this.post.get('polling')?.reset()
+      this.pollingChoice.clear()
+      this.inputImage = !this.inputImage
+
+    } else {
+      this.inputImage = !this.inputImage
+    }
+  }
+
+  showInputPolling() {
+    if (this.inputImage) {
+      this.inputImage = false
+      this.uploadedFiles = []
+      this.post.value.file = []
+      this.inputPolling = !this.inputPolling
+
+    } else if (this.inputPolling) {
+      this.inputPolling = false
+      this.post.get('polling')?.reset()
+      this.pollingChoice.clear()
+
+    } else {
+      this.inputPolling = !this.inputPolling
+    }
+
+    if (this.pollingChoice.length == 0) {
+      for (let i = 0; i < 2; i++) {
+        this.pollingChoice.push(this.fb.group({
+          content: [''],
+        }))
+      }
+    }
+
+  }
+
+  getPostCategory() {
+    this.category$ = this.categoryService.getCategory().subscribe(result => {
+      this.category = result
+    })
+  }
+
+
+  insertPost() {
+    const data: PostReq = {
+      title: this.post.value.title!,
+      content: this.post.value.content!,
+      isPremium: this.post.value.isPremium!,
+      categoryId: this.post.value.categoryId!,
+    }
+
+    if (this.file.length) {
+      data.file = []
+      this.file.value.forEach((f: any) => {
+        const fileTemp = f as any
+        data.file?.push({ ...fileTemp })
+      })
+    }
+
+    if (this.post.value.polling?.content) {
+      data.polling = {
+        content: this.post.get('polling')?.value.content!,
+        expired: convertUTCToLocalDateTime(this.post.get('polling')?.value.expired!),
+        pollingDetail: []
+      }
+
+      this.pollingChoice.value.forEach((pc: any) => {
+        const pollingChoiceTemp = pc as any
+        data.polling?.pollingDetail.push({
+          ...pollingChoiceTemp
+        })
+      })
+    }
+
+    this.post$ = this.postService.insertPost(data).subscribe(result => {
+      this.router.navigateByUrl('/posts')
+    })
+  }
+
+  onRemove(event: any) {
+    const filter = this.uploadedFiles.map((f, i) => {
+      if (f.name == event.file.name) {
+        return i
+      } else {
+        return -1
+      }
+    }).filter(f => f != -1)
+
+    if (filter && filter.length) {
+      this.file.removeAt(filter[0])
+      this.uploadedFiles.splice(filter[0], 1)
+    }
+  }
+
+  onClear() {
+    this.uploadedFiles = []
+    this.post.value.file = []
+  }
+
+
+
+
   ngOnDestroy(): void {
+    this.category$?.unsubscribe()
     this.post$?.unsubscribe()
     this.like$?.unsubscribe()
     this.comment$?.unsubscribe()
     this.bookmark$?.unsubscribe()
   }
+
+}
+
+function convertUTCToLocalDate(date: any) {
+  const newDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
+  return newDate.toISOString().split('T')[0]
+}
+
+function convertUTCToLocalDateTime(date: any) {
+  const newDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
+  return newDate.toISOString()
 }
