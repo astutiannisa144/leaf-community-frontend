@@ -1,6 +1,6 @@
-<!-- <pre>
-  {{ postList | json }}
-</pre> -->
+<pre>
+  {{ profileForm.value| json }}
+</pre>
 <div class="flex justify-content-center mt-3 py-0">
   <div class="col-3">
     <div class="align-items-center flex">
@@ -27,6 +27,7 @@
 <div class="flex justify-content-center py-0">
   <div class="col-11 py-0">
     <div class="surface-card mt-2 p-5 shadow-2 border-round">
+      <form action="" [formGroup]="profileForm">
       <div class="flex">
         <div class="col-6">
           <div class="text-xl ml-3 font-medium text-900 mb-3 align-items-center flex">
@@ -34,23 +35,26 @@
             <span>Profile Edit</span>
           </div>
           <div class="justify-content-center flex">
-            <img class="border-circle mr-2" src="assets/img/unnamed.jpg" style="width: 100px;" alt="profile">
+            <img class="border-circle border-1"  src="data:image/{{profileForm.value.file?.fileExtension}};base64, {{profileForm.value.file?.fileContent}}" style="width: 100px;" alt="profile">
+            <!-- <p-image  height="250 " width="250"  alt="Red dot" /> -->
+
           </div>
-          <form class="flex justify-content-center">
+            
+          <div class="flex justify-content-center" >
             <div class="col-10">
               <label for="fullname" class="block text-900 font-medium mb-2">Full Name</label>
-              <input id="fullname" type="text" placeholder="Fullname" pInputText class="w-full mb-3">
+              <input id="fullname" formControlName="fullName"  type="text" placeholder="Fullname" pInputText class="w-full mb-3">
 
               <label for="address" class="block text-900 font-medium mb-2">Address</label>
-              <input id="address" type="text" placeholder="Address" pInputText class="w-full mb-3">
+              <input id="address" formControlName="address" type="text" placeholder="Address" pInputText class="w-full mb-3">
 
               <label for="email" class="block text-900 font-medium mb-2">Email</label>
-              <input id="email" type="text" placeholder="Email" pInputText class="w-full mb-3">
+              <input id="email" formControlName="email" type="email" placeholder="Email" pInputText class="w-full mb-3">
 
               <label for="password1" class="block text-900 font-medium mb-2">Password</label>
               <p-password styleClass="w-full" placeholder="Password" [toggleMask]="true"></p-password>
             </div>
-          </form>
+          </div>
         </div>
 
         <p-divider layout="vertical"></p-divider>
@@ -63,20 +67,20 @@
           <div class="col-11">
 
             <label for="email1" class="block text-900 font-medium mb-2">Company Name</label>
-            <input id="email1s" type="text" placeholder="Company name" pInputText class="w-full mb-3">
+            <input id="email1s" formControlName="companyName" type="text" placeholder="Company name" pInputText class="w-full mb-3">
 
             <div class="flex p-0">
               <div class="col-6 pl-0">
                 <label for="industry" class="block text-900 font-medium mb-2">Industry</label>
-                <p-dropdown id="industry" styleClass="w-full mb-3" id="position" placeholder="Industry" optionValue="id"
-                  optionLabel="categoryName">
+                <p-dropdown id="industry" formControlName="industryId" [autoDisplayFirst]="false" styleClass="w-full mb-3" id="position" [options]="industry" placeholder="Industry" optionValue="id"
+                  optionLabel="industryName">
                 </p-dropdown>
               </div>
 
               <div class="col-6 pr-0">
                 <label for="position" class="block text-900 font-medium mb-2">Position</label>
-                <p-dropdown id="position" styleClass="w-full mb-3" placeholder="Position" optionValue="id"
-                  optionLabel="categoryName">
+                <p-dropdown id="position" formControlName="positionId" [autoDisplayFirst]="false"  [options]="position"  styleClass="w-full mb-3" placeholder="Position" optionValue="id"
+                  optionLabel="positionName">
                 </p-dropdown>
               </div>
             </div>
@@ -86,25 +90,26 @@
               <span>Social Media</span>
             </div>
 
-            <div class="flex p-0">
-              <div class="col-6 pl-0">
+
+            <div class="flex p-0" *ngFor="let d of socialMedias.controls; let i=index"  formArrayName="socialMedias">
+              <div class="col-6 pl-0" [formGroupName]="i">
                 <div class="flex align-items-center mb-2">
-                  <i class="pi pi-twitter mr-2" style="font-size: 1.4rem; color: #55acee;"></i>
-                  <label for="twitter" class="block text-900 font-medium">Twitter</label>
+                  <i class="pi {{d.value.socialMediaIcon}} mr-2" style="font-size: 1.4rem; color: #55acee;"></i>
+                  <label for="twitter" class="block text-900 font-medium">{{d.value.socialMediaName}}</label>
                 </div>
-                <input id="twitter" type="text" placeholder="Twitter" pInputText class="w-full mb-3">
+                <input id="twitter" formControlName="username" type="text" placeholder="{{d.value.socialMediaName}}" pInputText class="w-full mb-3">
               </div>
 
-              <div class="col-6 pr-0">
+              <!-- <div class="col-6 pr-0">
                 <div class="flex align-items-center mb-2">
                   <i class="pi pi-instagram mr-2" style="font-size: 1.4rem; color: #e1306c;"></i>
                   <label for="instagram" class="block text-900 font-medium">Instagram</label>
                 </div>
                 <input id="instagram" type="text" placeholder="Instagram" pInputText class="w-full mb-3">
-              </div>
+              </div> -->
             </div>
 
-            <div class="flex p-0">
+            <!-- <div class="flex p-0">
               <div class="col-6 pl-0">
                 <div class="flex align-items-center mb-2">
                   <i class="pi pi-facebook mr-2" style="font-size: 1.4rem; color: #4267B3;"></i>
@@ -120,7 +125,7 @@
                 </div>
                 <input id="instagram" type="text" placeholder="Linkedin" pInputText class="w-full mb-3">
               </div>
-            </div>
+            </div> -->
 
             <div class="flex p-0 justify-content-end">
               <button pButton pRipple type="button" label="Cancel" class="p-button-secondary p-button-text"
@@ -130,8 +135,8 @@
 
           </div>
         </div>
-
       </div>
+    </form>
 
 
     </div>

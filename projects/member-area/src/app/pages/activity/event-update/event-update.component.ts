@@ -80,9 +80,6 @@ export class EventUpdateComponent implements OnInit, AfterContentChecked {
                     }
                 })
                 for(let i=0;i<this.activity.schedule.length;i++){
-                    console.log(this.activity.schedule[i].scheduleDate);
-                    
-                    
                 
                     this.schedules.push(this.fb.group({
                         id:this.activity.schedule[i].id,

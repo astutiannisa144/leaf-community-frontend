@@ -59,16 +59,16 @@ import { Subscription } from "rxjs";
 
 
      
-
-     :host ::ng-deep .p-checkbox .p-checkbox-box {
-    border: 2px solid #ced4da;
-    background: #ffffff;
-    width: 22px;
-    height: 13px;
-    color: #495057;
-    border-radius: 6px;
-    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
-},
+  /* 
+      :host ::ng-deep .p-checkbox .p-checkbox-box {
+      border: 2px solid #ced4da;
+      background: #ffffff;
+      width: 22px;
+      height: 13px;
+      color: #495057;
+      border-radius: 6px;
+      transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  }, */
     :host ::ng-deep .menubar {
             position: sticky;
             top: 0;
@@ -110,8 +110,8 @@ export class EventComponent implements OnInit{
     page = 1
     categories=this.fb.group({
         category:[[]],
-
     })
+    categoryTemp!:string
     // category=new FormControl('')
 
     constructor(
@@ -135,12 +135,15 @@ export class EventComponent implements OnInit{
         this.categories.get('category')?.valueChanges.subscribe(result => {
             const temp=result as any;
             console.log(result);
+            this.page=1
             if(!temp.length){
                 
                 this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.EV).subscribe(result => {
                     this.eventList = result
                 })
             }else{
+              
+              this.categoryTemp=temp
                 this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.EV,temp).subscribe(result => {
                     this.eventList = result
                 })
@@ -154,16 +157,30 @@ export class EventComponent implements OnInit{
     
    }
    onScroll(): void {
-    this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT,  this.page++).subscribe(result => {
-      if (result) {
-        
-        if (this.eventList.length) {
-          this.eventList = [...this.eventList, ...result]
-        } else {
-          this.eventList = result
+    if(!this.categoryTemp){
+      this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT,  this.page++,ACTIVITY_TYPE.EV).subscribe(result => {
+        if (result) {
+          
+          if (this.eventList.length) {
+            this.eventList = [...this.eventList, ...result]
+          } else {
+            this.eventList = result
+          }
         }
-      }
-    })
+      })
+    }else{
+      this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT,  this.page++,ACTIVITY_TYPE.EV,this.categoryTemp).subscribe(result => {
+        if (result) {
+          
+          if (this.eventList.length) {
+            this.eventList = [...this.eventList, ...result]
+          } else {
+            this.eventList = result
+          }
+        }
+      })
+    }
+
   }
     // category: string[] = [];
     sorting: string[] = [];

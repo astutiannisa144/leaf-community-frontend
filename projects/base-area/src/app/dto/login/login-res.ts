@@ -5,5 +5,6 @@ export interface LoginRes {
     roleCode: string,
     profileId: string,
     fileId: string,
-    isPremium: boolean
+    isPremium: boolean,
+    email:string
 }
