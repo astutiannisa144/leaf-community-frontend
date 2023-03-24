@@ -71,6 +71,7 @@ export class PostHomeComponent implements OnInit {
   postList: PostRes[] = []
 
   editBtn = false
+  fileId! : string
   postPage = 1
   commentPage = 0
 
@@ -93,6 +94,7 @@ export class PostHomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.fileId = this.userService.user.fileId
     this.getPost()
     this.postEdit! = [
       {

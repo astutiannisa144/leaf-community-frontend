@@ -10,16 +10,17 @@ import { Role } from '../../constant/role.service';
   selector: 'navbar',
   templateUrl: './navbar.component.html',
   styles: [
-   `:host ::ng-deep .p-menubar {
+    `:host ::ng-deep .p-menubar {
         border: 0;
         border-radius: 0;
-    }`, 
+    }`,
     `.menubar-container {
         position: sticky;
         top: 0;
         width: 100%;
         z-index: 1;
-    }`
+    }`,
+    
   ]
 })
 
@@ -58,14 +59,32 @@ export class NavbarComponent {
 
   adminNav: MenuItem[] = [
     {
-      icon: 'pi pi-fw pi-home',
-      label: 'Home',
-      routerLink: '/home'
+      icon: 'pi pi-fw pi-briefcase',
+      label: 'Job',
+      items: [{
+        label: 'Position',
+        icon: 'pi pi-fw pi-calendar',
+        routerLink: '/activities/admin/events'
+      },
+      {
+        label: 'Industry',
+        icon: 'pi pi-fw pi-building',
+        routerLink: '/activities/admin/courses'
+
+      }
+      ],
     },
     {
-      icon: 'pi pi-fw pi-user',
-      label: 'Member',
-      routerLink: '/my-activities/event'
+      icon: 'pi pi-fw pi-bolt',
+      label: 'Subscription',
+      routerLink: '/premium'
+
+    },
+
+    {
+      icon: 'pi pi-fw pi-file',
+      label: 'Activity Report',
+      routerLink: '/activity-history'
 
     },
 
@@ -174,9 +193,9 @@ export class NavbarComponent {
       },
 
       {
-        label: 'My Income',
-        icon: 'pi pi-fw pi-wallet',
-        routerLink: '/profile/revenue'
+        label: 'Activity Report',
+        icon: 'pi pi-fw pi-megaphone',
+        routerLink: '/profile/history'
       },
       {
         label: 'Log out',

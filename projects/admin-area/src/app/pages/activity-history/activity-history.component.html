@@ -46,7 +46,7 @@
             <i class="pi pi-wallet mr-2"></i>
             <span>Income</span>
           </ng-template>
-          <p-toolbar styleClass="mb-4 gap-2 block py-0">
+          <p-toolbar styleClass="mb-4 gap-2 block">
             <div class="flex">
               <div class="col-3">
                 <label class="block" for="icon" style="font-size: 1rem; font-weight: 600;">Date start</label>
@@ -77,9 +77,9 @@
             <ng-template pTemplate="header">
               <tr>
                 <th>No.</th>
+                <th>Member Name</th>
                 <th>Type</th>
-                <th>Title</th>
-                <th>Income</th>
+                <th>Total Income</th>
               </tr>
             </ng-template>
             <ng-template pTemplate="body" let-product>
@@ -137,6 +137,8 @@
             <ng-template pTemplate="header">
               <tr>
                 <th>No.</th>
+                <th>Member Name</th>
+                <th>Provider Name</th>
                 <th>Type</th>
                 <th>Title</th>
                 <th>Start Date</th>
