@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { UserActivityReq } from "@dto/user-activity/user-activity-req";
 import { UserActivityRes } from "@dto/user-activity/user-activity-res";
 import { UserActivityService } from "@service/user.activity.service";
-import { ConfirmationService } from "primeng/api";
+import { ConfirmationService, LazyLoadEvent } from "primeng/api";
 import { ACTIVITY_TYPE } from "projects/base-area/src/app/constant/activity-type";
 import { USER_ACTIVITY_LIMIT } from "projects/base-area/src/app/constant/user-activity-limit";
 import { Subscription } from "rxjs";
@@ -25,6 +25,13 @@ export class EventAdminComponent implements OnInit{
     userActivityList:UserActivityRes[]=[]
     page=0
     sum!:number
+    categoryTemp!:string
+    // category=new FormControl('')
+    startPage: number = 0
+    maxPage: number = 5
+    totalData: number = 0
+    query?: string
+    loading: boolean = true
     constructor(
         private router:Router,
         private userActivityService:UserActivityService,
@@ -32,10 +39,7 @@ export class EventAdminComponent implements OnInit{
 
     ){}
     ngOnInit(): void {
-        this.userActivity$=this.userActivityService.getAll(USER_ACTIVITY_LIMIT,this.page,ACTIVITY_TYPE.EV).subscribe(result=>{
-            this.userActivityList=result
-            this.sum=result.length
-        })
+       
     }
 
     onApprove(event: Event,id:string,i:number) {
@@ -99,4 +103,26 @@ export class EventAdminComponent implements OnInit{
             }
         });
     }
+
+    loadData(event: LazyLoadEvent){
+        console.log(event);
+        this.getAll(event.first,event.rows, event.globalFilter)
+        
+      }
+      getAll(startPage:number = this.startPage, maxPage:number=this.maxPage, query?: string){
+        this.loading=true
+        this.maxPage=maxPage
+        this.startPage=startPage
+        this.query = query
+        
+        this.userActivity$=this.userActivityService.getAll(maxPage,startPage,ACTIVITY_TYPE.EV).subscribe(result=>{
+            const resultData: any = result
+           this.sum=result[0].transactionSum!
+            this.userActivityList=resultData
+            this.loading=false
+            this.totalData=resultData.total
+            console.log(resultData);
+            
+        })
+      }
 }

@@ -24,4 +24,5 @@ export interface ActivityRes {
 	  fileExtension?:string,
 	  ver :number;
 	 schedule : ScheduleRes[];
+	 isApprove:boolean
 }

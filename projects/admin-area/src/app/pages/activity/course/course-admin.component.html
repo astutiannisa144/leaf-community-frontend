@@ -10,15 +10,26 @@
         </p-chip>
       </div>
 
-      <p-table [tableStyle]="{'min-width': '60rem'}" [lazy]="true" [value]="userActivityList">
+      <p-table #dt1 [value]="userActivityList" [lazy]="true" (onLazyLoad)="loadData($event)" responsiveLayout="scroll" [paginator]="true"
+      [rows]="maxPage" [totalRecords]="totalData" [loading]="loading" [rowsPerPageOptions]="[5, 10]"
+      tyleClass="p-datatable-gridlines" [globalFilterFields]="['id', 'title','content']">
+  >
         <ng-template pTemplate="caption">
           <div class="flex align-items-center justify-content-between">
-            Manage Course Approvement
+            Manage Event Approvement
+             
             <p-button icon="pi pi-refresh"></p-button>
           </div>
           <div class="flex align-items-Start ">
             Total Transaction : {{sum}}
           </div>
+          <div class="flex">
+            <span class="p-input-icon-left ml-auto">
+                <i class="pi pi-search"></i>
+                <input pInputText #searchText type="text" (input)="dt1.filterGlobal(searchText.value, 'contains')"
+                    placeholder="Search keyword" />
+            </span>
+        </div>
         </ng-template>
         <ng-template pTemplate="header">
           <tr>
@@ -36,8 +47,7 @@
             <td>{{item.memberName}}</td>
             <td>{{item.activityName}}</td>
             <td><a pInputText icon="pi pi-check" href="http://localhost:1214/files/{{item.fileId}}">Download File</a> 
-              <!-- <img src="http://localhost:1214/files/{{item.fileId}}" width="100"
-                class="shadow-4" /> -->
+
               </td>
             <td> {{item.isApprove==true?"Approved":item.isApprove==false?"Reject":"Pending"}}</td>
             <!-- <td ngIf="!item.isApprove">Pending</td> -->

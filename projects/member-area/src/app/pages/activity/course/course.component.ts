@@ -6,6 +6,7 @@ import { ActivityRes } from "@dto/activity/activity-res";
 import { CategoryRes } from "@dto/category/category-res";
 import { ActivityService } from "@service/activity.service";
 import { CategoryService } from "@service/category.service";
+import { LazyLoadEvent } from "primeng/api";
 import { ACTIVITY_LIMIT } from "projects/base-area/src/app/constant/activity-limit";
 import { ACTIVITY_TYPE } from "projects/base-area/src/app/constant/activity-type";
 import { Subscription } from "rxjs";
@@ -104,6 +105,7 @@ export class CourseComponent implements OnInit{
     categoryTemp!:string
     // category=new FormControl('')
 
+   
     constructor(
         private router: Router,
         private activityService: ActivityService,
@@ -172,6 +174,7 @@ export class CourseComponent implements OnInit{
     }
 
   }
+
     // category: string[] = [];
     sorting: string[] = [];
 
