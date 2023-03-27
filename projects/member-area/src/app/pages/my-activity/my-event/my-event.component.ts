@@ -54,19 +54,19 @@ import { Subscription } from "rxjs";
 })
 export class MyEventComponent {
     private event$? : Subscription
-    eventList? : ActivityRes[]
+    eventList : ActivityRes[]=[]
     private category$? : Subscription
-    categoryList? : CategoryRes[]
+    categoryList: CategoryRes[]=[]
     private eventCreated$? : Subscription
-    eventListCreated? : ActivityRes[]
+    eventListCreated : ActivityRes[]=[]
     private categoryCreated$? : Subscription
-    categoryListCreated? : CategoryRes[]
+    categoryListCreated : CategoryRes[]=[]
     page = 1
     categories=this.fb.group({
         category:[[]],
 
     })
-
+    categoryTemp!:string
     categoriesCreated=this.fb.group({
         categoryCreated:[[]],
 
@@ -119,6 +119,7 @@ export class MyEventComponent {
                     this.eventListCreated = result
                 })
             }else{
+                this.categoryTemp=temp
                 this.eventCreated$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.EV,temp,ACTIVITY_CODE.PROFILE).subscribe(result => {
                     this.eventListCreated = result
                 })
@@ -130,7 +131,32 @@ export class MyEventComponent {
     onCreatePost() {
         this.router.navigateByUrl('/posts/create')
     }
-
+    onScroll(): void {
+        if(!this.categoryTemp){
+          this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT,  this.page=this.page+1,ACTIVITY_TYPE.EV).subscribe(result => {
+            if (result) {
+              
+              if (this.eventListCreated.length) {
+                this.eventListCreated = [...this.eventListCreated, ...result]
+              } else {
+                this.eventListCreated = result
+              }
+            }
+          })
+        }else{
+          this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT,  this.page=this.page+1,ACTIVITY_TYPE.EV,this.categoryTemp).subscribe(result => {
+            if (result) {
+              
+              if (this.eventList.length) {
+                this.eventList = [...this.eventList, ...result]
+              } else {
+                this.eventList = result
+              }
+            }
+          })
+        }
+    
+      }
     category: string[] = [];
     sorting: string[] = [];
 

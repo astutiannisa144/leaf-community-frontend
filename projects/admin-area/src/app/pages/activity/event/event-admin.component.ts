@@ -32,7 +32,7 @@ export class EventAdminComponent implements OnInit{
 
     ){}
     ngOnInit(): void {
-        this.userActivity$=this.userActivityService.getAll(USER_ACTIVITY_LIMIT,this.page,ACTIVITY_TYPE.CO).subscribe(result=>{
+        this.userActivity$=this.userActivityService.getAll(USER_ACTIVITY_LIMIT,this.page,ACTIVITY_TYPE.EV).subscribe(result=>{
             this.userActivityList=result
             this.sum=result.length
         })
