@@ -33,7 +33,10 @@ export class CourseAdminComponent implements OnInit{
     ngOnInit(): void {
         this.userActivity$=this.userActivityService.getAll(USER_ACTIVITY_LIMIT,this.page,ACTIVITY_TYPE.CO).subscribe(result=>{
             this.userActivityList=result
-            this.sum=result.length
+            this.sum=result[0].transactionSum!
+           
+            
+            
         })
     }
 
