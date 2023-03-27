@@ -16,15 +16,19 @@
         routerLink="/activities/course-create/{{activityTypeId}}"></button>
     </section>
   </div>
+
   <div class="hidden lg:block md:block col-12 md:col-6 overflow-hidden overflow-x: hidden;">
     <img src="https://buildwithangga.com/storage/assets/thumbnails/thumbnail_vue_starter.png    " alt="Image"
+
       class="md:ml-auto block md:h-full" style="clip-path: polygon(8% 0, 100% 0%, 100% 100%, 0 100%)">
   </div>
 </div>
 
 <div class="flex justify-content-center" infinite-scroll (scrolled)="onScroll()">
 
+
   <div class="hidden lg:block lg:col-2 mt-3 md:col-2">
+
     <div class="text-xl font-medium text-900 mb-3 align-items-center flex">
       <i class="pi pi-filter mr-2" style="font-size: 1.2rem; color: #22C55E;"></i>
       <span>Filters</span>
@@ -43,6 +47,7 @@
         </div>
       </div>
 
+
       <hr class="mb-3" style=" height:2px;border-width:0;color:rgb(227, 227, 227);background-color:rgb(221, 221, 221)">
 
       <p style="font-weight: 400;">Price</p>
@@ -60,19 +65,21 @@
             <label class="text-sm" for="city4">Highest Price</label>
           </div>
         </div>
-
       </div>
-
     </div>
   </div>
 
+
   <div class="lg:col-8 md:col-9 sm:col-12 mt-3 ml-5">
+
     <div class="text-xl font-medium text-900 mb-3 align-items-center flex">
       <i class="pi pi-briefcase mr-2" style="font-size: 1.2rem; color: #22C55E;"></i>
       <span>Courses</span>
     </div>
+
     <div class="flex flex-wrap justify-content-center lg:justify-content-start md:justify-content-start gap-5">
       <div class="surface-card event p-3 lg:mr-4 md:mr-4 mr-2 shadow-2 border-round m-0 mb-3 cursor-pointer"
+
         *ngFor="let cl of courseList" routerLink="/activities/course-detail/{{cl.id}}">
         <img alt="Logo Class" src="http://localhost:1214/files/{{cl.fileId}}" class="w-17rem">
 
@@ -97,11 +104,11 @@
                 style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>{{cl.locationAddress}}</p>
             <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"
               *ngFor="let sch of cl.schedule"> <i class="pi pi-calendar mr-2"
-                style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>{{sch.scheduleDate | date : 'fullDate'   }}
+                style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>{{sch.scheduleDate | date : 'fullDate' }}
             </p>
             <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"> <i
-                class="pi pi-clock mr-2"
-                style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>{{'0000-00-00T'+ cl.timeStart | date: 'shortTime'}}
+                class="pi pi-clock mr-2" style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>{{'0000-00-00T'+
+              cl.timeStart | date: 'shortTime'}}
               - {{'0000-00-00T'+ cl.timeEnd | date: 'shortTime'}}
             </p>
             <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"> <i

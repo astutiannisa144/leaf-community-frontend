@@ -10,7 +10,7 @@ const articleRoutes : Routes = [
     },
 
     {   
-        path : 'detail',
+        path : 'detail/:id',
         component : ArticleDetailComponent
     },
 

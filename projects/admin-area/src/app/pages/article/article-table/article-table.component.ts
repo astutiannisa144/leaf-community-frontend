@@ -1,12 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
-import { ActivityRes } from "@dto/activity/activity-res";
 import { ArticleRes } from "@dto/article/article-res";
-import { ActivityService } from "@service/activity.service";
 import { ArticleService } from "@service/article.service";
+
 import { ConfirmationService } from "primeng/api";
-import { ACTIVITY_LIMIT } from "projects/base-area/src/app/constant/activity-limit";
+import { ARTICLE_LIMIT } from "projects/base-area/src/app/constant/article-limit";
 import { Subscription } from "rxjs";
 
 @Component({
@@ -25,39 +24,54 @@ import { Subscription } from "rxjs";
 export class ArticleTableComponent {
     private article$?: Subscription
     articleList: ArticleRes[] = []
-    private activity$?: Subscription
-    activityList: ActivityRes[] = []
+
     page = 1
     constructor(
         private router: Router,
         private articleService: ArticleService,
-        private activityService: ActivityService,
         private confirmationService: ConfirmationService
     ) { }
 
     ngOnInit(): void {
-        this.article$ = this.articleService.getArticle().subscribe(result => {
+        this.getArticle()
+        
+      
+    }
+    getArticle(){
+        this.article$ = this.articleService.getArticle(ARTICLE_LIMIT,this.page).subscribe(result => {
             this.articleList = result
-        })
-        this.activity$ = this.activityService.getActivityByType(ACTIVITY_LIMIT / 2, this.page).subscribe(result => {
-            this.activityList = result
         })
     }
     onCreatePost() {
         this.router.navigateByUrl('/posts/create')
     }
-
-    confirm(event: Event) {
+    onScroll(): void {
+        this.article$ = this.articleService.getArticle(ARTICLE_LIMIT,  this.page++).subscribe(result => {
+          if (result) {
+            
+            if (this.articleList.length) {
+              this.articleList = [...this.articleList, ...result]
+            } else {
+              this.articleList = result
+            }
+          }
+        })
+      }
+    confirm(event: Event,id:string) {
         this.confirmationService.confirm({
             target : event.target!,
             message: 'Are you sure to delete this article? ',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
                 //confirm action
+                this.articleService.delete(id).subscribe(result=>{
+                    this.getArticle()
+                })
             },
             reject: () => {
                 //reject action
             }
         });
     }
+
 }

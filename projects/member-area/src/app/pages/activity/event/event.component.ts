@@ -158,7 +158,7 @@ export class EventComponent implements OnInit{
    }
    onScroll(): void {
     if(!this.categoryTemp){
-      this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT,  this.page++,ACTIVITY_TYPE.EV).subscribe(result => {
+      this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT,  this.page=this.page+1,ACTIVITY_TYPE.EV).subscribe(result => {
         if (result) {
           
           if (this.eventList.length) {
@@ -169,7 +169,7 @@ export class EventComponent implements OnInit{
         }
       })
     }else{
-      this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT,  this.page++,ACTIVITY_TYPE.EV,this.categoryTemp).subscribe(result => {
+      this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT,  this.page=this.page+1,ACTIVITY_TYPE.EV,this.categoryTemp).subscribe(result => {
         if (result) {
           
           if (this.eventList.length) {

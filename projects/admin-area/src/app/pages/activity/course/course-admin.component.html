@@ -1,3 +1,6 @@
+<pre>
+  {{userActivityList|json}}
+</pre>
 <div class="flex justify-content-center align-items-center h-6 w-screen font-bold">
   <div class="col-10">
     <div class="surface-card p-4 shadow-2 border-round w-full">
@@ -7,11 +10,14 @@
         </p-chip>
       </div>
 
-      <p-table [tableStyle]="{'min-width': '60rem'}" [lazy]="true">
+      <p-table [tableStyle]="{'min-width': '60rem'}" [lazy]="true" [value]="userActivityList">
         <ng-template pTemplate="caption">
           <div class="flex align-items-center justify-content-between">
             Manage Course Approvement
             <p-button icon="pi pi-refresh"></p-button>
+          </div>
+          <div class="flex align-items-Start ">
+            Total Transaction : {{sum}}
           </div>
         </ng-template>
         <ng-template pTemplate="header">
@@ -24,16 +30,25 @@
             <th>Action</th>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-product>
+        <ng-template pTemplate="body" let-product let-item let-i="rowIndex">
           <tr>
-            <td>1</td>
-            <td><img src="https://buildwithangga.com/storage/assets/thumbnails/thumbnail_vue_starter.png" width="100"
-                class="shadow-4" /></td>
-            <td>tes</td>
-            <td>tes</td>
+            <td>{{i+1}}</td>
+            <td>{{item.memberName}}</td>
+            <td>{{item.activityName}}</td>
+            <td><a pInputText icon="pi pi-check" href="http://localhost:1214/files/{{item.fileId}}">Download File</a> 
+              <!-- <img src="http://localhost:1214/files/{{item.fileId}}" width="100"
+                class="shadow-4" /> -->
+              </td>
+            <td> {{item.isApprove==true?"Approved":item.isApprove==false?"Reject":"Pending"}}</td>
+            <!-- <td ngIf="!item.isApprove">Pending</td> -->
+            <!-- <td ngIf="item.isApprove==true">Approved</td>
+            <td ngIf="item.isApprove==false">Reject</td> -->
             <td>
-              <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"></button>
-              <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"></button>
+              <button pButton pRipple icon="pi pi-pencil"   (click)="onApprove($event,item.id,i)"  class="p-button-rounded p-button-info mr-2"> Approve</button>
+              <p-confirmPopup></p-confirmPopup>
+              <button pButton pRipple icon="pi pi-pencil"   (click)="onReject($event,item.id,i)"  class="p-button-rounded p-button-warning mr-2"> Reject</button>
+              <p-confirmPopup></p-confirmPopup>
+              <button pButton pRipple icon="pi pi-trash" (click)="onRemove($event,item.id,i)" class="p-button-rounded p-button-danger"></button>
             </td>
           </tr>
         </ng-template>

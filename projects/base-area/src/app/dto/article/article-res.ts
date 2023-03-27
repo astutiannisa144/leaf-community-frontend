@@ -1,3 +1,5 @@
+import { FileRes } from "@dto/file/file-res";
+
 export interface ArticleRes{
       articleId:string;
 	  title:string;
@@ -5,4 +7,7 @@ export interface ArticleRes{
 	  createdAt:string;
 	  adminId:string;
 	  fileId:string;
+	  file:FileRes
+	  ver:number
+	  fullName:string
 }
