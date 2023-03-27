@@ -46,6 +46,8 @@ export class ProfileComponent {
         address:[''],
         email:[''],
         pass:[''],
+        src:[''],
+        phoneNumber:[''],
         job:this.fb.group({
             id:[''],
             companyName:[''],
@@ -72,28 +74,17 @@ export class ProfileComponent {
         private socialMediaService:SocialMediaServiceService,
         private router:Router
     ){}
-    ngOnInit() {
-        this.socialMedia$=this.socialMediaService.getAllSocialMedia().subscribe(res=>{
-            this.socialMediaList=res
-            // for(let i=0;i<this.socialMediaList.length;i++){
-        
-            //     this.socialMedias.push(this.fb.group({
-            //         id:this.socialMediaList[i].id,
-            //        username:'',
-            //         // socialMediaId:this.profile?.profileSocialMedia[i].socialMediaId,
-            //         socialMediaName:this.socialMediaList[i].socialMediaName
-            //     }))
-    
-            // }
-        })
+    getProfile(){
         this.profile$=this.profileService.getProfile().subscribe(result=>{
             this.profile=result
-
+            
             this.profileForm.patchValue({
                 id:this.profile.id,
                 fullName:this.profile.fullName,
                 address:this.profile.address,
                 email:this.userService.email,
+                phoneNumber:this.profile.phoneNumber,
+                src:"http://localhost:1214/files/"+this.profile.file.fileId,
                 job:{
                     id:this.profile.job.id,
                     companyName:this.profile.job.companyName,
@@ -124,19 +115,24 @@ export class ProfileComponent {
                     socialMediaLink:this.profile?.profileSocialMedia[i].socialMedia.socialMediaLink,
                     socialMediaIcon:this.profile?.profileSocialMedia[i].socialMedia.socialMediaIcon
                 }))
-                // id:string;
-                // ver:number;
-                // socialMediaId:string;
-                // profileId:string;
-                // username:string;
             }
         })
+    }
+
+    getIndustry(){
         this.industry$=this.industryService.getAllIndustry().subscribe(result=>{
             this.industry=result
         })
+    }
+    getPosition(){
         this.position$=this.positionService.getAllPosition().subscribe(result=>{
             this.position=result
         })
+    }
+    ngOnInit() {
+        this.getProfile()
+        this.getIndustry()
+        this.getPosition()
         this.email=this.userService.email
     
     }
@@ -154,7 +150,9 @@ export class ProfileComponent {
             toBase64(file).then(result => {
                 const resultBase64: string = result.substring(result.indexOf(",") + 1, result.length)
                 const resultExtension = file.name.substring(file.name.indexOf(".") + 1, file.name.length)
+                
                 this.profileForm.patchValue({
+                    src:`data:image/${resultExtension};base64, ${resultBase64}`,
                     file: {
                         fileContent: resultBase64,
                         fileExtension: resultExtension
@@ -178,6 +176,7 @@ export class ProfileComponent {
         id:this.profileForm.value.id!,
         fullName:this.profileForm.value.fullName!,
         address:this.profileForm.value.address!,
+        phoneNumber:this.profileForm.value.phoneNumber!,
         job :{
             id:this.profileForm.value.job?.id!,
             ver:Number(this.profileForm.value.job?.ver!),
@@ -187,7 +186,7 @@ export class ProfileComponent {
         },
         ver:Number(this.profileForm.value.ver!),
         file:{
-            fileId:this.profileForm.value.file?.id!,
+            id:this.profileForm.value.file?.id!,
             fileContent:this.profileForm.value.file?.fileContent!,
             fileExtension:this.profileForm.value.file?.fileExtension!,
             ver:Number(this.profileForm.value.file?.ver!)
@@ -203,15 +202,10 @@ export class ProfileComponent {
                 username:this.socialMedias.value[i].username,
                 profileId:this.socialMedias.value[i].profileId
             })
-            // data.profileSocialMedia[i].id=this.socialMedias.value[i].id
-            // data.profileSocialMedia[i].ver=this.socialMedias.value[i].ver
-            // data.profileSocialMedia[i].socialMediaId=this.socialMedias.value[i].socialMediaId
-            // data.profileSocialMedia[i].username=this.socialMedias.value[i].username
-            // data.profileSocialMedia[i].profileId=this.socialMedias.value[i].profileId
 
         }
         this.profileService.update(data).subscribe(result=>{
-            this.router.navigateByUrl('/profile/')
+            this.profileService.photo(this.profileForm.value.src!)
         })
     }
    

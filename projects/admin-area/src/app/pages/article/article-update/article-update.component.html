@@ -18,8 +18,9 @@
         </li>
 
         <li>
-          <span class="text-900 line-height-3">Article Create</span>
+          <span class="text-900 line-height-3">Article Update</span>
         </li>
+
       </ul>
     </div>
   </div>
@@ -36,22 +37,30 @@
               <div class="col-11 gap-2">
                 <div class="text-xl ml-0 py-0 font-medium text-900 mb-4 align-items-center flex">
                   <i class="pi pi-book mr-2" style="font-size: 1.4rem; color: #22C55E;"></i>
-                  <span>Article Create</span>
+                  <span>Article Update</span>
                 </div>
+               
                 <div class="flex p-0">
                   <div class="col-6 pl-0">
+                    <div >
+                      <label for="code" class="block text-900 font-medium mb-2">Article Cover Photo</label>
+                    
+                    </div>
+                    <div class="justify-content-center flex">
+                      <img class="border border-1" src="{{articleForm.value.src}}" style="width: 100px;" alt="profile">
+                      <!-- <p-image  height="250 " width="250"  alt="Red dot" /> -->
+                      
+                    </div>
+                    <div class="file-btn-container justify-content-center flex block mb-2 mt-2">
+                      <p-fileUpload chooseIcon="pi pi-fw pi-upload" chooseLabel="Upload" mode="basic"
+                        [customUpload]="true" (onSelect)="fileUpload($event)" name="myFile[]" accept="image/*">
+                      </p-fileUpload>
+                    </div>
                     <div class="flex align-items-center mb-2">
                       <label for="code" class="block text-900 font-medium">Article Title</label>
                     </div>
                     <input id="code" formControlName="title" type="text" placeholder="Article title" pInputText class="w-full">
-                    <div class="py-2">
-                      <label for="code" class="block text-900 font-medium mb-2">Article Cover Photo</label>
-                      <div class="file-btn-container block">
-                        <p-fileUpload chooseIcon="pi pi-fw pi-upload" chooseLabel="Upload" mode="basic"
-                          [customUpload]="true" (onSelect)="fileUpload($event)" name="myFile[]" accept="image/*">
-                        </p-fileUpload>
-                      </div>
-                    </div>
+                 
                   </div>
 
                   <div class="col-6 pl-0">
@@ -75,8 +84,8 @@
                 <div class="flex p-0 justify-content-end">
                   <button pButton pRipple type="button" label="Cancel" class="p-button-secondary p-button-text"
                     routerLink="/article/admin"></button>
-                  <button pButton pRipple type="button" icon="pi pi-save" label="Create Article"
-                    class="p-button-info" (click)="onCreate()"></button>
+                  <button pButton pRipple type="button" icon="pi pi-save" label="Update Article"
+                    class="p-button-info" (click)="onUpdate()"></button>
                 </div>
 
               </div>

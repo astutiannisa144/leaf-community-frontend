@@ -1,16 +1,20 @@
-import { HttpClient } from "@angular/common/http"
+import { HttpClient, HttpHandler } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { ProfileReq } from "@dto/profile/profile-req"
 import { ProfileRes } from "@dto/profile/profile-res"
-import { Observable } from "rxjs"
+import { Observable, Observer } from "rxjs"
 import { BASE_URL } from "../constant/base.service"
 
 @Injectable({
     providedIn: 'root'
 })
 export class ProfileService {
+    profileImage$?:Observable<string>
+    private profileImageObserver?:Observer<string>
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) {
+        this.profileImage$=new Observable( obs=>this.profileImageObserver=obs)
+     }
 
     getProfile(): Observable<ProfileRes> {
 
@@ -21,5 +25,12 @@ export class ProfileService {
         return this.http.patch<Response>(`${BASE_URL}/profiles`,data)
 
     }
+    base64!:string
+    photo(base:string){
+        this.profileImageObserver?.next(base)
+       
+    }
+    saveDataProfile(fileId:string){
 
+    }
 }

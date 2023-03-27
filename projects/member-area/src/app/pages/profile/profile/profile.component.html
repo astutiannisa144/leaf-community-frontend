@@ -35,7 +35,7 @@
             <span>Profile Edit</span>
           </div>
           <div class="justify-content-center flex">
-            <img class="border-circle border-1"  src="data:image/{{profileForm.value.file?.fileExtension}};base64, {{profileForm.value.file?.fileContent}}" style="width: 100px;" alt="profile">
+            <img class="border-circle border-1" src="{{profileForm.value.src}}" style="width: 100px;" alt="profile">
             <!-- <p-image  height="250 " width="250"  alt="Red dot" /> -->
 
           </div>
@@ -46,7 +46,10 @@
               <input id="fullname" formControlName="fullName"  type="text" placeholder="Fullname" pInputText class="w-full mb-3">
 
               <label for="address" class="block text-900 font-medium mb-2">Address</label>
-              <input id="address" formControlName="address" type="text" placeholder="Address" pInputText class="w-full mb-3">
+              <textarea id="address" formControlName="address" type="text" placeholder="Address" pInputText class="w-full mb-3"></textarea>
+
+              <label for="phoneNumber" class="block text-900 font-medium mb-2">Phone Number</label>
+              <input id="phoneNumber" formControlName="phoneNumber"  type="number" placeholder="phoneNumber" pInputText class="w-full mb-3">
 
               <label for="email" class="block text-900 font-medium mb-2">Email</label>
               <input id="email" formControlName="email" type="email" placeholder="Email" pInputText class="w-full mb-3">
