@@ -7,5 +7,6 @@ export interface VoucherRes{
 	  minimumPurchase:number;
 	  isActive:boolean;
       message:string;
-      codeWarning:number
+      codeWarning:number;
+	  showEdit:boolean;
 }

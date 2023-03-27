@@ -58,17 +58,7 @@ import { Subscription } from "rxjs";
 }
 
 
-     
-  /* 
-      :host ::ng-deep .p-checkbox .p-checkbox-box {
-      border: 2px solid #ced4da;
-      background: #ffffff;
-      width: 22px;
-      height: 13px;
-      color: #495057;
-      border-radius: 6px;
-      transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
-  }, */
+
     :host ::ng-deep .menubar {
             position: sticky;
             top: 0;

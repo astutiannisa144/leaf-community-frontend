@@ -2,7 +2,8 @@
   {{categories.value|json}}
 </pre>
 <div class="grid grid-nogutter surface-section text-800 mb-3 overflow-x-hidden">
-  <div class="col-12 md:col-6 p-6 text-center md:text-left flex align-items-center ">
+  <div
+    class="justify-content-center lg:justify-content-start md:justify-content-start col-12 md:col-6 p-6 text-center md:text-left flex align-items-center ">
     <section>
       <span class="block text-4xl font-bold mb-1">
         <p>Join Our Event</p>
@@ -12,20 +13,20 @@
       </div>
 
       <button pButton pRipple label="Create Your Own Event" type="button" class="mr-3 p-button-raised p-button-primary"
-        routerLink="/activities/event-create/{{activityTypeId}}"></button>
+        routerLink="/activities/course-create/{{activityTypeId}}"></button>
     </section>
   </div>
-  <div class="col-12 md:col-6 overflow-hidden overflow-x: hidden;">
-    <img src="https://buildwithangga.com/storage/assets/thumbnails/thumbnail_vue_starter.png" alt="Image"
+  <div class="hidden lg:block md:block col-12 md:col-6 overflow-hidden overflow-x: hidden;">
+    <img src="https://buildwithangga.com/storage/assets/thumbnails/thumbnail_vue_starter.png    " alt="Image"
       class="md:ml-auto block md:h-full" style="clip-path: polygon(8% 0, 100% 0%, 100% 100%, 0 100%)">
   </div>
 </div>
 
 <div class="flex justify-content-center" infinite-scroll (scrolled)="onScroll()">
 
-  <div class="col-3 mt-3">
+  <div class="hidden lg:block lg:col-2 mt-3 md:col-2">
     <div class="text-xl font-medium text-900 mb-3 align-items-center flex">
-      <i class="pi pi-filter mr-2" style="font-size: 1.4rem; color: #22C55E;"></i>
+      <i class="pi pi-filter mr-2" style="font-size: 1.2rem; color: #22C55E;"></i>
       <span>Filters</span>
     </div>
 
@@ -34,11 +35,11 @@
 
       <div class="mt-3" [formGroup]="categories">
         <div *ngFor="let ct of categoryList" (mouseenter)="onHover()" (mouseleave)="onLeave()"
-          class="hoverable-element">
+          class="hover:bg-green-100 border-round-2xl cursor-pointer">
           <div class="field-checkbox">
             <p-checkbox name="{{ct.categoryName}}" formControlName="category" value="{{ct.id}}" inputId="ms">
             </p-checkbox>
-            <label for="ms">{{ct.categoryName}}</label>
+            <label class="text-sm" for="ms">{{ct.categoryName}}</label>
 
           </div>
         </div>
@@ -52,27 +53,28 @@
         <div (mouseenter)="onHover()" (mouseleave)="onLeave()" class="hoverable-element">
           <div class="field-radiobutton">
             <p-radioButton name="city" value="Lowest Price" [(ngModel)]="sorting" inputId="sorting1"></p-radioButton>
-            <label for="city4">Lowest Price</label>
+            <label class="text-sm" for="city4">Lowest Price</label>
           </div>
         </div>
 
         <div (mouseenter)="onHover()" (mouseleave)="onLeave()" class="hoverable-element">
           <div class="field-radiobutton">
             <p-radioButton name="city" value="Highest Price" [(ngModel)]="sorting" inputId="sorting2"></p-radioButton>
-            <label for="city4">Highest Price</label>
+            <label class="text-sm" for="city4">Highest Price</label>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="col-8 mt-3 ml-5">
+  <div class="lg:col-8 md:col-9 sm:col-12 mt-3 ml-5">
     <div class="text-xl font-medium text-900 mb-3 align-items-center flex">
-      <i class="pi pi-briefcase mr-2" style="font-size: 1.4rem; color: #22C55E;"></i>
+      <i class="pi pi-briefcase mr-2" style="font-size: 1.2rem; color: #22C55E;"></i>
       <span>Events</span>
     </div>
-    <div class="flex flex-wrap justify-content-between">
-      <div class="surface-card event p-3 shadow-2 border-round m-0 mb-3 cursor-pointer     "
+    <div class="flex flex-wrap justify-content-center lg:justify-content-start md:justify-content-start gap-5">
+
+      <div class="surface-card event p-3  shadow-2 border-round m-0 mb-3 cursor-pointer"
         *ngFor="let cl of eventList" routerLink="/activities/event-detail/{{cl.id}}">
         <img alt="Logo Class" src="http://localhost:1214/files/{{cl.fileId}}" class="w-17rem">
 
@@ -80,8 +82,8 @@
           <div class="col flex my-0">
             <i class="pi pi-building mb-2 mr-1" style="font-size: 20px; color: #a4a4a4;"></i>
             <p style="font-size: 14px; font-weight: 400;">{{cl.provider}}</p>
-
           </div>
+
           <div class="col justify-content-end flex my-0">
             <i class="pi pi-calendar mb-2 mr-1" style="font-size: 20px; color: #a4a4a4;"></i>
             <p style="font-size: 14px; font-weight: 400;">{{cl.activityTypeName}}</p>

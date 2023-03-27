@@ -1,44 +1,68 @@
-<div class="flex justify-content-center align-items-center h-6 w-screen font-bold">
+<!-- <pre>
+  {{ voucherList | json }}
+</pre> -->
+
+<div class="flex justify-content-center h-6 font-bold">
   <div class="col-10">
-    <div class="surface-card p-4 shadow-2 border-round w-full">
+    <div class="surface-card p-4 shadow-2 border-round w-full my-4">
       <div class="flex justify-content-center mb-5">
         <p-chip styleClass="mr-2  custom-chip">
-          <p class="my-1 mx-1 text-lg" style="font-size: 12px; font-weight: 500;">Voucher Table</p>
+          <p class="my-1 mx-1 text-lg" style="font-size: 12px; font-weight: 50;">Voucher Table</p>
         </p-chip>
       </div>
-      <p-toolbar styleClass="mb-4 gap-2">
+      <!-- <p-toolbar styleClass="mb-4 gap-2">
         <ng-template pTemplate="left">
-          <button pButton pRipple label="Add Voucher" icon="pi pi-plus" class="p-button-primary mr-2" routerLink="/voucher/create"></button>
+          <button pButton pRipple label="Add Voucher" icon="pi pi-plus" class="p-button-primary mr-2"
+            routerLink="/voucher/create"></button>
         </ng-template>
-      </p-toolbar>
+      </p-toolbar> -->
 
-      <p-table styleClass="border-round-md" [tableStyle]="{'min-width': '60rem'}" [lazy]="true">
+      <p-table [value]="voucherList" styleClass="border-round-md" [tableStyle]="{'min-width': '60rem'}" [lazy]="true">
         <ng-template pTemplate="caption">
           <div class="flex align-items-center justify-content-between">
             Manage Voucher
-            <p-button icon="pi pi-refresh"></p-button>
+            <button pButton pRipple label="Add Voucher" icon="pi pi-plus" class="p-button-primary mr-2"
+              routerLink="/voucher/create"></button>
           </div>
         </ng-template>
         <ng-template pTemplate="header">
           <tr>
             <th>No.</th>
             <th>Voucher Code</th>
+            <th>Expired Date</th>
             <th>Price Discount</th>
             <th>Minimum Purchase</th>
-            <th>Expired Date</th>
             <th>Action</th>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-product>
-          <tr>
-            <td>1</td>
-            <td><img src="https://buildwithangga.com/storage/assets/thumbnails/thumbnail_vue_starter.png" width="100"
-                class="shadow-4" /></td>
-            <td>tes</td>
-            <td>tes</td>
+        <ng-template pTemplate="body" let-vl let-i="rowIndex">
+          <tr *ngIf="!vl.showEdit">
+            <td>{{ i+1 }}</td>
+            <td>{{ vl.voucherCode }}</td>
+            <td>{{ vl.expiredDate | date }}</td>
+            <td>{{ vl.discountPrice | currency: 'Rp ' :'symbol':'1.2-2' }}</td>
+            <td>{{ vl.minimumPurchase | currency: 'Rp ' :'symbol':'1.2-2' }}</td>
             <td>
-              <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"></button>
-              <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"></button>
+              <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
+                pTooltip="Edit Voucher" tooltipPosition="bottom" (click)="editVoucher(i)"></button>
+              <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                pTooltip="Delete Voucher" tooltipPosition="bottom" (click)="deleteVoucher( vl.id )"></button>
+            </td>
+          </tr>
+          <tr *ngIf="vl.showEdit">
+            <td>{{ i+1 }}</td>
+            <td>{{ vl.voucherCode }}</td>
+            <td><p-calendar  styleClass="w-full" id="expiredDate" placeholder="Expired date"
+                [showIcon]="true">
+              </p-calendar>
+            </td>
+            <td><input id="code" type="text" placeholder="Price discount" pInputText class="w-full"></td>
+            <td><input id="code" type="text" placeholder="Minimum purchase" pInputText class="w-full"></td>
+            <td>
+              <button pButton pRipple icon="pi pi-check" class="p-button-rounded p-button-info mr-2"
+                pTooltip="Save" tooltipPosition="bottom"></button>
+              <button pButton pRipple icon="pi pi-times" class="p-button-rounded p-button-danger"
+                pTooltip="Cancel" tooltipPosition="bottom"></button>
             </td>
           </tr>
         </ng-template>
