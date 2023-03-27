@@ -7,6 +7,7 @@ export interface PostRes {
     content : string,
     isPremium : boolean,
     categoryId : string,
+    categoryName : string,
     memberId : string,
     fileId : string,
     fullName : string,
@@ -14,8 +15,8 @@ export interface PostRes {
     commentSum : number, 
     createdAt : string,
     showComment : boolean,
-    likeId? : string,
-    bookmarkId? : string,
+    likeId? : string | null,
+    bookmarkId? : string | null,
     polling? : PollingRes,
     file? : string[],
     commentList : CommentRes[]
