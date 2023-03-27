@@ -14,7 +14,7 @@ import { Subscription } from "rxjs";
     selector: 'app-activity-course',
     templateUrl: './course.component.html',
     template: `
-    <div (mouseenter)="onHover()" (mouseleave)="onLeave()" class="hoverable-element    ">Hover me!</div>
+    <div (mouseenter)="onHover()" (mouseleave)="onLeave()" class="hoverable-element">Hover me!</div>
     `,
     styles: [`
      .hoverable-element {
@@ -47,7 +47,7 @@ import { Subscription } from "rxjs";
     transform: scale3d(1.006, 1.006, 1);
 
     &::after {
-      opacity: 1;
+      opacity: 1;     
     }
   }
 }
@@ -56,6 +56,7 @@ import { Subscription } from "rxjs";
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   transform: translateY(-5px);
 }
+
 
 
     :host ::ng-deep .menubar {
@@ -99,8 +100,8 @@ export class CourseComponent implements OnInit{
     page = 1
     categories=this.fb.group({
         category:[[]],
-
     })
+    categoryTemp!:string
     // category=new FormControl('')
 
     constructor(
@@ -114,7 +115,7 @@ export class CourseComponent implements OnInit{
         this.activatedRoute.params.subscribe(result => {
             this.activityTypeId=result['id']
         })
-        this.course$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.EV).subscribe(result => {
+        this.course$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.CO).subscribe(result => {
             this.courseList = result
 
         })
@@ -124,13 +125,16 @@ export class CourseComponent implements OnInit{
         this.categories.get('category')?.valueChanges.subscribe(result => {
             const temp=result as any;
             console.log(result);
+            this.page=1
             if(!temp.length){
                 
-                this.course$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.EV).subscribe(result => {
+                this.course$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.CO).subscribe(result => {
                     this.courseList = result
                 })
             }else{
-                this.course$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.EV,temp).subscribe(result => {
+              
+              this.categoryTemp=temp
+                this.course$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.CO,temp).subscribe(result => {
                     this.courseList = result
                 })
             }
@@ -143,16 +147,30 @@ export class CourseComponent implements OnInit{
     
    }
    onScroll(): void {
-    this.course$ = this.activityService.getActivityByType(ACTIVITY_LIMIT,  this.page++).subscribe(result => {
-      if (result) {
-        
-        if (this.courseList.length) {
-          this.courseList = [...this.courseList, ...result]
-        } else {
-          this.courseList = result
+    if(!this.categoryTemp){
+      this.course$ = this.activityService.getActivityByType(ACTIVITY_LIMIT,  this.page++,ACTIVITY_TYPE.CO).subscribe(result => {
+        if (result) {
+          
+          if (this.courseList.length) {
+            this.courseList = [...this.courseList, ...result]
+          } else {
+            this.courseList = result
+          }
         }
-      }
-    })
+      })
+    }else{
+      this.course$ = this.activityService.getActivityByType(ACTIVITY_LIMIT,  this.page++,ACTIVITY_TYPE.CO,this.categoryTemp).subscribe(result => {
+        if (result) {
+          
+          if (this.courseList.length) {
+            this.courseList = [...this.courseList, ...result]
+          } else {
+            this.courseList = result
+          }
+        }
+      })
+    }
+
   }
     // category: string[] = [];
     sorting: string[] = [];

@@ -1,5 +1,5 @@
 export interface FileReq {
-    fileId?:string
+    id?:string
     fileContent : string,
     fileExtension : string
     ver?:number

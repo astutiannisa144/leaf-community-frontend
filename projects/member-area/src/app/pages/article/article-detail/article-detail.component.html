@@ -34,30 +34,19 @@
       <div class="col-12">
         <div class="surface-card p-3 shadow-2 border-round">
           <div class="flex justify-content-center mt-4">
-            <div class="col-11">
-              <img alt="Logo Class" src="https://buildwithangga.com/storage/assets/thumbnails/thumbnail_vue_starter.png"
+            <div class="col-11" *ngIf="article?.file">
+              <img alt="Logo Class" src="http://localhost:1214/files/{{article?.file?.fileId}}"
                 class="w-full h-15rem ">
 
             </div>
           </div>
           <div class="grid justify-content-center ">
             <div class="col-11">
-              <p class="my-2" style="font-weight: 600; font-size: 23px; text-align: justify;">Ever countered and Having
-                trouble in fixing null
-                constraint error code?
-                Check this article out.</p>
+              <p class="my-2" style="font-weight: 600; font-size: 23px; text-align: justify;">{{article?.title}}</p>
               <p class="mb-5" style="font-weight: 400; font-size: 16px; text-align: justify;">Posted by <span
-                  style="color: #137C3B;">Yudha Hdr</span> on 22 March 2023</p>
+                  style="color: #137C3B;">{{article?.fullName}}</span> on {{article?.createdAt | date:'fullDate'}}</p>
 
-              <p class="my-1" style="font-weight: 400; font-size: 16px; text-align: justify; line-height: 27px;">What
-                programming languages
-                have the largest developer communities? Millions of people use languages like Python and Java, as you
-                might think, but some lesser-known languages also have unexpectedly sizable user bases.
-                Programmers today have a wide range of options for novice developers. Students seek to choose
-                programming languages with active communities. The programming languages with the largest developer
-                communities behind them are not only simple to learn, but they also advance you. SlashData published a
-                report on the programming languages in 2023 and their community support. This article will discuss the
-                top programming languages in 2023 with the largest developer communities. <span
+              <p class="my-1" style="font-weight: 400; font-size: 16px; text-align: justify; line-height: 27px;">{{article?.content}} <span
                   style="color: #137C3B; font-weight: 700;"> See More </span> </p>
             </div>
           </div>

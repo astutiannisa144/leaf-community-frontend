@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { ActivityTypeRes } from '@dto/activity-type/activity-type-res';
 import { UserService } from '@service/user-service';
 import { Role } from '../../constant/role.service';
+import { ProfileService } from '@service/profile.service';
 @Component({
   selector: 'navbar',
   templateUrl: './navbar.component.html',
@@ -34,7 +35,8 @@ export class NavbarComponent {
   constructor(
     private router: Router,
     private activityService: ActivityService,
-    private userService: UserService
+    private userService: UserService,
+    private profileService:ProfileService
   ) {
 
   }
@@ -165,7 +167,11 @@ export class NavbarComponent {
   ]
 
   ngOnInit(): void {
-    this.fileId=this.userService.user.fileId!
+
+    this.fileId=`http://localhost:1214/files/${this.userService.user.fileId!}`
+    this.profileService.profileImage$?.subscribe(res=>{
+      this.fileId=res
+    })
     if (this.roleCode == Role.SuperAdmin) {
       this.items = this.adminNav
     }

@@ -6,6 +6,7 @@ import { ArticleRes } from "@dto/article/article-res";
 import { ActivityService } from "@service/activity.service";
 import { ArticleService } from "@service/article.service";
 import { ACTIVITY_LIMIT } from "projects/base-area/src/app/constant/activity-limit";
+import { ARTICLE_LIMIT } from "projects/base-area/src/app/constant/article-limit";
 import { Subscription } from "rxjs";
 
 @Component({
@@ -33,7 +34,7 @@ export class ArticleHomeComponent implements OnInit{
     ){}
 
     ngOnInit(): void {
-        this.article$ = this.articleService.getArticle().subscribe(result => {
+        this.article$ = this.articleService.getArticle(ARTICLE_LIMIT,this.page).subscribe(result => {
             this.articleList = result
         })
         this.activity$ = this.activityService.getActivityByType(ACTIVITY_LIMIT/2,this.page).subscribe(result => {
