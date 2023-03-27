@@ -72,7 +72,7 @@
               <div class="col p-0 justify-content-end">
                 <button pButton pRipple label="Next" icon="pi pi-angle-right" style=" background-color: #137C3B; "
                   class="p-button-raised p-button-success w-full button-sm" styleClass="p-button-sm"
-                  (click)="showDetails()"></button>
+                  (click)="showDetails()" (click)="onVerification()"></button>
               </div>
             </div>
 
@@ -97,7 +97,7 @@
               <div class="col p-0 justify-content-end">
                 <button pButton pRipple label="Next" icon="pi pi-user-plus" style=" background-color: #137C3B; "
                   class="p-button-raised p-button-success w-full button-sm" styleClass="p-button-sm"
-                  (click)="showModalDialog()"></button>
+                  (click)="showModalDialog()" (click)="onRegister()"></button>
 
 
                 <p-dialog class="py-0" [(visible)]="displayModal" [modal]="true" [style]="{width: '35vw'}"

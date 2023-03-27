@@ -4,6 +4,8 @@ import { Title } from "@angular/platform-browser";
 import { Router } from "@angular/router";
 import { IndustryRes } from "@dto/industry/industry-res";
 import { PositionRes } from "@dto/position/position-res";
+import { UserReq } from "@dto/user/user-req";
+import { VerificationReq } from "@dto/verification/verification-req";
 import { IndustryService } from "@service/industry.service";
 import { PositionService } from "@service/position.service";
 import { UserService } from "@service/user-service";
@@ -29,7 +31,7 @@ export class RegisterComponent {
     positionList:PositionRes[]=[]
     industry$?:Subscription
     industryList:IndustryRes[]=[]
-
+    message!:string
     registerForm=this.fb.group({
         fullName:['',[Validators.required,Validators.maxLength(30)]],
         email:['',[Validators.required,Validators.maxLength(30)]],
@@ -87,10 +89,43 @@ export class RegisterComponent {
     onActiveIndexChange(event: any) {
         console.log("Active index changed to: ", event.index);
     }
+    onVerification(){
+        const data:VerificationReq={
+            email:this.registerForm.value.email!
+        }
+        this.verificationService.insert(data).subscribe(result=>{
 
+        })
+    }
+
+    onRegister(){
+        const data:UserReq ={
+            email:this.registerForm.value.email!,
+            pass:this.registerForm.value.pass!,
+            profile:{
+                fullName:this.registerForm.value.fullName!,
+                address:this.registerForm.value.address!,
+                phoneNumber:this.registerForm.value.phoneNumber!,
+                job:{
+                    companyName:this.registerForm.value.companyName!,
+                    industryId:this.registerForm.value.industryId!,
+                    positionId:this.registerForm.value.positionId!
+                }
+            },
+            verificationCode:this.registerForm.value.verificationCode!
+        }
+        this.userService.register(data).subscribe(result=>{
+            this.message=result.message
+        })
+    }
     displayModal! : boolean
     showModalDialog() {
-        this.displayModal = true;
+        if(this.message){
+            this.displayModal = true;
+        }else{
+       
+        }
+
     }
 
 

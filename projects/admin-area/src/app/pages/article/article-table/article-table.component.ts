@@ -57,7 +57,7 @@ export class ArticleTableComponent {
           }
         })
       }
-    confirm(event: Event,id:string) {
+    confirm(event: Event,id:string,i:number) {
         this.confirmationService.confirm({
             target : event.target!,
             message: 'Are you sure to delete this article? ',
@@ -66,6 +66,7 @@ export class ArticleTableComponent {
                 //confirm action
                 this.articleService.delete(id).subscribe(result=>{
                     this.getArticle()
+                    this.articleList.splice(i,1)
                 })
             },
             reject: () => {

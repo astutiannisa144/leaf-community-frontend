@@ -1,5 +1,5 @@
 <pre>
-  {{categoriesCreated.value|json}}
+  {{eventList|json}}
 </pre>
 <div class="grid grid-nogutter surface-section text-800 mb-3 overflow-x-hidden">
   <div
@@ -100,7 +100,9 @@
                       <p-chip styleClass="custom-chip">
                         <p class="my-1" style="font-size: 12px; font-weight: 500;">{{cl.categoryName}}</p>
                       </p-chip>
-
+                      <p-chip styleClass="custom-chip">
+                        <p class="my-1" style="font-size: 12px; font-weight: 500;">{{cl.isApprove==true?"Approved":cl.isApprove==false?"Reject":"Pending"}}</p>
+                      </p-chip>
                     </div>
                   </div>
                 </div>

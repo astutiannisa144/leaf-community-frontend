@@ -18,20 +18,20 @@
         <div class="col-12">
           <div class="grid justify-content-start">
             <div class="col-4">
-              <div class="surface-card p-3 shadow-1 border-round hover" *ngFor="let art of articleList">
+              <div class="surface-card p-3 shadow-1 border-round hover" *ngFor="let art of articleList ; index as i">
                 <img alt="Logo Class"
                   src="http://localhost:1214/files/{{art.fileId}}"
                   class="w-full">
 
                 <p class="my-1" style="font-weight: 600; font-size: 16px; text-align: justify;">{{art.title}}</p>
 
-                <p class="my-1" style="font-weight: 400; font-size: 14px; text-align: justify;">{{art.content}}<span class="cursor-pointer" routerLink="/articles/detail/{{art.articleId}}" style="color: #137C3B; font-weight: 700;"> ...See More </span> </p>
+                <p class="my-1" style="font-weight: 400; font-size: 14px; text-align: justify;">{{art.content| slice:0:200}}<span class="cursor-pointer" routerLink="/articles/detail/{{art.articleId}}" style="color: #137C3B; font-weight: 700;"> ...See More </span> </p>
 
                 <div class="align-items-center justify-content-start flex mt-2">
                   <button pButton pRipple label="Update" icon="pi pi-pencil" class="p-button-info mr-2 p-button-sm"
                     routerLink="/article/admin/update/{{art.articleId}}"></button>
                   <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger mr-2 p-button-sm"
-                    (click)="confirm($event,art.articleId)" ></button>
+                    (click)="confirm($event,art.articleId,i)" ></button>
                     <p-confirmPopup></p-confirmPopup>
                 </div>
               </div>

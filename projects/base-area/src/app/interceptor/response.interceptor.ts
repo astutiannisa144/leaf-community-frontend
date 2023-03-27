@@ -26,8 +26,7 @@ export class ResponInterceptor implements HttpInterceptor{
                 error: (event)=>{
                     if(event instanceof HttpErrorResponse){
                         if(event.status==400 && event.error.codeWarning){
-                            this.messageService.add({severity:'warn', summary:'Service Message', detail:event.error.codeWarning}); 
-                            
+                            this.messageService.add({severity:'warn', summary:'Service Message', detail:event.error.codeWarning});              
                         }
                         else{
                             this.messageService.add({severity:'error', summary:'Service Message', detail:event.error}); 

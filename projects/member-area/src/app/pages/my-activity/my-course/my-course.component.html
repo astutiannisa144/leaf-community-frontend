@@ -1,6 +1,6 @@
-<!-- <pre>
-  {{categoriesCreated.value|json}}
-</pre> -->
+<pre>
+  {{courseList|json}}
+</pre>
 <div class="grid grid-nogutter surface-section text-800 mb-3 overflow-x-hidden">
   <div
     class="justify-content-center lg:justify-content-start md:justify-content-start col-12 md:col-6 p-6 text-center md:text-left flex align-items-center ">
@@ -102,6 +102,9 @@
                         <p class="my-1" style="font-size: 12px; font-weight: 500;">{{cl.categoryName}}</p>
                       </p-chip>
 
+                      <p-chip styleClass="custom-chip">
+                        <p class="my-1" style="font-size: 12px; font-weight: 500;">{{cl.isApprove==true?"Approved":cl.isApprove==false?"Reject":"Pending"}}</p>
+                      </p-chip>
                     </div>
                   </div>
                 </div>
