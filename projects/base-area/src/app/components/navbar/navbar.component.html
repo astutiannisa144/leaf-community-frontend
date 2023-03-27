@@ -1,13 +1,21 @@
 <div class="menubar-container shadow-2">
   <p-menubar class="justify-content-center" [model]="items">
     <ng-template pTemplate="start">
-      <p-image class="ml-6" src="assets/img/logo.png"
-        alt="Image" width="110"></p-image>
+      <p-image class="ml-6" src="assets/img/logo.png" alt="Image" width="110"></p-image>
     </ng-template>
-  
+
     <ng-template pTemplate="end">
-      <img class="mr-2 cursor-pointer" style="border-radius: 50%;" width="45" src="http://localhost:1214/files/{{fileId}}" alt="" (click)="menu.toggle($event)">
-      <p-tieredMenu #menu [model]="itemProfile" [popup]="true"></p-tieredMenu>
+      <div class="grid grid-nogutter align-items-center">
+
+        <p-button class="hidden lg:block md:block" styleClass="p-button-outlined p-button-rounded p-button-warning p-button-sm mr-4">
+          <i class="pi pi-bolt font-semibold"></i>
+          <p class="ml-2 font-medium" style="color: black;">Try Premium</p>
+        </p-button>
+
+        <img class="mr-2 cursor-pointer" style="border-radius: 50%;" width="40"
+          src="http://localhost:1214/files/{{fileId}}" alt="" (click)="menu.toggle($event)">
+        <p-tieredMenu #menu [model]="itemProfile" [popup]="true"></p-tieredMenu>
+      </div>
     </ng-template>
   </p-menubar>
 </div>
