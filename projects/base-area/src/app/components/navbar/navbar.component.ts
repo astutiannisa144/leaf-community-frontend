@@ -19,7 +19,7 @@ import { ProfileService } from '@service/profile.service';
         position: sticky;
         top: 0;
         width: 100%;
-        z-index: 1;
+        z-index: 2;
     }`,
     
   ]

@@ -24,5 +24,9 @@ export class PostService {
     insertPost(data : PostReq) : Observable<Response> {
         return this.http.post<Response>(`${BASE_URL}/posts`, data)
     }
+
+    deletePost(id : string) : Observable<Response> {
+        return this.http.delete<Response>(`${BASE_URL}/posts/${id}`)
+    }
     
 }

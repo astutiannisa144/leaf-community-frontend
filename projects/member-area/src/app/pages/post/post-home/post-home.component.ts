@@ -3,14 +3,14 @@ import { FormArray, FormBuilder, Validators } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
 import { PostRes } from "@dto/post/post-res";
-import { PostService } from "@service/post-service";
+import { PostService } from "@service/post.service";
 import { POST_LIMIT } from "projects/base-area/src/app/constant/post-limit";
 import { Subscription } from "rxjs";
 import { MenuItem, MessageService } from 'primeng/api';
 import { ImageOption } from "projects/base-area/src/app/components/post-image/post-image.component";
-import { LikeService } from "@service/like-service";
-import { BookmarkService } from "@service/bookmark-service";
-import { CommentService } from "@service/comment-service";
+import { LikeService } from "@service/like.service";
+import { BookmarkService } from "@service/bookmark.service";
+import { CommentService } from "@service/comment.service";
 import { CommentReq } from "@dto/comment/comment-req";
 import { COMMENT_LIMIT } from "projects/base-area/src/app/constant/comment-limit";
 import { CommentRes } from "../../../../../../base-area/src/app/dto/comment/comment-res";
@@ -18,6 +18,7 @@ import { UserService } from "@service/user-service";
 import { CategoryRes } from "@dto/category/category-res";
 import { CategoryService } from "@service/category.service";
 import { PostReq } from "@dto/post/post-req-insert";
+import { UserPollingService } from "@service/user-polling.service";
 
 @Component({
   selector: 'app-post-home',
@@ -62,22 +63,21 @@ import { PostReq } from "@dto/post/post-req-insert";
     }
     
     :host ::ng-deep .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
-    background: #F2D750;
-}
+      background: #F2D750;
+    }
 
     :host ::ng-deep .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
-    background: #F2D750;
-  }
+      background: #F2D750;
+    }
 
-  :host ::ng-deep .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
-    background: #F2D750;
-}
+    :host ::ng-deep .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
+      background: #F2D750;
+    }
 
-:host ::ng-deep .p-inputswitch.p-inputswitch-checked:not(.p-disabled):hover .p-inputswitch-slider{
-  background: #F2D750;
+    :host ::ng-deep .p-inputswitch.p-inputswitch-checked:not(.p-disabled):hover .p-inputswitch-slider{
+      background: #F2D750;
+    }
 
-}
-    
     `]
 })
 export class PostHomeComponent implements OnInit {
@@ -88,6 +88,7 @@ export class PostHomeComponent implements OnInit {
   private bookmark$?: Subscription
   private commentList$?: Subscription
   private category$?: Subscription
+  private userPolling$?: Subscription
 
   commentEdit!: MenuItem[]
   postEdit!: MenuItem[]
@@ -95,6 +96,7 @@ export class PostHomeComponent implements OnInit {
   items!: MenuItem[];
   home!: MenuItem;
 
+  inputPost = false
   inputImage = false
   inputPolling = false
 
@@ -103,7 +105,9 @@ export class PostHomeComponent implements OnInit {
 
   editBtn = false
   fileId!: string
-  postPage = 1
+  commentId!: string
+  postId!: string
+  postPage = 0
   commentPage = 0
 
   post = this.fb.group({
@@ -125,8 +129,8 @@ export class PostHomeComponent implements OnInit {
   })
 
   constructor(
+    private userPollingService: UserPollingService,
     private categoryService: CategoryService,
-    private messageService: MessageService,
     private userService: UserService,
     private postService: PostService,
     private likeService: LikeService,
@@ -140,6 +144,10 @@ export class PostHomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getPost()
+    this.getPostCategory()
+    this.fileId = this.userService.user.fileId
+
     this.items = [
       { label: '<p>Home</p>', escape: false, routerLink: '/posts' },
       { label: '<p>Create Post</p>', escape: false, }
@@ -148,18 +156,14 @@ export class PostHomeComponent implements OnInit {
 
     this.home = { icon: 'pi pi-home', routerLink: '/posts' };
 
-    this.getPostCategory()
-
-    this.fileId = this.userService.user.fileId
-    this.getPost()
     this.postEdit! = [
       {
-        label: 'Edit Post',
+        label: 'Edit',
         icon: 'pi pi-fw pi-pencil',
 
       },
       {
-        label: 'Delete Post',
+        label: 'Delete',
         icon: 'pi pi-fw pi-trash',
 
       },
@@ -167,18 +171,15 @@ export class PostHomeComponent implements OnInit {
 
     this.commentEdit! = [
       {
-        label: 'Edit Comment',
+        label: 'Edit',
         icon: 'pi pi-fw pi-pencil',
       },
       {
-        label: 'Delete Comment',
+        label: 'Delete',
         icon: 'pi pi-fw pi-trash',
+        command: (p)=>{this.deleteComment()}
       },
     ];
-  }
-
-  onCreatePost() {
-    this.router.navigateByUrl('/posts/create')
   }
 
   getPost() {
@@ -191,11 +192,12 @@ export class PostHomeComponent implements OnInit {
       } else {
         this.postList = result
       }
+      this.postPage += POST_LIMIT
     })
   }
 
   onScroll(): void {
-    this.post$ = this.postService.getPost(POST_LIMIT, this.postPage++).subscribe(result => {
+    this.post$ = this.postService.getPost(POST_LIMIT, this.postPage).subscribe(result => {
       if (result) {
         result.map(p => {
           p.showComment = false
@@ -205,35 +207,51 @@ export class PostHomeComponent implements OnInit {
         } else {
           this.postList = result
         }
+        this.postPage += POST_LIMIT
       }
     })
+  }
+
+  showInputPost() {
+    this.inputPost = true
+  }
+
+  cancelInputPost() {
+    this.post.reset()
+    this.post.get('polling')?.reset()
+    this.pollingChoice.clear()
+    this.file.clear()
+
+    this.inputPost = false
   }
 
   showEdit() {
     this.editBtn = !this.editBtn
   }
 
-  insertLikes(id: string) {
+  insertLikes(id: string, idx : number) {
     this.like$ = this.likeService.insertLikes({ postId: id }).subscribe(result => {
-      this.getPost()
+      this.postList[idx].likeId = result.id
+      this.postList[idx].likeSum++
     })
   }
 
-  deleteLikes(id: string) {
+  deleteLikes(id: string, idx : number) {
     this.like$ = this.likeService.deleteLikes(id).subscribe(result => {
-      this.getPost()
+      this.postList[idx].likeId = null
+      this.postList[idx].likeSum--
     })
   }
 
-  insertBookmark(id: string) {
+  insertBookmark(id: string, idx : number) {
     this.bookmark$ = this.bookmarkService.insertBookmark({ postId: id }).subscribe(result => {
-      this.getPost()
+      this.postList[idx].bookmarkId = result.id
     })
   }
 
-  deleteBookmark(id: string) {
+  deleteBookmark(id: string, idx : number) {
     this.bookmark$ = this.bookmarkService.deleteBookmark(id).subscribe(result => {
-      this.getPost()
+      this.postList[idx].bookmarkId = null
     })
   }
 
@@ -280,7 +298,8 @@ export class PostHomeComponent implements OnInit {
         content: data.content,
         memberId: this.userService.user.userId,
         fullName: this.userService.user.fullName,
-        fileId: this.userService.user.fileId
+        fileId: this.userService.user.fileId,
+        createdAt : new Date().toISOString()
       }
       this.postList[idx].commentList.unshift(data2)
       this.postList[idx].commentSum++
@@ -290,6 +309,15 @@ export class PostHomeComponent implements OnInit {
         content: ''
       })
     })
+  }
+
+  deleteComment(){
+    console.log(this.commentId)
+    this.commentService.deleteComment(this.commentId)
+  }
+
+  getCommentId(id : string){
+    this.commentId = id
   }
 
   imageOptions: ImageOption[] = [
@@ -319,10 +347,6 @@ export class PostHomeComponent implements OnInit {
     },
   ]
 
-
-
-
-
   get file() {
     return this.post.get('file') as FormArray
   }
@@ -348,8 +372,6 @@ export class PostHomeComponent implements OnInit {
   }
 
   onUpload(event: any) {
-    this.messageService.add({ severity: 'info', summary: 'File Uploaded', detail: '' });
-
     const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -413,7 +435,6 @@ export class PostHomeComponent implements OnInit {
         }))
       }
     }
-
   }
 
   getPostCategory() {
@@ -421,7 +442,6 @@ export class PostHomeComponent implements OnInit {
       this.category = result
     })
   }
-
 
   insertPost() {
     const data: PostReq = {
@@ -455,7 +475,21 @@ export class PostHomeComponent implements OnInit {
     }
 
     this.post$ = this.postService.insertPost(data).subscribe(result => {
-      this.router.navigateByUrl('/posts')
+      this.cancelInputPost()
+      this.postPage = 0
+      this.postList = []
+      this.getPost()
+    })
+  }
+
+  insertUserPolling(id: string, idx: number) {
+    console.log(idx)
+    this.userPolling$ = this.userPollingService.insertUserPolling({ pollingDetailId: id }).subscribe(result => {
+      this.postList[idx].polling!.userPollingId = result.id
+      
+      this.userPollingService.getPercentage(this.postList[idx].polling!.pollingId).subscribe(result2 => {
+        this.postList[idx].polling!.pollingDetail = result2
+      })
     })
   }
 
@@ -479,17 +513,15 @@ export class PostHomeComponent implements OnInit {
     this.post.value.file = []
   }
 
-
-
-
   ngOnDestroy(): void {
     this.category$?.unsubscribe()
     this.post$?.unsubscribe()
     this.like$?.unsubscribe()
     this.comment$?.unsubscribe()
     this.bookmark$?.unsubscribe()
+    this.commentList$?.unsubscribe()
+    this.userPolling$?.unsubscribe()
   }
-
 }
 
 function convertUTCToLocalDate(date: any) {
