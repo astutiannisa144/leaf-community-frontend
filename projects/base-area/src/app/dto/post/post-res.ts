@@ -15,6 +15,8 @@ export interface PostRes {
     commentSum : number, 
     createdAt : string,
     showComment : boolean,
+    ver : number,
+    showEdit : boolean,
     likeId? : string | null,
     bookmarkId? : string | null,
     polling? : PollingRes,

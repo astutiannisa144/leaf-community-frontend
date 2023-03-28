@@ -4,5 +4,7 @@ export interface CommentRes {
     memberId: string,
     fullName: string,
     fileId: string,
-    createdAt: string
+    createdAt: string,
+    showEdit: boolean,
+    ver : number
 }
