@@ -5,18 +5,17 @@
     </ng-template>
 
     <ng-template pTemplate="end">
-
-      
-
       <div class="grid grid-nogutter align-items-center">
 
-        <p-button class="hidden lg:block md:block" styleClass="p-button-outlined p-button-rounded p-button-warning p-button-sm mr-4">
+        <p-button class="hidden lg:block md:block"
+          styleClass="p-button-outlined p-button-rounded p-button-warning p-button-sm mr-4" routerLink="/premium">
           <i class="pi pi-bolt font-semibold"></i>
           <p class="ml-2 font-medium" style="color: black;">Try Premium</p>
         </p-button>
 
-        <img class="mr-2 cursor-pointer" style="border-radius: 50%;" width="45" src="{{fileId}}" alt="" (click)="menu.toggle($event)">
-      <p-tieredMenu #menu [model]="itemProfile" [popup]="true"></p-tieredMenu>
+        <img class="mr-2 cursor-pointer" style="border-radius: 50%;" width="45" src="{{fileId}}" alt=""
+          (click)="menu.toggle($event)">
+        <p-tieredMenu #menu [model]="itemProfile" [popup]="true"></p-tieredMenu>
       </div>
 
     </ng-template>

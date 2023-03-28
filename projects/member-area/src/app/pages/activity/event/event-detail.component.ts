@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { ActivityRes } from "@dto/activity/activity-res";
 import { ActivityService } from "@service/activity.service";
 import { UserService } from "@service/user-service";
+import { ACTIVITY_LIMIT } from "projects/base-area/src/app/constant/activity-limit";
+import { ACTIVITY_TYPE } from "projects/base-area/src/app/constant/activity-type";
 import { Subscription } from "rxjs";
 
 @Component({
@@ -42,37 +44,56 @@ import { Subscription } from "rxjs";
     background: #BA3276;
     color: var(--primary-color-text);
 }
+
+:host ::ng-deep .tabview-custom {
+   i, span { vertical-align: middle; justify-content : center; } span { margin: 0 .5rem; 
+  
+  }
+}
+
+:host ::ng-deep .p-tabview-nav  {
+   justify-content: space-evenly;
+}
+
    `]
 
 
 })
-export class EventDetailComponent implements OnInit{
-    private event$? : Subscription
-    event? : ActivityRes
+export class EventDetailComponent implements OnInit {
+    private event$?: Subscription
+    event?: ActivityRes
+    activityList: ActivityRes[] = []
+    private activity$?: Subscription
 
-    activityId!:string
-    memberId!:string
+    page = 1
+
+    activityId!: string
+    memberId!: string
     constructor(
         private router: Router,
-        private activityService:ActivityService,
-        private activatedRoute :ActivatedRoute,
-        private userService:UserService
+        private activityService: ActivityService,
+        private activatedRoute: ActivatedRoute,
+        private userService: UserService
 
     ) { }
-        ngOnInit(): void {
-            this.activatedRoute.params.subscribe(result=>{
-                this.activityId=result['id']
-                this.event$ = this.activityService.getById(this.activityId).subscribe(result => {
-                    this.event = result
-                    if(this.userService.userId==this.event.memberId){
-                        this.memberId=this.event.memberId
-                    }
-                    
-                })
-              
+    ngOnInit(): void {
+        this.activatedRoute.params.subscribe(result => {
+            this.activityId = result['id']
+            this.event$ = this.activityService.getById(this.activityId).subscribe(result => {
+                this.event = result
+                if (this.userService.userId == this.event.memberId) {
+                    this.memberId = this.event.memberId
+                }
+
             })
-           
-        }
+
+        })
+
+        this.activity$ = this.activityService.getActivityByType(ACTIVITY_LIMIT - 2, this.page).subscribe(result => {
+            this.activityList = result
+        })
+
+    }
     onCreatePost() {
         this.router.navigateByUrl('/posts/create')
     }
@@ -83,7 +104,7 @@ export class EventDetailComponent implements OnInit{
     onHover() { }
 
     onLeave() { }
-    onUpdate(){
-        this.router.navigateByUrl('/activities/event-update/'+this.event?.id)
+    onUpdate() {
+        this.router.navigateByUrl('/activities/event-update/' + this.event?.id)
     }
 }
