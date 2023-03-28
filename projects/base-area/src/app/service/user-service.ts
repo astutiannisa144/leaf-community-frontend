@@ -35,7 +35,9 @@ export class UserService {
     saveDataLogin(data : LoginRes) {
         localStorage.setItem('dataLogin', JSON.stringify(data))
     }
-    
+    changePass(data:UserReq):Observable<Response>{
+        return this.http.patch<Response>(`${BASE_URL}/users`, data)
+    }
     get user() : LoginRes {
         const data = localStorage.getItem('dataLogin')
         if(data) {
@@ -75,6 +77,11 @@ export class UserService {
         }
         throw new Error('email is empty')
     }
-
-   
+    get ver():string {
+        const data = localStorage.getItem('dataLogin')
+        if(data) {
+            return JSON.parse(data).ver
+        }
+        throw new Error('ver is empty')
+    }
 }

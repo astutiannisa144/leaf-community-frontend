@@ -16,8 +16,7 @@
 
           <p class="my-1" style="font-weight: 600; font-size: 16px; text-align: justify;">{{art.title}}</p>
 
-          <p class="my-1" style="font-weight: 400; font-size: 14px; text-align: justify;">{{art.content}}<span
-            routerLink="/article/detail/{{art.articleId}}" style="color: #137C3B; font-weight: 700;"> ...See More </span> </p>
+          <p class="my-1" style="font-weight: 400; font-size: 14px; text-align: justify;">{{art.content| slice:0:200}}<span class="cursor-pointer" routerLink="/articles/detail/{{art.articleId}}"  style="color: #137C3B; font-weight: 700;"> ...See More </span> </p>
 
         </div>
       </div>
