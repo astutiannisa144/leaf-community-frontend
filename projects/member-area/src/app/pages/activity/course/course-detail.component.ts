@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { ActivityRes } from "@dto/activity/activity-res";
 import { ActivityService } from "@service/activity.service";
 import { UserService } from "@service/user-service";
+import { ACTIVITY_LIMIT } from "projects/base-area/src/app/constant/activity-limit";
 import { Subscription } from "rxjs";
 
 @Component({
@@ -49,9 +50,14 @@ import { Subscription } from "rxjs";
 export class CourseDetailComponent implements OnInit{
     private course$? : Subscription
     course? : ActivityRes
+    activityList: ActivityRes[] = []
+    private activity$?: Subscription
+
 
     activityId!:string
     memberId!:string
+    page = 1
+
     constructor(
         private router: Router,
         private activityService:ActivityService,
@@ -71,6 +77,10 @@ export class CourseDetailComponent implements OnInit{
                 })
               
             })
+
+             this.activity$ = this.activityService.getActivityByType(ACTIVITY_LIMIT - 2, this.page).subscribe(result => {
+            this.activityList = result
+        })
            
         }
     onCreatePost() {

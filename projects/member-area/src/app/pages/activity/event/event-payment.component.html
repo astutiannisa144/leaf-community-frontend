@@ -1,9 +1,9 @@
-<pre>
+<!-- <pre>
   {{paymentForm.value|json}}
-</pre>
+</pre> -->
 <div class="justify-content-center">
-  <div class="col-10 flex mt-3">
-    <div class="col-4 ml-2 justify-content-center flex">
+  <div class="col-10 lg:col-10 flex mt-3">
+    <div class="col-8 lg:col-4 ml-2 justify-content-center flex">
 
       <div class="align-items-center flex">
         <button pButton pRipple type="button" icon="pi pi-arrow-left" class="p-button-rounded p-button-primary"
@@ -31,6 +31,7 @@
     </div>
   </div>
 </div>
+
 <div class="justify-content-center flex" [formGroup]="paymentForm">
   <div class="col-10">
     <div class="surface-card p-3 shadow-2 border-round ">
@@ -61,8 +62,8 @@
             </div>
           </div>
 
-          <div class="my-5" style="border-bottom: 1px dotted #000;"></div>
-          <div class="surface-card p-3 shadow-2 border-round ">
+          <p-divider styleClass="my-5"></p-divider>
+          <div class="surface-card p-3 px-4 shadow-2 border-round ">
             <div class="flex">
               <p class="mb-2" style="font-weight: 600; font-size: 21px; text-align: justify;">Payment Details
                 <i class="pi pi-wallet"></i></p>
@@ -97,7 +98,7 @@
         </div>
 
         <div class="col-4 p-4">
-          <div class="surface-card py-3 px-4 shadow-2 border-round ">
+          <div class="surface-card h-full py-3 px-4 shadow-2 border-round ">
             <div class="">
               <div class="col align-items-center p-0">
                 <p class="mb-2" style="font-weight: 600; font-size: 21px; text-align: justify;">Price Detail
@@ -148,41 +149,39 @@
                 </div>
 
                 <div class="col-12 p-0">
-                  <div class="p-inputgroup w-full mt-2 ">
-                    <span class="p-inputgroup-addon"><i class="pi pi-ticket"></i></span>
-                    <input type="text" formControlName="voucherCode" pInputText placeholder="Voucher Code">
-                    <button pButton pRipple type="button" (click)="checkVoucher()" label="Check Voucher"
-                      class="p-button-primary font-medium w-22"></button>
+                  <div class="p-0 my-5">
+                    <div class="p-inputgroup w-full mt-2 ">
+                      <span class="p-inputgroup-addon"><i class="pi pi-ticket"></i></span>
+                      <input type="text" formControlName="voucherCode" pInputText placeholder="Voucher Code">
+                      <button pButton pRipple type="button" (click)="checkVoucher()" label="Check"
+                        class="p-button-primary font-medium w-22 p-button-sm px-2"></button>
+                    </div>
+                    <p class="py-2 align-items-center justify-content-start flex"
+                      style="font-size: 14px; font-weight: 400; text-align: justify;">You only able to use one voucher
+                      per-item you buy.</p>
                   </div>
-                  <p class="py-2 align-items-center justify-content-start flex"
-                    style="font-size: 14px; font-weight: 400; text-align: justify;">You only able to use one voucher
-                    per-item you buy.</p>
 
                   <div class="my-3" style="border-bottom: 1px dotted #000;"></div>
 
-                  <div class="flex">
+                  <div class="flex my-4">
                     <div class="col-6 p-0">
-                      <div class="text-xl font-medium text-900 mb-3 align-items-center flex">
+                      <div class="text-lg font-medium text-900 align-items-center flex">
                         <i class="pi pi-tag mr-2" style="font-size: 1rem; color: #22B3C7;"></i>
                         <span>Price</span>
                       </div>
                     </div>
 
-                    <div class="col-6 p-0">
-                      <p class="py-2 align-items-center justify-content-end  flex"
-                        style="font-size: 1rem; font-weight: 500;">{{totalPrices | currency: 'Rp ' :'symbol':'1.2-2'}}
-
+                    <div class="col-6 p-0 justify-content-end flex">
+                      <div class="grid grid-nogutter justify-content-end align-items-end">
+                        <span
+                          class="font-medium text-md text-900">{{totalPrices | currency: 'Rp ' :'symbol':'1.2-2'}}</span>
+                      </div>
                     </div>
-
                   </div>
 
                   <div class="justify-content-center flex">
                     <button pButton pRipple type="button" label="Buy Event" (click)="onPay()"
                       class="p-button-primary font-medium w-full"></button>
-
-
-
-
                   </div>
                 </div>
               </div>
