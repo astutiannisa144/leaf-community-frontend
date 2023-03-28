@@ -7,7 +7,9 @@
           </p-chip>
         </div>
   
-        <p-table styleClass="border-round-md" [tableStyle]="{'min-width': '60rem'}" [lazy]="true" [value]="userPremiumList">
+        <p-table #dt1 [value]="userPremiumList" [lazy]="true" (onLazyLoad)="loadData($event)" responsiveLayout="scroll" [paginator]="true"
+        [rows]="maxPage" [totalRecords]="totalData" [loading]="loading" [rowsPerPageOptions]="[5, 10]"
+        tyleClass="p-datatable-gridlines" [globalFilterFields]="['id', 'title','content']">
           <ng-template pTemplate="caption">
             <div class="flex align-items-center justify-content-between">
               Member Premium
@@ -31,7 +33,7 @@
               <td>{{item.premiumName}}</td>
               <td><a pInputText icon="pi pi-check" href="http://localhost:1214/files/{{item.fileId}}">Download File</a> 
                 </td>
-              <td> {{item.isActive==true?"Actived":item.isActive==false?"Reject":"Pending"}}</td>
+              <td> {{item.isActive==true?"Approved":item.isActive==false?"Reject":"Pending"}}</td>
               <td>
                 <button pButton pRipple icon="pi pi-pencil"   (click)="onApprove($event,item.id,i)"  class="p-button-rounded p-button-info mr-2"> Approve</button>
                 <p-confirmPopup></p-confirmPopup>

@@ -44,4 +44,29 @@ export class ArticleHomeComponent implements OnInit{
     onCreatePost(){
         this.router.navigateByUrl('/posts/create')
     }
+    onScroll(): void {
+        this.article$ = this.articleService.getArticle(ARTICLE_LIMIT,  this.page=this.page+1).subscribe(result => {
+            this.activity$ = this.activityService.getActivityByType(ACTIVITY_LIMIT/2,this.page).subscribe(res => {
+                
+           
+          if (result) {
+            
+            if (this.articleList.length) {
+              this.articleList = [...this.articleList, ...result]
+              
+            } else {
+              this.articleList = result
+            }
+          }
+          if(res){
+            if (this.activityList.length) {
+                this.activityList = [...this.activityList, ...res]
+                
+              } else {
+                this.activityList = res
+              }
+          }
+        })
+        })
+      }
 }

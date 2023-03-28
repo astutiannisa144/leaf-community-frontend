@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { UserPremiumReq } from "@dto/user-premium/user-premium-req";
 import { UserPremiumRes } from "@dto/user-premium/user-premium-res";
 import { UserPremiumService } from "@service/user-premium.service";
-import { ConfirmationService } from "primeng/api";
+import { ConfirmationService, LazyLoadEvent } from "primeng/api";
 import { USER_PREMIUM_LIMIT } from "projects/base-area/src/app/constant/user-premium-limit";
 import { Subscription } from "rxjs";
 
@@ -24,15 +24,18 @@ export class PremiumTableComponent {
     userPremium$?:Subscription
     userPremiumList:UserPremiumRes[]=[]
     page=0
+    sum!: number
+    startPage: number = 0
+    maxPage: number = 5
+    totalData: number = 0
+    query?: string
+    loading: boolean = true
     constructor(
         private router:Router,
         private userPremiumService:UserPremiumService,
         private confirmationService: ConfirmationService
     ){}
     ngOnInit(): void {
-        this.userPremium$=this.userPremiumService.getAll(USER_PREMIUM_LIMIT,this.page).subscribe(result=>{
-            this.userPremiumList=result
-        })
     }
 
     onApprove(event: Event,id:string,i:number) {
@@ -95,4 +98,28 @@ export class PremiumTableComponent {
             }
         });
     }
+    loadData(event: LazyLoadEvent) {
+        this.getAll(event.first, event.rows, event.globalFilter)
+      }
+    
+    getAll(startPage: number = this.startPage, maxPage: number = this.maxPage, query?: string) {
+        this.loading = true;
+        this.startPage = startPage
+        this.maxPage = maxPage
+        this.query = query
+
+
+        this.userPremium$=this.userPremiumService.getAll(maxPage,startPage).subscribe(result=>{
+          
+            const resultData: any = result
+            this.userPremiumList = resultData
+            this.loading = false
+            this.totalData = resultData.total
+            console.log(resultData);
+
+        })
+    }
+    ngOnDestroy(): void {
+        this.userPremium$?.unsubscribe()
+      }
 }

@@ -31,17 +31,17 @@ export class UserActivityService {
         return this.http.delete<Response>(`${BASE_URL}/user-activity/${id}`)
 
     }
-    getAll(limit?:number,page?:number,typeCode?:string,code?:string):Observable<UserActivityRes[]>{
+    getAll(limit?:number,page?:number,typeCode?:string,code?:string):Observable<UserActivityRes>{
         if(!typeCode){
-            return this.http.get<UserActivityRes[]>(`${BASE_URL}/user-activity?limit=${limit}&page=${page}`)
+            return this.http.get<UserActivityRes>(`${BASE_URL}/user-activity?limit=${limit}&page=${page}`)
         }else if (!code){
-            return this.http.get<UserActivityRes[]>(`${BASE_URL}/user-activity?limit=${limit}&page=${page}&typeCode=${typeCode}`)
+            return this.http.get<UserActivityRes>(`${BASE_URL}/user-activity?limit=${limit}&page=${page}&typeCode=${typeCode}`)
         }else if (code=='profile'&&!typeCode){
-            return this.http.get<UserActivityRes[]>(`${BASE_URL}/user-activity?limit=${limit}&page=${page}&typeCode=${typeCode}&code=${code}`)
+            return this.http.get<UserActivityRes>(`${BASE_URL}/user-activity?limit=${limit}&page=${page}&typeCode=${typeCode}&code=${code}`)
         }else if (code=='profile'&&!typeCode){
-            return this.http.get<UserActivityRes[]>(`${BASE_URL}/user-activity?limit=${limit}&page=${page}&typeCode=${typeCode}&code=${code}`)
+            return this.http.get<UserActivityRes>(`${BASE_URL}/user-activity?limit=${limit}&page=${page}&typeCode=${typeCode}&code=${code}`)
         }else {
-            return this.http.get<UserActivityRes[]>(`${BASE_URL}/user-activity?limit=${limit}&page=${page}&code=${code}`)
+            return this.http.get<UserActivityRes>(`${BASE_URL}/user-activity?limit=${limit}&page=${page}&code=${code}`)
 
         }
     }

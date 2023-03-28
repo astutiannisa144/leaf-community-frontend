@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
+import { UserActivityDataRes } from "@dto/user-activity/user-activity-data-res";
 import { UserActivityReq } from "@dto/user-activity/user-activity-req";
 import { UserActivityRes } from "@dto/user-activity/user-activity-res";
 import { UserActivityService } from "@service/user.activity.service";
@@ -22,7 +23,7 @@ import { Subscription } from "rxjs";
 })
 export class CourseAdminComponent implements OnInit,OnDestroy {
     userActivity$?: Subscription
-    userActivityList: UserActivityRes[] = []
+    userActivityDataList: UserActivityDataRes[]=[]
     page = 0
     sum!: number
     startPage: number = 0
@@ -50,7 +51,7 @@ export class CourseAdminComponent implements OnInit,OnDestroy {
                     id: id
                 }
                 this.userActivityService.approve(data).subscribe(result => {
-                    this.userActivityList[i].isApprove = true
+                    this.userActivityDataList[i].isApprove = true
                 })
 
 
@@ -72,7 +73,7 @@ export class CourseAdminComponent implements OnInit,OnDestroy {
                     isApprove: false
                 }
                 this.userActivityService.approve(data).subscribe(result => {
-                    this.userActivityList[i].isApprove = false
+                    this.userActivityDataList[i].isApprove = false
                 })
 
             },
@@ -90,7 +91,9 @@ export class CourseAdminComponent implements OnInit,OnDestroy {
             accept: () => {
 
                 this.userActivityService.delete(id).subscribe(result => {
-                    this.userActivityList.splice(i, 1)
+                    this.userActivityDataList.splice(i, 1)
+                    this.getAll(this.startPage,this.maxPage,this.query)
+
                 })
 
             },
@@ -100,10 +103,9 @@ export class CourseAdminComponent implements OnInit,OnDestroy {
         });
     }
     loadData(event: LazyLoadEvent) {
-        console.log(event);
         this.getAll(event.first, event.rows, event.globalFilter)
-
-    }
+      }
+    
     getAll(startPage: number = this.startPage, maxPage: number = this.maxPage, query?: string) {
         this.loading = true;
         this.startPage = startPage
@@ -113,8 +115,7 @@ export class CourseAdminComponent implements OnInit,OnDestroy {
 
         this.userActivity$ = this.userActivityService.getAll(maxPage, startPage, ACTIVITY_TYPE.CO).subscribe(result => {
             const resultData: any = result
-            this.sum = result[0].transactionSum!
-            this.userActivityList = resultData
+            this.userActivityDataList = resultData.data
             this.loading = false
             this.totalData = resultData.total
             console.log(resultData);

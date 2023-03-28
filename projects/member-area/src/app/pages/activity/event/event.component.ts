@@ -6,6 +6,8 @@ import { ActivityRes } from "@dto/activity/activity-res";
 import { CategoryRes } from "@dto/category/category-res";
 import { ActivityService } from "@service/activity.service";
 import { CategoryService } from "@service/category.service";
+import { UserService } from "@service/user-service";
+import { MenuItem } from "primeng/api";
 import { ACTIVITY_LIMIT } from "projects/base-area/src/app/constant/activity-limit";
 import { ACTIVITY_TYPE } from "projects/base-area/src/app/constant/activity-type";
 import { Subscription } from "rxjs";
@@ -112,16 +114,19 @@ export class EventComponent implements OnInit{
         category:[[]],
     })
     categoryTemp!:string
+    activityEdit!: MenuItem[]
     // category=new FormControl('')
-
+    memberId!:string
     constructor(
         private router: Router,
         private activityService: ActivityService,
         private categoryService:CategoryService,
+        private userService:UserService,
         private fb:FormBuilder,
         private activatedRoute:ActivatedRoute
     ) { }
     ngOnInit(): void {
+      this.memberId=this.userService.userId
         this.activatedRoute.params.subscribe(result => {
             this.activityTypeId=result['id']
         })
@@ -149,10 +154,21 @@ export class EventComponent implements OnInit{
                 })
             }
         })
-        
+        this.activityEdit! = [
+          {
+            label: 'Edit Post',
+            icon: 'pi pi-fw pi-pencil',
+    
+          },
+          {
+            label: 'Delete Post',
+            icon: 'pi pi-fw pi-trash',
+    
+          },
+        ];
      
     }
-
+   
    onCategory(id:string){
     
    }

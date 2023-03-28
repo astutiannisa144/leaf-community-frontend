@@ -83,7 +83,6 @@ export class CourseUpdateComponent implements OnInit, AfterContentChecked {
                     console.log(this.activity.schedule[i].scheduleDate);
                     
                     
-                
                     this.schedules.push(this.fb.group({
                         id:this.activity.schedule[i].id,
                         scheduleDateUtc: new Date(this.activity.schedule[i].scheduleDate),
