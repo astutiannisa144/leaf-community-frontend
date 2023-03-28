@@ -1,6 +1,6 @@
-<pre>
+<!-- <pre>
   {{categories.value|json}}
-</pre>
+</pre> -->
 <div class="grid grid-nogutter surface-section text-800 mb-3 overflow-x-hidden">
   <div
     class="justify-content-center lg:justify-content-start md:justify-content-start col-12 md:col-6 p-6 text-center md:text-left flex align-items-center ">
@@ -22,7 +22,7 @@
   </div>
 </div>
 
-<div class="flex justify-content-center" infinite-scroll (scrolled)="onScroll()">
+<div class="grid grid-nogutter justify-content-center" infinite-scroll (scrolled)="onScroll()">
 
   <div class="hidden lg:block lg:col-2 mt-3 md:col-2">
     <div class="text-xl font-medium text-900 mb-3 align-items-center flex">
@@ -44,7 +44,6 @@
           </div>
         </div>
       </div>
-
 
       <hr class="mb-3" style=" height:2px;border-width:0;color:rgb(227, 227, 227);background-color:rgb(221, 221, 221)">
 
@@ -72,23 +71,20 @@
       <i class="pi pi-briefcase mr-2" style="font-size: 1.2rem; color: #22C55E;"></i>
       <span>Events</span>
     </div>
-    <div class="flex flex-wrap justify-content-center lg:justify-content-start md:justify-content-start gap-5">
 
-      <div class="surface-card event p-3  shadow-2 border-round m-0 mb-3 cursor-pointer"
-        *ngFor="let cl of eventList" routerLink="/activities/event-detail/{{cl.id}}">
-        <img alt="Logo Class" src="http://localhost:1214/files/{{cl.fileId}}" class="w-17rem">
+    <div class="grid grid-nogutter justify-content-start lg:justify-content-start md:justify-content-start">
 
-        <div class="grid my-0">
-          <div class="col flex my-0">
-            <i class="pi pi-building mb-2 mr-1" style="font-size: 20px; color: #a4a4a4;"></i>
-            <p style="font-size: 14px; font-weight: 400;">{{cl.provider}}</p>
-          </div>
+      <div class="col-11 lg:col-4 md:col-6 pr-0 lg:pr-5 md:pr-5 pb-4" *ngFor="let cl of eventList">
 
-          <div class="col justify-content-end flex my-0">
-            <i class="pi pi-calendar mb-2 mr-1" style="font-size: 20px; color: #a4a4a4;"></i>
-            <p style="font-size: 14px; font-weight: 400;">{{cl.activityTypeName}}</p>
-          </div>
-        </div>
+        <div class="surface-card event p-3 shadow-2 border-round m-0 mb-3 cursor-pointer"
+          routerLink="/activities/event-detail/{{cl.id}}">
+          <img alt="Logo Class" src="http://localhost:1214/files/{{cl.fileId}}" class="w-full border-round-sm">
+
+          <div class="grid my-0">
+            <div class="col flex my-0 align-items-center">
+              <i class="pi pi-building mr-1 text-sm" style="color: #a4a4a4;"></i>
+              <p class="text-sm" style=" font-weight: 400;">{{cl.provider}}</p>
+            </div>
 
         <p class="my-1" style="font-weight: 700; font-size: 20px;">{{cl.title}}</p>
         <!-- <i [ngIf]="cl.memberId" class="pi pi-user-edit"></i> -->
@@ -122,6 +118,32 @@
               <p class="my-1" style="font-size: 12px; font-weight: 500;">{{cl.categoryName}}</p>
             </p-chip>
 
+          <p class="my-1" style="font-weight: 700; font-size: 20px;">{{cl.title}}</p>
+
+          <div class="grid">
+            <div class="col align-items-center">
+              <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"> <i
+                  class="pi pi-map-marker mr-2"
+                  style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>{{cl.locationAddress}}</p>
+              <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"
+                *ngFor="let sch of cl.schedule"> <i class="pi pi-calendar mr-2"
+                  style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>{{sch.scheduleDate | date : 'fullDate' }}
+              </p>
+              <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"> <i
+                  class="pi pi-clock mr-2" style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>{{'0000-00-00T'+
+                cl.timeStart | date: 'shortTime'}}
+                - {{'0000-00-00T'+ cl.timeEnd | date: 'shortTime'}}
+              </p>
+              <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"> <i
+                  class="pi pi-money-bill mr-2" style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>
+                {{cl.price | currency: 'Rp ' :'symbol':'1.2-2'}}
+              </p>
+
+              <p-chip styleClass="custom-chip">
+                <p class="my-1" style="font-size: 12px; font-weight: 500;">{{cl.categoryName}}</p>
+              </p-chip>
+
+            </div>
           </div>
         </div>
       </div>

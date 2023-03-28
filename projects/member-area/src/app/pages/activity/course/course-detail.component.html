@@ -1,8 +1,16 @@
-<div class="grid justify-content-center mt-3">
-  <div class="col-3">
+<!-- <div class="flex mt-3">
+  <div class="col-3 ml-6">
 
-    <div class="align-items-center flex">
-      <button pButton pRipple type="button" routerLink="/activities/course" icon="pi pi-arrow-left" class="p-button-rounded p-button-primary"></button>
+
+  </div>
+</div> -->
+
+<div class="flex justify-content-center mt-3">
+  <div class="col-11">
+
+    <div class="align-items-center flex mb-3">
+      <button pButton pRipple type="button" routerLink="/activities/course" icon="pi pi-arrow-left"
+        class="p-button-rounded p-button-primary"></button>
 
       <ul class="list-none p-0 m-0 flex align-items-center font-medium ml-3">
         <li>
@@ -13,84 +21,302 @@
         </li>
         <li>
           <span class="text-900 line-height-3">Course Detail</span>
+          <i *ngIf="memberId" (click)="onUpdate()"
+            class="pi pi-fw pi-pencil hover:bg-gray-300 border-round-sm cursor-pointer ml-3"></i>
         </li>
       </ul>
     </div>
 
-  </div>
-  <div class="col-8"></div>
-</div>
-<div class="grid justify-content-center mt-3">
-  <div class="col-11">
-    <div class="text-xl font-medium text-900 mb-3 align-items-center flex">
-      <i class="pi pi-calendar mr-2" style="font-size: 1.4rem; color: #22C55E;"></i>
-      <span>Course Detail  <i *ngIf="memberId" (click)="onUpdate()" class="pi pi-fw pi-pencil hoverable-element"  ></i></span>
-    </div>
-    <div class="grid justify-content-center">
-      <div class="col-12">
-        <div class="surface-card p-3 shadow-2 border-round ">
-          <div class="col-12 justify-content-center flex">
-            <div class="col-8 mr-3" *ngIf="course">
-              <img alt="Logo Class"
-                src="http://localhost:1214/files/{{course.fileId}}"
-                class="w-full h-20rem">
-            </div>
+    <div class="grid grid-nogutter justify-content-center">
+      <div class="surface-card p-3 shadow-2 border-round ">
+        <div class="col-12 justify-content-center grid grid-nogutter">
+          <div class="col-12 lg:col-8 md:lg-8 mr-0 lg:mr-3" *ngIf="course">
+            <img alt="Logo Class" src="http://localhost:1214/files/{{course.fileId}}"
+              class="w-full h-full border-round-md">
+          </div>
 
-            <div class="col-3 justify-content-end">
+          <div class="col-12 lg:col-3 md:col-3 justify-content-end">
 
-              <div class="surface-card py-3 px-4 shadow-2 border-round ">
-                <div class="grid justify-content-center">
-                  <p-chip styleClass="mr-2 mt-1  custom-chip">
-                    <p class="my-1" style="font-size: 14px; font-weight: 500;">{{course?.categoryName}}</p>
-                  </p-chip>
-                </div>
+            <div class="hidden lg:surface-card md:surface-card lg:block md:block py-3 px-4 shadow-2 border-round ">
+              <div class="flex flex-wrap justify-content-center">
+                <p-chip styleClass="mr-2 mt-1 text-white  custom-chip bg-blue-600">
+                  <p class="my-1" style="font-size: 14px; font-weight: 500;">{{course?.categoryName}}</p>
+                </p-chip>
+              </div>
 
-                <div class="grid mt-1">
-                  <div class="col align-items-center">
-                    <p class="my-4 align-items-center flex" style="font-size: 16px; font-weight: 400;"> <i
+              <div class="flex">
+                <div class="col align-items-center">
+                  <p class="mt-3 my-3 align-items-center flex text-2xl" style="font-weight: 500;">{{course?.title}}</p>
+
+                  <div class="my-4">
+                    <p class="my-3 align-items-center flex" style="font-size: 16px; font-weight: 400;"> <i
                         class="pi pi-map-marker mr-3"
                         style="font-size: 22px; font-weight: 400; color: #4CAF50;"></i>{{course?.locationAddress}}</p>
-                    <p class="my-4 align-items-center flex" style="font-size: 16px; font-weight: 400;"*ngFor="let sch of course?.schedule"> <i
-                        class="pi pi-calendar mr-3" style="font-size: 22px; font-weight: 400; color: #4CAF50;"></i>{{sch.scheduleDate | date : 'fullDate'   }}</p>
-                    <p class="my-4 align-items-center flex" style="font-size: 16px; font-weight: 400;"> <i
-                        class="pi pi-clock mr-3" style="font-size: 22px; font-weight: 400; color: #4CAF50;"></i>{{course?.timeStart }}
-                        - {{course?.timeEnd}}
+                    <p class="my-3 align-items-center flex" style="font-size: 16px; font-weight: 400;"
+                      *ngFor="let sch of course?.schedule"> <i class="pi pi-calendar mr-3"
+                        style="font-size: 22px; font-weight: 400; color: #4CAF50;"></i>{{sch.scheduleDate | date : 'fullDate'   }}
                     </p>
-                    <p class="mt-6" style="font-weight: 500;">Course Provider :</p>
-                    <p class=" mt-3 align-items-center flex" style="font-size: 16px; font-weight: 400;"> <i
-                        class="pi pi-building mr-3"
-                        style="font-size: 22px; font-weight: 400; color: #ED1C85;"></i>{{course?.provider}}
+                    <p class="my-3 align-items-center flex" style="font-size: 16px; font-weight: 400;"> <i
+                        class="pi pi-clock mr-3"
+                        style="font-size: 22px; font-weight: 400; color: #4CAF50;"></i>{{course?.timeStart }}
+                      - {{course?.timeEnd}}
                     </p>
+                  </div>
+
+                  <p-divider></p-divider>
 
 
+                  <p class="my-3" style="font-weight: 500;">Course Provider :</p>
+                  <p class="align-items-center flex mb-2" style="font-size: 16px; font-weight: 400;"> <i
+                      class="pi pi-building mr-3"
+                      style="font-size: 22px; font-weight: 400; color: #ED1C85;"></i>{{course?.provider}}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="block lg:hidden md:hidden mt-3">
+              <div class="flex flex-wrap justify-content-center">
+                <p-chip styleClass="mr-2 mt-1 text-white  custom-chip bg-blue-600">
+                  <p class="my-1" style="font-size: 14px; font-weight: 500;">{{course?.categoryName}}</p>
+                </p-chip>
+              </div>
+
+              <div class="flex">
+                <div class="col align-items-center">
+                  <p class="mt-3 my-2 align-items-center flex text-xl" style="font-weight: 500;">{{course?.title}}</p>
+
+                  <div class="my-3">
+                    <p class="my-3 align-items-center flex" style="font-size: 16px; font-weight: 400;"> <i
+                        class="pi pi-map-marker mr-3"
+                        style="font-size: 22px; font-weight: 400; color: #4CAF50;"></i>{{course?.locationAddress}}</p>
+                    <p class="my-3 align-items-center flex" style="font-size: 16px; font-weight: 400;"
+                      *ngFor="let sch of course?.schedule"> <i class="pi pi-calendar mr-3"
+                        style="font-size: 22px; font-weight: 400; color: #4CAF50;"></i>{{sch.scheduleDate | date : 'fullDate'   }}
+                    </p>
+                    <p class="my-3 align-items-center flex" style="font-size: 16px; font-weight: 400;"> <i
+                        class="pi pi-clock mr-3"
+                        style="font-size: 22px; font-weight: 400; color: #4CAF50;"></i>{{course?.timeStart }}
+                      - {{course?.timeEnd}}
+                    </p>
+                  </div>
+
+                  <p-divider></p-divider>
+
+
+                  <p class="my-3" style="font-weight: 500;">Course Provider :</p>
+                  <p class="align-items-center flex mb-2" style="font-size: 16px; font-weight: 400;"> <i
+                      class="pi pi-building mr-3"
+                      style="font-size: 22px; font-weight: 400; color: #ED1C85;"></i>{{course?.provider}}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+        </div>
+
+        <div class=" justify-content-center lg:flex md:flex">
+          <div class="col-12 lg:col-8 md:col-8 justify-content-center ">
+            <p-tabView styleClass="tabview-custom">
+              <p-tabPanel>
+                <ng-template pTemplate="header">
+                  <i class="pi pi-bars mr-2"></i>
+                  <span>Description</span>
+                </ng-template>
+
+                <p style="line-height: 25px;">{{course?.description}}
+
+                </p>
+              </p-tabPanel>
+            </p-tabView>
+          </div>
+
+          <div class="col-12  lg:col-3 md:col-3 mt-2 pr-0">
+            <div class="surface-card py-3 px-4 lg:shadow-2 md:shadow-2 border-round  " *ngIf="!memberId">
+              <div class="grid">
+                <div class="block col-12 justify-content-center lg:flex md:flex w-full">
+                  <button pButton pRipple type="button" label="Buy Event" class="p-button-primary font-medium w-full"
+                    routerLink="/activities/course-payment/{{course?.id}}"></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-12 md:col-9 sm:col-12 mt-5 ml-5 px-0">
+          <div class="text-xl font-medium text-900 mb-3 align-items-center flex">
+            <i class="pi pi-briefcase mr-2" style="font-size: 1.2rem; color: #22C55E;"></i>
+            <span>Training & Events</span>
+          </div>
+
+          <div class="grid grid-nogutter justify-content-start lg:justify-content-evenly md:justify-content-start">
+
+            <div class="col-11 px-0 flex flex-wrap">
+              <div class="col-11 lg:col-3 md:col-6 pr-0 lg:pr-5 md:pr-5 pb-4" *ngFor="let cl of activityList">
+
+                <div class="surface-card event p-3 shadow-2 border-round m-0 mb-3 cursor-pointer"
+                  routerLink="/activities/event-detail/{{cl.id}}">
+                  <img alt="Logo Class" src="http://localhost:1214/files/{{cl.fileId}}" class="w-full border-round-sm">
+
+                  <div class="grid my-0">
+                    <div class="col flex my-0 align-items-center">
+                      <i class="pi pi-building mr-1 text-sm" style="color: #a4a4a4;"></i>
+                      <p class="text-sm" style=" font-weight: 400;">{{cl.provider}}</p>
+                    </div>
+
+                    <div class="col justify-content-end flex my-0">
+                      <p-tag severity="info">
+                        <div class="px-1 flex">
+                          <i class="pi pi-calendar mr-1 text-sm"></i>
+                          <p class="my-0 mx-1" style="font-size: 12px; font-weight: 500; ">{{cl.activityTypeName}}</p>
+                        </div>
+                      </p-tag>
+                    </div>
+                  </div>
+
+                  <p class="my-1" style="font-weight: 700; font-size: 20px;">{{cl.title}}</p>
+
+                  <div class="grid">
+                    <div class="col align-items-center">
+                      <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"> <i
+                          class="pi pi-map-marker mr-2"
+                          style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>{{cl.locationAddress}}</p>
+                      <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"
+                        *ngFor="let sch of cl.schedule"> <i class="pi pi-calendar mr-2"
+                          style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>{{sch.scheduleDate | date : 'fullDate' }}
+                      </p>
+                      <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"> <i
+                          class="pi pi-clock mr-2" style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>{{'0000-00-00T'+
+                          cl.timeStart | date: 'shortTime'}}
+                        - {{'0000-00-00T'+ cl.timeEnd | date: 'shortTime'}}
+                      </p>
+                      <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"> <i
+                          class="pi pi-money-bill mr-2" style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>
+                        {{cl.price | currency: 'Rp ' :'symbol':'1.2-2'}}
+                      </p>
+
+                      <p-chip styleClass="custom-chip">
+                        <p class="my-1" style="font-size: 12px; font-weight: 500;">{{cl.categoryName}}</p>
+                      </p-chip>
+
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
+
           </div>
-          <div class="grid justify-content-center flex">
-            <div class="col-8 justify-content-center ">
-              <p-tabView styleClass="tabview-custom">
-                <p-tabPanel>
-                  <ng-template pTemplate="header">
-                    <i class="pi pi-bars mr-2"></i>
-                    <span>Description</span>
-                  </ng-template>
 
-                  <p style="line-height: 25px;">{{course?.description}}
+        </div>
+      </div>
+    </div>
 
-                  </p>
-                </p-tabPanel>
-              </p-tabView>
+  </div>
+
+
+
+  <!-- <div class="grid justify-content-center mt-3">
+    <div class="col-3">
+
+      <div class="align-items-center flex">
+        <button pButton pRipple type="button" routerLink="/activities/course" icon="pi pi-arrow-left"
+          class="p-button-rounded p-button-primary"></button>
+
+        <ul class="list-none p-0 m-0 flex align-items-center font-medium ml-3">
+          <li>
+            <a class="text-500 no-underline line-height-3 cursor-pointer">Courses</a>
+          </li>
+          <li class="px-2">
+            <i class="pi pi-angle-right text-500 line-height-3"></i>
+          </li>
+          <li>
+            <span class="text-900 line-height-3">Course Detail</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+    <div class="col-8"></div>
+  </div>
+  <div class="grid justify-content-center mt-3">
+    <div class="col-11">
+      <div class="text-xl font-medium text-900 mb-3 align-items-center flex">
+        <i class="pi pi-calendar mr-2" style="font-size: 1.4rem; color: #22C55E;"></i>
+        <span>Course Detail <i *ngIf="memberId" (click)="onUpdate()"
+            class="pi pi-fw pi-pencil hoverable-element"></i></span>
+      </div>
+      <div class="grid justify-content-center">
+        <div class="col-12">
+          <div class="surface-card p-3 shadow-2 border-round ">
+            <div class="col-12 justify-content-center flex">
+              <div class="col-8 mr-3" *ngIf="course">
+                <img alt="Logo Class" src="http://localhost:1214/files/{{course.fileId}}" class="w-full h-20rem">
+              </div>
+
+              <div class="col-3 justify-content-end">
+
+                <div class="surface-card py-3 px-4 shadow-2 border-round ">
+                  <div class="grid justify-content-center">
+                    <p-chip styleClass="mr-2 mt-1  custom-chip">
+                      <p class="my-1" style="font-size: 14px; font-weight: 500;">{{course?.categoryName}}</p>
+                    </p-chip>
+                  </div>
+
+                  <div class="grid mt-1">
+                    <div class="col align-items-center">
+                      <p class="my-4 align-items-center flex" style="font-size: 16px; font-weight: 400;"> <i
+                          class="pi pi-map-marker mr-3"
+                          style="font-size: 22px; font-weight: 400; color: #4CAF50;"></i>{{course?.locationAddress}}</p>
+                      <p class="my-4 align-items-center flex" style="font-size: 16px; font-weight: 400;"
+                        *ngFor="let sch of course?.schedule"> <i class="pi pi-calendar mr-3"
+                          style="font-size: 22px; font-weight: 400; color: #4CAF50;"></i>{{sch.scheduleDate | date : 'fullDate'   }}
+                      </p>
+                      <p class="my-4 align-items-center flex" style="font-size: 16px; font-weight: 400;"> <i
+                          class="pi pi-clock mr-3"
+                          style="font-size: 22px; font-weight: 400; color: #4CAF50;"></i>{{course?.timeStart }}
+                        - {{course?.timeEnd}}
+                      </p>
+                      <p class="mt-6" style="font-weight: 500;">Course Provider :</p>
+                      <p class=" mt-3 align-items-center flex" style="font-size: 16px; font-weight: 400;"> <i
+                          class="pi pi-building mr-3"
+                          style="font-size: 22px; font-weight: 400; color: #ED1C85;"></i>{{course?.provider}}
+                      </p>
+
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
+            <div class="grid justify-content-center flex">
+              <div class="col-8 justify-content-center ">
+                <p-tabView styleClass="tabview-custom">
+                  <p-tabPanel>
+                    <ng-template pTemplate="header">
+                      <i class="pi pi-bars mr-2"></i>
+                      <span>Description</span>
+                    </ng-template>
 
-            <div class="col-3 mt-3">
-              <div class="surface-card py-3 px-4 shadow-2 border-round  "*ngIf="!memberId">
-                <div class="grid flex">
-                  <div class="col 12 justify-content-center flex">
-                    <button pButton pRipple type="button" label="Buy Course" class="p-button-primary font-medium w-full"
-                      routerLink="/activities/course-payment/{{course?.id}}" ></button>
+                    <p style="line-height: 25px;">{{course?.description}}
+
+                    </p>
+                  </p-tabPanel>
+                </p-tabView>
+              </div>
+
+              <div class="col-3 mt-3">
+                <div class="surface-card py-3 px-4 shadow-2 border-round  " *ngIf="!memberId">
+                  <div class="grid flex">
+                    <div class="col 12 justify-content-center flex">
+                      <button pButton pRipple type="button" label="Buy Course"
+                        class="p-button-primary font-medium w-full"
+                        routerLink="/activities/course-payment/{{course?.id}}"></button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -99,5 +325,4 @@
         </div>
       </div>
     </div>
-  </div>
-</div>
+  </div> -->

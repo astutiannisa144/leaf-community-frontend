@@ -56,6 +56,13 @@ export const memberRoutes: Routes = [
 
   },
 
+  {
+    path: 'premium',
+    loadChildren: () => import("./pages/premium/premium.module").then(c => c.PremiumModule),
+    component: NavbarComponent
+
+  },
+
 
 
 

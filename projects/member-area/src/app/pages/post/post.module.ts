@@ -11,6 +11,7 @@ import { TieredMenuCustomComponent } from "../../../../../base-area/src/app/comp
 import { ProfilePostComponent } from './post-profile/profile-post.component';
 import { PostImageComponent } from 'projects/base-area/src/app/components/post-image/post-image.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { ProgressBarComponent } from 'projects/base-area/src/app/components/progress-bar/progress-bar.component';
 
 @NgModule({
     declarations: [
@@ -26,7 +27,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
         ShareModule,
         TieredMenuCustomComponent,
         PostImageComponent,
-        InfiniteScrollModule
+        InfiniteScrollModule,
+        ProgressBarComponent
     ]
 })
 export class PostModule { }
