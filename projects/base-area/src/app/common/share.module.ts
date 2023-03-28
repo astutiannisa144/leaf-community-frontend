@@ -29,11 +29,15 @@ import {ConfirmPopupModule} from 'primeng/confirmpopup';
 import {MenuModule} from 'primeng/menu'
 import {ScrollTopModule} from 'primeng/scrolltop'
 import { TooltipModule } from 'primeng/tooltip'
+import { TimeAgoPipe } from '../util/time-ago-util';
+import { AutoFocusModule } from 'primeng/autofocus';
 
 
 ToastModule
 @NgModule({
-    declarations: [],
+    declarations: [
+        TimeAgoPipe
+    ],
     imports: [
         ChipModule,
         ConfirmPopupModule,
@@ -65,6 +69,7 @@ ToastModule
         MenuModule,
         ScrollTopModule,
         TooltipModule,
+        AutoFocusModule
     ],
     exports: [
         ChipModule,
@@ -97,6 +102,8 @@ ToastModule
         MenuModule,
         ScrollTopModule,
         TooltipModule,
+        TimeAgoPipe,
+        AutoFocusModule
     ]
 })
 export class ShareModule { }

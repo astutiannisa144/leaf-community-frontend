@@ -7,7 +7,7 @@ import { FormArray, FormBuilder, Validators } from "@angular/forms";
 import { CategoryRes } from "@dto/category/category-res";
 import { CategoryService } from "@service/category.service";
 import { PostReq } from "@dto/post/post-req-insert";
-import { PostService } from "@service/post-service";
+import { PostService } from "@service/post.service";
 
 @Component({
     selector: 'app-post-create',

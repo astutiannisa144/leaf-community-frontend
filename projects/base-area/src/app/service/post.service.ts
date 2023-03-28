@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { PostReq } from "@dto/post/post-req-insert"
+import { PostReqUpdate } from "@dto/post/post-req-update"
 import { PostRes } from "@dto/post/post-res"
 import { Response } from "@dto/response"
 import { Observable } from "rxjs"
@@ -23,6 +24,14 @@ export class PostService {
 
     insertPost(data : PostReq) : Observable<Response> {
         return this.http.post<Response>(`${BASE_URL}/posts`, data)
+    }
+
+    deletePost(id : string) : Observable<Response> {
+        return this.http.delete<Response>(`${BASE_URL}/posts/${id}`)
+    }
+
+    updatePost(data : PostReqUpdate) : Observable<Response> {
+        return this.http.patch<Response>(`${BASE_URL}/posts`, data)
     }
     
 }
