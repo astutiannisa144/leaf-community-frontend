@@ -74,7 +74,7 @@
                   <div class="field col-12 p-0">
                     <p-calendar styleClass="w-full" id="calendar-start"  placeholder="Event date"
                       (onSelect)="onChangeScheduleDate(i)" formControlName="scheduleDateUtc" [showIcon]="true">
-                    </p-calendar>
+                    </p-calendar> 
                   </div>
                   <div class="field col-12 p-0">
                     <button type="button" pButton pRipple (click)="removeSchedule(i)" icon="pi pi-filter"
@@ -107,7 +107,7 @@
                 <div class="p-inputgroup">
                   <div class="block"></div>
                   <span class="p-inputgroup-addon">$</span>
-                  <input formControlName="price" id="eventPrice" type="number"  mode="decimal" inputId="locale-user"  pInputNumber placeholder="Price">
+                  <input formControlName="price" id="eventPrice" type="number"  mode="decimal" inputId="locale-user"  pInputNumber mode="currency" inputId="currency-indonesia" currency="IDR"  placeholder="Price">
                   <span class="p-inputgroup-addon">.00</span>
                 </div>
               </div>

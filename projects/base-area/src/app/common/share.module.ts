@@ -32,7 +32,7 @@ import { TooltipModule } from 'primeng/tooltip'
 import { TimeAgoPipe } from '../util/time-ago-util';
 import { AutoFocusModule } from 'primeng/autofocus';
 import {BlockUIModule} from 'primeng/blockui';
-
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 ToastModule
 @NgModule({
@@ -72,6 +72,7 @@ ToastModule
         TooltipModule,
         AutoFocusModule,
         BlockUIModule
+        ConfirmDialogModule
     ],
     exports: [
         ChipModule,
@@ -107,6 +108,7 @@ ToastModule
         TimeAgoPipe,
         AutoFocusModule,
         BlockUIModule
+        ConfirmDialogModule
     ]
 })
 export class ShareModule { }

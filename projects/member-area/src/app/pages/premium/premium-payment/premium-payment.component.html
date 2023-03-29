@@ -31,10 +31,20 @@
           <div class="col-12 md:col-10 lg:col-10 p-0">
             <div class="pr-0 md:pr-3 pt-3 h-full">
               <div class="shadow-2 p-3 h-full flex flex-column surface-card" style="border-radius: 6px">
-                <div class="text-900 font-medium text-xl mb-2">Monthly</div>
+                <div class="text-900 font-medium text-xl mb-2">{{premium?.premiumName}}</div>
                 <div class="text-600">Plan description</div>
                 <hr class="my-3 mx-0 border-top-1 border-none surface-border" />
-                <ul class="list-none p-0 m-0 flex-grow-1">
+                <ul class="list-none p-0 m-0 flex-grow-1" *ngIf="premium?.premiumName=='Monthly'">
+                  <li class="flex align-items-center mb-3" >
+                    <i class="pi pi-check-circle text-green-500 mr-2"></i>
+                    <span class="text-900">Make a premium post</span>
+                  </li>
+                  <li class="flex align-items-center mb-3">
+                    <i class="pi pi-check-circle text-green-500 mr-2"></i>
+                    <span class="text-900">Boost your income with post premium</span>
+                  </li>
+                </ul>
+                <ul class="list-none p-0 m-0 flex-grow-1" *ngIf="premium?.premiumName=='Annual'">
                   <li class="flex align-items-center mb-3">
                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
                     <span class="text-900">Make a premium post</span>
@@ -42,6 +52,10 @@
                   <li class="flex align-items-center mb-3">
                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
                     <span class="text-900">Boost your income with post premium</span>
+                  </li>
+                  <li class="flex align-items-center mb-3">
+                    <i class="pi pi-check-circle text-green-500 mr-2"></i>
+                    <span class="text-900">Cheaper subscription with annual plan</span>
                   </li>
                 </ul>
               </div>

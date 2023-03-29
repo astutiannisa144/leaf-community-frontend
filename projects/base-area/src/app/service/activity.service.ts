@@ -42,6 +42,9 @@ export class ActivityService {
         return this.http.patch<Response>(`${BASE_URL}/activities`,data)
 
     }
+    delete(id:string): Observable<Response>{
+        return this.http.delete<Response>(`${BASE_URL}/activities/${id}`);
+    }
     getActivityType(): Observable<ActivityTypeRes[]>{
         return this.http.get<ActivityTypeRes[]>(`${BASE_URL}/activities/type`);
     }

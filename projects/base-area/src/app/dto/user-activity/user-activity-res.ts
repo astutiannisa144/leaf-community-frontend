@@ -1,14 +1,6 @@
+import { UserActivityDataRes } from "./user-activity-data-res"
+
 export interface UserActivityRes{
-      id:string;
-	  activityName:string;
-	  activityId:string;
-	  fileId:string;
-	  memberName:string;
-	  voucherCode:string;
-	  isApprove:boolean;
-	  totalPrice:number;
-	  ver:number;
-	  isActive:boolean;
-	  invoiceCode:string;
-	  transactionSum?:number
+	userActivityDataRes:UserActivityDataRes[]
+	total:number
 }

@@ -10,7 +10,7 @@ const premiumRoutes : Routes = [
     },
 
     {   
-        path : 'payment',
+        path : 'payment/:id',
         component : PremiumPaymentComponent
     },
     

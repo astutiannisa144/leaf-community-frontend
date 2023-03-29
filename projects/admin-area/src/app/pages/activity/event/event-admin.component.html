@@ -1,5 +1,5 @@
 <pre>
-  {{userActivityList|json}}
+  {{userActivityDataList|json}}
 </pre>
 <div class="flex justify-content-center align-items-center h-6 w-screen font-bold">
   <div class="col-10">
@@ -10,7 +10,7 @@
         </p-chip>
       </div>
 
-      <p-table #dt1 [value]="userActivityList" [lazy]="true" (onLazyLoad)="loadData($event)" responsiveLayout="scroll" [paginator]="true"
+      <p-table #dt1 [value]="userActivityDataList" [lazy]="true" (onLazyLoad)="loadData($event)" responsiveLayout="scroll" [paginator]="true"
       [rows]="maxPage" [totalRecords]="totalData" [loading]="loading" [rowsPerPageOptions]="[5, 10]"
       tyleClass="p-datatable-gridlines" [globalFilterFields]="['id', 'title','content']">
   >
@@ -21,7 +21,7 @@
             <p-button icon="pi pi-refresh"></p-button>
           </div>
           <div class="flex align-items-Start ">
-            Total Transaction : {{sum}}
+            Total Transaction : {{totalData}}
           </div>
           <div class="flex">
             <span class="p-input-icon-left ml-auto">
@@ -30,7 +30,6 @@
                     placeholder="Search keyword" />
             </span>
         </div>
-
         </ng-template>
         <ng-template pTemplate="header">
           <tr>
@@ -42,7 +41,7 @@
             <th>Action</th>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-item let-i="rowIndex">
+        <ng-template pTemplate="body" let-product let-item let-i="rowIndex">
           <tr>
             <td>{{i+1}}</td>
             <td>{{item.memberName}}</td>
@@ -51,7 +50,9 @@
 
               </td>
             <td> {{item.isApprove==true?"Approved":item.isApprove==false?"Reject":"Pending"}}</td>
-
+            <!-- <td ngIf="!item.isApprove">Pending</td> -->
+            <!-- <td ngIf="item.isApprove==true">Approved</td>
+            <td ngIf="item.isApprove==false">Reject</td> -->
             <td>
               <button pButton pRipple icon="pi pi-pencil"   (click)="onApprove($event,item.id,i)"  class="p-button-rounded p-button-info mr-2"> Approve</button>
               <p-confirmPopup></p-confirmPopup>

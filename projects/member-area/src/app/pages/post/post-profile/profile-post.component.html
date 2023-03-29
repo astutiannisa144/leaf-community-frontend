@@ -1,6 +1,6 @@
-<!-- <pre>
-  {{ postList | json }}
-</pre> -->
+<pre>
+  {{ profile | json }}
+</pre>
 
 <div class="flex justify-content-center">
   <div class="col-3  pl-6 mt-2">
@@ -12,6 +12,7 @@
     <div class="surface-card p-3 shadow-2 border-round m-0">
       <div class="flex justify-content-center mt-2">
         <img *ngIf="profile?.file" alt="Logo Class" src="http://localhost:1214/files/{{profile?.file?.fileId}}" class="w-5" style="border-radius: 2%;">
+        <p-button *ngIf="!profile?.file" class="mr-2" icon="pi pi-user" styleClass="p-button-rounded p-button-info p-button-outlined"></p-button>
       </div>
       <div class="col flex py-1 mt-2 justify-content-center">
         <p class="text-base" style="font-weight: 500;">{{profile?.fullName}}</p>
@@ -21,7 +22,7 @@
       </div>
       <div class="col py-3 justify-content-center flex">
         <div class="col-8 justify-content-between flex">
-          <a *ngFor="let data of profile?.profileSocialMedia"  href="{{data.profileLink}}" target="_blank"> <i  class="pi {{data.socialMedia.socialMediaIcon}} mr-2 hover:bg-green-50" style="font-size: 22px; font-weight: 500; color: #a4a4a4;">
+          <a  *ngFor="let data of profile?.profileSocialMedia"   href="{{data.profileLink}}" target="_blank"> <i *ngIf="data.id" class="pi {{data.socialMedia.socialMediaIcon}} mr-2 hover:bg-green-50" style="font-size: 22px; font-weight: 500; color: #a4a4a4;">
          </i></a> 
         </div>
       </div>
@@ -57,6 +58,7 @@
               <button pButton pRipple label="Edit Profile" icon="pi pi-pencil" style=" background-color: #4CAF50; "
                 class="p-button-raised p-button-success w-7 mt-2 p-button-sm" routerLink="/profile/edit"></button>
             </div>
+           
           </div>
         </div>
     </div>
@@ -69,9 +71,9 @@
       <span>My Posts</span>
     </div>
 
-    <div class="card">
-      <p-tabView styleClass="tabview-custom">
-        <p-tabPanel>
+    <div class="surface-card shadow-2 border-round mb-3" infinite-scroll (scrolled)="onScroll()">
+      <p-tabView styleClass="tabview-custom" (onChange)="changeTab($event)">
+        <p-tabPanel >
           <ng-template pTemplate="header">
             <i class="pi pi-align-justify mr-2"></i>
             <span>Posts</span>
@@ -170,11 +172,60 @@
                     </div>
     
                   </div>
-                  <div class="py-3">
-                    <hr size="2">
+                </div>
+                <div class="justify-content-center flex">
+                  <div class="col-12 p-0">
+                    <p-divider></p-divider>
                   </div>
-    
-                  <div class="flex align-items-center">
+                </div>
+        
+                <div class="flex">
+                  <div class=" align-items-center hover:bg-gray-200 border-round-md cursor-pointer flex px-2 mr-2"
+                    *ngIf="!pl.likeId" (click)="insertLikes(pl.postId, i)">
+                    <p class="align-items-center flex" style="font-size: 15px; font-weight: 400;">
+                      <i class=" pi pi-heart mr-2 cursor-pointer"
+                        style="font-size: 18px; font-weight: 400; color: #979797;"></i>
+                      {{ pl.likeSum }} Likes
+                    </p>
+                  </div>
+                  <div class=" align-items-center hover:bg-gray-200 border-round-md cursor-pointer flex px-2 mr-2"
+                    *ngIf="pl.likeId" (click)="deleteLikes(pl.likeId, i)">
+                    <p class="align-items-center flex" style="font-size: 15px; font-weight: 400;">
+                      <i class="pi pi-heart-fill mr-2 cursor-pointer"
+                        style="font-size: 18px; font-weight: 600; color: #C94C0A;"></i>
+                      {{ pl.likeSum }} Likes
+                    </p>
+                  </div>
+        
+                  <div class="align-items-center hover:bg-gray-200 border-round-md cursor-pointer flex px-2"
+                    (click)="showComment(i, pl.postId)">
+                    <p class="align-items-center flex" style="font-size: 15px; font-weight: 400;"> <i
+                        class="pi pi-comments mr-2 cursor-pointer"
+                        style="font-size: 18px; font-weight: 400; color: #979797;"></i>{{
+                      pl.commentSum }} Comments</p>
+                  </div>
+        
+                  <div class="col justify-content-end">
+                    <p class="bookmark-fill hoverable-element" class="justify-content-end flex"
+                      style="font-size: 17px; font-weight: 400;" *ngIf="pl.bookmarkId">
+                      <i class="pi pi-bookmark-fill cursor-pointer" style="font-size: 20px; font-weight: 400; color: #0288D1;"
+                        (click)="deleteBookmark(pl.bookmarkId, i)">
+                      </i>
+                    </p>
+                    <p class="bookmark hoverable-element" class="justify-content-end flex"
+                      style="font-size: 17px; font-weight: 400;" *ngIf="!pl.bookmarkId">
+                      <i class="pi pi-bookmark cursor-pointer" style="font-size: 20px; font-weight: 400; color: #979797;"
+                        (click)="insertBookmark(pl.postId, i)">
+                      </i>
+                    </p>
+                  </div>
+                </div>
+                <div *ngIf="pl.showComment">
+                  <div class="">
+                    <p-divider></p-divider>
+                  </div>
+                  <div class="flex align-items-center my-4">
+
                     <img class="border-circle mr-2" src="http://localhost:1214/files/{{ pl.fileId }}"
                       style="width: 50px; height: 50 px;" alt="profile">
                     <div class="w-full">
@@ -224,6 +275,8 @@
                 </div>
               </div>
             </div>
+            <hr *ngIf="(i+1) < postList.length" class="my-3 mx-0 px-0 border-top-3 border-none surface-border mt-auto" />
+            <p-scrollTop></p-scrollTop>
           </div>
         </p-tabPanel>
         <p-tabPanel header="Header II">
@@ -339,42 +392,36 @@
                     </div>
                   </div>
                 </div>
-              </div>
-
-              <div class="flex align-items-center mt-4">
-                <img class="border-circle mr-2" src="http://localhost:1214/files/{{ pl.fileId }}"
-                  style="width: 50px; height: 50 px;" alt="profile">
-                <div class="w-full">
-                  <div class="surface-card pl-2 pr-1 py-2 border-1 border-round"
-                    style="border-radius: 6px; color:rgb(227, 227, 227);">
-                    <div class="flex p-0">
-                      <div class="col-11 flex p-0">
-                        <p
-                          style="text-align: justify; font-size: 15px; font-weight: 400; line-height: 25px; color: black;">
-                          Also the reason why PHP is oftenly use because of many companies are using website based
-                          application
-                          as
-                          their work desk helper.
-                        </p>
+                <div *ngIf="pl.showComment">
+                  <div class="">
+                    <p-divider></p-divider>
+                  </div>
+                  <div class="flex align-items-center my-4">
+                    <img class="border-circle mr-2" src="http://localhost:1214/files/{{ pl.fileId }}"
+                      style="width: 50px; height: 50 px;" alt="profile">
+                    <div class="w-full">
+                      <div class="col-12 p-0">
+                        <form class="p-inputgroup flex" [formGroup]="comment">
+                          <input class="bg-gray-50 hover:bg-gray-300 border-round-sm px-2 w-full" type="text" pInputText
+                            placeholder="Comment here" formControlName="content">
+                          <button type="submit" pButton pRipple icon="pi pi-send" styleClass="p-button-warn"
+                            class="p-button-info" (click)="insertComment(i, pl.postId)"></button>
+                        </form>
                       </div>
-
                       <div class="col-1 flex justify-content-end p-0">
                         <app-tiered-menu [model]="postEdit" topSpace="8px" rightSpace="8px">
                           <ng-template #content>
                             <i class="pi pi-ellipsis-v cursor-pointer p-0" style="color: black;"></i>
                           </ng-template>
                         </app-tiered-menu>
-
                       </div>
-
                     </div>
                   </div>
                 </div>
               </div>
-
-
-
             </div>
+            <hr *ngIf="(i+1) < postList.length" class="my-3 mx-0 px-0 border-top-3 border-none surface-border mt-auto" />
+            <p-scrollTop></p-scrollTop>
           </div>
         </p-tabPanel>
         <p-tabPanel header="Header III">
@@ -484,25 +531,22 @@
                     </div>
                   </div>
                 </div>
-              </div>
-
-              <div class="flex align-items-center mt-4">
-                <img class="border-circle mr-2" src="http://localhost:1214/files/{{ pl.fileId }}"
-                  style="width: 50px; height: 50 px;" alt="profile">
-                <div class="w-full">
-                  <div class="surface-card pl-2 pr-1 py-2 border-1 border-round"
-                    style="border-radius: 6px; color:rgb(227, 227, 227);">
-                    <div class="flex p-0">
-                      <div class="col-11 flex p-0">
-                        <p
-                          style="text-align: justify; font-size: 15px; font-weight: 400; line-height: 25px; color: black;">
-                          Also the reason why PHP is oftenly use because of many companies are using website based
-                          application
-                          as
-                          their work desk helper.
-                        </p>
+                <div *ngIf="pl.showComment">
+                  <div class="">
+                    <p-divider></p-divider>
+                  </div>
+                  <div class="flex align-items-center my-4">
+                    <img class="border-circle mr-2" src="http://localhost:1214/files/{{ pl.fileId }}"
+                      style="width: 50px; height: 50 px;" alt="profile">
+                    <div class="w-full">
+                      <div class="col-12 p-0">
+                        <form class="p-inputgroup flex" [formGroup]="comment">
+                          <input class="bg-gray-50 hover:bg-gray-300 border-round-sm px-2 w-full" type="text" pInputText
+                            placeholder="Comment here" formControlName="content">
+                          <button type="submit" pButton pRipple icon="pi pi-send" styleClass="p-button-warn"
+                            class="p-button-info" (click)="insertComment(i, pl.postId)"></button>
+                        </form>
                       </div>
-
                       <div class="col-1 flex justify-content-end p-0">
                         <app-tiered-menu [model]="postEdit" topSpace="8px" rightSpace="8px">
                           <ng-template #content>
@@ -520,6 +564,8 @@
 
 
             </div>
+            <hr *ngIf="(i+1) < postList.length" class="my-3 mx-0 px-0 border-top-3 border-none surface-border mt-auto" />
+            <p-scrollTop></p-scrollTop>
           </div>
         </p-tabPanel>
       </p-tabView>

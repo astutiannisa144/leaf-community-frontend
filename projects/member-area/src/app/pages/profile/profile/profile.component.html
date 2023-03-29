@@ -28,98 +28,107 @@
   <div class="col-11 py-0">
     <div class="surface-card mt-2 p-5 shadow-2 border-round">
       <form action="" [formGroup]="profileForm">
-      <div class="flex">
-        <div class="col-6">
-          <div class="text-xl ml-3 font-medium text-900 mb-3 align-items-center flex">
-            <i class="pi pi-user-edit mr-2" style="font-size: 1.4rem; color: #22C55E;"></i>
-            <span>Profile Edit</span>
-          </div>
-          <div class="justify-content-center flex">
-            <img class="border-circle border-1" src="{{profileForm.value.src}}" style="width: 100px;" alt="profile">
-            <!-- <p-image  height="250 " width="250"  alt="Red dot" /> -->
+        <div class="flex">
+          <div class="col-6">
+            <div class="text-xl ml-3 font-medium text-900 mb-3 align-items-center flex">
+              <i class="pi pi-user-edit mr-2" style="font-size: 1.4rem; color: #22C55E;"></i>
+              <span>Profile Edit</span>
+            </div>
+            <div class="justify-content-center flex">
+              <img *ngIf="profile?.file?.fileId||this.profileForm.value.file!.fileContent" class="border-circle border-1" src="{{profileForm.value.src}}" style="width: 100px;" alt="profile">
+              <p-button *ngIf="!profile?.file?.fileId &&!this.profileForm.value.file!.fileContent" class="mr-2" icon="pi pi-user" styleClass="p-button-rounded p-button-info p-button-outlined"></p-button>
 
-          </div>
-            
-          <div class="flex justify-content-center" >
-            <div class="col-10">
-              <label for="fullname" class="block text-900 font-medium mb-2">Full Name</label>
-              <input id="fullname" formControlName="fullName"  type="text" placeholder="Fullname" pInputText class="w-full mb-3">
-
-              <label for="address" class="block text-900 font-medium mb-2">Address</label>
-              <textarea id="address" formControlName="address" type="text" placeholder="Address" pInputText class="w-full mb-3"></textarea>
-
-              <label for="phoneNumber" class="block text-900 font-medium mb-2">Phone Number</label>
-              <input id="phoneNumber" formControlName="phoneNumber"  type="number" placeholder="phoneNumber" pInputText class="w-full mb-3">
-
-              <label for="email" class="block text-900 font-medium mb-2">Email</label>
-              <input id="email" formControlName="email" type="email" placeholder="Email" pInputText class="w-full mb-3">
-
-              <label for="password1" class="block text-900 font-medium mb-2">Password</label>
-              <p-password styleClass="w-full" placeholder="Password" class="w-full mb-3" [toggleMask]="true"></p-password>
-
-              <label for="password1" class="block text-900 font-medium mb-2">Change Photo : </label>
-              <p-fileUpload  name="demo[]" url="./upload.php" mode="basic"  chooseIcon="pi pi-fw pi-upload" chooseLabel="Upload" (onSelect)="fileUpload($event)" accept="image/*">
-              </p-fileUpload>
-              <!-- <p-fileUpload mode="basic" chooseLabel="Choose" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" (onSelect)="fileUpload($event)"></p-fileUpload> -->
+              <!-- <p-image  height="250 " width="250"  alt="Red dot" /> -->
 
             </div>
-          </div>
-        </div>
 
-        <p-divider layout="vertical"></p-divider>
+            <div class="flex justify-content-center">
+              <div class="col-10">
+                <label for="fullname" class="block text-900 font-medium mb-2">Full Name</label>
+                <input id="fullname" formControlName="fullName" type="text" placeholder="Fullname" pInputText
+                  class="w-full mb-3">
 
-        
-        <div class="col-6">
-          <div class="text-xl ml-2 font-medium text-900 mb-2 align-items-center flex">
-            <i class="pi pi-briefcase mr-2" style="font-size: 1.4rem; color: #22C55E;"></i>
-            <span>Jobs & Position</span>
-          </div>
-          <div class="col-11" >
-            <div formGroupName="job">
-            <label for="email1" class="block text-900 font-medium mb-2">Company Name</label>
-            <input id="email1s" formControlName="companyName" type="text" placeholder="Company name" pInputText class="w-full mb-3">
+                <label for="address" class="block text-900 font-medium mb-2">Address</label>
+                <textarea id="address" formControlName="address" type="text" placeholder="Address" pInputText
+                  class="w-full mb-3"></textarea>
 
-            <div class="flex p-0" >
-              <div class="col-6 pl-0">
-                <label for="industry" class="block text-900 font-medium mb-2">Industry</label>
-                <p-dropdown id="industry" formControlName="industryId" [autoDisplayFirst]="false" styleClass="w-full mb-3" id="position" [options]="industry" placeholder="Industry" optionValue="id"
-                  optionLabel="industryName">
-                </p-dropdown>
-              </div>
+                <label for="phoneNumber" class="block text-900 font-medium mb-2">Phone Number</label>
+                <input id="phoneNumber" formControlName="phoneNumber" type="number" placeholder="phoneNumber" pInputText
+                  class="w-full mb-3">
 
-              <div class="col-6 pr-0">
-                <label for="position" class="block text-900 font-medium mb-2">Position</label>
-                <p-dropdown id="position" formControlName="positionId" [autoDisplayFirst]="false"  [options]="position"  styleClass="w-full mb-3" placeholder="Position" optionValue="id"
-                  optionLabel="positionName">
-                </p-dropdown>
-              </div>
-            </div>
-          </div>
-            <div class="text-xl ml-0 py-0 font-medium text-900 mb-4 align-items-center flex">
-              <i class="pi pi-globe mr-2" style="font-size: 1.4rem; color: #22C55E;"></i>
-              <span>Social Media</span>
-            </div>
-
-
-            <div class="flex p-0" *ngFor="let d of socialMedias.controls; let i=index"  formArrayName="socialMedias">
-              <div class="col-6 pl-0" [formGroupName]="i">
-                <div class="flex align-items-center mb-2">
-                  <i class="pi {{d.value.socialMediaIcon}} mr-2" style="font-size: 1.4rem; color: #707478;"></i>
-                  <label for="twitter" class="block text-900 font-medium">{{d.value.socialMediaName}}</label>
+              
+                <label for="password1" class="block text-900 font-medium mb-2">Change Photo : </label>
+                <p-fileUpload name="demo[]" url="./upload.php" mode="basic" chooseIcon="pi pi-fw pi-upload"
+                  chooseLabel="Upload" (onSelect)="fileUpload($event)" accept="image/*">
+                </p-fileUpload>
+                <!-- <p-fileUpload mode="basic" chooseLabel="Choose" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" (onSelect)="fileUpload($event)"></p-fileUpload> -->
+                <div class="justify-content-start flex">
+                  <button pButton pRipple label="Change Password" icon="pi pi-pencil"
+                    style=" background-color: #4CAF50; " class="p-button-raised p-button-success w-7 mt-2 p-button-sm"
+                    (click)="showModalDialog()"></button>
                 </div>
-                <input id="twitter" formControlName="username" type="text" placeholder="{{d.value.socialMediaName}}" pInputText class="w-full mb-3">
+              </div>
+            </div>
+          </div>
+
+          <p-divider layout="vertical"></p-divider>
+
+
+          <div class="col-6">
+            <div class="text-xl ml-2 font-medium text-900 mb-2 align-items-center flex">
+              <i class="pi pi-briefcase mr-2" style="font-size: 1.4rem; color: #22C55E;"></i>
+              <span>Jobs & Position</span>
+            </div>
+            <div class="col-11">
+              <div formGroupName="job">
+                <label for="email1" class="block text-900 font-medium mb-2">Company Name</label>
+                <input id="email1s" formControlName="companyName" type="text" placeholder="Company name" pInputText
+                  class="w-full mb-3">
+
+                <div class="flex p-0">
+                  <div class="col-6 pl-0">
+                    <label for="industry" class="block text-900 font-medium mb-2">Industry</label>
+                    <p-dropdown id="industry" formControlName="industryId" [autoDisplayFirst]="false"
+                      styleClass="w-full mb-3" id="position" [options]="industry" placeholder="Industry"
+                      optionValue="id" optionLabel="industryName">
+                    </p-dropdown>
+                  </div>
+
+                  <div class="col-6 pr-0">
+                    <label for="position" class="block text-900 font-medium mb-2">Position</label>
+                    <p-dropdown id="position" formControlName="positionId" [autoDisplayFirst]="false"
+                      [options]="position" styleClass="w-full mb-3" placeholder="Position" optionValue="id"
+                      optionLabel="positionName">
+                    </p-dropdown>
+                  </div>
+                </div>
+              </div>
+              <div class="text-xl ml-0 py-0 font-medium text-900 mb-4 align-items-center flex">
+                <i class="pi pi-globe mr-2" style="font-size: 1.4rem; color: #22C55E;"></i>
+                <span>Social Media</span>
               </div>
 
-              <!-- <div class="col-6 pr-0">
+
+              <div class="flex p-0" *ngFor="let d of socialMedias.controls; let i=index" formArrayName="socialMedias">
+                <div class="col-6 pl-0" [formGroupName]="i">
+                  <div class="flex align-items-center mb-2">
+                    <i class="pi {{d.value.socialMediaIcon}} mr-2" style="font-size: 1.4rem; color: #707478;"></i>
+                    <label for="twitter" class="block text-900 font-medium">{{d.value.socialMediaName}}</label>
+                  </div>
+                  <input id="twitter" formControlName="username" type="text" placeholder="{{d.value.socialMediaName}}"
+                    pInputText class="w-full mb-3">
+                </div>
+
+                <!-- <div class="col-6 pr-0">
                 <div class="flex align-items-center mb-2">
                   <i class="pi pi-instagram mr-2" style="font-size: 1.4rem; color: #e1306c;"></i>
                   <label for="instagram" class="block text-900 font-medium">Instagram</label>
                 </div>
                 <input id="instagram" type="text" placeholder="Instagram" pInputText class="w-full mb-3">
               </div> -->
-            </div>
+              </div>
 
-            <!-- <div class="flex p-0">
+              <!-- <div class="flex p-0">
               <div class="col-6 pl-0">
                 <div class="flex align-items-center mb-2">
                   <i class="pi pi-facebook mr-2" style="font-size: 1.4rem; color: #4267B3;"></i>
@@ -137,19 +146,51 @@
               </div>
             </div> -->
 
-            <div class="flex p-0 justify-content-end">
-              <button pButton pRipple type="button" label="Cancel" class="p-button-secondary p-button-text"
-                routerLink="/profile"></button>
-              <button pButton pRipple type="button" (click)="onSave()" icon="pi pi-save" label="Save" class="p-button-info"></button>
-            </div>
+              <div class="flex p-0 justify-content-end">
+                <button pButton pRipple type="button" label="Cancel" class="p-button-secondary p-button-text"
+                  routerLink="/profile"></button>
+                <button pButton pRipple type="button" (click)="onSave()" icon="pi pi-save" label="Save"
+                  class="p-button-info"></button>
+              </div>
 
+            </div>
           </div>
         </div>
-      </div>
-    </form>
+      </form>
 
 
     </div>
   </div>
 
 </div>
+<p-dialog  [(visible)]="displayModal" [modal]="true" [style]="{width: '35vw'}" [draggable]="false"
+  [resizable]="false">
+
+  <pre>
+    {{passwordForm.value|json}}
+  </pre>
+  <form [formGroup]="passwordForm" (ngSubmit)="onChange()" >
+    <p class="m-0 text-3xl text-center mb-5">Change Password Menu</p>
+    <label for="course-title" class="block text-900 font-medium mb-2">Email</label>
+    <input id="email" formControlName="email"  [disabled]="true" type="email" placeholder="ex:wahyueron@gmail.com" pInputText
+      class="w-full mb-3 rounded">
+
+    <label for="password" class="block text-900 font-medium mb-2">Old Password</label>
+    <input id="password" formControlName="oldPass" type="password" placeholder="password" pInputText
+      class="w-full mb-3 rounded">
+
+      <label for="newPassword" class="block text-900 font-medium mb-2">New Password</label>
+      <input id="newPassword" formControlName="newPass" type="password" placeholder="password" pInputText
+        class="w-full mb-3 rounded">
+
+        <label for="confirmPassword" class="block text-900 font-medium mb-2">New Password</label>
+      <input id="confirmPassword" formControlName="confirmPass" type="password" placeholder="password" pInputText
+        class="w-full mb-3 rounded">
+    <button pButton pRipple label="Save" type="submit" style=" background-color: #137C3B; "
+    class="p-button-raised p-button-success w-full"> </button>
+
+  </form>
+ 
+
+
+</p-dialog>

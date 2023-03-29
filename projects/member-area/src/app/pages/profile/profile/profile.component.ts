@@ -1,12 +1,12 @@
 import { Component, OnInit } from "@angular/core";
-import { FormArray, FormBuilder, FormControl, FormGroup } from "@angular/forms";
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
 import { PostRes } from "@dto/post/post-res";
 import { PostService } from "@service/post.service";
 import { POST_LIMIT } from "projects/base-area/src/app/constant/post-limit";
 import { Subscription } from "rxjs";
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { ProfileRes } from "@dto/profile/profile-res";
 import { ProfileService } from "@service/profile.service";
 import { UserService } from "@service/user-service";
@@ -18,6 +18,7 @@ import { SocialMediaRes } from "@dto/social-media/social-media-res";
 import { SocialMediaServiceService } from "@service/social-media.service";
 import { LoginComponent } from "../../login/login.component";
 import { ProfileReq } from "@dto/profile/profile-req";
+import { UserReq } from "@dto/user/user-req";
 
 @Component({
     selector: 'app-post-home',
@@ -40,6 +41,13 @@ export class ProfileComponent {
     socialMedia$?:Subscription
     socialMediaList:SocialMediaRes[]=[]
     email!:string
+    // disabled: boolean = true;
+    passwordForm=this.fb.group({
+        email:this.userService.email,
+        oldPass:['',Validators.required],
+        newPass:['',Validators.required],
+        confirmPass:['',Validators.required]
+    })
     profileForm=this.fb.group({
         id:[''],
         fullName:[''],
@@ -72,7 +80,8 @@ export class ProfileComponent {
         private industryService:IndustryService,
         private positionService:PositionService,
         private socialMediaService:SocialMediaServiceService,
-        private router:Router
+        private router:Router,
+        private messageService: MessageService
     ){}
     getProfile(){
         this.profile$=this.profileService.getProfile().subscribe(result=>{
@@ -84,7 +93,7 @@ export class ProfileComponent {
                 address:this.profile.address,
                 email:this.userService.email,
                 phoneNumber:this.profile.phoneNumber,
-                src:"http://localhost:1214/files/"+this.profile.file.fileId,
+                src:"http://localhost:1214/files/"+this.profile.file?.fileId,
                 job:{
                     id:this.profile.job.id,
                     companyName:this.profile.job.companyName,
@@ -94,10 +103,10 @@ export class ProfileComponent {
                 },
                 ver:this.profile.ver,
                 file:{
-                    id:this.profile.file.fileId!,
-                    fileContent:this.profile.file.fileContent,
-                    fileExtension:this.profile.file.fileExtension,
-                    ver:String(this.profile.file.ver)
+                    id:this.profile.file?.fileId!,
+                    fileContent:this.profile.file?.fileContent,
+                    fileExtension:this.profile.file?.fileExtension,
+                    ver:String(this.profile.file?.ver)
                 }
             })
             console.log(this.profile.profileSocialMedia.length);
@@ -206,7 +215,26 @@ export class ProfileComponent {
         }
         this.profileService.update(data).subscribe(result=>{
             this.profileService.photo(this.profileForm.value.src!)
-        })
+        }) 
     }
-   
+    displayModal! : boolean
+    showModalDialog() {
+     this.displayModal = true;
+    }
+
+    onChange(){
+       
+        const data:UserReq={
+            oldPass:this.passwordForm.value.oldPass!,
+            newPass:this.passwordForm.value.newPass!,
+            ver:Number(this.userService.ver!)
+        }
+        if(data.newPass==this.passwordForm.value.confirmPass){
+            this.userService.changePass(data).subscribe(result=>{
+                this.router.navigateByUrl('/profile')
+            })
+        }else{
+            this.messageService.add({severity:'warn', summary: 'Warn', detail: 'Confirm password does not match'});
+        }
+    }
 }

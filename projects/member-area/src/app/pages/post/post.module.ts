@@ -17,6 +17,7 @@ import { ProgressBarComponent } from 'projects/base-area/src/app/components/prog
     declarations: [
         PostHomeComponent,
         PostCreateComponent,
+        ProfilePostComponent
     ],
     imports: [
         PostRouting,

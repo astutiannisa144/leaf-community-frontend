@@ -91,7 +91,7 @@
               </div>
               <div class="field col-12">
                 <label for="timeOnly" class="block text-900 font-medium mb-2">Course Time End</label>
-                <p-calendar styleClass="w-full" formControlName="timeEndUtc" (click)="onChangeScheduleTimeEnd()" icon="pi pi-plus" placeholder="Course time"
+                <p-calendar styleClass="w-full" formControlName="timeEndUtc" (click)="onChangeScheduleTimeEnd()"  icon="pi pi-plus" placeholder="Course time"
                   [timeOnly]="true" inputId="timeonly"></p-calendar>
               </div>
             </div>
@@ -105,7 +105,7 @@
                 <div class="p-inputgroup">
                   <div class="block"></div>
                   <span class="p-inputgroup-addon">$</span>
-                  <input formControlName="price" id="coursePrice" type="number" pInputText placeholder="Price">
+                  <p-inputNumber pInputNumber formControlName="price" id="coursePrice" mode="decimal" [maxFractionDigits]="5"  placeholder="Price"></p-inputNumber>
                   <span class="p-inputgroup-addon">.00</span>
                 </div>
               </div>
