@@ -31,7 +31,9 @@ export class NavbarComponent {
   roleCode = this.userService.roleCode
   items!: MenuItem[];
   itemProfile!: MenuItem[];
+  src!:string
   fileId!:string
+  res!:string
   constructor(
     private router: Router,
     private activityService: ActivityService,
@@ -167,10 +169,12 @@ export class NavbarComponent {
   ]
 
   ngOnInit(): void {
-
-    this.fileId=`http://localhost:1214/files/${this.userService.user.fileId!}`
+    this.fileId=this.userService.user.fileId!
+    this.src=`http://localhost:1214/files/${this.userService.user.fileId!}`
     this.profileService.profileImage$?.subscribe(res=>{
-      this.fileId=res
+      this.src=res
+      this.res=res
+      
     })
     if (this.roleCode == Role.SuperAdmin) {
       this.items = this.adminNav

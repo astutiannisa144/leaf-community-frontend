@@ -93,7 +93,7 @@ export class ProfileComponent {
                 address:this.profile.address,
                 email:this.userService.email,
                 phoneNumber:this.profile.phoneNumber,
-                src:"http://localhost:1214/files/"+this.profile.file.fileId,
+                src:"http://localhost:1214/files/"+this.profile.file?.fileId,
                 job:{
                     id:this.profile.job.id,
                     companyName:this.profile.job.companyName,
@@ -103,10 +103,10 @@ export class ProfileComponent {
                 },
                 ver:this.profile.ver,
                 file:{
-                    id:this.profile.file.fileId!,
-                    fileContent:this.profile.file.fileContent,
-                    fileExtension:this.profile.file.fileExtension,
-                    ver:String(this.profile.file.ver)
+                    id:this.profile.file?.fileId!,
+                    fileContent:this.profile.file?.fileContent,
+                    fileExtension:this.profile.file?.fileExtension,
+                    ver:String(this.profile.file?.ver)
                 }
             })
             console.log(this.profile.profileSocialMedia.length);
