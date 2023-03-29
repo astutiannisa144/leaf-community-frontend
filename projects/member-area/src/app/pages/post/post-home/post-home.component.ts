@@ -21,6 +21,9 @@ import { PostReq } from "@dto/post/post-req-insert";
 import { UserPollingService } from "@service/user-polling.service";
 import { CommentReqUpdate } from "@dto/comment/comment-req-update";
 import { PostReqUpdate } from "@dto/post/post-req-update";
+import { ActivityRes } from "@dto/activity/activity-res";
+import { ACTIVITY_LIMIT } from "projects/base-area/src/app/constant/activity-limit";
+import { ActivityService } from "@service/activity.service";
 
 @Component({
   selector: 'app-post-home',
@@ -99,6 +102,23 @@ import { PostReqUpdate } from "@dto/post/post-req-update";
       box-shadow: none;
     }
 
+    .blur-container {
+  position: relative;
+}
+
+.blur-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(5px);
+  opacity: 0.5;
+}
+
+
+
+
     `]
 })
 export class PostHomeComponent implements OnInit {
@@ -110,6 +130,7 @@ export class PostHomeComponent implements OnInit {
   private comment$?: Subscription
   private post$?: Subscription
   private like$?: Subscription
+  private activity$?: Subscription
 
   private deleteComment$?: Subscription
   private editComment$?: Subscription
@@ -121,11 +142,13 @@ export class PostHomeComponent implements OnInit {
   postEdit!: MenuItem[]
   items!: MenuItem[]
   home!: MenuItem
+  activityList: ActivityRes[] = []
 
   inputPolling = false
   inputImage = false
   inputPost = false
   editBtn = false
+  blockedPanel: boolean = false;
 
   category: CategoryRes[] = []
   uploadedFiles: any[] = []
@@ -138,17 +161,18 @@ export class PostHomeComponent implements OnInit {
   commentIdx!: number
   postIdx!: number
 
+  page = 1
   postPage = 0
   commentPage = 0
 
   post = this.fb.group({
-    title: ['', [Validators.maxLength(30)]],
-    content: [''],
+    title: ['', [Validators.maxLength(30), Validators.required]],
+    content: ['', Validators.required],
     isPremium: [false],
-    categoryId: [''],
+    categoryId: ['', Validators.required],
     polling: this.fb.group({
       content: [''],
-      expired: [''],
+      expired: ['',],
       pollingDetail: this.fb.array([])
     }),
     file: this.fb.array([])
@@ -171,6 +195,7 @@ export class PostHomeComponent implements OnInit {
   })
 
   constructor(
+    private activityService: ActivityService,
     private userPollingService: UserPollingService,
     private categoryService: CategoryService,
     private userService: UserService,
@@ -190,6 +215,10 @@ export class PostHomeComponent implements OnInit {
     this.getPostCategory()
     this.fileId = this.userService.user.fileId
     this.userId = this.userService.user.userId
+
+    this.activity$ = this.activityService.getActivityByType(ACTIVITY_LIMIT - 2, this.page).subscribe(result => {
+      this.activityList = result
+    })
 
     this.items = [
       { label: '<p>Home</p>', escape: false, routerLink: '/posts' },
@@ -260,6 +289,9 @@ export class PostHomeComponent implements OnInit {
 
   showInputPost() {
     this.inputPost = true
+    this.post.patchValue({
+      categoryId: this.category[0].id
+    })
   }
 
   cancelInputPost() {
@@ -269,6 +301,8 @@ export class PostHomeComponent implements OnInit {
     this.file.clear()
 
     this.inputPost = false
+    this.inputPolling = false
+    this.inputImage = false
   }
 
   getPostId(id: string, postIdx: number) {
