@@ -14,8 +14,7 @@ import { ProfilePostComponent } from '../post/post-profile/profile-post.componen
 @NgModule({
     declarations: [
         ProfileComponent,
-        RevenueComponent,
-        ProfilePostComponent
+        RevenueComponent
     ],
     imports: [
         ProfileRouting,
