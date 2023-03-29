@@ -4,7 +4,9 @@ import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ActivityRes } from "@dto/activity/activity-res";
 import { BankAccountRes } from "@dto/bank-account/bank-account-res";
+import { PremiumRes } from "@dto/premium/premium-res";
 import { ActivityService } from "@service/activity.service";
+import { PremiumService } from "@service/premium.service";
 import { UserService } from "@service/user-service";
 import { ACTIVITY_LIMIT } from "projects/base-area/src/app/constant/activity-limit";
 import { Subscription } from "rxjs";
@@ -23,10 +25,15 @@ export class PremiumPaymentComponent {
     bank?: BankAccountRes
 
     private bank$?: Subscription
+    premium$?:Subscription
+    premium?:PremiumRes
+
 
     constructor(
         private userService: UserService,
-        private fb: FormBuilder
+        private fb: FormBuilder,
+        private premiumService:PremiumService,
+        private activatedRoute:ActivatedRoute
     ) { }
 
     ngOnInit(): void {
@@ -34,6 +41,12 @@ export class PremiumPaymentComponent {
         this.bank$ = this.userService.getBank().subscribe(result => {
             this.bank = result
         })
+        this.activatedRoute.params.subscribe(result=>{
+            this.premium$=this.premiumService.getById(result['id']).subscribe(res=>{
+                this.premium=res
+            })
+        })
+        
     }
 
     paymentForm = this.fb.group({

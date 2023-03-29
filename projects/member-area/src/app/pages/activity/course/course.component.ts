@@ -150,7 +150,7 @@ export class CourseComponent implements OnInit{
    }
    onScroll(): void {
     if(!this.categoryTemp){
-      this.course$ = this.activityService.getActivityByType(ACTIVITY_LIMIT,  this.page++,ACTIVITY_TYPE.CO).subscribe(result => {
+      this.course$ = this.activityService.getActivityByType(ACTIVITY_LIMIT,  this.page=this.page+1,ACTIVITY_TYPE.CO).subscribe(result => {
         if (result) {
           
           if (this.courseList.length) {
@@ -161,7 +161,7 @@ export class CourseComponent implements OnInit{
         }
       })
     }else{
-      this.course$ = this.activityService.getActivityByType(ACTIVITY_LIMIT,  this.page++,ACTIVITY_TYPE.CO,this.categoryTemp).subscribe(result => {
+      this.course$ = this.activityService.getActivityByType(ACTIVITY_LIMIT,  this.page=this.page+1,ACTIVITY_TYPE.CO,this.categoryTemp).subscribe(result => {
         if (result) {
           
           if (this.courseList.length) {

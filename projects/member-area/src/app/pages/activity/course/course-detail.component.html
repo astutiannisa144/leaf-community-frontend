@@ -23,6 +23,8 @@
           <span class="text-900 line-height-3">Course Detail</span>
           <i *ngIf="memberId" (click)="onUpdate()"
             class="pi pi-fw pi-pencil hover:bg-gray-300 border-round-sm cursor-pointer ml-3"></i>
+            <i *ngIf="memberId" (click)="onDelete()"
+            class="pi pi-fw pi-trash hover:bg-gray-300 border-round-sm cursor-pointer ml-3"></i>
         </li>
       </ul>
     </div>
@@ -218,7 +220,7 @@
   </div>
 
 
-
+  <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
   <!-- <div class="grid justify-content-center mt-3">
     <div class="col-3">
 

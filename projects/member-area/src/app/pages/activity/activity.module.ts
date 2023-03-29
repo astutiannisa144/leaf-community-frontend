@@ -17,6 +17,7 @@ import { TieredMenuCustomComponent } from 'projects/base-area/src/app/components
 import { EventUpdateComponent } from './event-update/event-update.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { CourseUpdateComponent } from './course-update/course-update.component';
+import { InputNumberModule } from 'primeng/inputnumber';
 @NgModule({
     declarations: [
         EventComponent,
@@ -39,6 +40,7 @@ import { CourseUpdateComponent } from './course-update/course-update.component';
         ShareModule,
         TieredMenuCustomComponent,
         InfiniteScrollModule,
+        InputNumberModule
         
     ]
 })

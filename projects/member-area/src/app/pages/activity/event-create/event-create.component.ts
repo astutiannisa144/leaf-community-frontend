@@ -166,7 +166,7 @@ export class EventCreateComponent implements OnInit, AfterContentChecked {
         }
         activity.schedule = [...this.schedules.value]
         this.activityService.insert(activity).subscribe(result=>{
-
+            this.router.navigateByUrl('/activities/event/'+this.activityForm.value.activityTypeId)
         })
     }
 
