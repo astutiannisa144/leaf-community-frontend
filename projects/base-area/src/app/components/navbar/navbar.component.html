@@ -1,3 +1,4 @@
+
 <div class="menubar-container shadow-2">
   <p-menubar class="justify-content-center" [model]="items">
     <ng-template pTemplate="start">
@@ -13,8 +14,10 @@
           <p class="ml-2 font-medium" style="color: black;">Try Premium</p>
         </p-button>
 
-        <img class="mr-2 cursor-pointer" style="border-radius: 50%;" width="45" src="{{fileId}}" alt=""
+        <img *ngIf="fileId||res" class="mr-2 cursor-pointer" style="border-radius: 50%;" width="45" src="{{src}}" alt=""
           (click)="menu.toggle($event)">
+          <p-button *ngIf="!fileId&&!res" class="mr-2"  (click)="menu.toggle($event)"  icon="pi pi-user" styleClass="p-button-rounded p-button-info p-button-outlined"></p-button>
+
         <p-tieredMenu #menu [model]="itemProfile" [popup]="true"></p-tieredMenu>
       </div>
 
