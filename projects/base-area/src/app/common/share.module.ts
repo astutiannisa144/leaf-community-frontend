@@ -71,8 +71,8 @@ ToastModule
         ScrollTopModule,
         TooltipModule,
         AutoFocusModule,
-        BlockUIModule
-        ConfirmDialogModule
+        BlockUIModule,
+        ConfirmDialogModule,
     ],
     exports: [
         ChipModule,
@@ -107,8 +107,8 @@ ToastModule
         TooltipModule,
         TimeAgoPipe,
         AutoFocusModule,
-        BlockUIModule
-        ConfirmDialogModule
+        BlockUIModule,
+        ConfirmDialogModule,
     ]
 })
 export class ShareModule { }
