@@ -35,7 +35,9 @@
               <span>Profile Edit</span>
             </div>
             <div class="justify-content-center flex">
-              <img class="border-circle border-1" src="{{profileForm.value.src}}" style="width: 100px;" alt="profile">
+              <img *ngIf="profile?.file?.fileId||this.profileForm.value.file!.fileContent" class="border-circle border-1" src="{{profileForm.value.src}}" style="width: 100px;" alt="profile">
+              <p-button *ngIf="!profile?.file?.fileId &&!this.profileForm.value.file!.fileContent" class="mr-2" icon="pi pi-user" styleClass="p-button-rounded p-button-info p-button-outlined"></p-button>
+
               <!-- <p-image  height="250 " width="250"  alt="Red dot" /> -->
 
             </div>
@@ -54,14 +56,7 @@
                 <input id="phoneNumber" formControlName="phoneNumber" type="number" placeholder="phoneNumber" pInputText
                   class="w-full mb-3">
 
-                <label for="email" class="block text-900 font-medium mb-2">Email</label>
-                <input id="email" formControlName="email" type="email" placeholder="Email" pInputText
-                  class="w-full mb-3">
-
-                <label for="password1" class="block text-900 font-medium mb-2">Password</label>
-                <p-password styleClass="w-full" placeholder="Password" class="w-full mb-3"
-                  [toggleMask]="true"></p-password>
-
+              
                 <label for="password1" class="block text-900 font-medium mb-2">Change Photo : </label>
                 <p-fileUpload name="demo[]" url="./upload.php" mode="basic" chooseIcon="pi pi-fw pi-upload"
                   chooseLabel="Upload" (onSelect)="fileUpload($event)" accept="image/*">
