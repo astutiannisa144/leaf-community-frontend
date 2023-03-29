@@ -1,6 +1,6 @@
-<pre>
+<!-- <pre>
   {{ profile | json }}
-</pre>
+</pre> -->
 
 <div class="flex justify-content-center">
   <div class="col-3  pl-6 mt-2">
@@ -11,7 +11,7 @@
     </div>
     <div class="surface-card p-3 shadow-2 border-round m-0">
       <div class="flex justify-content-center mt-2">
-        <img *ngIf="profile?.file" alt="Logo Class" src="http://localhost:1214/files/{{profile?.file?.fileId}}" class="w-5" style="border-radius: 2%;">
+        <img *ngIf="profile?.file" alt="Logo Class" src="http://localhost:1214/files/{{profile?.file?.fileId}}" class="w-5 border-circle">
         <p-button *ngIf="!profile?.file" class="mr-2" icon="pi pi-user" styleClass="p-button-rounded p-button-info p-button-outlined"></p-button>
       </div>
       <div class="col flex py-1 mt-2 justify-content-center">
@@ -78,99 +78,93 @@
             <i class="pi pi-align-justify mr-2"></i>
             <span>Posts</span>
           </ng-template>
-          <div class="flex py-0 justify-content-center">
-            <div class="col-11 py-0">
-              <div class="surface-card my-3 p-5 shadow-2 border-round" *ngFor="let pl of postList">
-                <div class="flex align-items-center">
-                  <div class="col flex p-0">
-                    <img class="border-circle mr-2" src="http://localhost:1214/files/{{ pl.fileId }}"
-                      style="width: 50px; height: 50 px;" alt="profile">
-                    <div>
-                      <p style="font-weight: 450; font-size: 20px;">{{ pl.fullName }}</p>
-                      <p style="font-size: 16px;">{{ pl.createdAt }}</p>
+          <div *ngFor="let pl of postList; let i=index">
+            <div class="p-3">
+              <div class="flex align-items-center ">
+                <div class="col flex p-0">
+                  <img class="border-circle mr-2" src="http://localhost:1214/files/{{ pl.fileId }}"
+                    style="width: 50px; height: 50 px;" alt="profile">
+                  <div class="flex align-items-center">
+                    <div class="flex-column justify-content-start">
+                      <p style="font-weight: 450; font-size: 15px;">{{ pl.fullName }}</p>
+                      <p style="font-size: 13px;">{{ pl.createdAt | timeAgo }}</p>
                     </div>
-    
-                    <!-- <div class="col-12" *ngIf="editBtn">
-                      <input class="w-full" type="text" pInputText placeholder="Comment">
-                    </div> -->
                   </div>
-    
-                  <div class="col flex justify-content-end p-0">
-                    <div class="align-items-center flex">
-                      <ng-container>
-                        <p-tag [rounded]="true" severity="warning" class="mr-2">
-                          <p class="my-0 mx-1" style="font-size: 12px; font-weight: 500;">Premium</p>
-                        </p-tag>
-    
-                        <p-tag [rounded]="true" severity="info">
-                          <p class="my-0 mx-1" style="font-size: 12px; font-weight: 500;">Information Technology</p>
-                        </p-tag>
-    
-                        <div class="mt-1 ml-2">
-                          <app-tiered-menu [model]="postEdit" topSpace="8px" rightSpace="8px">
-                            <ng-template #content>
-                              <i class="pi pi-ellipsis-v cursor-pointer p-0"></i>
-                            </ng-template>
-                          </app-tiered-menu>
-                        </div>
-    
-                        <!-- <i pRipple class="pi pi-ellipsis-v cursor-pointer" (click)="menu.toggle($event)"
-                          style="font-size: 19px;"></i>
-                        <p-tieredMenu #menu [model]="postEdit" [popup]="true"></p-tieredMenu> -->
-                      </ng-container>
-                    </div>
-    
-                    <!-- <button type="button" pButton pRipple icon="pi pi-send" (click)="showEdit()"></button> -->
-    
-    
-    
-                  </div>
-    
                 </div>
-                <div class="mt-3">
-                  <div class="text-xl font-medium text-900 my-2">
-                    <p style="font-weight: 700; font-size: 20px;">{{ pl.title }}</p>
+                <div class="col flex justify-content-end p-0">
+                  <div class="align-items-center flex">
+                    <ng-container>
+                      <p-tag [rounded]="true" severity="warning" class="mr-2" *ngIf="pl.isPremium">
+                        <p class="my-0 mx-1" style="font-size: 12px; font-weight: 500;">Premium</p>
+                      </p-tag>
+                      <p-tag [rounded]="true" severity="info" class="mr-2">
+                        <p class="my-0 mx-1" style="font-size: 12px; font-weight: 500; ">{{ pl.categoryName }}</p>
+                      </p-tag>
+                      <div class="mt-1 ml-2">
+                        <app-tiered-menu [model]="postEdit" topSpace="8px" rightSpace="8px" *ngIf="userId == pl.memberId">
+                          <ng-template #content>
+                            <i class="pi pi-ellipsis-v cursor-pointer p-0" (click)="getPostId(pl.postId, i)"></i>
+                          </ng-template>
+                        </app-tiered-menu>
+                      </div>
+                    </ng-container>
                   </div>
-                  <div class="font-small mb-3 ">
-                    <p class="text-justify"
-                      style="text-align: justify; font-size: 17px; font-weight: 400; line-height: 25px;">{{
+                </div>
+              </div>
+              <div class="mt-3">
+                <div *ngIf="!pl.showEdit">
+                  <div class="text-xl font-medium text-900 my-2">
+                    <p style="font-weight: 700; font-size: 17px;">{{ pl.title }}</p>
+                  </div>
+                  <div class="font-small">
+                    <p class="text-justify" style="text-align: justify; font-size: 15px; font-weight: 400; line-height: 25px;">
+                      {{
                       pl.content }}</p>
                   </div>
-                  <!-- <div *ngIf="pl.file != null" class="flex gap-3">
-                    <div *ngFor="let f of pl.file" class="w-6">
-                      <p-image src="http://localhost:1214/files/{{ f }}"
-                        alt="Image" imageClass="border-round-lg" width="100%">
-                      </p-image>
+                  <p *ngIf="pl.ver" class="block text-md mt-2" style="font-weight: 400; font-size: 12px; color: black;">
+                    (edited)
+                  </p>
+                </div>
+                <form [formGroup]="postEditForm" *ngIf="pl.showEdit">
+                  <input type="text" pInputText class="editPostField w-full border-none p-0" formControlName="title"
+                    style="font-weight: 700; font-size: 17px;" pAutoFocus [autofocus]="true">
+                  <textarea rows="1" cols="30" pInputTextarea [autoResize]="true" formControlName="content"
+                    class="editPostField w-full border-none p-0 py-2"
+                    style="text-align: justify; font-size: 15px; font-weight: 400; line-height: 25px;"></textarea>
+                  <button style="background-color: 29BA7B;" pButton pRipple type="submit"
+                    class="p-button-outlined p-button-rounded p-button-info w-8rem h-2rem p-button-sm p-0 mb-1 mt-3"
+                    (click)="updatePost()">
+                    <p class="w-full" style="font-style: 20px; font-weight: 700;">Save Changes</p>
+                  </button>
+                  <button style="background-color: 29BA7B;" pButton pRipple type="button"
+                    class="p-button-rounded p-button-text p-button-danger w-6rem h-2rem p-button-sm p-0 ml-2 mb-1"
+                    (click)="showEditPost()">
+                    <p class="w-full" style="font-style: 20px; font-weight: 700;">Cancel</p>
+                  </button>
+                </form>
+                <div *ngIf="pl.file != null" class="mt-3">
+                  <app-post-image [imagesId]="pl.file" [imageOptions]="imageOptions">
+                  </app-post-image>
+                </div>
+                <div *ngIf="pl.polling && pl.polling?.userPollingId">
+                  <div class="surface-card p-3 border-1 border-round mt-2" style="color:rgb(227, 227, 227)">
+                    <p style="text-align: justify; font-size: 15px; font-weight: 400; line-height: 25px; color:black">
+                      {{ pl.polling.content}}</p>
+                    <div *ngFor="let p of pl.polling?.pollingDetail">
+                      <app-progressbar [label]="p.content" [value]="p.percentage">
+                      </app-progressbar>
                     </div>
-                  </div> -->
-                  <div *ngIf="pl.polling?.userPollingId != null">
-                    <p-progressBar *ngFor="let p of pl.polling?.pollingDetail" [value]="p.percentage" styleClass="mt-3">
-                    </p-progressBar>
                   </div>
-                  <div class="flex">
-                    <div class="col-2">
-                      <p (mouseenter)="onHover()" (mouseleave)="onLeave()" class="hoverable-element" class="likes"
-                        style="font-size: 17px; font-weight: 400;"> <i class="pi pi-heart-fill mr-2 cursor-pointer"
-                          style="font-size: 20px; font-weight: 600; color: #C94C0A;"></i>
-                        <i class=" pi pi-heart mr-2" style="font-size: 20px; font-weight: 400; color: #979797;"></i>
-                        {{ pl.likeSum }} Likes</p>
+                </div>
+                <div *ngIf="pl.polling && !pl.polling?.userPollingId">
+                  <div class="surface-card p-3 border-1 border-round mt-2" style="color:rgb(227, 227, 227)">
+                    <p style="text-align: justify; font-size: 15px; font-weight: 400; line-height: 25px; color:black">
+                      {{ pl.polling.content}}</p>
+                    <div *ngFor="let dt of pl.polling?.pollingDetail" class="py-2">
+                      <button pButton pRipple type="button" label="{{dt.content}}"
+                        (click)="insertUserPolling(dt.pollingDetailId, i)"
+                        class="p-button-outlined p-button-rounded p-button-secondary bg-green-50 hover:bg-gray-100 w-full"></button>
                     </div>
-                    <div class="col-3">
-                      <p style="font-size: 17px; font-weight: 400;"> <i class="pi pi-comments mr-2 cursor-pointer"
-                          style="font-size: 20px; font-weight: 400; color: #979797;"></i>{{ pl.commentSum }} Comments</p>
-                    </div>
-                    <div class="col-7 justify-content-end">
-                      <p (mouseenter)="onHover()" (mouseleave)="onLeave()" class="bookmark-fill hoverable-element"
-                        class="justify-content-end flex" style="font-size: 17px; font-weight: 400;"> <i
-                          class="pi pi-bookmark-fill mr-2 cursor-pointer"
-                          style="font-size: 20px; font-weight: 400; color: #0288D1;"></i></p>
-    
-                      <p (mouseenter)="onHover()" (mouseleave)="onLeave()" class="bookmark hoverable-element"
-                        class="justify-content-end flex" style="font-size: 17px; font-weight: 400;"> <i
-                          class="pi pi-bookmark mr-2 cursor-pointer"
-                          style="font-size: 20px; font-weight: 400; color: #979797;"></i></p>
-                    </div>
-    
                   </div>
                 </div>
                 <div class="justify-content-center flex">
@@ -178,7 +172,6 @@
                     <p-divider></p-divider>
                   </div>
                 </div>
-        
                 <div class="flex">
                   <div class=" align-items-center hover:bg-gray-200 border-round-md cursor-pointer flex px-2 mr-2"
                     *ngIf="!pl.likeId" (click)="insertLikes(pl.postId, i)">
@@ -196,7 +189,6 @@
                       {{ pl.likeSum }} Likes
                     </p>
                   </div>
-        
                   <div class="align-items-center hover:bg-gray-200 border-round-md cursor-pointer flex px-2"
                     (click)="showComment(i, pl.postId)">
                     <p class="align-items-center flex" style="font-size: 15px; font-weight: 400;"> <i
@@ -204,7 +196,6 @@
                         style="font-size: 18px; font-weight: 400; color: #979797;"></i>{{
                       pl.commentSum }} Comments</p>
                   </div>
-        
                   <div class="col justify-content-end">
                     <p class="bookmark-fill hoverable-element" class="justify-content-end flex"
                       style="font-size: 17px; font-weight: 400;" *ngIf="pl.bookmarkId">
@@ -224,450 +215,102 @@
                   <div class="">
                     <p-divider></p-divider>
                   </div>
-                  <div class="flex align-items-center my-4">
-
+                  <div class="flex align-items-center py-2">
                     <img class="border-circle mr-2" src="http://localhost:1214/files/{{ pl.fileId }}"
                       style="width: 50px; height: 50 px;" alt="profile">
                     <div class="w-full">
                       <div class="col-12 p-0">
-                        <div class="p-inputgroup">
-                          <input class="w-full" type="text" pInputText placeholder="Comment">
-                          <button type="button" pButton pRipple icon="pi pi-send" styleClass="p-button-warn"
-                            class="p-button-info"></button>
-                        </div>
+                        <form class="p-inputgroup flex" [formGroup]="comment">
+                          <input class="bg-gray-50 hover:bg-gray-300 border-round-sm px-2 w-full" type="text" pInputText
+                            placeholder="Comment here" formControlName="content">
+                          <button type="submit" pButton pRipple icon="pi pi-send" styleClass="p-button-warn"
+                            class="p-button-info" (click)="insertComment(i, pl.postId)"></button>
+                        </form>
                       </div>
                     </div>
                   </div>
-    
-                  <div class="flex align-items-center mt-4">
+                  <div class="flex align-items-center mt-4" *ngFor="let cl of pl.commentList; let j=index">
                     <img class="border-circle mr-2" src="http://localhost:1214/files/{{ pl.fileId }}"
                       style="width: 50px; height: 50 px;" alt="profile">
                     <div class="w-full">
-                      <div class="surface-card pl-2 pr-1 py-2 border-1 border-round"
-                        style="border-radius: 6px; color:rgb(227, 227, 227);">
-                        <div class="flex p-0">
-                          <div class="col-11 flex p-0">
-                            <p
-                              style="text-align: justify; font-size: 15px; font-weight: 400; line-height: 25px; color: black;">
-                              Also the reason why PHP is oftenly use because of many companies are using website based
-                              application
-                              as
-                              their work desk helper.
-                            </p>
+                      <div class="shadow-0 border-round-xl border-1 bg-green-50 p-2" style="color:rgb(227, 227, 227);">
+                        <div class="flex p-0 pl-1">
+                          <div class="col-11 p-0">
+                            <div class="flex align-items-center">
+                              <p class="block text-md" style="font-weight: 450; font-size: 15px; color: black;">
+                                {{ cl.fullName }}
+                              </p>
+                              <p *ngIf="!cl.showEdit" class="block text-md ml-2"
+                                style="font-weight: 400; font-size: 13px; color: black;">
+                                {{ cl.createdAt | timeAgo }}
+                              </p>
+        
+                            </div>
+                            <div *ngIf="!cl.showEdit">
+                              <p class="block my-2" 
+                                style="text-align: justify; font-size: 15px; font-weight: 400; line-height: 25px; color: black;">
+                                {{ cl.content }}
+                              </p>
+                              <p *ngIf="cl.ver " class="block text-md " style="font-weight: 400; font-size: 10px; color: black;">
+                                (edited)
+                              </p>
+                            </div>
+                            <form *ngIf="cl.showEdit" [formGroup]="commentEditForm">
+                              <textarea rows="1" class="textarea-comment w-full bg-green-50 border-none my-2" pInputTextarea
+                                [autoResize]="true" pAutoFocus [autofocus]="true" formControlName="content"></textarea>
+                              <button style="background-color: 29BA7B;" pButton pRipple type="submit"
+                                class="p-button-outlined p-button-rounded p-button-info w-8rem h-2rem p-button-sm p-0 mb-1"
+                                (click)="updateComment()">
+                                <p class="w-full" style="font-style: 20px; font-weight: 700;">Save Changes</p>
+                              </button>
+                              <button style="background-color: 29BA7B;" pButton pRipple type="button"
+                                class="p-button-rounded p-button-text p-button-danger w-6rem h-2rem p-button-sm p-0 ml-2 mb-1"
+                                (click)="showEditComment()">
+                                <p class="w-full" style="font-style: 20px; font-weight: 700;">Cancel</p>
+                              </button>
+                            </form>
                           </div>
-    
                           <div class="col-1 flex justify-content-end p-0">
-                            <app-tiered-menu [model]="postEdit" topSpace="8px" rightSpace="8px">
+                            <app-tiered-menu [model]="commentEdit" topSpace="8px" rightSpace="8px"
+                              *ngIf="userId == cl.memberId || userId == pl.memberId">
                               <ng-template #content>
-                                <i class="pi pi-ellipsis-v cursor-pointer p-0" style="color: black;"></i>
+                                <div class="bg-gray-50 hover:bg-gray-300 border-circle w-full p-0 cursor-pointer">
+                                  <i class="pi pi-ellipsis-v" style="color: black;"
+                                    (click)="getCommentId(cl.commentId, i, j)"></i>
+                                </div>
                               </ng-template>
                             </app-tiered-menu>
-    
                           </div>
-    
                         </div>
                       </div>
                     </div>
                   </div>
-    
-    
-    
+                  <div class="flex mt-3 justify-content-center" *ngIf="pl.commentList.length < pl.commentSum">
+                    <button pButton pRipple type="button" label="Show more..." class="p-button-secondary p-button-text"
+                      (click)="showMoreComment(i, pl.postId)"></button>
+                  </div>
                 </div>
               </div>
             </div>
-            <hr *ngIf="(i+1) < postList.length" class="my-3 mx-0 px-0 border-top-3 border-none surface-border mt-auto" />
-            <p-scrollTop></p-scrollTop>
+            <hr class="border-top-3 border-none surface-border" />
           </div>
+          <p-scrollTop></p-scrollTop>
         </p-tabPanel>
         <p-tabPanel header="Header II">
           <ng-template pTemplate="header">
             <i class="pi pi-heart-fill mr-2"></i>
             <span>Likes</span>
           </ng-template>
-          <div class="surface-card mt-4 p-5 shadow-2 border-round" *ngFor="let pl of postList">
-            <div class="flex align-items-center">
-              <div class="col flex p-0">
-                <img class="border-circle mr-2" src="http://localhost:1214/files/{{ pl.fileId }}"
-                  style="width: 50px; height: 50 px;" alt="profile">
-                <div>
-                  <p style="font-weight: 450; font-size: 20px;">{{ pl.fullName }}</p>
-                  <p style="font-size: 16px;">{{ pl.createdAt }}</p>
-                </div>
-
-                <!-- <div class="col-12" *ngIf="editBtn">
-                  <input class="w-full" type="text" pInputText placeholder="Comment">
-                </div> -->
-              </div>
-
-              <div class="col flex justify-content-end p-0">
-                <div class="align-items-center flex">
-                  <ng-container>
-                    <p-tag [rounded]="true" severity="warning" class="mr-2">
-                      <p class="my-0 mx-1" style="font-size: 12px; font-weight: 500;">Premium</p>
-                    </p-tag>
-
-                    <p-tag [rounded]="true" severity="info">
-                      <p class="my-0 mx-1" style="font-size: 12px; font-weight: 500;">Information Technology</p>
-                    </p-tag>
-
-                    <div class="mt-1 ml-2">
-                      <app-tiered-menu [model]="postEdit" topSpace="8px" rightSpace="8px">
-                        <ng-template #content>
-                          <i class="pi pi-ellipsis-v cursor-pointer p-0"></i>
-                        </ng-template>
-                      </app-tiered-menu>
-                    </div>
-
-                    <!-- <i pRipple class="pi pi-ellipsis-v cursor-pointer" (click)="menu.toggle($event)"
-                      style="font-size: 19px;"></i>
-                    <p-tieredMenu #menu [model]="postEdit" [popup]="true"></p-tieredMenu> -->
-                  </ng-container>
-                </div>
-
-                <!-- <button type="button" pButton pRipple icon="pi pi-send" (click)="showEdit()"></button> -->
-
-
-
-              </div>
-
-            </div>
-            <div class="mt-3">
-              <div class="text-xl font-medium text-900 my-2">
-                <p style="font-weight: 700; font-size: 20px;">{{ pl.title }}</p>
-              </div>
-              <div class="font-small mb-3 ">
-                <p class="text-justify"
-                  style="text-align: justify; font-size: 17px; font-weight: 400; line-height: 25px;">{{
-                  pl.content }}</p>
-              </div>
-              <!-- <div *ngIf="pl.file != null" class="flex gap-3">
-                <div *ngFor="let f of pl.file" class="w-6">
-                  <p-image src="http://localhost:1214/files/{{ f }}"
-                    alt="Image" imageClass="border-round-lg" width="100%">
-                  </p-image>
-                </div>
-              </div> -->
-              <div *ngIf="pl.polling?.userPollingId != null">
-                <p-progressBar *ngFor="let p of pl.polling?.pollingDetail" [value]="p.percentage" styleClass="mt-3">
-                </p-progressBar>
-              </div>
-              <div class="flex">
-                <div class="col-2">
-                  <p (mouseenter)="onHover()" (mouseleave)="onLeave()" class="hoverable-element" class="likes"
-                    style="font-size: 17px; font-weight: 400;"> <i class="pi pi-heart-fill mr-2 cursor-pointer"
-                      style="font-size: 20px; font-weight: 600; color: #C94C0A;"></i>
-                    <i class=" pi pi-heart mr-2" style="font-size: 20px; font-weight: 400; color: #979797;"></i>
-                    {{ pl.likeSum }} Likes</p>
-                </div>
-                <div class="col-3">
-                  <p style="font-size: 17px; font-weight: 400;"> <i class="pi pi-comments mr-2 cursor-pointer"
-                      style="font-size: 20px; font-weight: 400; color: #979797;"></i>{{ pl.commentSum }} Comments</p>
-                </div>
-                <div class="col-7 justify-content-end">
-                  <p (mouseenter)="onHover()" (mouseleave)="onLeave()" class="bookmark-fill hoverable-element"
-                    class="justify-content-end flex" style="font-size: 17px; font-weight: 400;"> <i
-                      class="pi pi-bookmark-fill mr-2 cursor-pointer"
-                      style="font-size: 20px; font-weight: 400; color: #0288D1;"></i></p>
-
-                  <p (mouseenter)="onHover()" (mouseleave)="onLeave()" class="bookmark hoverable-element"
-                    class="justify-content-end flex" style="font-size: 17px; font-weight: 400;"> <i
-                      class="pi pi-bookmark mr-2 cursor-pointer"
-                      style="font-size: 20px; font-weight: 400; color: #979797;"></i></p>
-                </div>
-
-              </div>
-              <div class="py-3">
-                <hr size="2">
-              </div>
-
-              <div class="flex align-items-center">
-                <img class="border-circle mr-2" src="http://localhost:1214/files/{{ pl.fileId }}"
-                  style="width: 50px; height: 50 px;" alt="profile">
-                <div class="w-full">
-                  <div class="col-12 p-0">
-                    <div class="p-inputgroup">
-                      <input class="w-full" type="text" pInputText placeholder="Comment">
-                      <button type="button" pButton pRipple icon="pi pi-send" styleClass="p-button-warn"
-                        class="p-button-info"></button>
-                    </div>
-                  </div>
-                </div>
-                <div *ngIf="pl.showComment">
-                  <div class="">
-                    <p-divider></p-divider>
-                  </div>
-                  <div class="flex align-items-center my-4">
-                    <img class="border-circle mr-2" src="http://localhost:1214/files/{{ pl.fileId }}"
-                      style="width: 50px; height: 50 px;" alt="profile">
-                    <div class="w-full">
-                      <div class="col-12 p-0">
-                        <form class="p-inputgroup flex" [formGroup]="comment">
-                          <input class="bg-gray-50 hover:bg-gray-300 border-round-sm px-2 w-full" type="text" pInputText
-                            placeholder="Comment here" formControlName="content">
-                          <button type="submit" pButton pRipple icon="pi pi-send" styleClass="p-button-warn"
-                            class="p-button-info" (click)="insertComment(i, pl.postId)"></button>
-                        </form>
-                      </div>
-                      <div class="col-1 flex justify-content-end p-0">
-                        <app-tiered-menu [model]="postEdit" topSpace="8px" rightSpace="8px">
-                          <ng-template #content>
-                            <i class="pi pi-ellipsis-v cursor-pointer p-0" style="color: black;"></i>
-                          </ng-template>
-                        </app-tiered-menu>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <hr *ngIf="(i+1) < postList.length" class="my-3 mx-0 px-0 border-top-3 border-none surface-border mt-auto" />
-            <p-scrollTop></p-scrollTop>
-          </div>
+          
         </p-tabPanel>
         <p-tabPanel header="Header III">
           <ng-template pTemplate="header">
             <i class="pi pi-bookmark-fill mr-2"></i>
             <span>Bookmark</span>
           </ng-template>
-          <div class="surface-card mt-4 p-5 shadow-2 border-round" *ngFor="let pl of postList">
-            <div class="flex align-items-center">
-              <div class="col flex p-0">
-                <img class="border-circle mr-2" src="http://localhost:1214/files/{{ pl.fileId }}"
-                  style="width: 50px; height: 50 px;" alt="profile">
-                <div>
-                  <p style="font-weight: 450; font-size: 20px;">{{ pl.fullName }}</p>
-                  <p style="font-size: 16px;">{{ pl.createdAt }}</p>
-                </div>
-
-                <!-- <div class="col-12" *ngIf="editBtn">
-                  <input class="w-full" type="text" pInputText placeholder="Comment">
-                </div> -->
-              </div>
-
-              <div class="col flex justify-content-end p-0">
-                <div class="align-items-center flex">
-                  <ng-container>
-                    <p-tag [rounded]="true" severity="warning" class="mr-2">
-                      <p class="my-1 mx-1" style="font-size: 12px; font-weight: 500;">Premium</p>
-                    </p-tag>
-
-                    <p-tag [rounded]="true" severity="info">
-                      <p class="my-1 mx-1" style="font-size: 12px; font-weight: 500;">Information Technology</p>
-                    </p-tag>
-
-                    <div class="mt-1 ml-2">
-                      <app-tiered-menu [model]="postEdit" topSpace="8px" rightSpace="8px">
-                        <ng-template #content>
-                          <i class="pi pi-ellipsis-v cursor-pointer p-0"></i>
-                        </ng-template>
-                      </app-tiered-menu>
-                    </div>
-
-                    <!-- <i pRipple class="pi pi-ellipsis-v cursor-pointer" (click)="menu.toggle($event)"
-                      style="font-size: 19px;"></i>
-                    <p-tieredMenu #menu [model]="postEdit" [popup]="true"></p-tieredMenu> -->
-                  </ng-container>
-                </div>
-
-                <!-- <button type="button" pButton pRipple icon="pi pi-send" (click)="showEdit()"></button> -->
-
-
-
-              </div>
-
-            </div>
-            <div class="mt-3">
-              <div class="text-xl font-medium text-900 my-2">
-                <p style="font-weight: 700; font-size: 20px;">{{ pl.title }}</p>
-              </div>
-              <div class="font-small mb-3 ">
-                <p class="text-justify"
-                  style="text-align: justify; font-size: 17px; font-weight: 400; line-height: 25px;">{{
-                  pl.content }}</p>
-              </div>
-            
-              <div *ngIf="pl.polling?.userPollingId != null">
-                <p-progressBar *ngFor="let p of pl.polling?.pollingDetail" [value]="p.percentage" styleClass="mt-3">
-                </p-progressBar>
-              </div>
-              <div class="flex">
-                <div class="col-2">
-                  <p (mouseenter)="onHover()" (mouseleave)="onLeave()" class="hoverable-element" class="likes"
-                    style="font-size: 17px; font-weight: 400;"> <i class="pi pi-heart-fill mr-2 cursor-pointer"
-                      style="font-size: 20px; font-weight: 600; color: #C94C0A;"></i>
-                    <i class=" pi pi-heart mr-2" style="font-size: 20px; font-weight: 400; color: #979797;"></i>
-                    {{ pl.likeSum }} Likes</p>
-                </div>
-                <div class="col-3">
-                  <p style="font-size: 17px; font-weight: 400;"> <i class="pi pi-comments mr-2 cursor-pointer"
-                      style="font-size: 20px; font-weight: 400; color: #979797;"></i>{{ pl.commentSum }} Comments</p>
-                </div>
-                <div class="col-7 justify-content-end">
-                  <p (mouseenter)="onHover()" (mouseleave)="onLeave()" class="bookmark-fill hoverable-element"
-                    class="justify-content-end flex" style="font-size: 17px; font-weight: 400;"> <i
-                      class="pi pi-bookmark-fill mr-2 cursor-pointer"
-                      style="font-size: 20px; font-weight: 400; color: #0288D1;"></i></p>
-
-                  <p (mouseenter)="onHover()" (mouseleave)="onLeave()" class="bookmark hoverable-element"
-                    class="justify-content-end flex" style="font-size: 17px; font-weight: 400;"> <i
-                      class="pi pi-bookmark mr-2 cursor-pointer"
-                      style="font-size: 20px; font-weight: 400; color: #979797;"></i></p>
-                </div>
-
-              </div>
-              <div class="py-3">
-                <hr size="2">
-              </div>
-
-              <div class="flex align-items-center">
-                <img class="border-circle mr-2" src="http://localhost:1214/files/{{ pl.fileId }}"
-                  style="width: 50px; height: 50 px;" alt="profile">
-                <div class="w-full">
-                  <div class="col-12 p-0">
-                    <div class="p-inputgroup">
-                      <input class="w-full" type="text" pInputText placeholder="Comment">
-                      <button type="button" pButton pRipple icon="pi pi-send" styleClass="p-button-warn"
-                        class="p-button-info"></button>
-                    </div>
-                  </div>
-                </div>
-                <div *ngIf="pl.showComment">
-                  <div class="">
-                    <p-divider></p-divider>
-                  </div>
-                  <div class="flex align-items-center my-4">
-                    <img class="border-circle mr-2" src="http://localhost:1214/files/{{ pl.fileId }}"
-                      style="width: 50px; height: 50 px;" alt="profile">
-                    <div class="w-full">
-                      <div class="col-12 p-0">
-                        <form class="p-inputgroup flex" [formGroup]="comment">
-                          <input class="bg-gray-50 hover:bg-gray-300 border-round-sm px-2 w-full" type="text" pInputText
-                            placeholder="Comment here" formControlName="content">
-                          <button type="submit" pButton pRipple icon="pi pi-send" styleClass="p-button-warn"
-                            class="p-button-info" (click)="insertComment(i, pl.postId)"></button>
-                        </form>
-                      </div>
-                      <div class="col-1 flex justify-content-end p-0">
-                        <app-tiered-menu [model]="postEdit" topSpace="8px" rightSpace="8px">
-                          <ng-template #content>
-                            <i class="pi pi-ellipsis-v cursor-pointer p-0" style="color: black;"></i>
-                          </ng-template>
-                        </app-tiered-menu>
-
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-
-
-            </div>
-            <hr *ngIf="(i+1) < postList.length" class="my-3 mx-0 px-0 border-top-3 border-none surface-border mt-auto" />
-            <p-scrollTop></p-scrollTop>
-          </div>
+          
         </p-tabPanel>
       </p-tabView>
     </div>
   </div>
-
 </div>
-
-<!-- <div class="grid justify-content-center mt-3">
-  <div class="col-8">
-    <div class="text-xl font-medium text-900 mb-3 align-items-center flex">
-      <i class="pi pi-home mr-2" style="font-size: 1.4rem; color: #22C55E;"></i>
-      <span>Posts Home</span>
-    </div>
-    <div class="grid justify-content-start block col-12">
-      <button pButton pRipple type="button" class="p-button-primary w-full h-3rem">
-        <p class="w-full" style="font-weight: 700;" routerLink="/posts/create">Create New Post</p>
-      </button>
-      <div class="surface-card mt-4 p-4 shadow-2 border-round" *ngFor="let pl of postList">
-        <div class="col-12 flex my-0">
-          <p-avatar image="../../../assets/img/unnamed.jpg" styleClass="mr-3" size="large"
-            [style]="{'background-color':'#2196F3', 'color': '#ffffff'}" shape="circle">
-          </p-avatar>
-          <p class="my-3" style="font-weight: 500; font-size: 20px; display: flex;">Yudha H</p>
-        </div>
-        <div class="grid">
-        </div>
-        <div class="col-12">
-          <div class="text-xl font-medium text-900">
-            <p class="my-0">What programming languange most people are using? </p>
-          </div>
-          <div class="font-small mb-3 ">
-            <p class="text-justify mt-2"
-              style="text-align: justify; font-size: 17px; font-weight: 400; line-height: 25px;">Im new in
-              programming, so i wonder what programming languange are the most promising in the Information
-              Technology Industry Company job vacancy. What programming languange should i start to use?</p>
-          </div>
-          <div class="justify-content-between flex mt-2">
-            <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" alt="Image" width="92%">
-            </p-image>
-            <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" alt="Image" width="92%">
-            </p-image>
-            <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" alt="Image" width="92%">
-            </p-image>
-          </div>
-          <div class="font-small mt-2 mb-3 ">
-            <p>Posted on 09:00 22/02/2023</p>
-          </div>
-          <div class="grid">
-            <div class="col-2">
-              <p style="font-size: 18px; font-weight: 400;"> <i class="pi pi-heart-fill mr-3"
-                  style="font-size: 20px; font-weight: 600; color: #C94C0A;"></i>21 Likes</p>
-            </div>
-            <div class="col-3">
-              <p style="font-size: 18px; font-weight: 400;"> <i class="pi pi-comments mr-3"
-                  style="font-size: 20px; font-weight: 600; color: #FCAC26;"></i>12 Comments</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-2">
-    <div class="text-xl font-medium text-900 mb-3 align-items-center flex">
-      <i class="pi pi-calendar mr-2" style="font-size: 1.4rem; color: #22C55E;"></i>
-      <span>Training & Events</span>
-    </div>
-      <div class="surface-card p-3 shadow-2 border-round m-0">
-        <img alt="Logo Class" src="https://buildwithangga.com/storage/assets/thumbnails/thumbnail_vue_starter.png"
-          class="w-full">
-        <div class="grid my-0">
-          <div class="col flex my-0">
-            <i class="pi pi-building mb-2 mr-1" style="font-size: 20px; color: #a4a4a4;"></i>
-            <p style="font-size: 14px; font-weight: 400;">Lawencon</p>
-          </div>
-          <div class="col justify-content-end flex my-0">
-            <i class="pi pi-calendar mb-2 mr-1" style="font-size: 20px; color: #a4a4a4;"></i>
-            <p style="font-size: 14px; font-weight: 400;">Events</p>
-          </div>
-        </div>
-        <p class="my-1" style="font-weight: 700; font-size: 20px;">Vue Js Course</p>
-        <div class="grid">
-          <div class="col align-items-center">
-            <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"> <i
-                class="pi pi-map-marker mr-2" style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>Pakuwon
-              Tower</p>
-            <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"> <i
-                class="pi pi-calendar mr-2" style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>21
-              Januari
-              2023</p>
-            <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"> <i
-                class="pi pi-clock mr-2" style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>19:00
-              - 21:00
-            </p>
-            <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"> <i
-                class="pi pi-money-bill mr-2" style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>Rp 220.000
-            </p>
-            <p-chip styleClass="custom-chip">
-              <p class="my-1" style="font-size: 12px; font-weight: 500;">Information Technology</p>
-            </p-chip>
-          </div>
-        </div>
-      </div>
-  </div>
-</div> -->
