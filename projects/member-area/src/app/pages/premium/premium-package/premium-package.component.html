@@ -1,3 +1,6 @@
+<pre>
+  {{premiumList|json}}
+</pre>
 <div class="surface-ground px-4 py-5 md:px-6 lg:px-8">
 
   <div class="text-900 font-bold text-6xl mb-4 text-center">
@@ -6,19 +9,20 @@
   <div class="text-700 text-xl mb-6 text-center line-height-3">Experience full features of Leaf Community Application.
     Start to choose your subscription type</div>
 
-  <div class="grid justify-content-center">
-    <div class="col-12 lg:col-4">
+  <div class="grid justify-content-center" >
+    <div class="col-12 lg:col-4" *ngFor="let item of premiumList">
       <div class="p-3 h-full">
-        <div class="shadow-2 p-3 h-full flex flex-column surface-card" style="border-radius: 6px">
-          <div class="text-900 font-medium text-xl mb-2">Monthly</div>
+        <div class="shadow-2 p-3 h-full flex flex-column surface-card"  style="border-radius: 6px">
+          <div class="text-900 font-medium text-xl mb-2">{{item.premiumName}}</div>
           <div class="text-600">Plan description</div>
           <hr class="my-3 mx-0 border-top-1 border-none surface-border" />
           <div class="flex align-items-center">
-            <span class="font-bold text-2xl text-900">Rp 14.000</span>
-            <span class="ml-2 font-medium text-600">/ month</span>
+            <span class="font-bold text-2xl text-900">{{item.price| currency: 'Rp ' :'symbol':'1.2-2'}}</span>
+            <span class="ml-2 font-medium text-600" *ngIf="item.premiumName=='Monthly'">/ month</span>
+            <span class="ml-2 font-medium text-600" *ngIf="item.premiumName=='Annual'">/ year</span>
           </div>
           <hr class="my-3 mx-0 border-top-1 border-none surface-border" />
-          <ul class="list-none p-0 m-0 flex-grow-1">
+          <ul class="list-none p-0 m-0 flex-grow-1"  *ngIf="item.premiumName=='Monthly'">
             <li class="flex align-items-center mb-3">
               <i class="pi pi-check-circle text-green-500 mr-2"></i>
               <span class="text-900">Make a premium post</span>
@@ -29,13 +33,27 @@
               <span class="text-900">Boost your income with post premium</span>
             </li>
           </ul>
+          <ul class="list-none p-0 m-0 flex-grow-1"*ngIf="item.premiumName=='Annual'">
+            <li class="flex align-items-center mb-3">
+              <i class="pi pi-check-circle text-green-500 mr-2"></i>
+              <span class="text-900">Make a premium post</span>
+            </li>
+            <li class="flex align-items-center mb-3">
+              <i class="pi pi-check-circle text-green-500 mr-2"></i>
+              <span class="text-900">Boost your income with post premium</span>
+            </li>
+            <li class="flex align-items-center mb-3">
+              <i class="pi pi-check-circle text-green-500 mr-2"></i>
+              <span class="text-900">Cheaper subscription with annual plan</span>
+            </li>
+          </ul>
           <hr class="mb-3 mx-0 border-top-1 border-none surface-border mt-auto" />
-          <button pButton pRipple label="Buy Now" class="p-3 w-full mt-auto" routerLink="/premium/payment"></button>
+          <button pButton pRipple routerLink="/premium/payment/{{item.id}}" label="Buy Now" class="p-3 w-full mt-auto" routerLink="/premium/payment"></button>
         </div>
       </div>
     </div>
 
-    <div class="col-12 lg:col-4">
+    <!-- <div class="col-12 lg:col-4">
       <div class="p-3 h-full">
         <div class="shadow-2 p-3 h-full flex flex-column surface-card" style="border-radius: 6px">
           <div class="text-900 font-medium text-xl mb-2">Annually</div>
@@ -64,6 +82,6 @@
           <button pButton pRipple label="Buy Now" class="p-3 w-full" routerLink="/premium/payment"></button>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>

@@ -107,7 +107,7 @@ export class EventPaymentComponent {
                 reader.onload = () => {
                     if (typeof reader.result === "string") resolve(reader.result)
                 };
-                reader.onerror = error => reject(error);
+                // reader.onerror = error => reject(error);
             });
     
             for (let file of event.files) {

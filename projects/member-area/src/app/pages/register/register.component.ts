@@ -116,6 +116,7 @@ export class RegisterComponent {
         }
         this.userService.register(data).subscribe(result=>{
             this.message=result.message
+            this.showModalDialog()
         })
     }
     displayModal! : boolean
