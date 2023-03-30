@@ -1,6 +1,4 @@
-<pre>
-  {{ profileForm.value| json }}
-</pre>
+
 <div class="flex justify-content-center mt-3 py-0">
   <div class="col-3">
     <div class="align-items-center flex">
@@ -166,9 +164,7 @@
 <p-dialog  [(visible)]="displayModal" [modal]="true" [style]="{width: '35vw'}" [draggable]="false"
   [resizable]="false">
 
-  <pre>
-    {{passwordForm.value|json}}
-  </pre>
+
   <form [formGroup]="passwordForm" (ngSubmit)="onChange()" >
     <p class="m-0 text-3xl text-center mb-5">Change Password Menu</p>
     <label for="course-title" class="block text-900 font-medium mb-2">Email</label>
