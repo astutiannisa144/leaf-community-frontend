@@ -13,12 +13,12 @@ import { ACTIVITY_TYPE } from "projects/base-area/src/app/constant/activity-type
 import { Subscription } from "rxjs";
 
 @Component({
-    selector: 'app-activity-event',
-    templateUrl: './event.component.html',
-    template: `
+  selector: 'app-activity-event',
+  templateUrl: './event.component.html',
+  template: `
     <div (mouseenter)="onHover()" (mouseleave)="onLeave()" class="hoverable-element">Hover me!</div>
     `,
-    styles: [`
+  styles: [`
      .hoverable-element {
        background-color: #fff;
      }
@@ -87,12 +87,13 @@ import { Subscription } from "rxjs";
         
    `],
 
-   
+
 
 
 },
 
 )
+
 export class EventComponent implements OnInit{
     private event$? : Subscription
     eventList : ActivityRes[]=[]
@@ -123,7 +124,21 @@ export class EventComponent implements OnInit{
         this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.EV).subscribe(result => {
             this.eventList = result
 
+
+    })
+    this.category$ = this.categoryService.getCategory().subscribe(result => {
+      this.categoryList = result
+    })
+    this.categories.get('category')?.valueChanges.subscribe(result => {
+      const temp = result as any;
+      console.log(result);
+      this.page = 1
+      if (!temp.length) {
+
+        this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page, ACTIVITY_TYPE.EV).subscribe(result => {
+          this.eventList = result
         })
+
         this.category$ = this.categoryService.getCategory().subscribe(result => {
             this.categoryList = result
             
@@ -162,8 +177,9 @@ export class EventComponent implements OnInit{
    onScroll(): void {
     if(!this.categories.length){
       this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT,  this.page=this.page+1,ACTIVITY_TYPE.EV).subscribe(result => {
+
         if (result) {
-          
+
           if (this.eventList.length) {
             this.eventList = [...this.eventList, ...result]
           } else {
@@ -171,6 +187,7 @@ export class EventComponent implements OnInit{
           }
         }
       })
+
     }else{
       this.page=this.page+1
       const data : ActivityReqGet={
@@ -180,8 +197,9 @@ export class EventComponent implements OnInit{
         page: this.page,
       }
       this.event$ = this.activityService.getActivityByListCategory(data).subscribe(result => {
+
         if (result) {
-          
+
           if (this.eventList.length) {
             this.eventList = [...this.eventList, ...result]
           } else {
@@ -193,10 +211,12 @@ export class EventComponent implements OnInit{
 
   }
 
+
     // category: string[] = [];
     sorting: string[] = [];
 
-    onHover() { }
-    
-    onLeave() { }
+
+  onHover() { }
+
+  onLeave() { }
 }

@@ -1,144 +1,160 @@
 <pre>
-  <!-- {{ postList | json }} -->
-  <!-- {{ comment.value | json }} -->
-  <!-- {{ post.value | json }} -->
-  <!-- {{ commentEditForm.value | json }} -->
-  <!-- {{ postEditForm.value | json }} -->
-  
+  {{ post.value | json }}
 </pre>
-
-<div class="flex justify-content-center">
-  <div class="col-7 mt-2" infinite-scroll (scrolled)="onScroll()">
-    <div class="text-xl font-medium text-900 mb-3 align-items-center flex">
-      <i class="pi pi-home mr-2" style="font-size: 1.4rem; color: #22C55E;"></i>
+<div class="grid grid-nogutter justify-content-center">
+  <div class="col-11 md:col-8 mt-3" infinite-scroll (scrolled)="onScroll()">
+    <div class="md:text-md lg:text-xl font-medium text-900 mb-3 align-items-center flex">
+      <i class="pi pi-home mr-2" style="font-size: 1.2rem; color: #22C55E;"></i>
       <span>Posts Home</span>
     </div>
 
-    <form class="surface-card mt-3 p-2 shadow-1 border-round" [formGroup]="post">
-      <div class="col-12">
-        <div class="align-items-center flex">
-          <div class="col-1 pr-0">
-            <img class="border-circle" src="http://localhost:1214/files/{{fileId}}" style="width: 50px; height: 50 px;"
-              alt="profile">
-          </div>
-          <div class="col-11">
-            <input type="text" class="p-inputtext-md bg-gray-50 hover:bg-gray-300 border-round-xl w-full"
-              placeholder="Create new post..." formControlName="title" maxlength="30" pInputText
-              (click)="showInputPost()" />
-          </div>
+    <form class="surface-card mt-3 p-4 shadow-1 border-round" [formGroup]="post">
+      <div class="align-items-center grid grid-nogutter ">
+        <div class="col-2 lg:col-1 p-0">
+          <img class="border-circle" src="http://localhost:1214/files/{{fileId}}" style="width: 50px; height: 50 px;"
+            alt="profile">
         </div>
-
-        <div *ngIf="inputPost" class="px-2">
-          <div class="justify-content-end flex">
-            <div class="field col-11 px-0 pr-2 pb-0 mb-1">
-              <textarea class="w-full bg-gray-50 hover:bg-gray-300 border-round-lg w-full" id="float-input" rows="4"
-                cols="30" placeholder="Create post content..." [autoResize]="true" formControlName="content"
-                formControlName="content" pInputTextarea></textarea>
-            </div>
-          </div>
-          <div class="justify-content-end flex">
-            <div class="col-11 p-0">
-              <div class="flex p-0 ">
-                <div class="col-6 pl-0 pr-0">
-                  <div class="flex align-items-center mb-1">
-                    <i class="pi pi-th-large mr-2" style="font-size: 13px; color: #606060;"></i>
-                    <label for="instagram" class="block text-700 font-medium">Category</label>
-                  </div>
-                  <p-dropdown [options]="category" placeholder="Post category" optionLabel="name"
-                    styleClass="w-full hover:bg-gray-200 bg-gray-50 border-round-lg" optionLabel="categoryName"
-                    optionValue="id" formControlName="categoryId" [showClear]="true">
-                  </p-dropdown>
-                </div>
-                <div class="col-6 col-offset-1 px-0">
-                  <div class="flex align-items-center mb-2">
-                    <i class="pi pi-bolt mr-1" style="font-size: 1.1rem; color: #F2D750;"></i>
-                    <label for="twitter" class="text-700 font-medium mr-2">Premium post</label>
-                  </div>
-                  <div class="col-3 p-0">
-                    <div class="justify-content-center flex ml-4">
-                      <p-inputSwitch formControlName="isPremium" styleClass="align-items-center flex" class="w-full"
-                        formControlName="isPremium">
-                      </p-inputSwitch>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="justify-content-end flex" *ngIf="inputImage">
-            <div class="col col-offset-1 p-0 mt-2">
-              <p-fileUpload (onSelect)="onUpload($event)" (onRemove)="onRemove($event)" (onClear)="onClear()"
-                [multiple]="true" accept="image/*">
-                <ng-template pTemplate="content">
-                </ng-template>
-              </p-fileUpload>
-            </div>
-          </div>
-          <div class="justify-content-end flex" *ngIf="inputPolling">
-            <div class="col col-offset-1 p-0 mt-2" formGroupName="polling">
-              <div class="surface-card p-4 border-1 border-round" style="color:rgb(227, 227, 227)">
-                <div class="field" style="color: black;">
-                  <div class="flex justify-content-end">
-                    <button pButton pRipple type="button" icon="pi pi-times"
-                      class="p-button-rounded p-button-secondary p-button-text" (click)="showInputPolling()"></button>
-                  </div>
-                  <label for="username1" class="block">
-                    <p class="my-0">Polling Question</p>
-                  </label>
-                  <input class="w-full bg-gray-50 hover:bg-gray-200 border-round-lg" id="username1" type="username"
-                    aria-describedby="username1-help" placeholder="Enter polling question" formControlName="content"
-                    pInputText />
-                  <hr class="my-4"
-                    style="height:2px;border-width:0;color:rgb(227, 227, 227);background-color:rgb(221, 221, 221)">
-                  <div *ngFor="let p of pollingChoice.controls; let i=index" formArrayName="pollingDetail">
-                    <div class="mt-4 flex justify-content-between" [formGroupName]="i">
-                      <input class="w-full" id="username1" type="username" aria-describedby="username1-help"
-                        placeholder="Choice {{i+1}}" formControlName="content" pInputText />
-                      <button pButton pRipple type="button" icon="pi pi-trash" (click)="removePollingChoice(i)"
-                        *ngIf="pollingChoice.length > 2"
-                        class="p-button-rounded p-button-danger p-button-text ml-2"></button>
-                    </div>
-                  </div>
-                  <button pButton pRipple type="button" icon="pi pi-plus" label="Add choice"
-                    *ngIf="pollingChoice.length < 5" class="p-button-info p-button-text mt-3"
-                    (click)="addPollingChoice()"></button>
-                  <div class="flex flex-column mt-2 gap-2">
-                    <label for="time">Polling expired</label>
-                    <p-calendar [showTime]="true" [showSeconds]="true" inputId="time" styleClass="w-full"
-                      formControlName="expired"></p-calendar>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="justify-content-end flex">
-            <div class="col col-offset-1 p-0">
-              <p-divider></p-divider>
-              <div class="flex justify-content-between">
-                <div>
-                  <button pButton pRipple type="button" icon="pi pi-image"
-                    class="p-button-primary p-button-text p-button-lg p-0" pTooltip="Upload Image"
-                    tooltipPosition="bottom" (click)="showInputImage()"></button>
-                  <button pButton pRipple type="button" icon="pi pi-list"
-                    class="p-button-primary p-button-text p-button-lg p-0 ml-4" pTooltip="Create Polling"
-                    tooltipPosition="bottom" (click)="showInputPolling()"></button>
-                </div>
-                <div>
-                  <button style="background-color: 29BA7B;" pButton pRipple type="button"
-                    class="p-button-rounded p-button-text p-button-danger w-6rem h-2rem p-button-sm p-0 mr-2"
-                    (click)="cancelInputPost()">
-                    <p class="w-full" style="font-style: 20px; font-weight: 700;">Cancel</p>
-                  </button>
-                  <button style="background-color: 29BA7B;" pButton pRipple type="submit"
-                    class="p-button-rounded p-button-primary w-8rem h-2rem p-button-sm p-0" (click)="insertPost()">
-                    <p class="w-full" style="font-style: 20px; font-weight: 700;">Create Post</p>
-                  </button>
-                </div>
-              </div>
+        <div class="col-10 lg:col-11">
+          <input type="text"
+            class="p-inputtext-md bg-gray-50 hover:bg-gray-200 border-round-lg w-full {{ postTitle?.invalid && (postTitle?.dirty || postTitle?.touched) ? 'ng-invalid ng-dirty' : '' }}"
+            placeholder="Create new post..." id="postTitle" formControlName="title" maxlength="30" pInputText
+            (click)="showInputPost()" />
+        </div>
+      </div>
+      <div class=" grid grid-nogutter ">
+        <div class="col-11 col-offset-2 lg:col-offset-1 p-0">
+          <div *ngIf="postTitle?.invalid && (postTitle?.dirty || postTitle?.touched)">
+            <div *ngIf="postTitle?.errors?.['required']">
+              <p class="block text-xs font-200"><span style="color: rgba(255, 0, 0, 0.792);">*</span>Required</p>
             </div>
           </div>
         </div>
       </div>
+
+      <div *ngIf="inputPost">
+        <div class="justify-content-end flex">
+          <div class="field col-10 lg:col-11 px-0 pr-2 pb-0 mb-1">
+            <textarea
+              class="w-full bg-gray-50 hover:bg-gray-200 border-round-lg mb-1 w-full {{ postContent?.invalid && (postContent?.dirty || postContent?.touched) ? 'ng-invalid ng-dirty' : '' }}"
+              id="float-input" rows="4" cols="30" placeholder="Create post content..." [autoResize]="true"
+              formControlName="content" pInputTextarea></textarea>
+            <div *ngIf="postContent?.invalid && (postContent?.dirty || postContent?.touched)">
+              <div *ngIf="postContent?.errors?.['required']">
+                <p class="block text-xs font-200"><span style="color: rgba(255, 0, 0, 0.792);">*</span>Required</p>
+              </div>
+              <div *ngIf="postContent?.errors?.['minlength']">
+                <p class="block text-xs font-200"><span style="color: rgba(255, 0, 0, 0.792);">*</span>Minimum character for premium post is 500</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="justify-content-end flex">
+          <div class="col-10 lg:col-11 p-0">
+            <div class="grid grid-nogutter mt-1">
+              <div class="col-12 md:col-6 pl-0 pr-0">
+                <div class="flex align-items-center mb-1">
+                  <i class="pi pi-th-large mr-2" style="font-size: 13px; color: #606060;"></i>
+                  <label for="category" class="block text-700 font-medium">Category<span
+                      style="color: rgba(255, 0, 0, 0.792);">*</span></label>
+                </div>
+                <p-dropdown [options]="category" placeholder="Post category" optionLabel="name"
+                  styleClass="w-full hover:bg-gray-200 bg-gray-50 border-round-lg" optionLabel="categoryName"
+                  optionValue="id" id="category" formControlName="categoryId" [showClear]="true">
+                </p-dropdown>
+              </div>
+              <div class="col-12 md:col-5 md:ml-2 px-0 mt-3 md:mt-0">
+                <div class="flex align-items-center mb-1 md:mb-2">
+                  <i class="pi pi-bolt mr-1" style="font-size: 1.1rem; color: #F2D750;"></i>
+                  <label for="premium" class="text-700 font-medium mr-2">Premium post<span
+                      style="color: rgba(255, 0, 0, 0.792);">*</span></label>
+                </div>
+                <p-inputSwitch (click)="hideInput()" id="premium" formControlName="isPremium"
+                  styleClass="align-items-center flex md:ml-3" formControlName="isPremium">
+                </p-inputSwitch>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="justify-content-end flex" *ngIf="inputImage">
+          <div class="col col-offset-1 p-0 mt-2">
+            <p-fileUpload (onSelect)="onUpload($event)" (onRemove)="onRemove($event)" (onClear)="onClear()"
+              [multiple]="true" accept="image/*">
+              <ng-template pTemplate="content">
+              </ng-template>
+            </p-fileUpload>
+          </div>
+        </div>
+        <div class="justify-content-end flex" *ngIf="inputPolling">
+          <div class="col col-offset-1 p-0 mt-2" formGroupName="polling">
+            <div class="surface-card p-4 border-1 border-round" style="color:rgb(227, 227, 227)">
+              <div class="field" style="color: black;">
+                <div class="flex justify-content-end">
+                  <button pButton pRipple type="button" icon="pi pi-times"
+                    class="p-button-rounded p-button-secondary p-button-text" (click)="showInputPolling()"></button>
+                </div>
+                <label for="username1" class="block">
+                  <p class="my-0">Polling Question</p>
+                </label>
+                <input class="w-full bg-gray-50 hover:bg-gray-200 border-round-lg" id="username1" type="username"
+                  aria-describedby="username1-help" placeholder="Enter polling question" formControlName="content"
+                  pInputText />
+                <hr class="my-4"
+                  style="height:2px;border-width:0;color:rgb(227, 227, 227);background-color:rgb(221, 221, 221)">
+                <div *ngFor="let p of pollingChoice.controls; let i=index" formArrayName="pollingDetail">
+                  <div class="mt-4 flex justify-content-center" [formGroupName]="i">
+                    <input class="w-11 border-round-3xl px-3" id="username1" type="username"
+                      aria-describedby="username1-help" placeholder="Choice {{i+1}}" formControlName="content"
+                      pInputText />
+                    <button pButton pRipple type="button" icon="pi pi-trash" (click)="removePollingChoice(i)"
+                      *ngIf="pollingChoice.length > 2"
+                      class="p-button-rounded p-button-danger p-button-text ml-2"></button>
+                  </div>
+                </div>
+                <div class="col-11 col-offset-1">
+                  <button pButton pRipple type="button" icon="pi pi-plus" label="Add choice"
+                    *ngIf="pollingChoice.length < 5" class="p-button-info p-button-text mt-3"
+                    (click)="addPollingChoice()"></button>
+                </div>
+                <div class="flex flex-column mt-2 gap-2">
+                  <label for="time">Polling expired</label>
+                  <p-calendar [showTime]="true" [showSeconds]="true" placeholder="Expired date" [showIcon]="
+                    true" inputId=" time" styleClass="w-full" formControlName="expired"></p-calendar>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="justify-content-end flex">
+          <div class="col col-offset-2 lg:col-offset-1 p-0">
+            <p-divider></p-divider>
+            <div class="grid grid-nogutter justify-content-between">
+              <div class="col-2 flex px-0" *ngIf="hideUpload">
+                <button pButton pRipple type="button" icon="pi pi-image"
+                  class="p-button-primary p-button-text p-button-lg p-0 w-0" pTooltip="Upload Image"
+                  tooltipPosition="bottom" (click)="showInputImage()"></button>
+                <button pButton pRipple type="button" icon="pi pi-list"
+                  class="p-button-primary p-button-text p-button-lg p-0 md:ml-4" pTooltip="Create Polling"
+                  tooltipPosition="bottom" (click)="showInputPolling()"></button>
+              </div>
+
+              <div class="col flex justify-content-end px-0">
+                <button style="background-color: 29BA7B;" pButton pRipple type="button"
+                  class="p-button-rounded p-button-text p-button-danger w-6rem h-2rem p-button-sm p-0 md:mr-2"
+                  (click)="cancelInputPost()">
+                  <p class="w-full" style="font-style: 20px; font-weight: 700;">Cancel</p>
+                </button>
+                <button style="background-color: 29BA7B;" pButton pRipple type="submit"
+                  class="p-button-rounded p-button-primary w-8rem h-2rem p-button-sm p-0" (click)="insertPostValidation()">
+                  <p class="w-full" style="font-style: 20px; font-weight: 700;">Create Post</p>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
     </form>
 
     <div class="surface-card mt-4 p-4 shadow-2 border-round" *ngFor="let pl of postList; let i=index">
@@ -147,22 +163,26 @@
           <img class="border-circle mr-2" src="http://localhost:1214/files/{{ pl.fileId }}"
             style="width: 50px; height: 50 px;" alt="profile">
           <div class="flex align-items-center">
-            <div class="flex-column justify-content-start">
+            <div class="flex-column justify-content-start pl-1">
               <p style="font-weight: 450; font-size: 15px;">{{ pl.fullName }}</p>
               <p style="font-size: 13px;">{{ pl.createdAt | timeAgo }}</p>
             </div>
           </div>
         </div>
-        <div class="col flex justify-content-end p-0">
+        <div class="col-5 md:col flex justify-content-end p-0">
           <div class="align-items-center flex">
             <ng-container>
-              <p-tag [rounded]="true" severity="warning" class="mr-2" *ngIf="pl.isPremium">
-                <p class="my-0 mx-1" style="font-size: 12px; font-weight: 500;">Premium</p>
-              </p-tag>
 
-              <p-tag [rounded]="true" severity="info" class="mr-2">
-                <p class="my-0 mx-1" style="font-size: 12px; font-weight: 500; ">{{ pl.categoryName }}</p>
-              </p-tag>
+              <div class="md:flex">
+                <p-tag [rounded]="true" severity="warning" class="justify-content-end flex md:mr-2"
+                  *ngIf="pl.isPremium">
+                  <p class="my-0 mx-1" style="font-size: 12px; font-weight: 500;">Premium</p>
+                </p-tag>
+
+                <p-tag [rounded]="true" severity="info" class="md:mr-2">
+                  <p class="my-0 mx-1" style="font-size: 12px; font-weight: 500; ">{{ pl.categoryName }}</p>
+                </p-tag>
+              </div>
 
               <div class="mt-1 ml-2">
                 <app-tiered-menu [model]="postEdit" topSpace="8px" rightSpace="8px" *ngIf="userId == pl.memberId">
@@ -182,8 +202,9 @@
           </div>
           <div class="font-small">
             <p class="text-justify" style="text-align: justify; font-size: 15px; font-weight: 400; line-height: 25px;">
-              {{
-              pl.content }}</p>
+              {{pl.content}}<span style="color: black;" *ngIf="pl.isPremium && !(pl.content == pl.contentFull)">...</span>
+              <span *ngIf="pl.isPremium && !(pl.content == pl.contentFull)" class="font-bold cursor-pointer hover:bg-gray-100 border-round-md px-2"
+                style="color: #22C55E;" (click)="showFullContent(i)" > See more</span> </p>
           </div>
           <p *ngIf="pl.ver" class="block text-md mt-2" style="font-weight: 400; font-size: 12px; color: black;">
             (edited)
@@ -195,15 +216,16 @@
           <textarea rows="1" cols="30" pInputTextarea [autoResize]="true" formControlName="content"
             class="editPostField w-full border-none p-0 py-2"
             style="text-align: justify; font-size: 15px; font-weight: 400; line-height: 25px;"></textarea>
+
+          <button style="background-color: 29BA7B;" pButton pRipple type="button"
+            class="p-button-rounded p-button-text p-button-danger w-6rem h-2rem p-button-sm p-0 md:ml-2 mb-1"
+            (click)="showEditPost()">
+            <p class="w-full" style="font-style: 20px; font-weight: 700;">Cancel</p>
+          </button>
           <button style="background-color: 29BA7B;" pButton pRipple type="submit"
             class="p-button-outlined p-button-rounded p-button-info w-8rem h-2rem p-button-sm p-0 mb-1 mt-3"
             (click)="updatePost()">
             <p class="w-full" style="font-style: 20px; font-weight: 700;">Save Changes</p>
-          </button>
-          <button style="background-color: 29BA7B;" pButton pRipple type="button"
-            class="p-button-rounded p-button-text p-button-danger w-6rem h-2rem p-button-sm p-0 ml-2 mb-1"
-            (click)="showEditPost()">
-            <p class="w-full" style="font-style: 20px; font-weight: 700;">Cancel</p>
           </button>
         </form>
         <div *ngIf="pl.file != null" class="mt-3">
@@ -279,7 +301,7 @@
           </div>
         </div>
         <div *ngIf="pl.showComment">
-          <div class="pb-3">
+          <div class="pb-2">
             <p-divider></p-divider>
           </div>
           <div class="flex align-items-center">
@@ -288,7 +310,7 @@
             <div class="w-full">
               <div class="col-12 p-0">
                 <form class="p-inputgroup flex" [formGroup]="comment">
-                  <input class="bg-gray-50 hover:bg-gray-300 border-round-sm px-2 w-full" type="text" pInputText
+                  <input class="bg-gray-50 hover:bg-gray-200 border-round-sm px-2 w-full" type="text" pInputText
                     placeholder="Comment here" formControlName="content">
                   <button type="submit" pButton pRipple icon="pi pi-send" styleClass="p-button-warn"
                     class="p-button-info" (click)="insertComment(i, pl.postId)"></button>
@@ -297,12 +319,12 @@
             </div>
           </div>
 
-          <div class="flex align-items-center mt-4" *ngFor="let cl of pl.commentList; let j=index">
+          <div class="flex align-items-start mt-4" *ngFor="let cl of pl.commentList; let j=index">
             <img class="border-circle mr-2" src="http://localhost:1214/files/{{ pl.fileId }}"
               style="width: 50px; height: 50 px;" alt="profile">
             <div class="w-full">
-              <div class="shadow-0 border-round-xl border-1 bg-green-50 p-2" style="color:rgb(227, 227, 227);">
-                <div class="flex p-0 pl-1">
+              <div class="shadow-0 border-round-xl border-1 bg-gray-50 p-2" style="color:rgb(227, 227, 227);">
+                <div class="grid grid-nogutter p-0 pl-1">
                   <div class="col-11 p-0">
                     <div class="flex align-items-center">
                       <p class="block text-md" style="font-weight: 450; font-size: 15px; color: black;">
@@ -312,40 +334,42 @@
                         style="font-weight: 400; font-size: 13px; color: black;">
                         {{ cl.createdAt | timeAgo }}
                       </p>
-
                     </div>
+
                     <div *ngIf="!cl.showEdit">
-                      <p class="block my-2" 
-                        style="text-align: justify; font-size: 15px; font-weight: 400; line-height: 25px; color: black;">
+                      <p class="flex flex-wrap my-2"
+                        style="font-size: 15px; font-weight: 400; line-height: 25px; color: black;">
                         {{ cl.content }}
                       </p>
-                      <p *ngIf="cl.ver " class="block text-md " style="font-weight: 400; font-size: 10px; color: black;">
+                      <p *ngIf="cl.ver " class="block text-md "
+                        style="font-weight: 400; font-size: 10px; color: black;">
                         (edited)
                       </p>
                     </div>
                     <form *ngIf="cl.showEdit" [formGroup]="commentEditForm">
                       <textarea rows="1" class="textarea-comment w-full bg-green-50 border-none my-2" pInputTextarea
                         [autoResize]="true" pAutoFocus [autofocus]="true" formControlName="content"></textarea>
-                      <button style="background-color: 29BA7B;" pButton pRipple type="submit"
-                        class="p-button-outlined p-button-rounded p-button-info w-8rem h-2rem p-button-sm p-0 mb-1"
-                        (click)="updateComment()">
-                        <p class="w-full" style="font-style: 20px; font-weight: 700;">Save Changes</p>
-                      </button>
-                      <button style="background-color: 29BA7B;" pButton pRipple type="button"
-                        class="p-button-rounded p-button-text p-button-danger w-6rem h-2rem p-button-sm p-0 ml-2 mb-1"
-                        (click)="showEditComment()">
-                        <p class="w-full" style="font-style: 20px; font-weight: 700;">Cancel</p>
-                      </button>
+                      <div class="col-12 flex p-0 md:col">
+                        <button style="background-color: 29BA7B;" pButton pRipple type="button"
+                          class="p-button-rounded p-button-text p-button-danger w-6rem h-2rem p-button-sm p-0 md:ml-2 mb-1"
+                          (click)="showEditComment()">
+                          <p class="w-full" style="font-style: 20px; font-weight: 700;">Cancel</p>
+                        </button>
+                        <button style="background-color: 29BA7B;" pButton pRipple type="submit"
+                          class="p-button-outlined p-button-rounded p-button-info w-8rem h-2rem p-button-sm p-0 mb-1"
+                          (click)="updateComment()">
+                          <p class="w-full" style="font-style: 20px; font-weight: 700;">Save Changes</p>
+                        </button>
+                      </div>
                     </form>
                   </div>
                   <div class="col-1 flex justify-content-end p-0">
-                    <app-tiered-menu [model]="commentEdit" topSpace="8px" rightSpace="8px"
-                      *ngIf="userId == cl.memberId || userId == pl.memberId">
+
+                    <app-tiered-menu [model]="commentEdit" *ngIf="userId == cl.memberId || userId == pl.memberId">
                       <ng-template #content>
-                        <div class="bg-gray-50 hover:bg-gray-300 border-circle w-full p-0 cursor-pointer">
-                          <i class="pi pi-ellipsis-v" style="color: black;"
-                            (click)="getCommentId(cl.commentId, i, j)"></i>
-                        </div>
+                        <button pButton pRipple type="button" icon="pi pi-ellipsis-v"
+                          class="p-button-rounded p-button-secondary p-button-text"
+                          (click)="getCommentId(cl.commentId, i, j)"></button>
                       </ng-template>
                     </app-tiered-menu>
                   </div>
@@ -360,48 +384,63 @@
         </div>
       </div>
     </div>
-    <p-scrollTop></p-scrollTop>
+    <p-scrollTop [threshold]="50"></p-scrollTop>
   </div>
-  <div class="col-3 pl-3 mt-2">
-    <div class="text-xl font-medium text-900 mb-3 align-items-center flex">
-      <i class="pi pi-calendar mr-2" style="font-size: 1.4rem; color: #22C55E;"></i>
+
+  <div class="hidden md:block md:col-3 lg:col-3 mt-3 md:pl-3 lg:pl-7">
+    <div class="md:text-sm lg:text-xl font-medium text-900 mb-3 align-items-center flex">
+      <i class="pi pi-briefcase mr-2" style="font-size: 1.2rem; color: #22C55E;"></i>
       <span>Training & Events</span>
     </div>
-    <div class="surface-card p-3 shadow-2 border-round m-0">
-      <img alt="Logo Class" src="https://buildwithangga.com/storage/assets/thumbnails/thumbnail_vue_starter.png"
-        class="w-full">
+
+    <div class="surface-card event p-3 shadow-2 border-round m-0 mb-5 cursor-pointer" *ngFor="let cl of activityList"
+      routerLink="/activities/event-detail/{{cl.id}}">
+      <img alt="Logo Class" src="http://localhost:1214/files/{{cl.fileId}}" class="w-full border-round-sm">
+
       <div class="grid my-0">
-        <div class="col flex my-0">
-          <i class="pi pi-building mb-2 mr-1" style="font-size: 20px; color: #a4a4a4;"></i>
-          <p style="font-size: 14px; font-weight: 400;">Lawencon</p>
+        <div class="hidden  lg:col lg:flex my-0 align-items-center">
+          <i class="pi pi-building mr-1 text-sm" style="color: #a4a4a4;"></i>
+          <p class="text-sm" style=" font-weight: 400;">{{cl.provider}}</p>
         </div>
-        <div class="col justify-content-end flex my-0">
-          <i class="pi pi-calendar mb-2 mr-1" style="font-size: 20px; color: #a4a4a4;"></i>
-          <p style="font-size: 14px; font-weight: 400;">Events</p>
+
+        <div class="col justify-content-center lg:justify-content-end flex my-0">
+          <p-tag severity="info">
+            <div class="px-1 flex">
+              <i class="pi pi-calendar mr-1 text-sm"></i>
+              <p class="my-0 mx-1" style="font-size: 12px; font-weight: 500; ">{{cl.activityTypeName}}</p>
+            </div>
+          </p-tag>
         </div>
       </div>
-      <p class="my-1" style="font-weight: 700; font-size: 20px;">Vue Js Course</p>
+
+      <p class="my-1" style="font-weight: 700; font-size: 20px;">{{cl.title}}</p>
+
       <div class="grid">
         <div class="col align-items-center">
           <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"> <i
-              class="pi pi-map-marker mr-2" style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>Pakuwon
-            Tower</p>
-          <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"> <i
-              class="pi pi-calendar mr-2" style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>21
-            Januari
-            2023</p>
-          <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"> <i
-              class="pi pi-clock mr-2" style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>19:00
-            - 21:00
+              class="pi pi-map-marker mr-2"
+              style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>{{cl.locationAddress}}</p>
+          <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"
+            *ngFor="let sch of cl.schedule"> <i class="pi pi-calendar mr-2"
+              style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>{{sch.scheduleDate | date : 'fullDate' }}
           </p>
           <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"> <i
-              class="pi pi-money-bill mr-2" style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>Rp 220.000
+              class="pi pi-clock mr-2" style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>{{'0000-00-00T'+
+                    cl.timeStart | date: 'shortTime'}}
+            - {{'0000-00-00T'+ cl.timeEnd | date: 'shortTime'}}
           </p>
+          <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"> <i
+              class="pi pi-money-bill mr-2" style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>
+            {{cl.price | currency: 'Rp ' :'symbol':'1.2-2'}}
+          </p>
+
           <p-chip styleClass="custom-chip">
-            <p class="my-1" style="font-size: 12px; font-weight: 500;">Information Technology</p>
+            <p class="my-1" style="font-size: 12px; font-weight: 500;">{{cl.categoryName}}</p>
           </p-chip>
+
         </div>
       </div>
     </div>
+
   </div>
 </div>

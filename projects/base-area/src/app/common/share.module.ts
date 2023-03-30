@@ -31,6 +31,7 @@ import {ScrollTopModule} from 'primeng/scrolltop'
 import { TooltipModule } from 'primeng/tooltip'
 import { TimeAgoPipe } from '../util/time-ago-util';
 import { AutoFocusModule } from 'primeng/autofocus';
+import {BlockUIModule} from 'primeng/blockui';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 ToastModule
@@ -70,7 +71,8 @@ ToastModule
         ScrollTopModule,
         TooltipModule,
         AutoFocusModule,
-        ConfirmDialogModule
+        BlockUIModule,
+        ConfirmDialogModule,
     ],
     exports: [
         ChipModule,
@@ -105,7 +107,8 @@ ToastModule
         TooltipModule,
         TimeAgoPipe,
         AutoFocusModule,
-        ConfirmDialogModule
+        BlockUIModule,
+        ConfirmDialogModule,
     ]
 })
 export class ShareModule { }
