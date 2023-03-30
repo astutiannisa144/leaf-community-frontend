@@ -1,4 +1,3 @@
-
 <div class="flex justify-content-center">
   <div class="col-3  pl-6 mt-2">
 
@@ -8,8 +7,10 @@
     </div>
     <div class="surface-card p-3 shadow-2 border-round m-0">
       <div class="flex justify-content-center mt-2">
-        <img *ngIf="profile?.file" alt="Logo Class" src="http://localhost:1214/files/{{profile?.file?.fileId}}" class="w-5 border-circle">
-        <p-button *ngIf="!profile?.file" class="mr-2" icon="pi pi-user" styleClass="p-button-rounded p-button-info p-button-outlined"></p-button>
+        <img *ngIf="profile?.file" alt="Logo Class" src="{{src}}" class="border-circle"
+          style="height: 103px; width: 103px; object-fit : cover;">
+        <i *ngIf="!profile?.file" class="pi pi-user border-1 border-circle flex align-items-center justify-content-center bg-gray-50"
+          style="font-size: 2.5rem; color: #a6a8a7; height: 103px; width: 103px;"></i>
       </div>
       <div class="col flex py-1 mt-2 justify-content-center">
         <p class="text-base" style="font-weight: 500;">{{profile?.fullName}}</p>
@@ -19,45 +20,47 @@
       </div>
       <div class="col py-3 justify-content-center flex">
         <div class="col-8 justify-content-between flex">
-          <a  *ngFor="let data of profile?.profileSocialMedia"   href="{{data.profileLink}}" target="_blank"> <i *ngIf="data.id" class="pi {{data.socialMedia.socialMediaIcon}} mr-2 hover:bg-green-50" style="font-size: 22px; font-weight: 500; color: #a4a4a4;">
-         </i></a> 
+          <a *ngFor="let data of profile?.profileSocialMedia" href="{{data.profileLink}}" target="_blank"> <i
+              *ngIf="data.username" class="pi {{data.socialMedia.socialMediaIcon}} mr-2 hover:bg-green-50"
+              style="font-size: 22px; font-weight: 500; color: #a4a4a4;">
+            </i></a>
         </div>
       </div>
 
-        <div class="justify-content-center flex py-0">
-          <div class="col-12 align-items-center">
-            <p class="align-items-center flex" style="font-size: 0.875rem; font-weight: 500;"> <i class="pi pi-user mr-2"
-                style="font-size: 14px; font-weight: 500; color: #2b2b2b;"></i>Profile Details</p>
-  
-            <p-divider></p-divider>
-  
-            <div class="my-3 align-items-center">
-              <p class="align-items-center flex mb-1 text-sm" style="font-weight: 400; color: #878787;"> <i
-                  class="pi pi-envelope mr-2" style="font-size: 13px; font-weight: 500; color: #878787;"></i>Email</p>
-              <p style="font-size: 0.875rem; font-weight: 400;">{{email}}</p>
-            </div>
-  
-            <div class="my-3 align-items-center">
-              <p class="mb-1 text-sm" style="font-weight: 400; color: #878787;"><i class="pi pi-phone mr-2"
-                  style="font-size: 13px; font-weight: 500; color: #878787;"></i>Phone Number</p>
-              <p style="font-size: 0.875rem; font-weight: 400;">{{profile?.phoneNumber}}</p>
-            </div>
-  
-            <div class="my-3 align-items-center">
-              <p class="mb-1 text-sm" style="font-weight: 400; color: #878787;"><i class="pi pi-map-marker mr-2"
-                  style="font-size: 13px; font-weight: 500; color: #878787;"></i>Place Address</p>
-              <p style="font-size: 0.875rem; font-weight: 400;">{{profile?.address}}</p>
-            </div>
-  
-            <p-divider></p-divider>
-  
-            <div class="justify-content-center flex">
-              <button pButton pRipple label="Edit Profile" icon="pi pi-pencil" style=" background-color: #4CAF50; "
-                class="p-button-raised p-button-success w-7 mt-2 p-button-sm" routerLink="/profile/edit"></button>
-            </div>
-           
+      <div class="justify-content-center flex py-0">
+        <div class="col-12 align-items-center">
+          <p class="align-items-center flex" style="font-size: 0.875rem; font-weight: 500;"> <i class="pi pi-user mr-2"
+              style="font-size: 14px; font-weight: 500; color: #2b2b2b;"></i>Profile Details</p>
+
+          <p-divider></p-divider>
+
+          <div class="my-3 align-items-center">
+            <p class="align-items-center flex mb-1 text-sm" style="font-weight: 400; color: #878787;"> <i
+                class="pi pi-envelope mr-2" style="font-size: 13px; font-weight: 500; color: #878787;"></i>Email</p>
+            <p style="font-size: 0.875rem; font-weight: 400;">{{email}}</p>
           </div>
+
+          <div class="my-3 align-items-center">
+            <p class="mb-1 text-sm" style="font-weight: 400; color: #878787;"><i class="pi pi-phone mr-2"
+                style="font-size: 13px; font-weight: 500; color: #878787;"></i>Phone Number</p>
+            <p style="font-size: 0.875rem; font-weight: 400;">{{profile?.phoneNumber}}</p>
+          </div>
+
+          <div class="my-3 align-items-center">
+            <p class="mb-1 text-sm" style="font-weight: 400; color: #878787;"><i class="pi pi-map-marker mr-2"
+                style="font-size: 13px; font-weight: 500; color: #878787;"></i>Place Address</p>
+            <p style="font-size: 0.875rem; font-weight: 400;">{{profile?.address}}</p>
+          </div>
+
+          <p-divider></p-divider>
+
+          <div class="justify-content-center flex">
+            <button pButton pRipple label="Edit Profile" icon="pi pi-pencil" style=" background-color: #4CAF50; "
+              class="p-button-raised p-button-success w-7 mt-2 p-button-sm" routerLink="/profile/edit"></button>
+          </div>
+
         </div>
+      </div>
     </div>
   </div>
 
@@ -70,7 +73,7 @@
 
     <div class="surface-card shadow-2 border-round mb-3" infinite-scroll (scrolled)="onScroll()">
       <p-tabView styleClass="tabview-custom" (onChange)="changeTab($event)">
-        <p-tabPanel >
+        <p-tabPanel>
           <ng-template pTemplate="header">
             <i class="pi pi-align-justify mr-2"></i>
             <span>Posts</span>
@@ -98,7 +101,8 @@
                         <p class="my-0 mx-1" style="font-size: 12px; font-weight: 500; ">{{ pl.categoryName }}</p>
                       </p-tag>
                       <div class="mt-1 ml-2">
-                        <app-tiered-menu [model]="postEdit" topSpace="8px" rightSpace="8px" *ngIf="userId == pl.memberId">
+                        <app-tiered-menu [model]="postEdit" topSpace="8px" rightSpace="8px"
+                          *ngIf="userId == pl.memberId">
                           <ng-template #content>
                             <i class="pi pi-ellipsis-v cursor-pointer p-0" (click)="getPostId(pl.postId, i)"></i>
                           </ng-template>
@@ -114,7 +118,8 @@
                     <p style="font-weight: 700; font-size: 17px;">{{ pl.title }}</p>
                   </div>
                   <div class="font-small">
-                    <p class="text-justify" style="text-align: justify; font-size: 15px; font-weight: 400; line-height: 25px;">
+                    <p class="text-justify"
+                      style="text-align: justify; font-size: 15px; font-weight: 400; line-height: 25px;">
                       {{
                       pl.content }}</p>
                   </div>
@@ -196,13 +201,15 @@
                   <div class="col justify-content-end">
                     <p class="bookmark-fill hoverable-element" class="justify-content-end flex"
                       style="font-size: 17px; font-weight: 400;" *ngIf="pl.bookmarkId">
-                      <i class="pi pi-bookmark-fill cursor-pointer" style="font-size: 20px; font-weight: 400; color: #0288D1;"
+                      <i class="pi pi-bookmark-fill cursor-pointer"
+                        style="font-size: 20px; font-weight: 400; color: #0288D1;"
                         (click)="deleteBookmark(pl.bookmarkId, i)">
                       </i>
                     </p>
                     <p class="bookmark hoverable-element" class="justify-content-end flex"
                       style="font-size: 17px; font-weight: 400;" *ngIf="!pl.bookmarkId">
-                      <i class="pi pi-bookmark cursor-pointer" style="font-size: 20px; font-weight: 400; color: #979797;"
+                      <i class="pi pi-bookmark cursor-pointer"
+                        style="font-size: 20px; font-weight: 400; color: #979797;"
                         (click)="insertBookmark(pl.postId, i)">
                       </i>
                     </p>
@@ -241,20 +248,22 @@
                                 style="font-weight: 400; font-size: 13px; color: black;">
                                 {{ cl.createdAt | timeAgo }}
                               </p>
-        
+
                             </div>
                             <div *ngIf="!cl.showEdit">
-                              <p class="block my-2" 
+                              <p class="block my-2"
                                 style="text-align: justify; font-size: 15px; font-weight: 400; line-height: 25px; color: black;">
                                 {{ cl.content }}
                               </p>
-                              <p *ngIf="cl.ver " class="block text-md " style="font-weight: 400; font-size: 10px; color: black;">
+                              <p *ngIf="cl.ver " class="block text-md "
+                                style="font-weight: 400; font-size: 10px; color: black;">
                                 (edited)
                               </p>
                             </div>
                             <form *ngIf="cl.showEdit" [formGroup]="commentEditForm">
-                              <textarea rows="1" class="textarea-comment w-full bg-green-50 border-none my-2" pInputTextarea
-                                [autoResize]="true" pAutoFocus [autofocus]="true" formControlName="content"></textarea>
+                              <textarea rows="1" class="textarea-comment w-full bg-green-50 border-none my-2"
+                                pInputTextarea [autoResize]="true" pAutoFocus [autofocus]="true"
+                                formControlName="content"></textarea>
                               <button style="background-color: 29BA7B;" pButton pRipple type="submit"
                                 class="p-button-outlined p-button-rounded p-button-info w-8rem h-2rem p-button-sm p-0 mb-1"
                                 (click)="updateComment()">
@@ -298,14 +307,14 @@
             <i class="pi pi-heart-fill mr-2"></i>
             <span>Likes</span>
           </ng-template>
-          
+
         </p-tabPanel>
         <p-tabPanel header="Header III">
           <ng-template pTemplate="header">
             <i class="pi pi-bookmark-fill mr-2"></i>
             <span>Bookmark</span>
           </ng-template>
-          
+
         </p-tabPanel>
       </p-tabView>
     </div>
