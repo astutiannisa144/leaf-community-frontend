@@ -13,12 +13,12 @@ import { ACTIVITY_TYPE } from "projects/base-area/src/app/constant/activity-type
 import { Subscription } from "rxjs";
 
 @Component({
-    selector: 'app-activity-event',
-    templateUrl: './event.component.html',
-    template: `
+  selector: 'app-activity-event',
+  templateUrl: './event.component.html',
+  template: `
     <div (mouseenter)="onHover()" (mouseleave)="onLeave()" class="hoverable-element">Hover me!</div>
     `,
-    styles: [`
+  styles: [`
      .hoverable-element {
        background-color: #fff;
      }
@@ -97,86 +97,87 @@ import { Subscription } from "rxjs";
         
    `],
 
-   
+
 
 
 },
 
 )
-export class EventComponent implements OnInit{
-    private event$? : Subscription
-    eventList : ActivityRes[]=[]
-    private category$? : Subscription
-    categoryList : CategoryRes[]=[]
-    activityTypeId!:string
-    page = 1
-    categories=this.fb.group({
-        category:[[]],
+export class EventComponent implements OnInit {
+  private event$?: Subscription
+  eventList: ActivityRes[] = []
+  private category$?: Subscription
+  categoryList: CategoryRes[] = []
+  activityTypeId!: string
+  page = 1
+  categories = this.fb.group({
+    category: [[]],
+  })
+  categoryTemp!: string
+  activityEdit!: MenuItem[]
+  // category=new FormControl('')
+  memberId!: string
+  constructor(
+    private router: Router,
+    private activityService: ActivityService,
+    private categoryService: CategoryService,
+    private userService: UserService,
+    private fb: FormBuilder,
+    private activatedRoute: ActivatedRoute
+  ) { }
+  ngOnInit(): void {
+    this.memberId = this.userService.userId
+    this.activatedRoute.params.subscribe(result => {
+      this.activityTypeId = result['id']
     })
-    categoryTemp!:string
-    activityEdit!: MenuItem[]
-    // category=new FormControl('')
-    memberId!:string
-    constructor(
-        private router: Router,
-        private activityService: ActivityService,
-        private categoryService:CategoryService,
-        private userService:UserService,
-        private fb:FormBuilder,
-        private activatedRoute:ActivatedRoute
-    ) { }
-    ngOnInit(): void {
-      this.memberId=this.userService.userId
-        this.activatedRoute.params.subscribe(result => {
-            this.activityTypeId=result['id']
-        })
-        this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.EV).subscribe(result => {
-            this.eventList = result
+    this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page, ACTIVITY_TYPE.EV).subscribe(result => {
+      this.eventList = result
 
+    })
+    this.category$ = this.categoryService.getCategory().subscribe(result => {
+      this.categoryList = result
+    })
+    this.categories.get('category')?.valueChanges.subscribe(result => {
+      const temp = result as any;
+      console.log(result);
+      this.page = 1
+      if (!temp.length) {
+
+        this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page, ACTIVITY_TYPE.EV).subscribe(result => {
+          this.eventList = result
         })
-        this.category$ = this.categoryService.getCategory().subscribe(result => {
-            this.categoryList = result
+      }
+      else {
+
+        this.categoryTemp = temp
+        this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page, ACTIVITY_TYPE.EV, temp).subscribe(result => {
+          this.eventList = result
         })
-        this.categories.get('category')?.valueChanges.subscribe(result => {
-            const temp=result as any;
-            console.log(result);
-            this.page=1
-            if(!temp.length){
-                
-                this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.EV).subscribe(result => {
-                    this.eventList = result
-                })
-            }else{
-              
-              this.categoryTemp=temp
-                this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.EV,temp).subscribe(result => {
-                    this.eventList = result
-                })
-            }
-        })
-        this.activityEdit! = [
-          {
-            label: 'Edit Post',
-            icon: 'pi pi-fw pi-pencil',
-    
-          },
-          {
-            label: 'Delete Post',
-            icon: 'pi pi-fw pi-trash',
-    
-          },
-        ];
-     
-    }
-   
-   onCategory(id:string){
-    
-   }
-   onScroll(): void {
-    if(!this.categoryTemp){
-      this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT,  this.page=this.page+1,ACTIVITY_TYPE.EV).subscribe(result => {
+      }
+    })
+    this.activityEdit! = [
+      {
+        label: 'Edit Post',
+        icon: 'pi pi-fw pi-pencil',
+
+      },
+      {
+        label: 'Delete Post',
+        icon: 'pi pi-fw pi-trash',
+
+      },
+    ];
+
+  }
+
+  onCategory(id: string) {
+
+  }
+  onScroll(): void {
+    if (!this.categoryTemp) {
+      this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page = this.page + 1, ACTIVITY_TYPE.EV).subscribe(result => {
         if (result) {
-          
+
           if (this.eventList.length) {
             this.eventList = [...this.eventList, ...result]
           } else {
@@ -184,10 +185,10 @@ export class EventComponent implements OnInit{
           }
         }
       })
-    }else{
-      this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT,  this.page=this.page+1,ACTIVITY_TYPE.EV,this.categoryTemp).subscribe(result => {
+    } else {
+      this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page = this.page + 1, ACTIVITY_TYPE.EV, this.categoryTemp).subscribe(result => {
         if (result) {
-          
+
           if (this.eventList.length) {
             this.eventList = [...this.eventList, ...result]
           } else {
@@ -198,10 +199,10 @@ export class EventComponent implements OnInit{
     }
 
   }
-    // category: string[] = [];
-    sorting: string[] = [];
+  // category: string[] = [];
+  sorting: string[] = [];
 
-    onHover() { }
-    
-    onLeave() { }
+  onHover() { }
+
+  onLeave() { }
 }
