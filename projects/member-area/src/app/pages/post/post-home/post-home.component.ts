@@ -227,7 +227,7 @@ export class PostHomeComponent implements OnInit {
       {
         label: 'Delete',
         icon: 'pi pi-fw pi-trash',
-
+        command: () => { this.deletePost() }
       },
     ];
 
@@ -266,7 +266,6 @@ export class PostHomeComponent implements OnInit {
 
 
   showFullContent(idx: number) {
-
     this.postList[idx].content = this.postList[idx].contentFull
   }
 
@@ -303,6 +302,7 @@ export class PostHomeComponent implements OnInit {
     this.inputPost = false
     this.inputPolling = false
     this.inputImage = false
+    this.hideUpload = true
   }
 
   getPostId(id: string, postIdx: number) {
@@ -483,7 +483,7 @@ export class PostHomeComponent implements OnInit {
     {
       len: 1,
       imageItem: [
-        { class: 'w-full h-15rem' }
+        { class: 'w-full h-20rem' }
       ]
     },
     {
@@ -496,12 +496,6 @@ export class PostHomeComponent implements OnInit {
       len: 3,
       imageItem: [
         { class: 'w-4 h-10rem' }, { class: 'w-4 h-10rem' }, { class: 'w-4 h-10rem' }
-      ]
-    },
-    {
-      len: 4,
-      imageItem: [
-        { class: 'w-full h-15rem' }, { class: 'w-4 h-15rem' }, { class: 'w-4 h-15rem' }, { class: 'w-4 h-15rem' }
       ]
     },
   ]
@@ -572,6 +566,14 @@ export class PostHomeComponent implements OnInit {
     this.hideUpload = !this.hideUpload
     this.inputPolling = false
     this.inputImage = false
+
+    if (!this.hideUpload) {
+      this.postContent?.addValidators([Validators.minLength(500)])
+    } else {
+      this.postContent?.clearValidators()
+      this.postContent?.addValidators([Validators.required])
+    }
+    this.postContent?.updateValueAndValidity()
   }
 
   showInputImage() {
@@ -615,6 +617,18 @@ export class PostHomeComponent implements OnInit {
     this.category$ = this.categoryService.getCategory().subscribe(result => {
       this.category = result
     })
+  }
+
+  insertPostValidation() {
+    if (this.post.value.isPremium && this.post.value.content!.length < 500) {
+      // this.post.get('content')?.addValidators([Validators.minLength(500)])
+      // this.post.get('content')?.markAsTouched()
+      // this.post.updateValueAndValidity()
+      // console.log('.......');
+
+    } else {
+      this.insertPost()
+    }
   }
 
   insertPost() {
