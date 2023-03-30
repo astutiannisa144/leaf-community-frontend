@@ -12,21 +12,34 @@
             alt="profile">
         </div>
         <div class="col-10 lg:col-11">
-          <input type="text" class="p-inputtext-md bg-gray-50 hover:bg-gray-200 border-round-lg w-full"
+          <input type="text"
+            class="p-inputtext-md bg-gray-50 hover:bg-gray-200 border-round-lg w-full {{ postTitle?.invalid && (postTitle?.dirty || postTitle?.touched) ? 'ng-invalid ng-dirty' : '' }}"
             placeholder="Create new post..." id="postTitle" formControlName="title" maxlength="30" pInputText
             (click)="showInputPost()" />
-          <!-- <p *ngIf="inputPost" id="postTitle" class="block text-xs font-200 mt-1"><span
-              style="color: rgba(255, 0, 0, 0.792);">*</span>Required</p> -->
-
         </div>
       </div>
+      <div class=" grid grid-nogutter ">
+        <div class="col-11 col-offset-2 lg:col-offset-1 p-0">
+          <div *ngIf="postTitle?.invalid && (postTitle?.dirty || postTitle?.touched)">
+            <div *ngIf="postTitle?.errors?.['required']">
+              <p class="block text-xs font-200"><span style="color: rgba(255, 0, 0, 0.792);">*</span>Required</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div *ngIf="inputPost">
         <div class="justify-content-end flex">
           <div class="field col-10 lg:col-11 px-0 pr-2 pb-0 mb-1">
-            <textarea class="w-full bg-gray-50 hover:bg-gray-200 border-round-lg w-full" id="float-input" rows="4"
-              cols="30" placeholder="Create post content..." [autoResize]="true" formControlName="content"
-              formControlName="content" pInputTextarea></textarea>
-            <p id="postTitle" class="block text-xs"><span style="color: rgba(255, 0, 0, 0.792);">*</span>Required</p>
+            <textarea
+              class="w-full bg-gray-50 hover:bg-gray-200 border-round-lg w-full {{ postContent?.invalid && (postContent?.dirty || postContent?.touched) ? 'ng-invalid ng-dirty' : '' }}"
+              id="float-input" rows="4" cols="30" placeholder="Create post content..." [autoResize]="true"
+              formControlName="content" formControlName="content" pInputTextarea></textarea>
+            <div *ngIf="postContent?.invalid && (postContent?.dirty || postContent?.touched)">
+              <div *ngIf="postContent?.errors?.['required']">
+                <p class="block text-xs font-200"><span style="color: rgba(255, 0, 0, 0.792);">*</span>Required</p>
+              </div>
+            </div>
           </div>
         </div>
         <div class="justify-content-end flex">
@@ -49,8 +62,8 @@
                   <label for="premium" class="text-700 font-medium mr-2">Premium post<span
                       style="color: rgba(255, 0, 0, 0.792);">*</span></label>
                 </div>
-                <p-inputSwitch id="premium" formControlName="isPremium" styleClass="align-items-center flex md:ml-3"
-                  formControlName="isPremium">
+                <p-inputSwitch (click)="hideInput()" id="premium" formControlName="isPremium"
+                  styleClass="align-items-center flex md:ml-3" formControlName="isPremium">
                 </p-inputSwitch>
               </div>
             </div>
@@ -110,7 +123,7 @@
           <div class="col col-offset-2 lg:col-offset-1 p-0">
             <p-divider></p-divider>
             <div class="grid grid-nogutter justify-content-between">
-              <div class="col-2 flex px-0">
+              <div class="col-2 flex px-0" *ngIf="hideUpload">
                 <button pButton pRipple type="button" icon="pi pi-image"
                   class="p-button-primary p-button-text p-button-lg p-0 w-0" pTooltip="Upload Image"
                   tooltipPosition="bottom" (click)="showInputImage()"></button>
@@ -140,9 +153,7 @@
 
     <div class="surface-card mt-4 p-4 shadow-2 border-round" *ngFor="let pl of postList; let i=index">
       <div class="flex align-items-center">
-        <p-blockUI [target]="pnl" [blocked]="blockedPanel">
-          <i class="pi pi-lock" style="font-size: 3rem"></i>
-        </p-blockUI>
+
         <div class="col flex p-0">
           <img class="border-circle mr-2" src="http://localhost:1214/files/{{ pl.fileId }}"
             style="width: 50px; height: 50 px;" alt="profile">
@@ -179,63 +190,22 @@
           </div>
         </div>
       </div>
-      <div class="mt-3" #pnl>
+      <div class="mt-3 ">
         <div *ngIf="!pl.showEdit">
           <div class="text-xl font-medium text-900 my-2">
             <p style="font-weight: 700; font-size: 17px;">{{ pl.title }}</p>
           </div>
-          <div class="font-small ">
+          <div class="font-small">
             <p class="text-justify" style="text-align: justify; font-size: 15px; font-weight: 400; line-height: 25px;">
-              {{
-              pl.content }}</p>
+              {{pl.content}}<span style="color: black;" *ngIf="pl.isPremium">...</span>
+              <span *ngIf="pl.isPremium" class="font-bold cursor-pointer hover:bg-gray-100 border-round-md px-2"
+                style="color: #22C55E;" (click)="showFullContent(i)"> See more</span> </p>
           </div>
           <p *ngIf="pl.ver" class="block text-md mt-2" style="font-weight: 400; font-size: 12px; color: black;">
             (edited)
           </p>
         </div>
-        <form [formGroup]="postEditForm" *ngIf="pl.showEdit">
-          <input type="text" pInputText class="editPostField w-full border-none p-0" formControlName="title"
-            style="font-weight: 700; font-size: 17px;" pAutoFocus [autofocus]="true">
-          <textarea rows="1" cols="30" pInputTextarea [autoResize]="true" formControlName="content"
-            class="editPostField w-full border-none p-0 py-2"
-            style="text-align: justify; font-size: 15px; font-weight: 400; line-height: 25px;"></textarea>
 
-          <button style="background-color: 29BA7B;" pButton pRipple type="button"
-            class="p-button-rounded p-button-text p-button-danger w-6rem h-2rem p-button-sm p-0 md:ml-2 mb-1"
-            (click)="showEditPost()">
-            <p class="w-full" style="font-style: 20px; font-weight: 700;">Cancel</p>
-          </button>
-          <button style="background-color: 29BA7B;" pButton pRipple type="submit"
-            class="p-button-outlined p-button-rounded p-button-info w-8rem h-2rem p-button-sm p-0 mb-1 mt-3"
-            (click)="updatePost()">
-            <p class="w-full" style="font-style: 20px; font-weight: 700;">Save Changes</p>
-          </button>
-        </form>
-        <div *ngIf="pl.file != null" class="mt-3">
-          <app-post-image [imagesId]="pl.file" [imageOptions]="imageOptions">
-          </app-post-image>
-        </div>
-        <div *ngIf="pl.polling && pl.polling?.userPollingId">
-          <div class="surface-card p-3 border-1 border-round mt-2" style="color:rgb(227, 227, 227)">
-            <p style="text-align: justify; font-size: 15px; font-weight: 400; line-height: 25px; color:black">
-              {{ pl.polling.content}}</p>
-            <div *ngFor="let p of pl.polling?.pollingDetail">
-              <app-progressbar [label]="p.content" [value]="p.percentage">
-              </app-progressbar>
-            </div>
-          </div>
-        </div>
-        <div *ngIf="pl.polling && !pl.polling?.userPollingId">
-          <div class="surface-card p-3 border-1 border-round mt-2" style="color:rgb(227, 227, 227)">
-            <p style="text-align: justify; font-size: 15px; font-weight: 400; line-height: 25px; color:black">
-              {{ pl.polling.content}}</p>
-            <div *ngFor="let dt of pl.polling?.pollingDetail" class="py-2">
-              <button pButton pRipple type="button" label="{{dt.content}}"
-                (click)="insertUserPolling(dt.pollingDetailId, i)"
-                class="p-button-outlined p-button-rounded p-button-secondary bg-green-50 hover:bg-gray-100 w-full"></button>
-            </div>
-          </div>
-        </div>
         <div class="justify-content-center flex">
           <div class="col-12 p-0">
             <p-divider></p-divider>
@@ -594,7 +564,7 @@
         </div>
       </div>
     </div>
-    <p-scrollTop></p-scrollTop>
+    <p-scrollTop [threshold]="50"></p-scrollTop>
   </div>
 
   <div class="hidden md:block md:col-3 lg:col-3 mt-3 md:pl-3 lg:pl-7">

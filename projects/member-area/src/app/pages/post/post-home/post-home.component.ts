@@ -102,23 +102,12 @@ import { ActivityService } from "@service/activity.service";
       box-shadow: none;
     }
 
-    .blur-container {
-  position: relative;
-}
-
-.blur-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  backdrop-filter: blur(5px);
-  opacity: 0.5;
-}
-
-
-
-
+    
+    .blur {
+        font-size: 40px;
+        filter: blur(1px);
+        -webkit-filter: blur(3px);
+      }
     `]
 })
 export class PostHomeComponent implements OnInit {
@@ -148,7 +137,8 @@ export class PostHomeComponent implements OnInit {
   inputImage = false
   inputPost = false
   editBtn = false
-  blockedPanel: boolean = false;
+  blockedPanel: boolean = true;
+  hideUpload = true
 
   category: CategoryRes[] = []
   uploadedFiles: any[] = []
@@ -260,6 +250,10 @@ export class PostHomeComponent implements OnInit {
       result.map(p => {
         p.showComment = false
         p.showEdit = false
+        if (p.isPremium) {
+          p.contentFull = p.content
+          p.content = p.content.substring(0, 320)
+        }
       })
       if (this.postList.length) {
         this.postList = [...this.postList, ...result]
@@ -268,6 +262,12 @@ export class PostHomeComponent implements OnInit {
       }
       this.postPage += POST_LIMIT
     })
+  }
+
+
+  showFullContent(idx: number) {
+
+    this.postList[idx].content = this.postList[idx].contentFull
   }
 
   onScroll(): void {
@@ -557,6 +557,21 @@ export class PostHomeComponent implements OnInit {
         }
       })
     }
+  }
+
+  get postTitle() {
+    return this.post.get('title')
+  }
+
+  get postContent() {
+    return this.post.get('content')
+  }
+
+
+  hideInput() {
+    this.hideUpload = !this.hideUpload
+    this.inputPolling = false
+    this.inputImage = false
   }
 
   showInputImage() {
