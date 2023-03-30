@@ -7,6 +7,7 @@ import { ActivityTypeRes } from '@dto/activity-type/activity-type-res';
 import { UserService } from '@service/user-service';
 import { Role } from '../../constant/role.service';
 import { ProfileService } from '@service/profile.service';
+import { BASE_URL } from '../../constant/base.service';
 @Component({
   selector: 'navbar',
   templateUrl: './navbar.component.html',
@@ -205,7 +206,7 @@ export class NavbarComponent {
 
 
       if (this.userService.user.fileId) {
-        this.src = `http://localhost:1214/files/${this.userService.user.fileId!}`
+        this.src = `${BASE_URL}/files/${this.userService.user.fileId!}`
       } else {
         this.src = this.userService.user.fileBase64
         this.res = this.userService.user.fileBase64

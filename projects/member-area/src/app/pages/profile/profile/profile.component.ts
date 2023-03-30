@@ -19,6 +19,7 @@ import { SocialMediaServiceService } from "@service/social-media.service";
 import { LoginComponent } from "../../login/login.component";
 import { ProfileReq } from "@dto/profile/profile-req";
 import { UserReq } from "@dto/user/user-req";
+import { BASE_URL } from "projects/base-area/src/app/constant/base.service";
 
 @Component({
     selector: 'app-post-home',
@@ -93,7 +94,7 @@ export class ProfileComponent {
                 address:this.profile.address,
                 email:this.userService.email,
                 phoneNumber:this.profile.phoneNumber,
-                src:"http://localhost:1214/files/"+this.profile.file?.fileId,
+                src:BASE_URL+"/files/"+this.profile.file?.fileId,
                 job:{
                     id:this.profile.job.id,
                     companyName:this.profile.job.companyName,
