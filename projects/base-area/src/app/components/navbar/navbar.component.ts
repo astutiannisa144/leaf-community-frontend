@@ -203,13 +203,6 @@ export class NavbarComponent {
 
   ngOnInit(): void {
 
-    this.fileId = this.userService.user.fileId!
-    this.src = `http://localhost:1214/files/${this.userService.user.fileId!}`
-    this.profileService.profileImage$?.subscribe(res => {
-      this.src = res
-      this.res = res
-
-      this.fileId = this.userService.user.fileId!
 
       if (this.userService.user.fileId) {
         this.src = `http://localhost:1214/files/${this.userService.user.fileId!}`
@@ -219,13 +212,6 @@ export class NavbarComponent {
       }
 
 
-      this.profileService.profileImage$?.subscribe(res => {
-
-        this.src = res
-
-        console.log("aaaaaaaaaaaaaaaaaaaaaaaa");
-
-      })
       if (this.roleCode == Role.SuperAdmin) {
         this.items = this.superAdminNav
         this.itemProfile = this.superAdminProfile
@@ -247,7 +233,7 @@ export class NavbarComponent {
       })
 
 
-    })
+    
   }
 
   onLogout() {
