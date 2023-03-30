@@ -67,7 +67,7 @@ export class NavbarComponent {
     }
   ]
 
-  memberProfile : MenuItem[] = [
+  memberProfile: MenuItem[] = [
     {
       label: 'Hello, User!',
 
@@ -208,45 +208,46 @@ export class NavbarComponent {
     this.profileService.profileImage$?.subscribe(res => {
       this.src = res
       this.res = res
-    
-    this.fileId=this.userService.user.fileId!
 
-    if(this.userService.user.fileId){
-      this.src=`http://localhost:1214/files/${this.userService.user.fileId!}`
-    }else{
-      this.src=this.userService.user.fileBase64
-      this.res=this.userService.user.fileBase64
-    }
-    
-    
-    this.profileService.profileImage$?.subscribe(res=>{
-    
-      this.src=res
-     
-      console.log("aaaaaaaaaaaaaaaaaaaaaaaa");
+      this.fileId = this.userService.user.fileId!
+
+      if (this.userService.user.fileId) {
+        this.src = `http://localhost:1214/files/${this.userService.user.fileId!}`
+      } else {
+        this.src = this.userService.user.fileBase64
+        this.res = this.userService.user.fileBase64
+      }
+
+
+      this.profileService.profileImage$?.subscribe(res => {
+
+        this.src = res
+
+        console.log("aaaaaaaaaaaaaaaaaaaaaaaa");
+
+      })
+      if (this.roleCode == Role.SuperAdmin) {
+        this.items = this.superAdminNav
+        this.itemProfile = this.superAdminProfile
+      }
+      else if (this.roleCode == Role.Member) {
+        this.items = this.memberNav
+        this.itemProfile = this.memberProfile
+
+      }
+
+      else if (this.roleCode == Role.Admin) {
+        this.items = this.adminNav
+        this.itemProfile = this.adminProfile
+      }
+
+
+      this.activityType$ = this.activityService.getActivityType().subscribe(result => {
+        this.activityTypeList = result
+      })
+
 
     })
-    if (this.roleCode == Role.SuperAdmin) {
-      this.items = this.superAdminNav
-      this.itemProfile = this.superAdminProfile
-    }
-    else if (this.roleCode == Role.Member) {
-      this.items = this.memberNav
-      this.itemProfile = this.memberProfile
-
-    }
-
-    else if (this.roleCode == Role.Admin) {
-      this.items = this.adminNav
-      this.itemProfile = this.adminProfile
-    }
-
-
-    this.activityType$ = this.activityService.getActivityType().subscribe(result => {
-      this.activityTypeList = result
-    })
-
-    
   }
 
   onLogout() {

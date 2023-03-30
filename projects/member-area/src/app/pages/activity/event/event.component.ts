@@ -129,20 +129,6 @@ export class EventComponent implements OnInit{
     this.category$ = this.categoryService.getCategory().subscribe(result => {
       this.categoryList = result
     })
-    this.categories.get('category')?.valueChanges.subscribe(result => {
-      const temp = result as any;
-      console.log(result);
-      this.page = 1
-      if (!temp.length) {
-
-        this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page, ACTIVITY_TYPE.EV).subscribe(result => {
-          this.eventList = result
-        })
-
-        this.category$ = this.categoryService.getCategory().subscribe(result => {
-            this.categoryList = result
-            
-        })
        
      
     }
