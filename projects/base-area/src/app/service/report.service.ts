@@ -27,11 +27,11 @@ export class ReportService {
     }
 
     getMemberIncome(dateStart?: string, dateEnd?: string): Observable<MemberIncomeRes[]> {
-        return this.http.get<MemberIncomeRes[]>(`${BASE_URL}/user-activity/report/member-incomes?dateStart=${dateStart}&dateEnd=${dateEnd}`)
+        return this.http.get<MemberIncomeRes[]>(`${BASE_URL}/user-activity/activity-incomes?dateStart=${dateStart}&dateEnd=${dateEnd}`)
     }
 
 
     getMemberParticipant(dateStart?: string, dateEnd?: string): Observable<MemberParticipantRes[]> {
-        return this.http.get<MemberParticipantRes[]>(`${BASE_URL}/user-activity/report/member-participants?dateStart=${dateStart}&dateEnd=${dateEnd}`)
+        return this.http.get<MemberParticipantRes[]>(`${BASE_URL}/user-activity/activity-participants?dateStart=${dateStart}&dateEnd=${dateEnd}`)
     }
 }

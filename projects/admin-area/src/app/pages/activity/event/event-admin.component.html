@@ -1,7 +1,4 @@
-<pre>
-  {{userActivityDataList|json}}
-</pre>
-<div class="flex justify-content-center align-items-center h-6 w-screen font-bold">
+<div class="flex justify-content-center font-bold">
   <div class="col-10">
     <div class="surface-card p-4 shadow-2 border-round w-full">
       <div class="flex justify-content-center mb-5">
@@ -10,14 +7,14 @@
         </p-chip>
       </div>
 
-      <p-table #dt1 [value]="userActivityDataList" [lazy]="true" (onLazyLoad)="loadData($event)" responsiveLayout="scroll" [paginator]="true"
-      [rows]="maxPage" [totalRecords]="totalData" [loading]="loading" [rowsPerPageOptions]="[5, 10]"
-      tyleClass="p-datatable-gridlines" [globalFilterFields]="['id', 'title','content']">
-  >
+      <p-table #dt1 [value]="userActivityDataList" [lazy]="true" (onLazyLoad)="loadData($event)"
+        responsiveLayout="scroll" [paginator]="true" [rows]="maxPage" [totalRecords]="totalData" [loading]="loading"
+        [rowsPerPageOptions]="[5, 10]" tyleClass="p-datatable-gridlines"
+        [globalFilterFields]="['id', 'title','content']">
         <ng-template pTemplate="caption">
           <div class="flex align-items-center justify-content-between">
             Manage Event Approvement
-             
+
             <p-button icon="pi pi-refresh"></p-button>
           </div>
           <div class="flex align-items-Start ">
@@ -25,11 +22,11 @@
           </div>
           <div class="flex">
             <span class="p-input-icon-left ml-auto">
-                <i class="pi pi-search"></i>
-                <input pInputText #searchText type="text" (input)="dt1.filterGlobal(searchText.value, 'contains')"
-                    placeholder="Search keyword" />
+              <i class="pi pi-search"></i>
+              <input pInputText #searchText type="text" (input)="dt1.filterGlobal(searchText.value, 'contains')"
+                placeholder="Search keyword" />
             </span>
-        </div>
+          </div>
         </ng-template>
         <ng-template pTemplate="header">
           <tr>
@@ -46,19 +43,37 @@
             <td>{{i+1}}</td>
             <td>{{item.memberName}}</td>
             <td>{{item.activityName}}</td>
-            <td><a pInputText icon="pi pi-check" href="http://localhost:1214/files/{{item.fileId}}">Download File</a> 
 
-              </td>
-            <td> {{item.isApprove==true?"Approved":item.isApprove==false?"Reject":"Pending"}}</td>
+            <td>
+              <p-button styleClass="px-3 w-3 justify-content-center" pTooltip="Download Evidence"
+                tooltipPosition="bottom">
+                <ng-template pTemplate="content">
+                  <i class="pi pi-download"><a icon="pi pi-check"
+                      href="http://localhost:1214/files/{{item.fileId}}"></a></i>
+                </ng-template>
+              </p-button>
+            </td>
+            <td>
+              <p-tag [rounded]="true"
+                severity="{{item.isApprove==true?'success':item.isApprove==false?'danger':'warning'}}" class="ml-3 ">
+                <p class="my-0 mx-1" style="font-size: 12px; font-weight: 500; ">
+                  {{item.isApprove==true?'Approved':item.isApprove==false?'Reject':'Pending'}}</p>
+              </p-tag>
+            </td>
             <!-- <td ngIf="!item.isApprove">Pending</td> -->
             <!-- <td ngIf="item.isApprove==true">Approved</td>
             <td ngIf="item.isApprove==false">Reject</td> -->
             <td>
-              <button pButton pRipple icon="pi pi-pencil"   (click)="onApprove($event,item.id,i)"  class="p-button-rounded p-button-info mr-2"> Approve</button>
-              <p-confirmPopup></p-confirmPopup>
-              <button pButton pRipple icon="pi pi-pencil"   (click)="onReject($event,item.id,i)"  class="p-button-rounded p-button-warning mr-2"> Reject</button>
-              <p-confirmPopup></p-confirmPopup>
-              <button pButton pRipple icon="pi pi-trash" (click)="onRemove($event,item.id,i)" class="p-button-rounded p-button-danger"></button>
+              <div class="justify-content-center flex gap-1">
+                <button pButton pRipple type="button" icon="pi pi-check" (click)="onApprove($event,item.id,i)"
+                  pTooltip="Approve payment" tooltipPosition="bottom"></button>
+                <p-confirmPopup></p-confirmPopup>
+
+                <button pButton pRipple type="button" icon="pi pi-times" class="p-button-danger"
+                  (click)="onReject($event,item.id,i)" pTooltip="Reject payment" tooltipPosition="bottom"></button>
+                <p-confirmPopup></p-confirmPopup>
+              </div>
+
             </td>
           </tr>
         </ng-template>

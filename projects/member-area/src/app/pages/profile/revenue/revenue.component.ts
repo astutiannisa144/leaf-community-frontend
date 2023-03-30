@@ -18,59 +18,13 @@ import { ActivityParticipantRes } from "@dto/report/activity-participants-res";
   template: `<div (mouseenter)="onHover()" (mouseleave)="onLeave()" class="hoverable-element">Hover me!</div>`,
   styles: [
     `
-      .hoverable-element {
-       background-color: #fff;
-     }
-     .hoverable-element:hover {
-       background-color: #22C55E;
-       color: #fff;
-
-     },
-
-.grey-background {
-  background-color: #f5f5f5;
-  color: #333;
-  font-size: 14px;
-  padding: 5px 10px;
-},
-.my-custom-chip .p-chip-token {
-  background-color: blue;
-}
-
-.pi-heart-fill:hover {
-  transform: scale(1.2);
-  transition: transform 0.2s ease-in-out;
-}
-
-.pi-heart:hover {
-  transform: scale(1.2);
-  transition: transform 0.2s ease-in-out;
-}
-
-.pi-comments:hover {
-  transform: scale(1.2);
-  transition: transform 0.2s ease-in-out;
-}
-
-.pi-bookmark-fill:hover {
-  transform: scale(1.2);
-  transition: transform 0.2s ease-in-out;
-}
-
-.pi-bookmark:hover {
-  transform: scale(1.2);
-  transition: transform 0.2s ease-in-out;
-}
-
 :host ::ng-deep .tabview-custom {
    i, span { vertical-align: middle; justify-content : center; } span { margin: 0 .5rem; 
   
   }
-}
-:host ::ng-deep .p-button {
-   margin-right: .25rem;
-}
- :host ::ng-deep .p-tabview p {
+},
+
+:host ::ng-deep .p-tabview p {
    line-height: 1.5; margin: 0;
 }
 
@@ -86,17 +40,6 @@ export class RevenueComponent implements OnInit {
 
   memberIncomeList: ActivityIncomeRes[] = []
   memberParticipantsList: ActivityParticipantRes[] = []
-  postEdit!: MenuItem[];
-  commentEdit!: MenuItem[];
-  private post$?: Subscription
-  postList?: PostRes[]
-  page = 1
-
-  startPage: number = 0
-  maxPage: number = 5
-  totalData: number = 0
-  query?: string
-  loading: boolean = true
 
   constructor(
     private reportService: ReportService,
@@ -143,39 +86,6 @@ export class RevenueComponent implements OnInit {
       })
     })
 
-    this.postEdit! = [
-      {
-        label: 'Edit Post',
-        icon: 'pi pi-fw pi-pencil',
-
-      },
-      {
-        label: 'Delete Post',
-        icon: 'pi pi-fw pi-trash',
-
-      },
-
-
-    ];
-
-    this.commentEdit! = [
-      {
-        label: 'Edit Comment',
-        icon: 'pi pi-fw pi-pencil',
-
-      },
-      {
-        label: 'Delete Comment',
-        icon: 'pi pi-fw pi-trash',
-
-      },
-
-
-    ];
-
-
-
-
   }
 
   onChangeScheduleDateStart() {
@@ -193,38 +103,6 @@ export class RevenueComponent implements OnInit {
       dateEnd: localDate
     })
   }
-
-  getAll(startPage: number = this.startPage, maxPage: number = this.maxPage, query?: string) {
-    this.loading = true;
-    this.startPage = startPage
-    this.maxPage = maxPage
-    this.query = query
-
-
-
-  }
-
-
-  onCreatePost() {
-    this.router.navigateByUrl('/posts/create')
-  }
-
-
-
-  ngOnDestroy(): void {
-    this.post$?.unsubscribe()
-  }
-
-  onHover() { }
-
-  onLeave() { }
-
-  editBtn = false
-
-  showEdit() {
-    this.editBtn = !this.editBtn
-  }
-
 
 }
 
