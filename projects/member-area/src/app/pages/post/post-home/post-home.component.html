@@ -1,4 +1,3 @@
-
 <div class="grid grid-nogutter justify-content-center">
   <div class="col-11 md:col-8 mt-3" infinite-scroll (scrolled)="onScroll()">
     <div class="md:text-md lg:text-xl font-medium text-900 mb-3 align-items-center flex">
@@ -9,8 +8,11 @@
     <form class="surface-card mt-3 p-4 shadow-1 border-round" [formGroup]="post">
       <div class="align-items-center grid grid-nogutter ">
         <div class="col-2 lg:col-1 p-0">
-          <img class="border-circle" src="http://localhost:1214/files/{{fileId}}" style="width: 50px; height: 50 px;"
-            alt="profile">
+          <img *ngIf="fileId" src="http://localhost:1214/files/{{fileId}}" class="border-circle w-3rem h-3rem"
+            style="object-fit : cover;" alt="profile">
+          <i *ngIf="!fileId"
+            class="pi pi-user border-1 border-circle flex align-items-center justify-content-center bg-gray-50 mr-2"
+            style="font-size: 1rem; color: #a6a8a7; height: 50px; width: 50px;"></i>
         </div>
         <div class="col-10 lg:col-11">
           <input type="text"
@@ -41,7 +43,8 @@
                 <p class="block text-xs font-200"><span style="color: rgba(255, 0, 0, 0.792);">*</span>Required</p>
               </div>
               <div *ngIf="postContent?.errors?.['minlength']">
-                <p class="block text-xs font-200"><span style="color: rgba(255, 0, 0, 0.792);">*</span>Minimum character for premium post is 500</p>
+                <p class="block text-xs font-200"><span style="color: rgba(255, 0, 0, 0.792);">*</span>Minimum character
+                  for premium post is 500</p>
               </div>
             </div>
           </div>
@@ -143,7 +146,8 @@
                   <p class="w-full" style="font-style: 20px; font-weight: 700;">Cancel</p>
                 </button>
                 <button style="background-color: 29BA7B;" pButton pRipple type="submit"
-                  class="p-button-rounded p-button-primary w-8rem h-2rem p-button-sm p-0" (click)="insertPostValidation()">
+                  class="p-button-rounded p-button-primary w-8rem h-2rem p-button-sm p-0"
+                  (click)="insertPostValidation()">
                   <p class="w-full" style="font-style: 20px; font-weight: 700;">Create Post</p>
                 </button>
               </div>
@@ -158,8 +162,12 @@
     <div class="surface-card mt-4 p-4 shadow-2 border-round" *ngFor="let pl of postList; let i=index">
       <div class="flex align-items-center">
         <div class="col flex p-0">
-          <img class="border-circle mr-2" src="http://localhost:1214/files/{{ pl.fileId }}"
-            style="width: 50px; height: 50 px;" alt="profile">
+          <img *ngIf="pl.fileId" class="border-circle h-3rem w-3rem mr-2"
+            src="http://localhost:1214/files/{{ pl.fileId }}" style="width: 50px; height: 50 px; object-fit : cover;"
+            alt="profile">
+          <i *ngIf="!pl.fileId"
+            class="pi pi-user border-1 border-circle flex align-items-center justify-content-center bg-gray-50 mr-2"
+            style="font-size: 1rem; color: #a6a8a7; height: 50px; width: 50px;"></i>
           <div class="flex align-items-center">
             <div class="flex-column justify-content-start pl-1">
               <p style="font-weight: 450; font-size: 15px;">{{ pl.fullName }}</p>
@@ -200,9 +208,12 @@
           </div>
           <div class="font-small">
             <p class="text-justify" style="text-align: justify; font-size: 15px; font-weight: 400; line-height: 25px;">
-              {{pl.content}}<span style="color: black;" *ngIf="pl.isPremium && !(pl.content == pl.contentFull)">...</span>
-              <span *ngIf="pl.isPremium && !(pl.content == pl.contentFull)" class="font-bold cursor-pointer hover:bg-gray-100 border-round-md px-2"
-                style="color: #22C55E;" (click)="showFullContent(i)" > See more</span> </p>
+              {{pl.content}}<span style="color: black;"
+                *ngIf="pl.isPremium && !(pl.content == pl.contentFull)">...</span>
+              <span *ngIf="pl.isPremium && !(pl.content == pl.contentFull)"
+                class="font-bold cursor-pointer hover:bg-gray-100 border-round-md px-2" style="color: #22C55E;"
+                (click)="showFullContent(i)"> See more</span>
+            </p>
           </div>
           <p *ngIf="pl.ver" class="block text-md mt-2" style="font-weight: 400; font-size: 12px; color: black;">
             (edited)
@@ -303,8 +314,11 @@
             <p-divider></p-divider>
           </div>
           <div class="flex align-items-center">
-            <img class="border-circle mr-2" src="http://localhost:1214/files/{{ pl.fileId }}"
-              style="width: 50px; height: 50 px;" alt="profile">
+
+            <img *ngIf="pl.fileId" src="http://localhost:1214/files/{{ pl.fileId }}"
+              class="border-circle mr-2" style="object-fit : cover; height: 45px; width: 45px;" alt="profile">
+            <p-button *ngIf="!pl.fileId" icon="pi pi-user" [disabled]="true"
+              styleClass="p-button-rounded p-button-secondary p-button-outlined w-3rem h-3rem bg-gray-100 mr-2"></p-button>
             <div class="w-full">
               <div class="col-12 p-0">
                 <form class="p-inputgroup flex" [formGroup]="comment">
@@ -318,8 +332,10 @@
           </div>
 
           <div class="flex align-items-start mt-4" *ngFor="let cl of pl.commentList; let j=index">
-            <img class="border-circle mr-2" src="http://localhost:1214/files/{{ pl.fileId }}"
-              style="width: 50px; height: 50 px;" alt="profile">
+            <img *ngIf="pl.fileId" src="http://localhost:1214/files/{{ pl.fileId }}" class="border-circle mr-2"
+              style="object-fit : cover; height: 45px; width: 45px;" alt="profile">
+            <p-button *ngIf="!pl.fileId" icon="pi pi-user" [disabled]="true"
+              styleClass="p-button-rounded p-button-secondary p-button-outlined bg-gray-100 mr-2 h-3rem w-3rem"></p-button>
             <div class="w-full">
               <div class="shadow-0 border-round-xl border-1 bg-gray-50 p-2" style="color:rgb(227, 227, 227);">
                 <div class="grid grid-nogutter p-0 pl-1">
@@ -424,7 +440,7 @@
           </p>
           <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"> <i
               class="pi pi-clock mr-2" style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>{{'0000-00-00T'+
-                    cl.timeStart | date: 'shortTime'}}
+            cl.timeStart | date: 'shortTime'}}
             - {{'0000-00-00T'+ cl.timeEnd | date: 'shortTime'}}
           </p>
           <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"> <i

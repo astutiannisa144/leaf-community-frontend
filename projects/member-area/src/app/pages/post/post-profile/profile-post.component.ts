@@ -22,6 +22,7 @@ import { CommentReq } from "@dto/comment/comment-req";
 import { CommentRes } from "@dto/comment/comment-res";
 import { COMMENT_LIMIT } from "projects/base-area/src/app/constant/comment-limit";
 import { ImageOption } from "projects/base-area/src/app/components/post-image/post-image.component";
+import { BASE_URL } from "projects/base-area/src/app/constant/base.service";
 
 @Component({
   selector: 'app-post-home',
@@ -127,7 +128,7 @@ export class ProfilePostComponent implements OnInit {
 
   commentPage = 0
   postPage = 0
-
+  src:string=''
   comment = this.fb.group({
     postId: [''],
     content: ['']
@@ -160,6 +161,11 @@ export class ProfilePostComponent implements OnInit {
     this.title.setTitle('Home')
   }
   ngOnInit(): void {
+    if(this.userService.user.fileId){
+      this.src=BASE_URL+'/files/'+this.userService.user.fileId
+    }else if(this.userService.user.fileBase64){
+      this.src=this.userService.user.fileBase64
+    }
     this.getPost()
     this.getProfile()
 
