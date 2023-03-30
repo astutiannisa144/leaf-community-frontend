@@ -80,9 +80,7 @@ export class CourseUpdateComponent implements OnInit, AfterContentChecked {
                     }
                 })
                 for(let i=0;i<this.activity.schedule.length;i++){
-                    console.log(this.activity.schedule[i].scheduleDate);
-                    
-                    
+                
                     this.schedules.push(this.fb.group({
                         id:this.activity.schedule[i].id,
                         scheduleDateUtc: new Date(this.activity.schedule[i].scheduleDate),
@@ -199,7 +197,7 @@ export class CourseUpdateComponent implements OnInit, AfterContentChecked {
         }
         activity.schedule = [...this.schedules.value]
         this.activityService.update(activity).subscribe(result=>{
-
+            this.router.navigateByUrl('/activities/course/'+this.activity?.activityTypeId)
         })
     }
 

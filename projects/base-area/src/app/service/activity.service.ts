@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { ActivityTypeRes } from "@dto/activity-type/activity-type-res"
 import { ActivityReq } from "@dto/activity/activity-req"
+import { ActivityReqGet } from "@dto/activity/activity-req-get"
 import { ActivityRes } from "@dto/activity/activity-res"
 import { Response } from "@dto/response"
 import { Observable } from "rxjs"
@@ -30,6 +31,11 @@ export class ActivityService {
         }else {
             return this.http.get<ActivityRes[]>(`${BASE_URL}/activities?type=${type}&page=${page}&limit=${limit}&category=${category}&code=${code}`)
         }
+    }
+
+    getActivityByListCategory(data:ActivityReqGet) : Observable<ActivityRes[]>  {
+        return this.http.post<ActivityRes[]>(`${BASE_URL}/activities/get`,data)
+
     }
     getById(id:string): Observable<ActivityRes>{
         return this.http.get<ActivityRes>(`${BASE_URL}/activities/${id}`);

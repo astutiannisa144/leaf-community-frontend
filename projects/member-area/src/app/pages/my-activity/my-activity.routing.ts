@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { MyEventComponent } from "./my-event/my-event.component";
-import { MyCourseComponent } from "./my-course/course.component";
+import { MyCourseComponent } from "./my-course/my-course.component";
 
 const postRoutes : Routes = [
     {   

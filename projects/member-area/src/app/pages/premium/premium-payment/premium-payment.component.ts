@@ -1,12 +1,14 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder } from "@angular/forms";
+import { FormBuilder, Validators } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ActivityRes } from "@dto/activity/activity-res";
 import { BankAccountRes } from "@dto/bank-account/bank-account-res";
 import { PremiumRes } from "@dto/premium/premium-res";
+import { UserPremiumReq } from "@dto/user-premium/user-premium-req";
 import { ActivityService } from "@service/activity.service";
 import { PremiumService } from "@service/premium.service";
+import { UserPremiumService } from "@service/user-premium.service";
 import { UserService } from "@service/user-service";
 import { ACTIVITY_LIMIT } from "projects/base-area/src/app/constant/activity-limit";
 import { Subscription } from "rxjs";
@@ -28,12 +30,21 @@ export class PremiumPaymentComponent {
     premium$?:Subscription
     premium?:PremiumRes
 
-
+    paymentForm=this.fb.group({
+        file:this.fb.group({
+        fileContent:['',Validators.required],
+        fileExtension:['',Validators.required]
+        }),
+        premiumId:[''],
+        disable:[true]
+    })
     constructor(
         private userService: UserService,
         private fb: FormBuilder,
         private premiumService:PremiumService,
-        private activatedRoute:ActivatedRoute
+        private activatedRoute:ActivatedRoute,
+        private userPremiumService:UserPremiumService,
+        private router:Router
     ) { }
 
     ngOnInit(): void {
@@ -44,18 +55,15 @@ export class PremiumPaymentComponent {
         this.activatedRoute.params.subscribe(result=>{
             this.premium$=this.premiumService.getById(result['id']).subscribe(res=>{
                 this.premium=res
+                this.paymentForm.patchValue({
+                    premiumId:this.premium.id,
+                    
+                })
             })
         })
         
     }
 
-    paymentForm = this.fb.group({
-        file: this.fb.group({
-            fileContent: [''],
-            fileExtension: ['']
-        }),
-
-    })
 
     fileUpload(event: any) {
         const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
@@ -77,11 +85,29 @@ export class PremiumPaymentComponent {
                     file: {
                         fileContent: resultBase64,
                         fileExtension: resultExtension
-                    }
+                    },
+                    disable:false
                 })
 
             })
         }
+
+
+    }
+    onBuy(){
+        const data:UserPremiumReq={
+            premiumId:this.paymentForm.value.premiumId!,
+            file:{
+                fileContent:this.paymentForm.value.file?.fileContent!,
+                fileExtension:this.paymentForm.value.file?.fileExtension!
+            }
+        }
+        this.userPremiumService.insert(data).subscribe(result=>{
+            const user =  this.userService.user
+            user.isPremium=true
+            this.userService.saveDataLogin(user)
+            this.router.navigateByUrl(' /home')
+        })
     }
 
 }

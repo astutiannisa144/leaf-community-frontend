@@ -35,6 +35,7 @@ export class UserService {
     saveDataLogin(data : LoginRes) {
         localStorage.setItem('dataLogin', JSON.stringify(data))
     }
+    
     changePass(data:UserReq):Observable<Response>{
         return this.http.patch<Response>(`${BASE_URL}/users`, data)
     }

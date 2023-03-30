@@ -169,12 +169,23 @@ export class NavbarComponent {
   ]
 
   ngOnInit(): void {
+    
+    
     this.fileId=this.userService.user.fileId!
-    this.src=`http://localhost:1214/files/${this.userService.user.fileId!}`
+
+    if(this.userService.user.fileId){
+      this.src=`http://localhost:1214/files/${this.userService.user.fileId!}`
+    }else{
+      this.src=this.userService.user.fileBase64
+      this.res=this.userService.user.fileBase64
+    }
+    
+    
     this.profileService.profileImage$?.subscribe(res=>{
+    
       this.src=res
-      this.res=res
-      
+     
+      console.log("aaaaaaaaaaaaaaaaaaaaaaaa");
     })
     if (this.roleCode == Role.SuperAdmin) {
       this.items = this.adminNav

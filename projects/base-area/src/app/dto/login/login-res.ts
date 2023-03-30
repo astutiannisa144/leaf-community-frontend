@@ -7,4 +7,5 @@ export interface LoginRes {
     fileId: string,
     isPremium: boolean,
     email:string
+    fileBase64:string
 }

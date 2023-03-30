@@ -6,7 +6,7 @@ import { NgModule } from '@angular/core';
 import { ShareModule } from '../../../../../base-area/src/app/common/share.module';
 import { MyEventComponent } from './my-event/my-event.component';
 import { MyActivityRouting } from './my-activity.routing';
-import { MyCourseComponent } from './my-course/course.component';
+import { MyCourseComponent } from './my-course/my-course.component';
 
 @NgModule({
     declarations: [

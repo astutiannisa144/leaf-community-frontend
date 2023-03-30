@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormControl } from "@angular/forms";
+import { FormArray, FormBuilder, FormControl } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
+import { ActivityReqGet } from "@dto/activity/activity-req-get";
 import { ActivityRes } from "@dto/activity/activity-res";
 import { CategoryRes } from "@dto/category/category-res";
 import { ActivityService } from "@service/activity.service";
@@ -99,13 +100,15 @@ export class CourseComponent implements OnInit{
     categoryList : CategoryRes[]=[]
     activityTypeId!:string
     page = 1
-    categories=this.fb.group({
-        category:[[]],
-    })
+    // categories=this.fb.group({
+    //     category:[[]],
+    // })
+    categories:string[]=[]
+
     categoryTemp!:string
     // category=new FormControl('')
+    
 
-   
     constructor(
         private router: Router,
         private activityService: ActivityService,
@@ -123,33 +126,41 @@ export class CourseComponent implements OnInit{
         })
         this.category$ = this.categoryService.getCategory().subscribe(result => {
             this.categoryList = result
+            
         })
-        this.categories.get('category')?.valueChanges.subscribe(result => {
-            const temp=result as any;
-            console.log(result);
+       
+     
+    }
+
+   onCategory(){
+           
             this.page=1
-            if(!temp.length){
+            if(!this.categories.length){
                 
                 this.course$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.CO).subscribe(result => {
                     this.courseList = result
                 })
             }else{
               
-              this.categoryTemp=temp
-                this.course$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.CO,temp).subscribe(result => {
+              const data : ActivityReqGet={
+                type: ACTIVITY_TYPE.CO,
+                category: [...this.categories],
+                limit: ACTIVITY_LIMIT,
+                page: this.page,
+              }
+              // this.categoryTemp=temp
+              //   this.course$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.CO,temp).subscribe(result => {
+              //       this.courseList = result
+              //   })
+                  this.course$ = this.activityService.getActivityByListCategory(data).subscribe(result => {
                     this.courseList = result
                 })
             }
-        })
+       
         
-     
-    }
-
-   onCategory(id:string){
-    
    }
    onScroll(): void {
-    if(!this.categoryTemp){
+    if(!this.categories.length){
       this.course$ = this.activityService.getActivityByType(ACTIVITY_LIMIT,  this.page=this.page+1,ACTIVITY_TYPE.CO).subscribe(result => {
         if (result) {
           
@@ -161,7 +172,14 @@ export class CourseComponent implements OnInit{
         }
       })
     }else{
-      this.course$ = this.activityService.getActivityByType(ACTIVITY_LIMIT,  this.page=this.page+1,ACTIVITY_TYPE.CO,this.categoryTemp).subscribe(result => {
+      this.page=this.page+1
+      const data : ActivityReqGet={
+        type: ACTIVITY_TYPE.CO,
+        category: [...this.categories],
+        limit: ACTIVITY_LIMIT,
+        page: this.page,
+      }
+      this.course$ = this.activityService.getActivityByListCategory(data).subscribe(result => {
         if (result) {
           
           if (this.courseList.length) {
