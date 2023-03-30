@@ -40,7 +40,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
         ShareModule,
         TieredMenuCustomComponent,
         InfiniteScrollModule,
-        InputNumberModule
+        InputNumberModule,
+        FormsModule
         
     ]
 })

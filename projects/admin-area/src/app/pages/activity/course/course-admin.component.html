@@ -54,9 +54,9 @@
             <!-- <td ngIf="item.isApprove==true">Approved</td>
             <td ngIf="item.isApprove==false">Reject</td> -->
             <td>
-              <button pButton pRipple icon="pi pi-pencil"   (click)="onApprove($event,item.id,i)"  class="p-button-rounded p-button-info mr-2"> Approve</button>
+              <button pButton pRipple icon="pi pi-pencil" pTooltip="Approve Transaction"   (click)="onApprove($event,item.id,i)"  class="p-button-rounded p-button-info mr-2"> Approve</button>
               <p-confirmPopup></p-confirmPopup>
-              <button pButton pRipple icon="pi pi-pencil"   (click)="onReject($event,item.id,i)"  class="p-button-rounded p-button-warning mr-2"> Reject</button>
+              <button pButton pRipple icon="pi pi-pencil" pTooltip="Reject Transaction"  (click)="onReject($event,item.id,i)"  class="p-button-rounded p-button-warning mr-2"> Reject</button>
               <p-confirmPopup></p-confirmPopup>
               <button pButton pRipple icon="pi pi-trash" (click)="onRemove($event,item.id,i)" class="p-button-rounded p-button-danger"></button>
             </td>
