@@ -34,7 +34,7 @@ export class ActivityService {
     }
 
     getActivityByListCategory(data:ActivityReqGet) : Observable<ActivityRes[]>  {
-        return this.http.post<ActivityRes[]>(`${BASE_URL}/activities/get`,data)
+        return this.http.post<ActivityRes[]>(`${BASE_URL}/activities/filter`,data)
 
     }
     getById(id:string): Observable<ActivityRes>{
