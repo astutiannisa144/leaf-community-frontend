@@ -168,23 +168,27 @@ export class ProfilePostComponent implements OnInit {
 
     this.postEdit! = [
       {
-        label: 'Edit Post',
+        label: 'Edit',
         icon: 'pi pi-fw pi-pencil',
+        command: () => { this.showEditPost() }
       },
       {
-        label: 'Delete Post',
+        label: 'Delete',
         icon: 'pi pi-fw pi-trash',
+        command: () => { this.deletePost() }
       },
     ];
 
     this.commentEdit! = [
       {
-        label: 'Edit Comment',
+        label: 'Edit',
         icon: 'pi pi-fw pi-pencil',
+        command: () => { this.showEditComment() }
       },
       {
-        label: 'Delete Comment',
+        label: 'Delete',
         icon: 'pi pi-fw pi-trash',
+        command: () => { this.deleteComment() }
       },
     ];
   }
@@ -215,6 +219,13 @@ export class ProfilePostComponent implements OnInit {
         content: this.postList[this.postIdx].content
       })
     }
+  }
+
+  deletePost() {
+    this.deletePost$ = this.postService.deletePost(this.postId).subscribe(result => {
+      this.postList.splice(this.postIdx, 1)
+      this.postPage--
+    })
   }
 
   updatePost() {

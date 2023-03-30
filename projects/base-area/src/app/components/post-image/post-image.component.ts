@@ -18,6 +18,7 @@ import { Component, EventEmitter, Input, Output, OnChanges } from "@angular/core
             </div>
         </ng-container>
     </div>
+
     `,
     standalone: true,
     imports: [CommonModule],
