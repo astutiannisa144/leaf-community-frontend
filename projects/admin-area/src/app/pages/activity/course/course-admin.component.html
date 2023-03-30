@@ -63,6 +63,7 @@
             <!-- <td ngIf="item.isApprove==true">Approved</td>
             <td ngIf="item.isApprove==false">Reject</td> -->
             <td>
+
               <div class="justify-content-center flex gap-1">
                 <button pButton pRipple type="button" icon="pi pi-check" (click)="onApprove($event,item.id,i)"></button>
                 <p-confirmPopup></p-confirmPopup>
@@ -71,6 +72,7 @@
                   (click)="onReject($event,item.id,i)"></button>
                 <p-confirmPopup></p-confirmPopup>
               </div>
+
             </td>
           </tr>
         </ng-template>

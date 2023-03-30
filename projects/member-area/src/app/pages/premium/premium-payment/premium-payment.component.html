@@ -1,3 +1,6 @@
+<pre>
+  {{paymentForm.value|json}}
+</pre>
 <div class="col-10 grid grid-nogutter mt-3">
   <div class="col-12 md:col-7 lg:col-5 ml-2 justify-content-center flex">
 
@@ -23,7 +26,7 @@
 
 <div class="justify-content-center flex">
   <div class="col-10">
-    <div class="surface-card p-3 shadow-2 border-round ">
+    <div class="surface-card p-3 shadow-2 border-round " [formGroup]="paymentForm">
 
       <div class="grid grid-nogutter px-2">
         <div class="col-12 block md:flex md:col-8 p-1">
@@ -90,7 +93,7 @@
                     </div>
 
                     <div class="justify-content-center flex">
-                      <button pButton pRipple type="button" label="Buy Event"
+                      <button pButton pRipple type="button" [disabled]="paymentForm.value.disable" (click)="onBuy()" label="Buy Premium"
                         class="p-button-primary font-medium w-full"></button>
                     </div>
                   </div>

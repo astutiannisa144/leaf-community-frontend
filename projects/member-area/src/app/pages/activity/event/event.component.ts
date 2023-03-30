@@ -1,13 +1,13 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormControl } from "@angular/forms";
+import { FormArray, FormBuilder, FormControl } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
+import { ActivityReqGet } from "@dto/activity/activity-req-get";
 import { ActivityRes } from "@dto/activity/activity-res";
 import { CategoryRes } from "@dto/category/category-res";
 import { ActivityService } from "@service/activity.service";
 import { CategoryService } from "@service/category.service";
-import { UserService } from "@service/user-service";
-import { MenuItem } from "primeng/api";
+import { LazyLoadEvent } from "primeng/api";
 import { ACTIVITY_LIMIT } from "projects/base-area/src/app/constant/activity-limit";
 import { ACTIVITY_TYPE } from "projects/base-area/src/app/constant/activity-type";
 import { Subscription } from "rxjs";
@@ -60,17 +60,7 @@ import { Subscription } from "rxjs";
 }
 
 
-     
-  /* 
-      :host ::ng-deep .p-checkbox .p-checkbox-box {
-      border: 2px solid #ced4da;
-      background: #ffffff;
-      width: 22px;
-      height: 13px;
-      color: #495057;
-      border-radius: 6px;
-      transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
-  }, */
+
     :host ::ng-deep .menubar {
             position: sticky;
             top: 0;
@@ -103,35 +93,37 @@ import { Subscription } from "rxjs";
 },
 
 )
-export class EventComponent implements OnInit {
-  private event$?: Subscription
-  eventList: ActivityRes[] = []
-  private category$?: Subscription
-  categoryList: CategoryRes[] = []
-  activityTypeId!: string
-  page = 1
-  categories = this.fb.group({
-    category: [[]],
-  })
-  categoryTemp!: string
-  activityEdit!: MenuItem[]
-  // category=new FormControl('')
-  memberId!: string
-  constructor(
-    private router: Router,
-    private activityService: ActivityService,
-    private categoryService: CategoryService,
-    private userService: UserService,
-    private fb: FormBuilder,
-    private activatedRoute: ActivatedRoute
-  ) { }
-  ngOnInit(): void {
-    this.memberId = this.userService.userId
-    this.activatedRoute.params.subscribe(result => {
-      this.activityTypeId = result['id']
-    })
-    this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page, ACTIVITY_TYPE.EV).subscribe(result => {
-      this.eventList = result
+
+export class EventComponent implements OnInit{
+    private event$? : Subscription
+    eventList : ActivityRes[]=[]
+    private category$? : Subscription
+    categoryList : CategoryRes[]=[]
+    activityTypeId!:string
+    page = 1
+    // categories=this.fb.group({
+    //     category:[[]],
+    // })
+    categories:string[]=[]
+
+    categoryTemp!:string
+    // category=new FormControl('')
+    
+
+    constructor(
+        private router: Router,
+        private activityService: ActivityService,
+        private categoryService:CategoryService,
+        private fb:FormBuilder,
+        private activatedRoute:ActivatedRoute
+    ) { }
+    ngOnInit(): void {
+        this.activatedRoute.params.subscribe(result => {
+            this.activityTypeId=result['id']
+        })
+        this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.EV).subscribe(result => {
+            this.eventList = result
+
 
     })
     this.category$ = this.categoryService.getCategory().subscribe(result => {
@@ -146,36 +138,46 @@ export class EventComponent implements OnInit {
         this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page, ACTIVITY_TYPE.EV).subscribe(result => {
           this.eventList = result
         })
-      }
-      else {
 
-        this.categoryTemp = temp
-        this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page, ACTIVITY_TYPE.EV, temp).subscribe(result => {
-          this.eventList = result
+        this.category$ = this.categoryService.getCategory().subscribe(result => {
+            this.categoryList = result
+            
         })
-      }
-    })
-    this.activityEdit! = [
-      {
-        label: 'Edit Post',
-        icon: 'pi pi-fw pi-pencil',
+       
+     
+    }
 
-      },
-      {
-        label: 'Delete Post',
-        icon: 'pi pi-fw pi-trash',
+   onCategory(){
+           
+            this.page=1
+            if(!this.categories.length){
+                
+                this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.EV).subscribe(result => {
+                    this.eventList = result
+                })
+            }else{
+              
+              const data : ActivityReqGet={
+                type: ACTIVITY_TYPE.EV,
+                category: [...this.categories],
+                limit: ACTIVITY_LIMIT,
+                page: this.page,
+              }
+              // this.categoryTemp=temp
+              //   this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.EV,temp).subscribe(result => {
+              //       this.eventList = result
+              //   })
+                  this.event$ = this.activityService.getActivityByListCategory(data).subscribe(result => {
+                    this.eventList = result
+                })
+            }
+       
+        
+   }
+   onScroll(): void {
+    if(!this.categories.length){
+      this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT,  this.page=this.page+1,ACTIVITY_TYPE.EV).subscribe(result => {
 
-      },
-    ];
-
-  }
-
-  onCategory(id: string) {
-
-  }
-  onScroll(): void {
-    if (!this.categoryTemp) {
-      this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page = this.page + 1, ACTIVITY_TYPE.EV).subscribe(result => {
         if (result) {
 
           if (this.eventList.length) {
@@ -185,8 +187,17 @@ export class EventComponent implements OnInit {
           }
         }
       })
-    } else {
-      this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page = this.page + 1, ACTIVITY_TYPE.EV, this.categoryTemp).subscribe(result => {
+
+    }else{
+      this.page=this.page+1
+      const data : ActivityReqGet={
+        type: ACTIVITY_TYPE.EV,
+        category: [...this.categories],
+        limit: ACTIVITY_LIMIT,
+        page: this.page,
+      }
+      this.event$ = this.activityService.getActivityByListCategory(data).subscribe(result => {
+
         if (result) {
 
           if (this.eventList.length) {
@@ -199,8 +210,11 @@ export class EventComponent implements OnInit {
     }
 
   }
-  // category: string[] = [];
-  sorting: string[] = [];
+
+
+    // category: string[] = [];
+    sorting: string[] = [];
+
 
   onHover() { }
 

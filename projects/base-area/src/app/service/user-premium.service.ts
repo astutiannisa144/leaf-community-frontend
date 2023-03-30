@@ -19,7 +19,7 @@ export class UserPremiumService {
     }
     insert(data:UserPremiumReq):Observable<Response>{
         return this.http.post<Response>(`${BASE_URL}/user-premium`,data)
-
+        
     }
     approve(data:UserPremiumReq):Observable<Response>{
         return this.http.patch<Response>(`${BASE_URL}/user-premium`,data)

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { ActivityRes } from "@dto/activity/activity-res";
 import { ActivityService } from "@service/activity.service";
 import { UserService } from "@service/user-service";
+import { ConfirmationService, ConfirmEventType, MessageService } from "primeng/api";
 import { ACTIVITY_LIMIT } from "projects/base-area/src/app/constant/activity-limit";
 import { ACTIVITY_TYPE } from "projects/base-area/src/app/constant/activity-type";
 import { Subscription } from "rxjs";
@@ -73,7 +74,9 @@ export class EventDetailComponent implements OnInit {
         private router: Router,
         private activityService: ActivityService,
         private activatedRoute: ActivatedRoute,
-        private userService: UserService
+        private userService: UserService,
+        private confirmationService:ConfirmationService,
+        private messageService:MessageService
 
     ) { }
     ngOnInit(): void {
@@ -106,5 +109,29 @@ export class EventDetailComponent implements OnInit {
     onLeave() { }
     onUpdate() {
         this.router.navigateByUrl('/activities/event-update/' + this.event?.id)
+    }
+    onDelete(){
+        this.confirmationService.confirm({
+            message: 'Do you want to delete this Event?',
+            header: 'Delete Confirmation',
+            icon: 'pi pi-info-circle',
+
+            accept: () => {
+                this.activityService.delete(this.activityId).subscribe(result=>{
+                    this.router.navigateByUrl("/activities/event/"+this.event?.activityTypeId)
+                })
+                // this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' });
+            },
+            reject: (type: any) => {
+                switch (type) {
+                    case ConfirmEventType.REJECT:
+                        this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
+                        break;
+                    case ConfirmEventType.CANCEL:
+                        this.messageService.add({ severity: 'warn', summary: 'Cancelled', detail: 'You have cancelled' });
+                        break;
+                }
+            }
+        });
     }
 }
