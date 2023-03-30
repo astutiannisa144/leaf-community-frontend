@@ -1,6 +1,6 @@
 
 export interface ActivityIncomeRes{
-    title : string,
+    fullName : string,
     activityType : string,
     totalIncome : number
 }

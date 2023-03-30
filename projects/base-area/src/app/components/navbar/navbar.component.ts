@@ -21,7 +21,7 @@ import { ProfileService } from '@service/profile.service';
         width: 100%;
         z-index: 2;
     }`,
-    
+
   ]
 })
 
@@ -31,14 +31,14 @@ export class NavbarComponent {
   roleCode = this.userService.roleCode
   items!: MenuItem[];
   itemProfile!: MenuItem[];
-  src!:string
-  fileId!:string
-  res!:string
+  src!: string
+  fileId!: string
+  res!: string
   constructor(
     private router: Router,
     private activityService: ActivityService,
     private userService: UserService,
-    private profileService:ProfileService
+    private profileService: ProfileService
   ) {
 
   }
@@ -49,9 +49,15 @@ export class NavbarComponent {
 
     },
     {
-      label: 'My Profile',
-      icon: 'pi pi-fw pi-user',
-      routerLink: '/profile'
+      label: 'Log out',
+      icon: 'pi pi-fw pi-sign-out',
+      command: () => this.onLogout()
+    }
+  ]
+
+  superAdminProfile: MenuItem[] = [
+    {
+      label: 'Hello, Super Admin!',
 
     },
     {
@@ -61,7 +67,31 @@ export class NavbarComponent {
     }
   ]
 
-  adminNav: MenuItem[] = [
+  memberProfile : MenuItem[] = [
+    {
+      label: 'Hello, User!',
+
+    },
+    {
+      label: 'My Profile',
+      icon: 'pi pi-fw pi-user',
+      routerLink: '/profile'
+
+    },
+
+    {
+      label: 'Activity Report',
+      icon: 'pi pi-fw pi-megaphone',
+      routerLink: '/profile/history'
+    },
+    {
+      label: 'Log out',
+      icon: 'pi pi-fw pi-sign-out',
+      command: () => this.onLogout()
+    }
+  ];
+
+  superAdminNav: MenuItem[] = [
     {
       icon: 'pi pi-fw pi-briefcase',
       label: 'Job',
@@ -97,6 +127,9 @@ export class NavbarComponent {
       label: 'Voucher',
       routerLink: '/voucher'
     },
+  ]
+
+  adminNav: MenuItem[] = [
     {
       label: 'Activities',
       icon: 'pi pi-fw pi-megaphone',
@@ -169,7 +202,12 @@ export class NavbarComponent {
   ]
 
   ngOnInit(): void {
-    
+
+    this.fileId = this.userService.user.fileId!
+    this.src = `http://localhost:1214/files/${this.userService.user.fileId!}`
+    this.profileService.profileImage$?.subscribe(res => {
+      this.src = res
+      this.res = res
     
     this.fileId=this.userService.user.fileId!
 
@@ -186,45 +224,29 @@ export class NavbarComponent {
       this.src=res
      
       console.log("aaaaaaaaaaaaaaaaaaaaaaaa");
+
     })
     if (this.roleCode == Role.SuperAdmin) {
-      this.items = this.adminNav
+      this.items = this.superAdminNav
+      this.itemProfile = this.superAdminProfile
     }
     else if (this.roleCode == Role.Member) {
       this.items = this.memberNav
+      this.itemProfile = this.memberProfile
+
     }
 
     else if (this.roleCode == Role.Admin) {
       this.items = this.adminNav
+      this.itemProfile = this.adminProfile
     }
 
 
     this.activityType$ = this.activityService.getActivityType().subscribe(result => {
       this.activityTypeList = result
     })
-    this.itemProfile = [
-      {
-        label: 'Hello, User!',
 
-      },
-      {
-        label: 'My Profile',
-        icon: 'pi pi-fw pi-user',
-        routerLink: '/profile'
-
-      },
-
-      {
-        label: 'Activity Report',
-        icon: 'pi pi-fw pi-megaphone',
-        routerLink: '/profile/history'
-      },
-      {
-        label: 'Log out',
-        icon: 'pi pi-fw pi-sign-out',
-        command: () => this.onLogout()
-      }
-    ];
+    
   }
 
   onLogout() {
