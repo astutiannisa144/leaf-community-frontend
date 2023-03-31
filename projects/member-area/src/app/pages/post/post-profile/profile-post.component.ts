@@ -161,6 +161,7 @@ export class ProfilePostComponent implements OnInit {
     this.title.setTitle('Home')
   }
   ngOnInit(): void {
+  
     if(this.userService.user.fileId){
       this.src=BASE_URL+'/files/'+this.userService.user.fileId
     }else if(this.userService.user.fileBase64){
