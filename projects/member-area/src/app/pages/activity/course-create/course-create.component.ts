@@ -19,7 +19,7 @@ export class CourseCreateComponent implements OnInit, AfterContentChecked {
     courseDate!: Date;
     courseTime!: Date;
     items!: MenuItem[];
-   
+
     private category$?: Subscription
     categoryList: CategoryRes[] = []
     activityForm = this.fb.group({
@@ -48,9 +48,12 @@ export class CourseCreateComponent implements OnInit, AfterContentChecked {
         private fb: FormBuilder,
         private activatedRoute: ActivatedRoute,
         private categoryService: CategoryService,
-        private ref: ChangeDetectorRef
+        private ref: ChangeDetectorRef,
+        private title: Title
 
-    ) { }
+    ) {
+        this.title.setTitle('Create Course / Leaf')
+    }
     home!: MenuItem;
     ngAfterContentChecked() {
         this.ref.detectChanges();
@@ -60,14 +63,14 @@ export class CourseCreateComponent implements OnInit, AfterContentChecked {
         this.activatedRoute.params.subscribe(result => {
             console.log(result['id']);
             this.activityForm.patchValue({
-                activityTypeId : result['id']
+                activityTypeId: result['id']
             })
-           
+
         })
         this.category$ = this.categoryService.getCategory().subscribe(result => {
             this.categoryList = result
         })
-       
+
         this.items = [
             { label: '<p>Home</p>', escape: false, routerLink: '/posts' },
             { label: '<p>Create Post</p>', escape: false, }
@@ -99,26 +102,26 @@ export class CourseCreateComponent implements OnInit, AfterContentChecked {
         })
     }
     onChangeScheduleTimeStart() {
-        if(!this.activityForm.value.timeStartUtc){
-            
-        }else{
-        const resultTemp = new Date(this.activityForm.value.timeStartUtc!)
-        const localDate = convertUTCToLocalDateTime(resultTemp)
-        this.activityForm.patchValue({
-            timeStart: localDate
-        })
-    }
+        if (!this.activityForm.value.timeStartUtc) {
+
+        } else {
+            const resultTemp = new Date(this.activityForm.value.timeStartUtc!)
+            const localDate = convertUTCToLocalDateTime(resultTemp)
+            this.activityForm.patchValue({
+                timeStart: localDate
+            })
+        }
     }
     onChangeScheduleTimeEnd() {
-        if(!this.activityForm.value.timeEndUtc){
-            
-        }else{
-        const resultTemp = new Date(this.activityForm.value.timeEndUtc!)
-        const localDate = convertUTCToLocalDateTime(resultTemp)
-        this.activityForm.patchValue({
-            timeEnd: localDate
-        })
-    }
+        if (!this.activityForm.value.timeEndUtc) {
+
+        } else {
+            const resultTemp = new Date(this.activityForm.value.timeEndUtc!)
+            const localDate = convertUTCToLocalDateTime(resultTemp)
+            this.activityForm.patchValue({
+                timeEnd: localDate
+            })
+        }
     }
     fileUpload(event: any) {
         const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
@@ -164,8 +167,8 @@ export class CourseCreateComponent implements OnInit, AfterContentChecked {
             }
         }
         activity.schedule = [...this.schedules.value]
-        this.activityService.insert(activity).subscribe(result=>{
-            this.router.navigateByUrl('/activities/course/'+this.activityForm.value.activityTypeId)
+        this.activityService.insert(activity).subscribe(result => {
+            this.router.navigateByUrl('/activities/course/' + this.activityForm.value.activityTypeId)
 
         })
     }
@@ -176,8 +179,8 @@ function convertUTCToLocalDate(date: Date) {
     const newDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
     return newDate.toISOString().split('T')[0]
 }
-const convertUTCToLocalDateTime = function (date : Date) {
-    const newDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(),  date.getHours(), date.getMinutes(), date.getSeconds()));
+const convertUTCToLocalDateTime = function (date: Date) {
+    const newDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
     return newDate.toISOString()
-  }
+}
 

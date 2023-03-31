@@ -4,7 +4,7 @@
   <div class="col-11">
 
     <div class="align-items-center flex mb-3">
-      <button pButton pRipple type="button" routerLink="/activities/course" icon="pi pi-arrow-left"
+      <button pButton pRipple type="button" routerLink="/activities/course/{{course?.activityTypeId}}" icon="pi pi-arrow-left"
         class="p-button-rounded p-button-primary"></button>
 
       <ul class="list-none p-0 m-0 flex align-items-center font-medium ml-3">
@@ -216,7 +216,7 @@
 
 
   <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
-  <!-- <div class="grid justify-content-center mt-3">
+
     <div class="col-3">
 
       <div class="align-items-center flex">

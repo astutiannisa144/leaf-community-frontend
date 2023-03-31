@@ -65,9 +65,12 @@ export class CourseDetailComponent implements OnInit{
         private activatedRoute :ActivatedRoute,
         private userService:UserService,
         private confirmationService:ConfirmationService,
-        private messageService:MessageService
+        private messageService:MessageService,
+        private title: Title
 
-    ) { }
+    ) {
+        this.title.setTitle('Course Detail / Leaf')
+    }
         ngOnInit(): void {
             this.activatedRoute.params.subscribe(result=>{
                 this.activityId=result['id']

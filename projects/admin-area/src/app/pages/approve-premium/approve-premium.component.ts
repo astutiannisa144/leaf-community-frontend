@@ -21,9 +21,9 @@ import { Subscription } from "rxjs";
     ]
 })
 export class PremiumTableComponent {
-    userPremium$?:Subscription
-    userPremiumList:UserPremiumRes[]=[]
-    page=0
+    userPremium$?: Subscription
+    userPremiumList: UserPremiumRes[] = []
+    page = 0
     sum!: number
     startPage: number = 0
     maxPage: number = 5
@@ -31,49 +31,52 @@ export class PremiumTableComponent {
     query?: string
     loading: boolean = true
     constructor(
-        private router:Router,
-        private userPremiumService:UserPremiumService,
-        private confirmationService: ConfirmationService
-    ){}
+        private router: Router,
+        private userPremiumService: UserPremiumService,
+        private confirmationService: ConfirmationService, 
+        private title: Title,
+    ) {
+        this.title.setTitle('Premium Approve')
+    }
     ngOnInit(): void {
     }
 
-    onApprove(event: Event,id:string,i:number) {
+    onApprove(event: Event, id: string, i: number) {
         this.confirmationService.confirm({
-            target : event.target!,
+            target: event.target!,
             message: 'Are you sure to Approve this transaction? ',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
                 //confirm action
-                const data :UserPremiumReq ={
-                    id:id
+                const data: UserPremiumReq = {
+                    id: id
                 }
-                this.userPremiumService.approve(data).subscribe(result=>{
-                    this.userPremiumList[i].isActive=true
+                this.userPremiumService.approve(data).subscribe(result => {
+                    this.userPremiumList[i].isActive = true
                 })
-                
-                
+
+
             },
             reject: () => {
-               
+
             }
         });
     }
 
-    onReject(event: Event,id:string,i:number) {
+    onReject(event: Event, id: string, i: number) {
         this.confirmationService.confirm({
-            target : event.target!,
+            target: event.target!,
             message: 'Are you sure to Reject this transaction? ',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
-                const data :UserPremiumReq ={
-                    id:id,
-                    isActive:false
+                const data: UserPremiumReq = {
+                    id: id,
+                    isActive: false
                 }
-                this.userPremiumService.approve(data).subscribe(result=>{
-                    this.userPremiumList[i].isActive=false
+                this.userPremiumService.approve(data).subscribe(result => {
+                    this.userPremiumList[i].isActive = false
                 })
-                
+
             },
             reject: () => {
                 //reject action
@@ -81,17 +84,17 @@ export class PremiumTableComponent {
         });
     }
 
-    onRemove(event: Event,id:string,i:number) {
+    onRemove(event: Event, id: string, i: number) {
         this.confirmationService.confirm({
-            target : event.target!,
+            target: event.target!,
             message: 'Are you sure to Remove this transaction? ',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
-               
-                this.userPremiumService.delete(id).subscribe(result=>{
-                    this.userPremiumList.splice(i,1)
+
+                this.userPremiumService.delete(id).subscribe(result => {
+                    this.userPremiumList.splice(i, 1)
                 })
-                
+
             },
             reject: () => {
                 //reject action
@@ -100,8 +103,8 @@ export class PremiumTableComponent {
     }
     loadData(event: LazyLoadEvent) {
         this.getAll(event.first, event.rows, event.globalFilter)
-      }
-    
+    }
+
     getAll(startPage: number = this.startPage, maxPage: number = this.maxPage, query?: string) {
         this.loading = true;
         this.startPage = startPage
@@ -109,8 +112,8 @@ export class PremiumTableComponent {
         this.query = query
 
 
-        this.userPremium$=this.userPremiumService.getAll(maxPage,startPage).subscribe(result=>{
-          
+        this.userPremium$ = this.userPremiumService.getAll(maxPage, startPage).subscribe(result => {
+
             const resultData: any = result
             this.userPremiumList = resultData
             this.loading = false
@@ -121,5 +124,5 @@ export class PremiumTableComponent {
     }
     ngOnDestroy(): void {
         this.userPremium$?.unsubscribe()
-      }
+    }
 }

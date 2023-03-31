@@ -27,41 +27,44 @@ export class PremiumPaymentComponent {
     bank?: BankAccountRes
 
     private bank$?: Subscription
-    premium$?:Subscription
-    premium?:PremiumRes
+    premium$?: Subscription
+    premium?: PremiumRes
 
-    paymentForm=this.fb.group({
-        file:this.fb.group({
-        fileContent:['',Validators.required],
-        fileExtension:['',Validators.required]
+    paymentForm = this.fb.group({
+        file: this.fb.group({
+            fileContent: ['', Validators.required],
+            fileExtension: ['', Validators.required]
         }),
-        premiumId:[''],
-        disable:[true]
+        premiumId: [''],
+        disable: [true]
     })
     constructor(
         private userService: UserService,
         private fb: FormBuilder,
-        private premiumService:PremiumService,
-        private activatedRoute:ActivatedRoute,
-        private userPremiumService:UserPremiumService,
-        private router:Router
-    ) { }
+        private premiumService: PremiumService,
+        private activatedRoute: ActivatedRoute,
+        private userPremiumService: UserPremiumService,
+        private router: Router,
+        private title: Title,
+    ) {
+        this.title.setTitle('Premium Payment / Leaf')
+    }
 
     ngOnInit(): void {
 
         this.bank$ = this.userService.getBank().subscribe(result => {
             this.bank = result
         })
-        this.activatedRoute.params.subscribe(result=>{
-            this.premium$=this.premiumService.getById(result['id']).subscribe(res=>{
-                this.premium=res
+        this.activatedRoute.params.subscribe(result => {
+            this.premium$ = this.premiumService.getById(result['id']).subscribe(res => {
+                this.premium = res
                 this.paymentForm.patchValue({
-                    premiumId:this.premium.id,
-                    
+                    premiumId: this.premium.id,
+
                 })
             })
         })
-        
+
     }
 
 
@@ -86,7 +89,7 @@ export class PremiumPaymentComponent {
                         fileContent: resultBase64,
                         fileExtension: resultExtension
                     },
-                    disable:false
+                    disable: false
                 })
 
             })
@@ -94,17 +97,17 @@ export class PremiumPaymentComponent {
 
 
     }
-    onBuy(){
-        const data:UserPremiumReq={
-            premiumId:this.paymentForm.value.premiumId!,
-            file:{
-                fileContent:this.paymentForm.value.file?.fileContent!,
-                fileExtension:this.paymentForm.value.file?.fileExtension!
+    onBuy() {
+        const data: UserPremiumReq = {
+            premiumId: this.paymentForm.value.premiumId!,
+            file: {
+                fileContent: this.paymentForm.value.file?.fileContent!,
+                fileExtension: this.paymentForm.value.file?.fileExtension!
             }
         }
-        this.userPremiumService.insert(data).subscribe(result=>{
-            const user =  this.userService.user
-            user.isPremium=true
+        this.userPremiumService.insert(data).subscribe(result => {
+            const user = this.userService.user
+            user.isPremium = true
             this.userService.saveDataLogin(user)
             this.router.navigateByUrl(' /home')
         })

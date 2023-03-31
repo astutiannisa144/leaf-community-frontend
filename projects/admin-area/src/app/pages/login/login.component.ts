@@ -25,7 +25,7 @@ export class LoginComponent {
         private router: Router,
         private userService: UserService
     ) {
-        this.title.setTitle('Login page')
+        this.title.setTitle('Login Admin')
     }
 
     onLogin() {

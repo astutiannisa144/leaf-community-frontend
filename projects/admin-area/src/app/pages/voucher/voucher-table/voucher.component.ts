@@ -29,7 +29,7 @@ export class VoucherComponent implements OnInit {
         private title: Title,
         private router: Router
     ) {
-        this.title.setTitle('Leaf-Community')
+        this.title.setTitle('Vouchers')
     }
 
     ngOnInit(): void {

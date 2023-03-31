@@ -19,21 +19,22 @@ import { Subscription } from "rxjs";
 })
 export class ArticleCreateComponent {
 
-    articleForm=this.fb.group({
-        title:[''],
-        content:[''],
-        file:this.fb.group({
-            fileContent:[''],
-            fileExtension:['']
+    articleForm = this.fb.group({
+        title: [''],
+        content: [''],
+        file: this.fb.group({
+            fileContent: [''],
+            fileExtension: ['']
         })
     })
     constructor(
-        private title:Title,
-        private router:Router,
-        private fb:FormBuilder,
-        private articleService:ArticleService
-        
-    ){}
+        private router: Router,
+        private fb: FormBuilder,
+        private articleService: ArticleService,
+        private title: Title,
+    ) {
+        this.title.setTitle('Article Create')
+    }
 
     fileUpload(event: any) {
         const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
@@ -60,17 +61,17 @@ export class ArticleCreateComponent {
             })
         }
     }
-    onCreate(){
-        const data:ArticleReq={
-            title:this.articleForm.value.title!,
-            content:this.articleForm.value.content!,
-            file:{
-                fileContent:this.articleForm.value.file?.fileContent!,
-                fileExtension:this.articleForm.value.file?.fileExtension!,
+    onCreate() {
+        const data: ArticleReq = {
+            title: this.articleForm.value.title!,
+            content: this.articleForm.value.content!,
+            file: {
+                fileContent: this.articleForm.value.file?.fileContent!,
+                fileExtension: this.articleForm.value.file?.fileExtension!,
             }
 
         }
-        this.articleService.insert(data).subscribe(result=>{
+        this.articleService.insert(data).subscribe(result => {
             this.router.navigateByUrl('/article/admin')
         })
     }

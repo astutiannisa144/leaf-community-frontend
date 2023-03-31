@@ -76,9 +76,12 @@ export class EventDetailComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         private userService: UserService,
         private confirmationService:ConfirmationService,
-        private messageService:MessageService
+        private messageService:MessageService,
+        private title: Title
 
-    ) { }
+    ) {
+        this.title.setTitle('Event Detail / Leaf')
+    }
     ngOnInit(): void {
         this.activatedRoute.params.subscribe(result => {
             this.activityId = result['id']

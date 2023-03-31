@@ -47,7 +47,7 @@ export class RevenueComponent implements OnInit {
     private title: Title,
     private router: Router
   ) {
-    this.title.setTitle('Home')
+    this.title.setTitle('Report / Leaf')
   }
 
   scheduleForm = this.fb.group({
