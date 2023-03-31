@@ -1,5 +1,5 @@
 <div class="grid grid-nogutter justify-content-center">
-  <div class="col-11 md:col-8 mt-3" infinite-scroll (scrolled)="onScroll()">
+  <div class="col-11 md:col-8 mt-3 mb-3" infinite-scroll (scrolled)="onScroll()">
     <div class="md:text-md lg:text-xl font-medium text-900 mb-3 align-items-center flex">
       <i class="pi pi-home mr-2" style="font-size: 1.2rem; color: #22C55E;"></i>
       <span>Posts Home</span>
@@ -154,9 +154,7 @@
             </div>
           </div>
         </div>
-
       </div>
-
     </form>
 
     <div class="surface-card mt-4 p-4 shadow-2 border-round" *ngFor="let pl of postList; let i=index">
@@ -332,9 +330,9 @@
           </div>
 
           <div class="flex align-items-start mt-4" *ngFor="let cl of pl.commentList; let j=index">
-            <img *ngIf="pl.fileId" src="http://localhost:1214/files/{{ pl.fileId }}" class="border-circle mr-2"
+            <img *ngIf="cl.fileId" src="http://localhost:1214/files/{{ pl.fileId }}" class="border-circle mr-2"
               style="object-fit : cover; height: 45px; width: 45px;" alt="profile">
-            <p-button *ngIf="!pl.fileId" icon="pi pi-user" [disabled]="true"
+            <p-button *ngIf="!cl.fileId" icon="pi pi-user" [disabled]="true"
               styleClass="p-button-rounded p-button-secondary p-button-outlined bg-gray-100 mr-2 h-3rem w-3rem"></p-button>
             <div class="w-full">
               <div class="shadow-0 border-round-xl border-1 bg-gray-50 p-2" style="color:rgb(227, 227, 227);">
