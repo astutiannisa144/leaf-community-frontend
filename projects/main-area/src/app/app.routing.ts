@@ -5,8 +5,12 @@ import { adminRoutes } from "projects/admin-area/src/app/app-routing";
 
 const appRoutes : Routes = [
     ...memberRoutes,
-    ...adminRoutes
-    
+    ...adminRoutes,
+    {
+        path: '',
+        redirectTo: '/login',
+        pathMatch: 'full'
+      },
 ]
 
 @NgModule({

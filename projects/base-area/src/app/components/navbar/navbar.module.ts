@@ -9,7 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       ],
       imports: [
         ShareModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
       ],
       exports : [
         NavbarComponent,

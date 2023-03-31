@@ -33,6 +33,7 @@ import { TimeAgoPipe } from '../util/time-ago-util';
 import { AutoFocusModule } from 'primeng/autofocus';
 import {BlockUIModule} from 'primeng/blockui';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { TieredMenuCustomComponent } from '../components/tiered-menu/tiered-menu.component';
 
 ToastModule
 @NgModule({
@@ -73,6 +74,7 @@ ToastModule
         AutoFocusModule,
         BlockUIModule,
         ConfirmDialogModule,
+        TieredMenuCustomComponent,
     ],
     exports: [
         ChipModule,
@@ -109,6 +111,7 @@ ToastModule
         AutoFocusModule,
         BlockUIModule,
         ConfirmDialogModule,
+        TieredMenuCustomComponent,
     ]
 })
 export class ShareModule { }
