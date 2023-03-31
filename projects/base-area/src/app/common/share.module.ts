@@ -34,6 +34,7 @@ import { AutoFocusModule } from 'primeng/autofocus';
 import {BlockUIModule} from 'primeng/blockui';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TieredMenuCustomComponent } from '../components/tiered-menu/tiered-menu.component';
+import { GalleriaModule } from 'primeng/galleria';
 
 ToastModule
 @NgModule({
@@ -75,6 +76,7 @@ ToastModule
         BlockUIModule,
         ConfirmDialogModule,
         TieredMenuCustomComponent,
+        GalleriaModule,
     ],
     exports: [
         ChipModule,
@@ -112,6 +114,7 @@ ToastModule
         BlockUIModule,
         ConfirmDialogModule,
         TieredMenuCustomComponent,
+        GalleriaModule,
     ]
 })
 export class ShareModule { }

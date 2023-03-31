@@ -132,7 +132,6 @@ export class MyEventComponent {
       })
     }
 
-
   }
 
   onCategoryCreated() {
