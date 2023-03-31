@@ -1,5 +1,5 @@
 <div class="flex justify-content-center">
-  <div class="col-3  pl-6 mt-2">
+  <div class="hidden md:inline-block md:col-4 lg:col-3  pl-6 mt-2">
 
     <div class="text-xl font-medium text-900 mb-3 align-items-center flex">
       <i class="pi pi-user mr-2" style="font-size: 1.4rem; color: #22C55E;"></i>
@@ -20,12 +20,12 @@
         <p class="text-sm" style="font-weight: 400;">{{profile?.job?.positionName}}</p>
       </div>
       <div class="col py-3 justify-content-center flex">
-        <div class="col-8 justify-content-between flex" >
-          <div *ngFor="let data of profile?.profileSocialMedia" >
-          <a *ngIf="data.username" href="{{data.profileLink}}" target="_blank"> <i
-               class="pi {{data.socialMedia.socialMediaIcon}} mr-2 hover:bg-green-50"
-              style="font-size: 22px; font-weight: 500; color: #a4a4a4;">
-            </i></a>
+        <div class="col-8 justify-content-between flex">
+          <div *ngFor="let data of profile?.profileSocialMedia">
+            <a *ngIf="data.username" href="{{data.profileLink}}" target="_blank"> <i
+                class="pi {{data.socialMedia.socialMediaIcon}} mr-2 hover:bg-green-50"
+                style="font-size: 22px; font-weight: 500; color: #a4a4a4;">
+              </i></a>
           </div>
         </div>
       </div>
@@ -67,7 +67,7 @@
     </div>
   </div>
 
-  <div class="col-7 ml-4 mt-2">
+  <div class="col-11 md:col-7 md:ml-4 mt-2">
     <div class="text-xl font-medium text-900 mb-3 align-items-center flex">
       <i class="pi pi-align-justify
       mr-2" style="font-size: 1.4rem; color: #22C55E;"></i>
@@ -98,15 +98,18 @@
                     </div>
                   </div>
                 </div>
-                <div class="col flex justify-content-end p-0">
+                <div class="col-5 md:col flex justify-content-end p-0">
                   <div class="align-items-center flex">
                     <ng-container>
-                      <p-tag [rounded]="true" severity="warning" class="mr-2" *ngIf="pl.isPremium">
-                        <p class="my-0 mx-1" style="font-size: 12px; font-weight: 500;">Premium</p>
-                      </p-tag>
-                      <p-tag [rounded]="true" severity="info" class="mr-2">
-                        <p class="my-0 mx-1" style="font-size: 12px; font-weight: 500; ">{{ pl.categoryName }}</p>
-                      </p-tag>
+                      <div class="lg:flex">
+                        <p-tag [rounded]="true" severity="warning" class="justify-content-end flex md:mr-2"
+                          *ngIf="pl.isPremium">
+                          <p class="my-0 mx-1" style="font-size: 12px; font-weight: 500;">Premium</p>
+                        </p-tag>
+                        <p-tag [rounded]="true" severity="info" class="md: mr-2">
+                          <p class="my-0 mx-1" style="font-size: 12px; font-weight: 500; ">{{ pl.categoryName }}</p>
+                        </p-tag>
+                      </div>
                       <div class="mt-1 ml-2">
                         <app-tiered-menu [model]="postEdit" topSpace="8px" rightSpace="8px"
                           *ngIf="userId == pl.memberId">
@@ -230,7 +233,8 @@
                     <img *ngIf="pl.fileId" src="http://localhost:1214/files/{{ pl.fileId }}" class="border-circle mr-2"
                       style="object-fit : cover; height: 45px; width: 45px;" alt="profile">
                     <p-button *ngIf="!pl.fileId" icon="pi pi-user" [disabled]="true"
-                      styleClass="p-button-rounded p-button-secondary p-button-outlined w-3rem h-3rem bg-gray-100 mr-2"></p-button>
+                      styleClass="p-button-rounded p-button-secondary p-button-outlined w-3rem h-3rem bg-gray-100 mr-2">
+                    </p-button>
                     <div class="w-full">
                       <div class="col-12 p-0">
                         <form class="p-inputgroup flex" [formGroup]="comment">
@@ -246,7 +250,8 @@
                     <img *ngIf="cl.fileId" src="http://localhost:1214/files/{{ pl.fileId }}" class="border-circle mr-2"
                       style="object-fit : cover; height: 45px; width: 45px;" alt="profile">
                     <p-button *ngIf="!cl.fileId" icon="pi pi-user" [disabled]="true"
-                      styleClass="p-button-rounded p-button-secondary p-button-outlined bg-gray-100 mr-2 h-3rem w-3rem"></p-button>
+                      styleClass="p-button-rounded p-button-secondary p-button-outlined bg-gray-100 mr-2 h-3rem w-3rem">
+                    </p-button>
                     <div class="w-full">
                       <div class="shadow-0 border-round-xl border-1 bg-green-50 p-2" style="color:rgb(227, 227, 227);">
                         <div class="flex p-0 pl-1">
@@ -467,7 +472,8 @@
                     <img *ngIf="pl.fileId" src="http://localhost:1214/files/{{ pl.fileId }}" class="border-circle mr-2"
                       style="object-fit : cover; height: 45px; width: 45px;" alt="profile">
                     <p-button *ngIf="!pl.fileId" icon="pi pi-user" [disabled]="true"
-                      styleClass="p-button-rounded p-button-secondary p-button-outlined w-3rem h-3rem bg-gray-100 mr-2"></p-button>
+                      styleClass="p-button-rounded p-button-secondary p-button-outlined w-3rem h-3rem bg-gray-100 mr-2">
+                    </p-button>
                     <div class="w-full">
                       <div class="col-12 p-0">
                         <form class="p-inputgroup flex" [formGroup]="comment">
@@ -483,7 +489,8 @@
                     <img *ngIf="cl.fileId" src="http://localhost:1214/files/{{ pl.fileId }}" class="border-circle mr-2"
                       style="object-fit : cover; height: 45px; width: 45px;" alt="profile">
                     <p-button *ngIf="!cl.fileId" icon="pi pi-user" [disabled]="true"
-                      styleClass="p-button-rounded p-button-secondary p-button-outlined bg-gray-100 mr-2 h-3rem w-3rem"></p-button>
+                      styleClass="p-button-rounded p-button-secondary p-button-outlined bg-gray-100 mr-2 h-3rem w-3rem">
+                    </p-button>
                     <div class="w-full">
                       <div class="shadow-0 border-round-xl border-1 bg-green-50 p-2" style="color:rgb(227, 227, 227);">
                         <div class="flex p-0 pl-1">
@@ -703,7 +710,8 @@
                     <img *ngIf="pl.fileId" src="http://localhost:1214/files/{{ pl.fileId }}" class="border-circle mr-2"
                       style="object-fit : cover; height: 45px; width: 45px;" alt="profile">
                     <p-button *ngIf="!pl.fileId" icon="pi pi-user" [disabled]="true"
-                      styleClass="p-button-rounded p-button-secondary p-button-outlined w-3rem h-3rem bg-gray-100 mr-2"></p-button>
+                      styleClass="p-button-rounded p-button-secondary p-button-outlined w-3rem h-3rem bg-gray-100 mr-2">
+                    </p-button>
                     <div class="w-full">
                       <div class="col-12 p-0">
                         <form class="p-inputgroup flex" [formGroup]="comment">
@@ -719,7 +727,8 @@
                     <img *ngIf="cl.fileId" src="http://localhost:1214/files/{{ pl.fileId }}" class="border-circle mr-2"
                       style="object-fit : cover; height: 45px; width: 45px;" alt="profile">
                     <p-button *ngIf="!cl.fileId" icon="pi pi-user" [disabled]="true"
-                      styleClass="p-button-rounded p-button-secondary p-button-outlined bg-gray-100 mr-2 h-3rem w-3rem"></p-button>
+                      styleClass="p-button-rounded p-button-secondary p-button-outlined bg-gray-100 mr-2 h-3rem w-3rem">
+                    </p-button>
                     <div class="w-full">
                       <div class="shadow-0 border-round-xl border-1 bg-green-50 p-2" style="color:rgb(227, 227, 227);">
                         <div class="flex p-0 pl-1">

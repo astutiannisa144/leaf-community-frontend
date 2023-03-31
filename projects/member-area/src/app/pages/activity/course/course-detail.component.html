@@ -1,35 +1,35 @@
-
-
 <div class="flex justify-content-center mt-3">
   <div class="col-11">
+    <div class="col p-0">
+      <div class="align-items-center flex mb-3">
+        <button pButton pRipple type="button" routerLink="/activities/course/{{course?.activityTypeId}}"
+          icon="pi pi-arrow-left" class="p-button-rounded p-button-primary"></button>
 
-    <div class="align-items-center flex mb-3">
-      <button pButton pRipple type="button" routerLink="/activities/course/{{course?.activityTypeId}}" icon="pi pi-arrow-left"
-        class="p-button-rounded p-button-primary"></button>
-
-      <ul class="list-none p-0 m-0 flex align-items-center font-medium ml-3">
-        <li>
-          <a class="text-500 no-underline line-height-3 cursor-pointer">Courses</a>
-        </li>
-        <li class="px-2">
-          <i class="pi pi-angle-right text-500 line-height-3"></i>
-        </li>
-        <li>
-          <span class="text-900 line-height-3">Course Detail</span>
-          <i *ngIf="memberId" (click)="onUpdate()"
-            class="pi pi-fw pi-pencil hover:bg-gray-300 border-round-sm cursor-pointer ml-3"></i>
+        <ul class="list-none p-0 m-0 flex align-items-center font-medium ml-3">
+          <li>
+            <a class="text-500 no-underline line-height-3 cursor-pointer"
+              routerLink="/activities/course/{{course?.activityTypeId}}">Courses</a>
+          </li>
+          <li class="px-2">
+            <i class="pi pi-angle-right text-500 line-height-3"></i>
+          </li>
+          <li>
+            <span class="text-900 line-height-3">Course Detail</span>
+            <i *ngIf="memberId" (click)="onUpdate()"
+              class="pi pi-fw pi-pencil hover:bg-gray-300 border-round-sm cursor-pointer ml-3"></i>
             <i *ngIf="memberId" (click)="onDelete()"
-            class="pi pi-fw pi-trash hover:bg-gray-300 border-round-sm cursor-pointer ml-3"></i>
-        </li>
-      </ul>
+              class="pi pi-fw pi-trash hover:bg-gray-300 border-round-sm cursor-pointer ml-3"></i>
+          </li>
+        </ul>
+      </div>
     </div>
 
     <div class="grid grid-nogutter justify-content-center">
       <div class="surface-card p-3 shadow-2 border-round ">
         <div class="col-12 justify-content-center grid grid-nogutter">
           <div class="col-12 lg:col-8 md:lg-8 mr-0 lg:mr-3" *ngIf="course">
-            <img alt="Logo Class" src="http://localhost:1214/files/{{course.fileId}}"
-              class="w-full border-round-md" style="height: 24.5rem;">
+            <img alt="Logo Class" src="http://localhost:1214/files/{{course.fileId}}" class="w-full border-round-md"
+              style="height: 24.5rem;">
           </div>
 
           <div class="col-12 lg:col-3 md:col-3 justify-content-end">
@@ -216,110 +216,3 @@
 
 
   <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
-
-    <div class="col-3">
-
-      <div class="align-items-center flex">
-        <button pButton pRipple type="button" routerLink="/activities/course" icon="pi pi-arrow-left"
-          class="p-button-rounded p-button-primary"></button>
-
-        <ul class="list-none p-0 m-0 flex align-items-center font-medium ml-3">
-          <li>
-            <a class="text-500 no-underline line-height-3 cursor-pointer">Courses</a>
-          </li>
-          <li class="px-2">
-            <i class="pi pi-angle-right text-500 line-height-3"></i>
-          </li>
-          <li>
-            <span class="text-900 line-height-3">Course Detail</span>
-          </li>
-        </ul>
-      </div>
-
-    </div>
-    <div class="col-8"></div>
-  </div>
-  <div class="grid justify-content-center mt-3">
-    <div class="col-11">
-      <div class="text-xl font-medium text-900 mb-3 align-items-center flex">
-        <i class="pi pi-calendar mr-2" style="font-size: 1.4rem; color: #22C55E;"></i>
-        <span>Course Detail <i *ngIf="memberId" (click)="onUpdate()"
-            class="pi pi-fw pi-pencil hoverable-element"></i></span>
-      </div>
-      <div class="grid justify-content-center">
-        <div class="col-12">
-          <div class="surface-card p-3 shadow-2 border-round ">
-            <div class="col-12 justify-content-center flex">
-              <div class="col-8 mr-3" *ngIf="course">
-                <img alt="Logo Class" src="http://localhost:1214/files/{{course.fileId}}" class="w-full h-20rem">
-              </div>
-
-              <div class="col-3 justify-content-end">
-
-                <div class="surface-card py-3 px-4 shadow-2 border-round ">
-                  <div class="grid justify-content-center">
-                    <p-chip styleClass="mr-2 mt-1  custom-chip">
-                      <p class="my-1" style="font-size: 14px; font-weight: 500;">{{course?.categoryName}}</p>
-                    </p-chip>
-                  </div>
-
-                  <div class="grid mt-1">
-                    <div class="col align-items-center">
-                      <p class="my-4 align-items-center flex" style="font-size: 16px; font-weight: 400;"> <i
-                          class="pi pi-map-marker mr-3"
-                          style="font-size: 22px; font-weight: 400; color: #4CAF50;"></i>{{course?.locationAddress}}</p>
-                      <p class="my-4 align-items-center flex" style="font-size: 16px; font-weight: 400;"
-                        *ngFor="let sch of course?.schedule"> <i class="pi pi-calendar mr-3"
-                          style="font-size: 22px; font-weight: 400; color: #4CAF50;"></i>{{sch.scheduleDate | date : 'fullDate'   }}
-                      </p>
-                      <p class="my-4 align-items-center flex" style="font-size: 16px; font-weight: 400;"> <i
-                          class="pi pi-clock mr-3"
-                          style="font-size: 22px; font-weight: 400; color: #4CAF50;"></i>{{course?.timeStart }}
-                        - {{course?.timeEnd}}
-                      </p>
-                      <p class="mt-6" style="font-weight: 500;">Course Provider :</p>
-                      <p class=" mt-3 align-items-center flex" style="font-size: 16px; font-weight: 400;"> <i
-                          class="pi pi-building mr-3"
-                          style="font-size: 22px; font-weight: 400; color: #ED1C85;"></i>{{course?.provider}}
-                      </p>
-
-
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-            <div class="grid justify-content-center flex">
-              <div class="col-8 justify-content-center ">
-                <p-tabView styleClass="tabview-custom">
-                  <p-tabPanel>
-                    <ng-template pTemplate="header">
-                      <i class="pi pi-bars mr-2"></i>
-                      <span>Description</span>
-                    </ng-template>
-
-                    <p style="line-height: 25px;">{{course?.description}}
-
-                    </p>
-                  </p-tabPanel>
-                </p-tabView>
-              </div>
-
-              <div class="col-3 mt-3">
-                <div class="surface-card py-3 px-4 shadow-2 border-round  " *ngIf="!memberId">
-                  <div class="grid flex">
-                    <div class="col 12 justify-content-center flex">
-                      <button pButton pRipple type="button" label="Buy Course"
-                        class="p-button-primary font-medium w-full"
-                        routerLink="/activities/course-payment/{{course?.id}}"></button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> -->
