@@ -7,6 +7,8 @@ import { CommonModule } from '@angular/common';
 import { StepperComponent } from "../../../base-area/src/app/components/stepper/stepper.component";
 import { TieredMenuCustomComponent } from "../../../base-area/src/app/components/tiered-menu/tiered-menu.component";
 import { NavbarComponent } from 'projects/base-area/src/app/components/navbar/navbar.component';
+import { AuthRoleGuard } from 'projects/base-area/src/app/guard/auth-role.guard';
+import { Role } from 'projects/base-area/src/app/constant/role.service';
 
 export const adminRoutes: Routes = [
 
@@ -17,35 +19,34 @@ export const adminRoutes: Routes = [
   {
     path: 'article/admin',
     loadChildren: () => import("./pages/article/article-admin.module").then(c => c.ArticleAdminModule),
-    component: NavbarComponent
+    component: NavbarComponent,
+    canActivate : [ AuthRoleGuard ],
+    data : [ Role.Admin ]
   },
-
   {
     path: 'activities/admin',
     loadChildren: () => import("./pages/activity/activity-admin.module").then(c => c.CourseAdminModule),
-    component: NavbarComponent
+    component: NavbarComponent,
+    canActivate : [ AuthRoleGuard ],
+    data : [ Role.Admin ]
   },
-
   {
     path: 'voucher',
     loadChildren: () => import("./pages/voucher/voucher.module").then(c => c.VoucherModule),
     component: NavbarComponent
   },
-
   {
     path: 'premium/admin',
     loadChildren: () => import("./pages/approve-premium/approve-premium.module").then(c => c.ApprovePremiumModule),
     component: NavbarComponent
   },
-
-  
-
   {
     path: 'activity-history',
     loadChildren: () => import("./pages/activity-history/activity-history.module").then(c => c.ActivityHistoryModule),
-    component: NavbarComponent
+    component: NavbarComponent,
+    canActivate : [ AuthRoleGuard ],
+    data : [ Role.Admin ]
   },
-
 
 ];
 
