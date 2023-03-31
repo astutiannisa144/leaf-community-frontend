@@ -12,12 +12,14 @@
           <i class="pi pi-bolt font-semibold"></i>
           <p class="ml-2 font-medium" style="color: black;">Try Premium</p>
         </p-button>
-        <img *ngIf="src" src="{{src}}" class="border-circle cursor-pointer mr-2" width="40" height="40"
-          style="object-fit : cover;" alt="profile" (click)="menu.toggle($event)">
-        <p-button *ngIf="!src" icon="pi pi-user"  (click)="menu.toggle($event)" 
-          styleClass="p-button-rounded p-button-secondary p-button-outlined bg-gray-100 h-3rem w-3rem"></p-button>
-
-        <p-tieredMenu #menu [model]="itemProfile" [popup]="true"></p-tieredMenu>
+        <app-tiered-menu [model]="itemProfile" topSpace="8px" rightSpace="8px">
+          <ng-template #content>
+            <img *ngIf="src" src="{{src}}" class="border-circle cursor-pointer mr-2 mt-1" width="45" height="45"
+              style="object-fit : cover;" alt="profile">
+            <p-button *ngIf="!src" icon="pi pi-user"
+              styleClass="p-button-rounded p-button-secondary p-button-outlined bg-gray-100 h-3rem w-3rem mr-2 mt-1"></p-button>
+          </ng-template>
+        </app-tiered-menu>
       </div>
 
     </ng-template>

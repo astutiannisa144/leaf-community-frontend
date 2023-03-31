@@ -35,6 +35,7 @@ export class NavbarComponent {
   src!: string
   fileId!: string
   res!: string
+
   constructor(
     private router: Router,
     private activityService: ActivityService,
@@ -46,7 +47,7 @@ export class NavbarComponent {
 
   adminProfile: MenuItem[] = [
     {
-      label: 'Hello, Admin!',
+      label: `Hello, ${this.userService.user.fullName}!`,
 
     },
     {
@@ -70,7 +71,7 @@ export class NavbarComponent {
 
   memberProfile: MenuItem[] = [
     {
-      label: 'Hello, User!',
+      label: `Hello, ${this.userService.user.fullName}!`,
 
     },
     {
@@ -208,13 +209,13 @@ export class NavbarComponent {
     })
 
       if (!this.userService.user.fileBase64&&this.userService.user.fileId) {
+
         this.src = `${BASE_URL}/files/${this.userService.user.fileId!}`
       } 
       
         this.src = this.userService.user.fileBase64
         this.res = this.userService.user.fileBase64
       
-
 
       if (this.roleCode == Role.SuperAdmin) {
         this.items = this.superAdminNav
@@ -223,7 +224,6 @@ export class NavbarComponent {
       else if (this.roleCode == Role.Member) {
         this.items = this.memberNav
         this.itemProfile = this.memberProfile
-
       }
 
       else if (this.roleCode == Role.Admin) {
@@ -231,13 +231,10 @@ export class NavbarComponent {
         this.itemProfile = this.adminProfile
       }
 
-
       this.activityType$ = this.activityService.getActivityType().subscribe(result => {
         this.activityTypeList = result
       })
 
-
-    
   }
 
   onLogout() {

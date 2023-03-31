@@ -20,13 +20,12 @@ import { ProgressBarComponent } from 'projects/base-area/src/app/components/prog
         ProfilePostComponent
     ],
     imports: [
-        PostRouting,
         CommonModule,
+        PostRouting,
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
         ShareModule,
-        TieredMenuCustomComponent,
         PostImageComponent,
         InfiniteScrollModule,
         ProgressBarComponent
