@@ -201,7 +201,7 @@ export class PostHomeComponent implements OnInit {
     private title: Title,
     private router: Router
   ) {
-    this.title.setTitle('Home / Leaf')
+    this.title.setTitle('Home')
   }
 
   ngOnInit(): void {
@@ -709,6 +709,7 @@ export class PostHomeComponent implements OnInit {
     this.previewImage = true
     this.activeImagePreview = index
     this.imageGaleria = imageList
+    
   }
 
   onCloseImagePreview() {
