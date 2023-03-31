@@ -29,16 +29,19 @@ export class ArticleTableComponent {
     constructor(
         private router: Router,
         private articleService: ArticleService,
-        private confirmationService: ConfirmationService
-    ) { }
+        private confirmationService: ConfirmationService,
+        private title: Title,
+    ) {
+        this.title.setTitle('Articles')
+    }
 
     ngOnInit(): void {
         this.getArticle()
-        
-      
+
+
     }
-    getArticle(){
-        this.article$ = this.articleService.getArticle(ARTICLE_LIMIT,this.page).subscribe(result => {
+    getArticle() {
+        this.article$ = this.articleService.getArticle(ARTICLE_LIMIT, this.page).subscribe(result => {
             this.articleList = result
         })
     }
@@ -46,27 +49,27 @@ export class ArticleTableComponent {
         this.router.navigateByUrl('/posts/create')
     }
     onScroll(): void {
-        this.article$ = this.articleService.getArticle(ARTICLE_LIMIT,  this.page++).subscribe(result => {
-          if (result) {
-            
-            if (this.articleList.length) {
-              this.articleList = [...this.articleList, ...result]
-            } else {
-              this.articleList = result
+        this.article$ = this.articleService.getArticle(ARTICLE_LIMIT, this.page++).subscribe(result => {
+            if (result) {
+
+                if (this.articleList.length) {
+                    this.articleList = [...this.articleList, ...result]
+                } else {
+                    this.articleList = result
+                }
             }
-          }
         })
-      }
-    confirm(event: Event,id:string,i:number) {
+    }
+    confirm(event: Event, id: string, i: number) {
         this.confirmationService.confirm({
-            target : event.target!,
+            target: event.target!,
             message: 'Are you sure to delete this article? ',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
                 //confirm action
-                this.articleService.delete(id).subscribe(result=>{
+                this.articleService.delete(id).subscribe(result => {
                     this.getArticle()
-                    this.articleList.splice(i,1)
+                    this.articleList.splice(i, 1)
                 })
             },
             reject: () => {

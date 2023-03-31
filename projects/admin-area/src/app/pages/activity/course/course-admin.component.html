@@ -65,11 +65,12 @@
             <td>
 
               <div class="justify-content-center flex gap-1">
-                <button pButton pRipple type="button" icon="pi pi-check" (click)="onApprove($event,item.id,i)"></button>
+                <button pButton pRipple type="button" icon="pi pi-check" (click)="onApprove($event,item.id,i)"
+                  pTooltip="Approve payment" tooltipPosition="bottom"></button>
                 <p-confirmPopup></p-confirmPopup>
 
                 <button pButton pRipple type="button" icon="pi pi-times" class="p-button-danger"
-                  (click)="onReject($event,item.id,i)"></button>
+                  (click)="onReject($event,item.id,i)" pTooltip="Reject payment" tooltipPosition="bottom"></button>
                 <p-confirmPopup></p-confirmPopup>
               </div>
 

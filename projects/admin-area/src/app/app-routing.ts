@@ -33,7 +33,7 @@ export const adminRoutes: Routes = [
   },
 
   {
-    path: 'premium',
+    path: 'premium/admin',
     loadChildren: () => import("./pages/approve-premium/approve-premium.module").then(c => c.ApprovePremiumModule),
     component: NavbarComponent
   },

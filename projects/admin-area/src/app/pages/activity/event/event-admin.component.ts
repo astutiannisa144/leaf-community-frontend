@@ -34,8 +34,11 @@ export class EventAdminComponent implements OnInit,OnDestroy {
     constructor(
         private router: Router,
         private userActivityService: UserActivityService,
-        private confirmationService: ConfirmationService
-    ) { }
+        private confirmationService: ConfirmationService,
+        private title: Title,
+  ) {
+    this.title.setTitle('Events')
+  }
     ngOnInit(): void {
 
     }

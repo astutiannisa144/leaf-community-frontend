@@ -201,7 +201,7 @@ export class PostHomeComponent implements OnInit {
     private title: Title,
     private router: Router
   ) {
-    this.title.setTitle('Home')
+    this.title.setTitle('Home / Leaf')
   }
 
   ngOnInit(): void {

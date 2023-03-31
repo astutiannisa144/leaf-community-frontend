@@ -114,8 +114,12 @@ export class CourseComponent implements OnInit{
         private activityService: ActivityService,
         private categoryService:CategoryService,
         private fb:FormBuilder,
-        private activatedRoute:ActivatedRoute
-    ) { }
+        private activatedRoute:ActivatedRoute,
+        private title: Title
+
+        ) {
+            this.title.setTitle('Courses / Leaf')
+        }
     ngOnInit(): void {
         this.activatedRoute.params.subscribe(result => {
             this.activityTypeId=result['id']

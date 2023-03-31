@@ -51,9 +51,11 @@ export class EventUpdateComponent implements OnInit, AfterContentChecked {
         private fb: FormBuilder,
         private activatedRoute: ActivatedRoute,
         private categoryService: CategoryService,
-        private ref: ChangeDetectorRef
-
-    ) { }
+        private ref: ChangeDetectorRef,
+        private title: Title
+    ) {
+        this.title.setTitle('Event Update / Leaf')
+    }
     home!: MenuItem;
     ngAfterContentChecked() {
         this.ref.detectChanges();

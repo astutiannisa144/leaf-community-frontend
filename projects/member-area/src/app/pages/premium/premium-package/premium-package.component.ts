@@ -17,18 +17,21 @@ import { Subscription } from "rxjs";
     <div (mouseenter)="onHover()" (mouseleave)="onLeave()" class="hoverable-element">Hover me!</div>
     `,
 })
-export class PremiumComponent implements OnInit{
-    premium$?:Subscription
-    premiumList:PremiumRes[]=[]
+export class PremiumComponent implements OnInit {
+    premium$?: Subscription
+    premiumList: PremiumRes[] = []
 
 
     constructor(
-        private premiumService:PremiumService,
-        private router:Router
-    ){}
+        private premiumService: PremiumService,
+        private router: Router,
+        private title: Title,
+    ) {
+        this.title.setTitle('Premium Package / Leaf')
+    }
     ngOnInit(): void {
-        this.premium$=this.premiumService.getAll().subscribe(result=>{
-            this.premiumList=result
+        this.premium$ = this.premiumService.getAll().subscribe(result => {
+            this.premiumList = result
         })
     }
 

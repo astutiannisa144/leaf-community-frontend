@@ -55,7 +55,7 @@ export class ActivityHistoryComponent implements OnInit {
     private title: Title,
     private router: Router
   ) {
-    this.title.setTitle('Home')
+    this.title.setTitle('Reports')
   }
 
   scheduleForm = this.fb.group({

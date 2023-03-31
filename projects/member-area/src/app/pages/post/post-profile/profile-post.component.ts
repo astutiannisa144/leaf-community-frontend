@@ -154,11 +154,11 @@ export class ProfilePostComponent implements OnInit {
     private commentService: CommentService,
     private bookmarkService: BookmarkService,
     private fb: FormBuilder,
-    private title: Title,
     private router: Router,
     private profileService: ProfileService,
+    private title: Title,
   ) {
-    this.title.setTitle('Home')
+    this.title.setTitle('Profile Post / Leaf')
   }
   ngOnInit(): void {
   

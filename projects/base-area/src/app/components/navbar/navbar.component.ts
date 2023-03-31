@@ -110,12 +110,7 @@ export class NavbarComponent {
       }
       ],
     },
-    {
-      icon: 'pi pi-fw pi-bolt',
-      label: 'Subscription',
-      routerLink: '/premium'
 
-    },
 
     {
       icon: 'pi pi-fw pi-file',
@@ -147,6 +142,12 @@ export class NavbarComponent {
 
       }
       ],
+    },
+    {
+      icon: 'pi pi-fw pi-bolt',
+      label: 'Subscription',
+      routerLink: '/premium/admin'
+
     },
 
     {
@@ -204,8 +205,8 @@ export class NavbarComponent {
   ]
 
   ngOnInit(): void {
-    this.profileService.profileImage$?.subscribe(result=>{
-      this.src=result
+    this.profileService.profileImage$?.subscribe(result => {
+      this.src = result
     })
 
 
@@ -218,25 +219,28 @@ export class NavbarComponent {
         this.res = this.userService.user.fileBase64
       }
        
-      
 
-      if (this.roleCode == Role.SuperAdmin) {
-        this.items = this.superAdminNav
-        this.itemProfile = this.superAdminProfile
-      }
-      else if (this.roleCode == Role.Member) {
-        this.items = this.memberNav
-        this.itemProfile = this.memberProfile
-      }
+    this.src = this.userService.user.fileBase64
+    this.res = this.userService.user.fileBase64
 
-      else if (this.roleCode == Role.Admin) {
-        this.items = this.adminNav
-        this.itemProfile = this.adminProfile
-      }
 
-      this.activityType$ = this.activityService.getActivityType().subscribe(result => {
-        this.activityTypeList = result
-      })
+    if (this.roleCode == Role.SuperAdmin) {
+      this.items = this.superAdminNav
+      this.itemProfile = this.superAdminProfile
+    }
+    else if (this.roleCode == Role.Member) {
+      this.items = this.memberNav
+      this.itemProfile = this.memberProfile
+    }
+
+    else if (this.roleCode == Role.Admin) {
+      this.items = this.adminNav
+      this.itemProfile = this.adminProfile
+    }
+
+    this.activityType$ = this.activityService.getActivityType().subscribe(result => {
+      this.activityTypeList = result
+    })
 
   }
 

@@ -27,35 +27,39 @@ import { Subscription } from "rxjs";
 })
 
 export class ArticleDetailComponent implements OnInit {
-    article$?:Subscription
-    article?:ArticleRes
-    private activity$?:Subscription
-    activityList:ActivityRes[] = []
-    page=1
-    role!:string
+    article$?: Subscription
+    article?: ArticleRes
+    private activity$?: Subscription
+    activityList: ActivityRes[] = []
+    page = 1
+    role!: string
     constructor(
         private router: Router,
-        private articleService:ArticleService,
-        private activityService:ActivityService,
-        private userService:UserService,
-        private activatedRoute:ActivatedRoute
-    ) { }
+        private articleService: ArticleService,
+        private activityService: ActivityService,
+        private userService: UserService,
+        private activatedRoute: ActivatedRoute,
+        private title: Title
+
+    ) {
+        this.title.setTitle('Article Detail / Leaf')
+    }
 
     ngOnInit(): void {
         this.getArticle()
         this.getActivity()
-        this.role=this.userService.roleCode
+        this.role = this.userService.roleCode
     }
-    getArticle(){
-        this.activatedRoute.params.subscribe(result=>{
-            this.article$=this.articleService.getById(result['id']).subscribe(res=>{
-                this.article=res
+    getArticle() {
+        this.activatedRoute.params.subscribe(result => {
+            this.article$ = this.articleService.getById(result['id']).subscribe(res => {
+                this.article = res
             })
         })
-        
+
     }
-    getActivity(){
-        this.activity$ = this.activityService.getActivityByType(ACTIVITY_LIMIT/2,this.page).subscribe(result => {
+    getActivity() {
+        this.activity$ = this.activityService.getActivityByType(ACTIVITY_LIMIT / 2, this.page).subscribe(result => {
             this.activityList = result
         })
     }
