@@ -19,11 +19,13 @@
         <p class="text-sm" style="font-weight: 400;">{{profile?.job?.positionName}}</p>
       </div>
       <div class="col py-3 justify-content-center flex">
-        <div class="col-8 justify-content-between flex">
-          <a *ngFor="let data of profile?.profileSocialMedia" href="{{data.profileLink}}" target="_blank"> <i
-              *ngIf="data.username" class="pi {{data.socialMedia.socialMediaIcon}} mr-2 hover:bg-green-50"
+        <div class="col-8 justify-content-between flex" >
+          <div *ngFor="let data of profile?.profileSocialMedia" >
+          <a *ngIf="data.username" href="{{data.profileLink}}" target="_blank"> <i
+               class="pi {{data.socialMedia.socialMediaIcon}} mr-2 hover:bg-green-50"
               style="font-size: 22px; font-weight: 500; color: #a4a4a4;">
             </i></a>
+          </div>
         </div>
       </div>
 
