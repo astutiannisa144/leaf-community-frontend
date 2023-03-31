@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, HostListener, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -101,7 +101,7 @@ export class ProfilePostComponent implements OnInit {
   private comment$?: Subscription
   private post$?: Subscription
   private like$?: Subscription
-  private profile$? : Subscription
+  private profile$?: Subscription
 
   private deleteComment$?: Subscription
   private editComment$?: Subscription
@@ -114,7 +114,7 @@ export class ProfilePostComponent implements OnInit {
 
   profile?: ProfileRes
 
-  postCode : string = POST_CODE.PROFILE
+  postCode: string = POST_CODE.PROFILE
   commentId!: string
   postId!: string
   fileId!: string
@@ -128,7 +128,12 @@ export class ProfilePostComponent implements OnInit {
 
   commentPage = 0
   postPage = 0
-  src:string=''
+  src: string = ''
+
+  previewImage = false
+  activeImagePreview = 0
+  imageGalleria: string[] = []
+
   comment = this.fb.group({
     postId: [''],
     content: ['']
@@ -161,11 +166,11 @@ export class ProfilePostComponent implements OnInit {
     this.title.setTitle('Profile Post / Leaf')
   }
   ngOnInit(): void {
-  
-    if(this.userService.user.fileId){
-      this.src=BASE_URL+'/files/'+this.userService.user.fileId
-    }else if(this.userService.user.fileBase64){
-      this.src=this.userService.user.fileBase64
+
+    if (this.userService.user.fileId) {
+      this.src = BASE_URL + '/files/' + this.userService.user.fileId
+    } else if (this.userService.user.fileBase64) {
+      this.src = this.userService.user.fileBase64
     }
     this.getPost()
     this.getProfile()
@@ -408,7 +413,7 @@ export class ProfilePostComponent implements OnInit {
     })
   }
 
-  changeTab(event : any){
+  changeTab(event: any) {
     console.log(event.index)
     if (event.index == 0) {
       this.postCode = POST_CODE.PROFILE
@@ -416,12 +421,12 @@ export class ProfilePostComponent implements OnInit {
       this.postCode = POST_CODE.LIKE
     } else if (event.index == 2) {
       this.postCode = POST_CODE.BOOKMARK
-    } 
+    }
 
     this.postPage = 0
 
     this.post$ = this.postService.getPost(POST_LIMIT, this.postPage, this.postCode).subscribe(result => {
-      if(result){
+      if (result) {
         result.map(p => {
           p.showComment = false
           p.showEdit = false
@@ -453,7 +458,7 @@ export class ProfilePostComponent implements OnInit {
     {
       len: 1,
       imageItem: [
-        { class: 'w-full h-15rem' }
+        { class: 'w-full h-20rem' }
       ]
     },
     {
@@ -468,13 +473,21 @@ export class ProfilePostComponent implements OnInit {
         { class: 'w-4 h-10rem' }, { class: 'w-4 h-10rem' }, { class: 'w-4 h-10rem' }
       ]
     },
-    {
-      len: 4,
-      imageItem: [
-        { class: 'w-full h-15rem' }, { class: 'w-4 h-15rem' }, { class: 'w-4 h-15rem' }, { class: 'w-4 h-15rem' }
-      ]
-    },
   ]
+
+  onCloseImagePreview() {
+    this.previewImage = false
+  }
+
+  clickImage(index: number, imageList: string[]) {
+    this.previewImage = true
+    this.activeImagePreview = index
+    this.imageGalleria = imageList
+  }
+
+  @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(evt: KeyboardEvent) {
+    this.previewImage = false
+  }
 
   ngOnDestroy(): void {
     this.category$?.unsubscribe()
