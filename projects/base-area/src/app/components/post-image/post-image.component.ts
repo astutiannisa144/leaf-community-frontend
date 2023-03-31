@@ -13,13 +13,14 @@ import { Component, EventEmitter, Input, Output, OnChanges } from "@angular/core
     template: `
     <div class="flex flex-wrap container-image">
         <ng-container *ngFor="let url of imagesUrl; let i=index;">
-            <img *ngIf="option && i <= (option.len - 2);" class="{{option.imageItem[i].class}} border-round-lg border-x-1 border-white image cursor-pointer" (click)="onClickImage(url)" [src]="url" alt="image-{{i}}">
-            <div *ngIf="option && i == (option.len - 1);" class="{{option.imageItem[i].class}} relative cursor-pointer plus" (click)="onClickImage(imagesUrl.length > imageOptions.length ? (i+1) : url)">
-                <img class="border-round-lg border-x-1 border-white w-full h-full image {{ imagesUrl.length > imageOptions.length ? 'opacity-20' : ''}}" [src]="url" alt="image-{{i}}">
+            <img *ngIf="option && i <= (option.len - 2);" class="{{option.imageItem[i].class}} border-round-lg border-x-1 border-white image cursor-pointer" (click)="onClickImage(i)" [src]="url" alt="image-{{i}}">
+            <div *ngIf="option && i == (option.len - 1);" class="{{option.imageItem[i].class}} relative cursor-pointer" (click)="onClickImage(i)">
+                <img class="w-full h-full border-round-lg image {{ imagesUrl.length > imageOptions.length ? 'opacity-20' : ''}}" [src]="url" alt="image-{{i}}">
                 <span *ngIf="imagesUrl.length > imageOptions.length" class="more text-5xl">+{{imagesUrl.length - imageOptions.length}}</span>
             </div>
         </ng-container>
     </div>
+
     `,
     standalone: true,
     imports: [CommonModule],
@@ -33,8 +34,7 @@ export class PostImageComponent implements OnChanges {
     @Input() imagePath: string = 'files'
     @Input() moreText = "more..."
     @Input() moreTextPosition: 'start' | 'end' = 'end'
-    @Output() clickMore = new EventEmitter<number>()
-    @Output() clickImage = new EventEmitter<string>()
+    @Output() clickImage = new EventEmitter<number>()
 
     option!: ImageOption
 
@@ -51,12 +51,8 @@ export class PostImageComponent implements OnChanges {
         }
     }
 
-    onClickImage(url: string | number): void {
-        if (typeof url === 'number') {
-            this.clickMore.emit(url)
-        } else {
-            this.clickImage.emit(url)
-        }
+    onClickImage(index: number): void {
+        this.clickImage.emit(index)
     }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, HostListener, OnInit } from "@angular/core";
 import { FormArray, FormBuilder, Validators } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -154,6 +154,10 @@ export class PostHomeComponent implements OnInit {
   page = 1
   postPage = 0
   commentPage = 0
+
+  previewImage = false
+  activeImagePreview = 0
+  imageGaleria : string[] = []
 
   post = this.fb.group({
     title: ['', [Validators.maxLength(30), Validators.required]],
@@ -700,6 +704,21 @@ export class PostHomeComponent implements OnInit {
     this.uploadedFiles = []
     this.post.value.file = []
   }
+
+  clickImage(index: number, imageList : string[]) {
+    this.previewImage = true
+    this.activeImagePreview = index
+    this.imageGaleria = imageList
+  }
+
+  onCloseImagePreview() {
+    this.previewImage = false
+  }
+
+  @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(evt: KeyboardEvent) {
+    this.previewImage = false
+  }
+
 
   ngOnDestroy(): void {
     this.category$?.unsubscribe()
