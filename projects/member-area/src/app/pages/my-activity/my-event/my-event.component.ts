@@ -83,14 +83,14 @@ export class MyEventComponent {
         private fb:FormBuilder
     ) { }
     ngOnInit(): void {
-        this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.EV,undefined,ACTIVITY_CODE.PURCHASE).subscribe(result => {
+        this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.CO,undefined,ACTIVITY_CODE.PURCHASE).subscribe(result => {
             
             this.eventList = result
         })
         this.category$ = this.categoryService.getCategory().subscribe(result => {
             this.categoryList = result
         })
-        this.eventCreated$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.pageCreated,ACTIVITY_TYPE.EV,undefined,ACTIVITY_CODE.PROFILE).subscribe(result => {
+        this.eventCreated$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.pageCreated,ACTIVITY_TYPE.CO,undefined,ACTIVITY_CODE.PROFILE).subscribe(result => {
             
             
             this.eventListCreated = result
@@ -108,19 +108,20 @@ export class MyEventComponent {
         this.page=1
         if(!this.categories.length){
             
-            this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.EV).subscribe(result => {
+            this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.CO,undefined,ACTIVITY_CODE.PURCHASE).subscribe(result => {
                 this.eventList = result
             })
         }else{
           
           const data : ActivityReqGet={
-            type: ACTIVITY_TYPE.EV,
+            type: ACTIVITY_TYPE.CO,
             category: [...this.categories],
             limit: ACTIVITY_LIMIT,
             page: this.page,
+            code: ACTIVITY_CODE.PURCHASE
           }
           // this.categoryTemp=temp
-          //   this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.EV,temp).subscribe(result => {
+          //   this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.CO,temp).subscribe(result => {
           //       this.eventList = result
           //   })
               this.event$ = this.activityService.getActivityByListCategory(data).subscribe(result => {
@@ -136,16 +137,17 @@ onCategoryCreated(){
     this.pageCreated=1
         if(!this.categoriesCreated.length){
             
-            this.eventCreated$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.pageCreated,ACTIVITY_TYPE.EV,undefined,ACTIVITY_CODE.PROFILE).subscribe(result => {
+            this.eventCreated$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.pageCreated,ACTIVITY_TYPE.CO,undefined,ACTIVITY_CODE.PROFILE).subscribe(result => {
         
                 this.eventListCreated = result
             })
         }else{
             const data : ActivityReqGet={
-                type: ACTIVITY_TYPE.EV,
+                type: ACTIVITY_TYPE.CO,
                 category: [...this.categoriesCreated],
                 limit: ACTIVITY_LIMIT,
                 page: this.pageCreated,
+                code:ACTIVITY_CODE.PROFILE
               }
 
             this.eventCreated$ = this.activityService.getActivityByListCategory(data).subscribe(result => {
@@ -159,7 +161,7 @@ onCategoryCreated(){
 
 onScroll(): void {
     if(!this.categories.length){
-      this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT,  this.page=this.page+1,ACTIVITY_TYPE.EV).subscribe(result => {
+      this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT,  this.page=this.page+1,ACTIVITY_TYPE.CO).subscribe(result => {
         if (result) {
           
           if (this.eventList.length) {
@@ -172,7 +174,7 @@ onScroll(): void {
     }else{
         this.page= this.page+1
       const data : ActivityReqGet={
-        type: ACTIVITY_TYPE.EV,
+        type: ACTIVITY_TYPE.CO,
         category: [...this.categories],
         limit: ACTIVITY_LIMIT,
         page: this.page,
@@ -193,7 +195,7 @@ onScroll(): void {
 
   onScrollCreated(): void {
     if(!this.categoriesCreated.length){
-      this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT,  this.page=this.page+1,ACTIVITY_TYPE.EV).subscribe(result => {
+      this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT,  this.page=this.page+1,ACTIVITY_TYPE.CO).subscribe(result => {
         if (result) {
           
           if (this.eventList.length) {
@@ -206,7 +208,7 @@ onScroll(): void {
     }else{
         this.pageCreated= this.pageCreated+1
       const data : ActivityReqGet={
-        type: ACTIVITY_TYPE.EV,
+        type: ACTIVITY_TYPE.CO,
         category: [...this.categoriesCreated],
         limit: ACTIVITY_LIMIT,
         page: this.pageCreated,

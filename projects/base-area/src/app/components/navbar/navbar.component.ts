@@ -208,13 +208,16 @@ export class NavbarComponent {
       this.src=result
     })
 
-      if (!this.userService.user.fileBase64&&this.userService.user.fileId) {
+
+      if (this.userService.user.fileId&&!this.userService.user.fileBase64) {
 
         this.src = `${BASE_URL}/files/${this.userService.user.fileId!}`
       } 
-      
+      if(this.userService.user.fileBase64){
         this.src = this.userService.user.fileBase64
         this.res = this.userService.user.fileBase64
+      }
+       
       
 
       if (this.roleCode == Role.SuperAdmin) {
