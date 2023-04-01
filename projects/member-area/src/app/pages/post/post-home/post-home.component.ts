@@ -102,6 +102,25 @@ import { ActivityService } from "@service/activity.service";
       box-shadow: none;
     }
 
+    .card-hover:hover {
+  box-shadow: 0px 30px 18px -8px rgba(0, 0, 0,0.1);
+    transform: scale(1.02, 1.02);
+}
+
+.card__img--hover {
+  transition: 0.2s all ease-out;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+  position: absolute;
+    height: 235px;
+  border-top-left-radius: 12px;
+border-top-right-radius: 12px;
+top: 0;
+  
+}
+
     
     .blur {
         font-size: 40px;
