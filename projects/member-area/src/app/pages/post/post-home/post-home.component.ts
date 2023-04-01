@@ -6,7 +6,7 @@ import { PostRes } from "@dto/post/post-res";
 import { PostService } from "@service/post.service";
 import { POST_LIMIT } from "projects/base-area/src/app/constant/post-limit";
 import { Subscription } from "rxjs";
-import { MenuItem, MessageService } from 'primeng/api';
+import { ConfirmationService, ConfirmEventType, MenuItem, MessageService } from 'primeng/api';
 import { ImageOption } from "projects/base-area/src/app/components/post-image/post-image.component";
 import { LikeService } from "@service/like.service";
 import { BookmarkService } from "@service/bookmark.service";
@@ -158,6 +158,7 @@ export class PostHomeComponent implements OnInit {
   editBtn = false
   blockedPanel: boolean = true;
   hideUpload = true
+  isPremium = false
 
   category: CategoryRes[] = []
   uploadedFiles: any[] = []
@@ -176,7 +177,7 @@ export class PostHomeComponent implements OnInit {
 
   previewImage = false
   activeImagePreview = 0
-  imageGalleria : string[] = []
+  imageGalleria: string[] = []
 
   post = this.fb.group({
     title: ['', [Validators.maxLength(30), Validators.required]],
@@ -216,6 +217,8 @@ export class PostHomeComponent implements OnInit {
     private likeService: LikeService,
     private commentService: CommentService,
     private bookmarkService: BookmarkService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService,
     private fb: FormBuilder,
     private title: Title,
     private router: Router
@@ -228,6 +231,7 @@ export class PostHomeComponent implements OnInit {
     this.getPostCategory()
     this.fileId = this.userService.user.fileId
     this.userId = this.userService.user.userId
+    this.isPremium = this.userService.user.isPremium
 
     this.activity$ = this.activityService.getActivityByType(ACTIVITY_LIMIT - 2, this.page).subscribe(result => {
       this.activityList = result
@@ -250,7 +254,7 @@ export class PostHomeComponent implements OnInit {
       {
         label: 'Delete',
         icon: 'pi pi-fw pi-trash',
-        command: () => { this.deletePost() }
+        command: () => { this.confirmDeletePost() }
       },
     ];
 
@@ -263,7 +267,7 @@ export class PostHomeComponent implements OnInit {
       {
         label: 'Delete',
         icon: 'pi pi-fw pi-trash',
-        command: () => { this.deleteComment() }
+        command: () => { this.confirmDeleteComment() }
       },
     ];
   }
@@ -289,7 +293,11 @@ export class PostHomeComponent implements OnInit {
 
 
   showFullContent(idx: number) {
-    this.postList[idx].content = this.postList[idx].contentFull
+    if (this.userService.user.isPremium) {
+      this.postList[idx].content = this.postList[idx].contentFull
+    } else {
+      this.router.navigateByUrl('/premium')
+    }
   }
 
   onScroll(): void {
@@ -312,6 +320,7 @@ export class PostHomeComponent implements OnInit {
   showInputPost() {
     this.inputPost = true
     this.post.patchValue({
+      isPremium: false,
       categoryId: this.category[0].id
     })
   }
@@ -724,7 +733,7 @@ export class PostHomeComponent implements OnInit {
     this.post.value.file = []
   }
 
-  clickImage(index: number, imageList : string[]) {
+  clickImage(index: number, imageList: string[]) {
     this.previewImage = true
     this.activeImagePreview = index
     this.imageGalleria = imageList
@@ -738,6 +747,27 @@ export class PostHomeComponent implements OnInit {
     this.previewImage = false
   }
 
+  confirmDeletePost() {
+    this.confirmationService.confirm({
+      message: 'Do you want to delete this post?',
+      header: 'Delete Post',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.deleteComment()
+      }
+    });
+  }
+
+  confirmDeleteComment() {
+    this.confirmationService.confirm({
+      message: 'Do you want to delete this comment?',
+      header: 'Delete Comment',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.deletePost()
+      }
+    });
+  }
 
   ngOnDestroy(): void {
     this.category$?.unsubscribe()
