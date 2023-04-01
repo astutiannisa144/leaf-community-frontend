@@ -176,7 +176,7 @@ export class PostHomeComponent implements OnInit {
 
   previewImage = false
   activeImagePreview = 0
-  imageGaleria : string[] = []
+  imageGalleria : string[] = []
 
   post = this.fb.group({
     title: ['', [Validators.maxLength(30), Validators.required]],
@@ -727,8 +727,7 @@ export class PostHomeComponent implements OnInit {
   clickImage(index: number, imageList : string[]) {
     this.previewImage = true
     this.activeImagePreview = index
-    this.imageGaleria = imageList
-    
+    this.imageGalleria = imageList
   }
 
   onCloseImagePreview() {
