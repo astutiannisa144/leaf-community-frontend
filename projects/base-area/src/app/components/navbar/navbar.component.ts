@@ -219,11 +219,6 @@ export class NavbarComponent {
         this.res = this.userService.user.fileBase64
       }
        
-
-    this.src = this.userService.user.fileBase64
-    this.res = this.userService.user.fileBase64
-
-
     if (this.roleCode == Role.SuperAdmin) {
       this.items = this.superAdminNav
       this.itemProfile = this.superAdminProfile

@@ -33,6 +33,7 @@ export class ArticleDetailComponent implements OnInit {
     activityList: ActivityRes[] = []
     page = 1
     role!: string
+    
     constructor(
         private router: Router,
         private articleService: ArticleService,
