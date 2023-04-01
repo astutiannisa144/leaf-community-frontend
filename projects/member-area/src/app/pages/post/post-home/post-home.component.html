@@ -15,7 +15,7 @@
             style="font-size: 1rem; color: #a6a8a7; height: 50px; width: 50px;"></i>
         </div>
         <div class="col-10 lg:col-11">
-          <input type="text"
+          <input type="text" autocomplete="off"
             class="p-inputtext-md bg-gray-50 hover:bg-gray-200 border-round-lg w-full {{ postTitle?.invalid && (postTitle?.dirty || postTitle?.touched) ? 'ng-invalid ng-dirty' : '' }}"
             placeholder="Create new post..." id="postTitle" formControlName="title" maxlength="30" pInputText
             (click)="showInputPost()" />
@@ -63,20 +63,19 @@
                   optionValue="id" id="category" formControlName="categoryId" [showClear]="true">
                 </p-dropdown>
               </div>
-              <div class="col-12 md:col-5 md:ml-2 px-0 mt-3 md:mt-0">
+              <div class="col-12 md:col-5 md:ml-2 px-0 mt-3 md:mt-0" *ngIf="isPremium">
                 <div class="flex align-items-center mb-1 md:mb-2">
                   <i class="pi pi-bolt mr-1" style="font-size: 1.1rem; color: #F2D750;"></i>
-                  <label for="premium" class="text-700 font-medium mr-2">Premium post<span
-                      style="color: rgba(255, 0, 0, 0.792);">*</span></label>
+                  <label for="premium" class="text-700 font-medium mr-2">Premium post</label>
                 </div>
                 <p-inputSwitch (click)="hideInput()" id="premium" formControlName="isPremium"
-                  styleClass="align-items-center flex md:ml-3" formControlName="isPremium">
+                  styleClass="align-items-center flex md:ml-3" formControlName="isPremium" >
                 </p-inputSwitch>
               </div>
             </div>
           </div>
         </div>
-        <div class="justify-content-end flex" *ngIf="inputImage">
+        <div class="justify-content-end flex mt-2" *ngIf="inputImage">
           <div class="col col-offset-1 p-0 mt-2">
             <p-fileUpload (onSelect)="onUpload($event)" (onRemove)="onRemove($event)" (onClear)="onClear()"
               [multiple]="true" accept="image/*">
@@ -85,7 +84,7 @@
             </p-fileUpload>
           </div>
         </div>
-        <div class="justify-content-end flex" *ngIf="inputPolling">
+        <div class="justify-content-end flex mt-2" *ngIf="inputPolling">
           <div class="col col-offset-1 p-0 mt-2" formGroupName="polling">
             <div class="surface-card p-4 border-1 border-round" style="color:rgb(227, 227, 227)">
               <div class="field" style="color: black;">
@@ -462,6 +461,8 @@
   [containerStyle]="{ 'max-width': '50%' }" [numVisible]="3" [circular]="true" [fullScreen]="true"
   [activeIndex]="activeImagePreview" [showItemNavigators]="true" [showThumbnails]="false">
   <ng-template pTemplate="item" let-item>
-    <img src="http://192.168.10.48:1214/files/{{ item }}" style="width: 100%; display: block;" />
+    <img src="http://localhost:1214/files/{{ item }}" style="width: 100%; display: block;" />
   </ng-template>
 </p-galleria>
+
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" [style]="{width: '50vw'}"></p-confirmDialog>
