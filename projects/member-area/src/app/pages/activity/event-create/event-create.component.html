@@ -1,4 +1,3 @@
-
 <div class="justify-content-center flex">
   <div class="col-10 justify-content-start mt-3 flex p-0">
     <div class="col-4 ml-2 justify-content-start flex p-0 mb-4">
@@ -29,26 +28,74 @@
     <div class="surface-card p-4 shadow-2 border-round w-full justify-content-center flex">
       <div class="col-10 p-4">
         <div>
-          <label for="event-title" class="block text-900 font-medium mb-2">Event Title<span style="color: rgba(255, 0, 0, 0.792);">*</span></label>
-          <input id="event-title" formControlName="title" type="text" placeholder="Event title" pInputText
-            class="w-full mb-3 rounded"  maxlength="50">
 
-          <label for="event-title" class="block text-900 font-medium mb-2">Category</label>
+          <div class="flex align-items-center justify-content-between mb-1">
+            <label for="event-title" class="block text-900 font-medium mb-2">Event Title
+              <span style="color: rgb(225, 0, 0);">*
+              </span>
+            </label>
+
+            <div
+              *ngIf="activityForm.get('title')?.invalid && (activityForm.get('title')?.dirty || activityForm.get('title')?.touched)">
+              <div *ngIf="activityForm.get('title')?.errors?.['required']">
+                <p class="block text-xs font-200 " style="color: rgb(225, 0, 0);">&nbsp; This field must be filled.
+                </p>
+              </div>
+            </div>
+          </div>
+          <input id="event-title" formControlName="title" type="text" placeholder="Event title" pInputText
+            class="w-full mb-3 rounded {{ activityForm.get('title')
+            ?.invalid && ( activityForm.get('title')?.dirty ||  activityForm.get('title')?.touched) ? 'ng-invalid ng-dirty' : '' }}">
+
+          <label for="event-title" class="block text-900 font-medium mb-2">Category
+
+            <span style="color: rgb(225, 0, 0);">*
+            </span>
+          </label>
           <p-dropdown [options]="categoryList" formControlName="categoryId" optionValue="id" optionLabel="categoryName">
           </p-dropdown>
-          <label for="description" class="block text-900 font-medium mb-2 mt-3">Event Desctiption<span style="color: rgba(255, 0, 0, 0.792);">*</span></label>
+
+          <div class="flex align-items-center justify-content-between mb-1">
+
+            <label for="description"
+              class="block text-900 font-medium mb-2 mt-3 {{ activityForm.get('description')
+            ?.invalid && ( activityForm.get('description')?.dirty ||  activityForm.get('description')?.touched) ? 'ng-invalid ng-dirty' : '' }}">Event
+              Desctiption
+              <span style="color: rgb(225, 0, 0);">*
+              </span>
+
+            </label>
+
+            <div
+              *ngIf="activityForm.get('description')?.invalid && (activityForm.get('description')?.dirty || activityForm.get('description')?.touched)">
+              <div *ngIf="activityForm.get('description')?.errors?.['required']">
+                <p class="block text-xs font-200 " style="color: rgb(225, 0, 0);">&nbsp; This field must be filled.
+                </p>
+              </div>
+            </div>
+          </div>
+
+
           <textarea id="description" rows="5" placeholder="Event description" cols="30" pInputTextarea
             [autoResize]="true" formControlName="description" class="w-full mb-3 rounded"></textarea>
 
           <div class="flex p-0">
             <div class="col pl-0">
-              <label for="provider" class="block text-900 font-medium mb-2">Provider Name</label>
+              <label for="provider" class="block text-900 font-medium mb-2">Provider Name
+                <span style="color: rgb(225, 0, 0);">*
+                </span>
+              </label>
               <input id="provider" formControlName="provider" type="text" placeholder="Event provider" pInputText
                 class="w-full mb-3 rounded"  maxlength="30">
             </div>
 
             <div class="col pr-0">
-              <label for="provider-address" class="block text-900 font-medium mb-2">Location<span style="color: rgba(255, 0, 0, 0.792);">*</span></label>
+              <label for="provider-address" class="block text-900 font-medium mb-2">Location
+                <span style="color: rgb(225, 0, 0);">*
+                </span>
+
+              </label>
+
               <input id="provider-address" formControlName="locationAddress" type="text" placeholder="Event location"
                 pInputText class="w-full mb-3 rounded"  maxlength="30">
             </div>
@@ -59,7 +106,10 @@
               <div class="flex">
                 <div class="col p-0 justify-content-start">
                   <label for="calendar-start" class="block text-900 font-medium mb-2">Event
-                    Date</label>
+                    Date
+                    <span style="color: rgb(225, 0, 0);">*
+                    </span>
+                  </label>
                 </div>
                 <div class="col p-0 flex justify-content-end">
                   <button pButton pRipple label="Schedule" (click)="addSchedule()" icon="pi pi-plus"
@@ -70,9 +120,9 @@
               <div *ngFor="let d of schedules.controls; let i=index" class="mt-3" formArrayName="schedules">
                 <div [formGroupName]="i">
                   <div class="field col-12 p-0">
-                    <p-calendar styleClass="w-full" id="calendar-start"  placeholder="Event date"
+                    <p-calendar styleClass="w-full" id="calendar-start" placeholder="Event date"
                       (onSelect)="onChangeScheduleDate(i)" formControlName="scheduleDateUtc" [showIcon]="true">
-                    </p-calendar> 
+                    </p-calendar>
                   </div>
                   <div class="field col-12 p-0">
                     <button type="button" pButton pRipple (click)="removeSchedule(i)" icon="pi pi-filter"
@@ -85,12 +135,22 @@
 
             <div class="col p-0 mt-1">
               <div class="field col-12">
-                <label for="timeOnly" class="block text-900 font-medium mb-2">Event Time Start<span style="color: rgba(255, 0, 0, 0.792);">*</span></label>
+
+                <label for="timeOnly" class="block text-900 font-medium mb-2">Event Time Start
+                  <span style="color: rgb(225, 0, 0);">*
+                  </span>
+                </label>
+
                 <p-calendar styleClass="w-full" formControlName="timeStartUtc" (click)="onChangeScheduleTimeStart()"
                   icon="pi pi-plus" placeholder="Event time" [timeOnly]="true" inputId="timeonly"></p-calendar>
               </div>
               <div class="field col-12">
-                <label for="timeOnly" class="block text-900 font-medium mb-2">Event Time End<span style="color: rgba(255, 0, 0, 0.792);">*</span></label>
+
+                <label for="timeOnly" class="block text-900 font-medium mb-2">Event Time End
+                  <span style="color: rgb(225, 0, 0);">*
+                  </span>
+                </label>
+
                 <p-calendar styleClass="w-full" formControlName="timeEndUtc" (click)="onChangeScheduleTimeEnd()"
                   icon="pi pi-plus" placeholder="Event time" [timeOnly]="true" inputId="timeonly"></p-calendar>
               </div>
@@ -101,18 +161,27 @@
           <div class="flex">
             <div class="col">
               <div class="block p-0">
-                <label for="eventPrice" class="block text-900 font-medium mb-2">Event Price</label>
+                <label for="eventPrice" class="block text-900 font-medium mb-2">Event Price
+                  <span style="color: rgb(225, 0, 0);">*
+                  </span>
+                </label>
                 <div class="p-inputgroup">
                   <div class="block"></div>
                   <span class="p-inputgroup-addon">Rp</span>
-                  <p-inputNumber pInputNumber formControlName="price" id="coursePrice" mode="decimal" [maxFractionDigits]="5"  placeholder="Price"></p-inputNumber>
+
+                  <input formControlName="price" id="eventPrice" type="number" mode="decimal" inputId="locale-user"
+                    pInputNumber mode="currency" inputId="currency-indonesia" currency="IDR" placeholder="Price">
+
                   <span class="p-inputgroup-addon">.00</span>
                 </div>
               </div>
             </div>
             <div class="col">
               <div class="block p-0">
-                <label for="eventPrice" class="block text-900 font-medium mb-2">Event Photo</label>
+                <label for="eventPrice" class="block text-900 font-medium mb-2">Event Photo
+                  <span style="color: rgb(225, 0, 0);">*
+                  </span>
+                </label>
                 <div class="file-btn-container block">
                   <p-fileUpload chooseIcon="pi pi-fw pi-upload" chooseLabel="Upload" mode="basic" [customUpload]="true"
                     name="myFile[]" accept="image/*" (onSelect)="fileUpload($event)">

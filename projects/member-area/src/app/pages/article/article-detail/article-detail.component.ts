@@ -21,6 +21,11 @@ import { Subscription } from "rxjs";
     background: var(--primary-color);
     color: var(--primary-color-text);
 }
+
+.card-hover:hover {
+  box-shadow: 0px 30px 18px -8px rgba(0, 0, 0,0.1);
+    transform: scale(1.02, 1.02);
+}
     `
     ]
 
