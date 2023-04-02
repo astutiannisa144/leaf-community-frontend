@@ -24,6 +24,7 @@ import { PostReqUpdate } from "@dto/post/post-req-update";
 import { ActivityRes } from "@dto/activity/activity-res";
 import { ACTIVITY_LIMIT } from "projects/base-area/src/app/constant/activity-limit";
 import { ActivityService } from "@service/activity.service";
+import { BASE_URL } from "projects/base-area/src/app/constant/base.service";
 
 @Component({
   selector: 'app-post-home',
@@ -167,7 +168,7 @@ export class PostHomeComponent implements OnInit {
   postId!: string
   fileId!: string
   userId!: string
-
+  src!:string
   commentIdx!: number
   postIdx!: number
 
@@ -270,6 +271,13 @@ export class PostHomeComponent implements OnInit {
         command: () => { this.confirmDeleteComment() }
       },
     ];
+    if (this.userService.user.fileId&&!this.userService.user.fileBase64) {
+
+      this.src = `${BASE_URL}/files/${this.userService.user.fileId!}`
+    } 
+    if(this.userService.user.fileBase64){
+      this.src = this.userService.user.fileBase64
+    }
   }
 
   getPost() {

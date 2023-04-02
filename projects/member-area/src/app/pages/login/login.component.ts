@@ -13,8 +13,8 @@ import { UserService } from "@service/user-service";
 export class LoginComponent {
 
     login = this.fb.group({
-        email: ['eronwahyu@gmail.com', [Validators.required]],
-        pass: ['eron', [Validators.required]]
+        email: ['', [Validators.required]],
+        pass: ['', [Validators.required]]
     })
 
     private login$?: Subscription

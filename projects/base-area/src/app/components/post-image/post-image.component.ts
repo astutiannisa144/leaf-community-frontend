@@ -29,7 +29,7 @@ export class PostImageComponent implements OnChanges {
     @Input() imageOptions: ImageOption[] = []
     @Input() imagesUrl: string[] = []
     @Input() imagesId: any[] = []
-    @Input() imageHost: string = 'http://192.168.10.48'
+    @Input() imageHost: string = 'http://localhost'
     @Input() imagePort: number = 1214
     @Input() imagePath: string = 'files'
     @Input() moreText = "more..."
