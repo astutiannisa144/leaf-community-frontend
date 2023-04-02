@@ -14,8 +14,8 @@ import { Component, EventEmitter, Input, Output, OnChanges } from "@angular/core
     <div class="flex flex-wrap container-image">
         <ng-container *ngFor="let url of imagesUrl; let i=index;">
             <img *ngIf="option && i <= (option.len - 2);" class="{{option.imageItem[i].class}} border-round-lg border-x-1 border-white image cursor-pointer" (click)="onClickImage(i)" [src]="url" alt="image-{{i}}">
-            <div *ngIf="option && i == (option.len - 1);" class="{{option.imageItem[i].class}} relative cursor-pointer" (click)="onClickImage(i)">
-                <img class="w-full h-full border-round-lg image {{ imagesUrl.length > imageOptions.length ? 'opacity-20' : ''}}" [src]="url" alt="image-{{i}}">
+            <div *ngIf="option && i == (option.len - 1);" class="plus {{option.imageItem[i].class}} relative cursor-pointer" (click)="onClickImage(i)">
+                <img class=" w-full h-full border-round-lg image {{ imagesUrl.length > imageOptions.length ? 'opacity-20' : ''}}" [src]="url" alt="image-{{i}}">
                 <span *ngIf="imagesUrl.length > imageOptions.length" class="more text-5xl">+{{imagesUrl.length - imageOptions.length}}</span>
             </div>
         </ng-container>
