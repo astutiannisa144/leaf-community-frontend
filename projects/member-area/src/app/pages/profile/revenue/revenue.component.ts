@@ -81,7 +81,7 @@ export class RevenueComponent implements OnInit {
         this.memberParticipantsList = res
       })
 
-      this.memberIncome$ = this.reportService.getActivityIncome(result!, this.scheduleForm.value.dateEnd!).subscribe(res => {
+      this.memberIncome$ = this.reportService.getActivityIncome(this.scheduleForm.value.dateStart!, result!).subscribe(res => {
         this.memberIncomeList = res
       })
     })
@@ -104,7 +104,13 @@ export class RevenueComponent implements OnInit {
     })
   }
 
+  ngOnDestroy() {
+    this.memberIncome$?.unsubscribe()
+    this.memberParticipants$?.unsubscribe()
+  }
+
 }
+
 
 function convertUTCToLocalDate(date: any) {
   const newDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));

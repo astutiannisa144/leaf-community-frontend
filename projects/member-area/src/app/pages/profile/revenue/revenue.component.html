@@ -1,5 +1,3 @@
-
-
 <div class="flex justify-content-center">
 
   <div class="col-10 ml mt-2">
@@ -57,10 +55,11 @@
                 <p-calendar (onSelect)="onChangeScheduleDateEnd()" formControlName="dateEndUTC" styleClass="w-full"
                   [showIcon]="true" inputId="icon"></p-calendar>
               </div>
-              <div class="col justify-content-end align-items-end lg:flex md:flex mt-3">
+              <a href="http://localhost:1214/user-activity/report/activity-incomes?dateStart={{scheduleForm.value.dateStart}}&dateEnd={{scheduleForm.value.dateEnd}}"
+                class="col justify-content-end align-items-end lg:flex md:flex mt-3">
                 <button pButton pRipple label="Export history" icon="pi pi-upload"
                   class="p-button-help w-full lg:w-5 md:w-5 "></button>
-              </div>
+              </a>
             </div>
           </p-toolbar>
 
@@ -110,10 +109,11 @@
                 <p-calendar (onSelect)="onChangeScheduleDateEnd()" formControlName="dateEndUTC" styleClass="w-full"
                   [showIcon]="true" inputId="icon"></p-calendar>
               </div>
-              <div class="col justify-content-end align-items-end lg:flex md:flex mt-3">
+              <a href="http://localhost:1214/user-activity/report/activity-participants?dateStart={{scheduleForm.value.dateStart}}&dateEnd={{scheduleForm.value.dateEnd}}"
+                class="col justify-content-end align-items-end lg:flex md:flex mt-3">
                 <button pButton pRipple label="Export history" icon="pi pi-upload"
                   class="p-button-help w-full lg:w-5 md:w-5 "></button>
-              </div>
+              </a>
             </div>
           </p-toolbar>
 
