@@ -49,6 +49,11 @@ import { Subscription } from "rxjs";
             width: 100%;
             z-index: 1;
         }
+
+        .card-hover:hover {
+  box-shadow: 0px 30px 18px -8px rgba(0, 0, 0,0.1);
+    transform: scale(1.02, 1.02);
+}
    `]
 
 

@@ -59,7 +59,7 @@
 
               <div class="grid grid-nogutter justify-content-start lg:justify-content-start md:justify-content-start" infinite-scroll (scrolled)="onScroll()">
                 <div class="col-11 lg:col-4 md:col-6 pr-0 lg:pr-5 md:pr-5 pb-4 cursor-pointer" *ngFor="let cl of eventList" routerLink="/activities/event-detail/{{cl.id}}">
-                  <div class="surface-card p-3 shadow-2 border-round m-0 ">
+                  <div class="card-hover surface-card p-3 shadow-2 border-round m-0 ">
                     <img alt="Logo Class" src="http://localhost:1214/files/{{cl.fileId}}"
                       class="w-full border-round-sm">
 
@@ -211,7 +211,7 @@
               </div>
               <div class="grid grid-nogutter justify-content-start lg:justify-content-start md:justify-content-start" infinite-scroll (scrolled)="onScrollCreated()">
                 <div class="col-11 lg:col-4 md:col-6 pr-0 lg:pr-5 md:pr-5 pb-4 cursor-pointer" *ngFor="let cl of eventListCreated" routerLink="/activities/event-detail/{{cl.id}}">
-                  <div class="surface-card p-3 shadow-2 border-round m-0 ">
+                  <div class="card-hover surface-card p-3 shadow-2 border-round m-0 ">
                     <img alt="Logo Class" src="http://localhost:1214/files/{{cl.fileId}}"
                       class="w-full border-round-sm">
 
