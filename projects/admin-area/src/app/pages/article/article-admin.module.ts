@@ -8,6 +8,7 @@ import { ArticleAdminRouting } from './article-admin.routing';
 import { ArticleCreateComponent } from './article-create/article-create.component';
 import { ArticleTableComponent } from './article-table/article-table.component';
 import { ArticleUpdateComponent } from './article-update/article-update.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
     declarations: [
@@ -21,7 +22,8 @@ import { ArticleUpdateComponent } from './article-update/article-update.componen
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
-        ShareModule
+        ShareModule,
+        InfiniteScrollModule
     ]
 })
 export class ArticleAdminModule { }

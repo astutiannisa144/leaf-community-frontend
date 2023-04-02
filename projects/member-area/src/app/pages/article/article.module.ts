@@ -7,6 +7,7 @@ import { ShareModule } from '../../../../../base-area/src/app/common/share.modul
 import { ArticleHomeComponent } from './article-home/article-home.component';
 import { ArticleRouting } from './article.routing';
 import { ArticleDetailComponent } from './article-detail/article-detail.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
     declarations: [
@@ -19,7 +20,8 @@ import { ArticleDetailComponent } from './article-detail/article-detail.componen
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
-        ShareModule
+        ShareModule,
+        InfiniteScrollModule
     ]
 })
 export class ArticleModule { }

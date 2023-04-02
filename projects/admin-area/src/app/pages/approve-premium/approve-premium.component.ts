@@ -53,6 +53,8 @@ export class PremiumTableComponent {
                 }
                 this.userPremiumService.approve(data).subscribe(result => {
                     this.userPremiumList[i].isActive = true
+                    this.getAll(this.startPage,this.maxPage,this.query)
+
                 })
 
 
@@ -75,6 +77,7 @@ export class PremiumTableComponent {
                 }
                 this.userPremiumService.approve(data).subscribe(result => {
                     this.userPremiumList[i].isActive = false
+                    this.getAll(this.startPage,this.maxPage,this.query)
                 })
 
             },
@@ -115,10 +118,9 @@ export class PremiumTableComponent {
         this.userPremium$ = this.userPremiumService.getAll(maxPage, startPage).subscribe(result => {
 
             const resultData: any = result
-            this.userPremiumList = resultData
+            this.userPremiumList = resultData.data
             this.loading = false
             this.totalData = resultData.total
-            console.log(resultData);
 
         })
     }

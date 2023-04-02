@@ -81,7 +81,9 @@
               to Your Email</label>
             <input id="email1" formControlName="verificationCode" type="text" placeholder="6 Digit Code" class="text-center" pInputText
               class="w-full mb-3">
-
+              <button pButton pRipple label="Resend Code" icon="pi pi-spinner" style=" background-color: #137C3B; "
+              class="p-button-raised p-button-success w-full button-sm" styleClass="p-button-sm"
+              (click)="onVerification()"></button>
             <div class="flex align-items-center mt-3">
               <div class="col p-0 justify-content-start">
                 <button pButton pRipple label="Back" icon="pi pi-angle-left" style=" background-color: #137C3B; "

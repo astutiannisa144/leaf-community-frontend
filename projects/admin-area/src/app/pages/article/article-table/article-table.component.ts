@@ -43,13 +43,14 @@ export class ArticleTableComponent {
     getArticle() {
         this.article$ = this.articleService.getArticle(ARTICLE_LIMIT, this.page).subscribe(result => {
             this.articleList = result
+            
         })
     }
     onCreatePost() {
         this.router.navigateByUrl('/posts/create')
     }
     onScroll(): void {
-        this.article$ = this.articleService.getArticle(ARTICLE_LIMIT, this.page++).subscribe(result => {
+        this.article$ = this.articleService.getArticle(ARTICLE_LIMIT, this.page=this.page+1).subscribe(result => {
             if (result) {
 
                 if (this.articleList.length) {

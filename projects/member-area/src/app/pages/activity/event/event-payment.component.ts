@@ -153,7 +153,7 @@ export class EventPaymentComponent {
             data.voucherCode = this.paymentForm.value.voucherCode!
         }
         this.userActivityService.insert(data).subscribe(result => {
-            this.router.navigateByUrl('/activities/event' + this.event?.activityTypeId)
+            this.router.navigateByUrl('/activities/event/' + this.event?.activityTypeId)
 
         })
     }
