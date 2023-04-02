@@ -159,6 +159,7 @@ export class PostHomeComponent implements OnInit {
   blockedPanel: boolean = true;
   hideUpload = true
   isPremium = false
+  isLoading = true
 
   category: CategoryRes[] = []
   uploadedFiles: any[] = []
@@ -288,6 +289,7 @@ export class PostHomeComponent implements OnInit {
         this.postList = result
       }
       this.postPage += POST_LIMIT
+      this.isLoading = false
     })
   }
 

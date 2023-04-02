@@ -35,6 +35,7 @@ import {BlockUIModule} from 'primeng/blockui';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TieredMenuCustomComponent } from '../components/tiered-menu/tiered-menu.component';
 import { GalleriaModule } from 'primeng/galleria';
+import { SkeletonModule } from 'primeng/skeleton'
 
 ToastModule
 @NgModule({
@@ -77,6 +78,7 @@ ToastModule
         ConfirmDialogModule,
         TieredMenuCustomComponent,
         GalleriaModule,
+        SkeletonModule,
     ],
     exports: [
         ChipModule,
@@ -115,6 +117,7 @@ ToastModule
         ConfirmDialogModule,
         TieredMenuCustomComponent,
         GalleriaModule,
+        SkeletonModule,
     ]
 })
 export class ShareModule { }

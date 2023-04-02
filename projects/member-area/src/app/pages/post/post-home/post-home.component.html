@@ -5,7 +5,7 @@
       <span>Posts Home</span>
     </div>
 
-    <form class="surface-card mt-3 p-4 shadow-1 border-round" [formGroup]="post">
+    <form class="surface-card mt-3 p-4 shadow-1 border-round" [formGroup]="post" *ngIf="!isLoading">
       <div class="align-items-center grid grid-nogutter ">
         <div class="col-2 lg:col-1 p-0">
           <img *ngIf="fileId" src="http://localhost:1214/files/{{fileId}}" class="border-circle w-3rem h-3rem"
@@ -30,7 +30,7 @@
           </div>
         </div>
       </div>
-
+      
       <div *ngIf="inputPost">
         <div class="justify-content-end flex">
           <div class="field col-10 lg:col-11 px-0 pr-2 pb-0 mb-1">
@@ -69,7 +69,7 @@
                   <label for="premium" class="text-700 font-medium mr-2">Premium post</label>
                 </div>
                 <p-inputSwitch (click)="hideInput()" id="premium" formControlName="isPremium"
-                  styleClass="align-items-center flex md:ml-3" formControlName="isPremium" >
+                  styleClass="align-items-center flex md:ml-3" formControlName="isPremium">
                 </p-inputSwitch>
               </div>
             </div>
@@ -155,6 +155,51 @@
         </div>
       </div>
     </form>
+
+    <div class="surface-card mt-3 p-4 shadow-1 border-round" *ngIf="isLoading">
+      <div class="align-items-center grid grid-nogutter ">
+        <div class="col-2 lg:col-1 p-0">
+          <p-skeleton shape="circle" size="3rem" styleClass="mr-2"></p-skeleton>
+        </div>
+        <div class="col-10 lg:col-11">
+          <p-skeleton width="4rem" height="2rem" styleClass="w-full border-round-lg"></p-skeleton>
+        </div>
+      </div>
+    </div>
+
+    <div class="surface-card mt-4 p-4 shadow-2 border-round" *ngIf="isLoading">
+        <div class="custom-skeleton">
+          <div class="flex mb-3">
+              <p-skeleton shape="circle" size="3rem" styleClass="mr-2"></p-skeleton>
+              <div>
+                  <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
+                  <p-skeleton width="5rem" styleClass="mb-2"></p-skeleton>
+              </div>
+          </div>
+          <p-skeleton width="100%" height="150px"></p-skeleton>
+          <div class="flex justify-content-between mt-3">
+              <p-skeleton width="4rem" height="2rem"></p-skeleton>
+              <p-skeleton width="4rem" height="2rem"></p-skeleton>
+          </div>
+      </div>
+    </div>
+
+    <div class="surface-card mt-4 p-4 shadow-2 border-round" *ngIf="isLoading">
+        <div class="custom-skeleton">
+          <div class="flex mb-3">
+              <p-skeleton shape="circle" size="3rem" styleClass="mr-2"></p-skeleton>
+              <div>
+                  <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
+                  <p-skeleton width="5rem" styleClass="mb-2"></p-skeleton>
+              </div>
+          </div>
+          <p-skeleton width="100%" height="150px"></p-skeleton>
+          <div class="flex justify-content-between mt-3">
+              <p-skeleton width="4rem" height="2rem"></p-skeleton>
+              <p-skeleton width="4rem" height="2rem"></p-skeleton>
+          </div>
+      </div>
+    </div>
 
     <div class="surface-card mt-4 p-4 shadow-2 border-round" *ngFor="let pl of postList; let i=index">
       <div class="flex align-items-center">
@@ -405,8 +450,40 @@
       <span>Training & Events</span>
     </div>
 
-    <div class="card-hover surface-card event p-3 shadow-2 border-round m-0 mb-5 cursor-pointer" *ngFor="let cl of activityList"
-      routerLink="/activities/event-detail/{{cl.id}}">
+    <div class="surface-card event p-3 shadow-2 border-round m-0 mb-5" *ngIf="isLoading">
+      <p-skeleton width="100%" height="120px" styleClass="border-round-sm"></p-skeleton>
+      
+      <div class="flex justify-content-between pt-2">
+        <p-skeleton width="80px" height="25px" styleClass="border-round-sm"></p-skeleton>
+        <p-skeleton width="80px" height="25px" styleClass="border-round-sm"></p-skeleton>
+      </div>
+      <p-skeleton width="100%" height="25px" styleClass="border-round-sm mt-2"></p-skeleton>
+      <p-skeleton width="70px" height="25px" styleClass="border-round-sm mt-2"></p-skeleton>
+      <p-skeleton width="180px" height="25px" styleClass="border-round-sm mt-2"></p-skeleton>
+      <p-skeleton width="180px" height="25px" styleClass="border-round-sm mt-2"></p-skeleton>
+      <p-skeleton width="155px" height="25px" styleClass="border-round-sm mt-2"></p-skeleton>
+      <p-skeleton width="125px" height="25px" styleClass="border-round-sm mt-2"></p-skeleton>
+      <p-skeleton width="90px" height="20px" styleClass="border-round-xl mt-3"></p-skeleton>
+    </div>
+    
+    <div class="surface-card event p-3 shadow-2 border-round m-0 mb-5" *ngIf="isLoading">
+      <p-skeleton width="100%" height="120px" styleClass="border-round-sm"></p-skeleton>
+      
+      <div class="flex justify-content-between pt-2">
+        <p-skeleton width="80px" height="25px" styleClass="border-round-sm"></p-skeleton>
+        <p-skeleton width="80px" height="25px" styleClass="border-round-sm"></p-skeleton>
+      </div>
+      <p-skeleton width="100%" height="25px" styleClass="border-round-sm mt-2"></p-skeleton>
+      <p-skeleton width="70px" height="25px" styleClass="border-round-sm mt-2"></p-skeleton>
+      <p-skeleton width="180px" height="25px" styleClass="border-round-sm mt-2"></p-skeleton>
+      <p-skeleton width="180px" height="25px" styleClass="border-round-sm mt-2"></p-skeleton>
+      <p-skeleton width="155px" height="25px" styleClass="border-round-sm mt-2"></p-skeleton>
+      <p-skeleton width="125px" height="25px" styleClass="border-round-sm mt-2"></p-skeleton>
+      <p-skeleton width="90px" height="20px" styleClass="border-round-xl mt-3"></p-skeleton>
+    </div>
+    
+    <div class="card-hover surface-card event p-3 shadow-2 border-round m-0 mb-5 cursor-pointer"
+      *ngFor="let cl of activityList" routerLink="/activities/event-detail/{{cl.id}}">
       <img alt="Logo Class" src="http://localhost:1214/files/{{cl.fileId}}" class="w-full border-round-sm">
 
       <div class="grid my-0">
