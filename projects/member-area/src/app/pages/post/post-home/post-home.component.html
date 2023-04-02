@@ -69,7 +69,7 @@
                   <label for="premium" class="text-700 font-medium mr-2">Premium post</label>
                 </div>
                 <p-inputSwitch (click)="hideInput()" id="premium" formControlName="isPremium"
-                  styleClass="align-items-center flex md:ml-3" formControlName="isPremium" >
+                  styleClass="align-items-center flex md:ml-3" formControlName="isPremium">
                 </p-inputSwitch>
               </div>
             </div>
@@ -315,7 +315,8 @@
             <img *ngIf="pl.fileId" src="http://localhost:1214/files/{{ pl.fileId }}" class="border-circle mr-2"
               style="object-fit : cover; height: 45px; width: 45px;" alt="profile">
             <p-button *ngIf="!pl.fileId" icon="pi pi-user" [disabled]="true"
-              styleClass="p-button-rounded p-button-secondary p-button-outlined w-3rem h-3rem bg-gray-100 mr-2"></p-button>
+              styleClass="p-button-rounded p-button-secondary p-button-outlined w-3rem h-3rem bg-gray-100 mr-2">
+            </p-button>
             <div class="w-full">
               <div class="col-12 p-0">
                 <form class="p-inputgroup flex" [formGroup]="comment">
@@ -332,7 +333,8 @@
             <img *ngIf="cl.fileId" src="http://localhost:1214/files/{{ pl.fileId }}" class="border-circle mr-2"
               style="object-fit : cover; height: 45px; width: 45px;" alt="profile">
             <p-button *ngIf="!cl.fileId" icon="pi pi-user" [disabled]="true"
-              styleClass="p-button-rounded p-button-secondary p-button-outlined bg-gray-100 mr-2 h-3rem w-3rem"></p-button>
+              styleClass="p-button-rounded p-button-secondary p-button-outlined bg-gray-100 mr-2 h-3rem w-3rem">
+            </p-button>
             <div class="w-full">
               <div class="shadow-0 border-round-xl border-1 bg-gray-50 p-2" style="color:rgb(227, 227, 227);">
                 <div class="grid grid-nogutter p-0 pl-1">
@@ -405,8 +407,8 @@
       <span>Training & Events</span>
     </div>
 
-    <div class="card-hover surface-card event p-3 shadow-2 border-round m-0 mb-5 cursor-pointer" *ngFor="let cl of activityList"
-      routerLink="/activities/event-detail/{{cl.id}}">
+    <div class="card-hover surface-card event p-3 shadow-2 border-round m-0 mb-5 cursor-pointer"
+      *ngFor="let cl of activityList" routerLink="/activities/event-detail/{{cl.id}}">
       <img alt="Logo Class" src="http://localhost:1214/files/{{cl.fileId}}" class="w-full border-round-sm">
 
       <div class="grid my-0">

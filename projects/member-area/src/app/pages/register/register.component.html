@@ -1,5 +1,4 @@
-
-<div class="flex justify-content-center align-items-center h-screen w-screen font-bold" >
+<div class="flex justify-content-center align-items-center h-screen w-screen">
   <div class="col-7">
     <div class="surface-card grid shadow-2 border-round">
       <div class="col-6 hidden lg:block justify-content-start p-0 m-0 ">
@@ -14,16 +13,69 @@
         </div>
         <form class="flex justify-content-center py-1" [formGroup]="registerForm">
           <div class="col-10 mb-5" *ngIf="registDetail == 1">
-            <label for="email1" class="block text-900 font-medium mb-2">Full Name</label>
-            <input formControlName="fullName" type="text" placeholder="Full name" pInputText class="w-full mb-3">
+            <div class="mb-2">
 
-            <label for="email1" class="block text-900 font-medium mb-2">Email</label>
-            <input formControlName="email" id="email1" type="email" placeholder="Email address" pInputText class="w-full mb-3">
+              <div class="flex align-items-center justify-content-between mb-1">
+                <label for="email1" class="block text-900 font-medium">Full Name <span style="color: rgb(225, 0, 0);">*
+                  </span></label>
+
+                <div
+                  *ngIf="registerForm.get('fullName')?.invalid && (registerForm.get('fullName')?.dirty || registerForm.get('fullName')?.touched)">
+                  <div *ngIf="registerForm.get('fullName')?.errors?.['required']">
+                    <p class="block text-xs font-200 " style="color: rgb(225, 0, 0);">&nbsp; This field must be filled.
+                    </p>
+                  </div>
+
+                </div>
+              </div>
+
+              <input formControlName="fullName" type="text" placeholder="Full name" pInputText
+                class="w-full {{ registerForm.get('fullName')
+                ?.invalid && ( registerForm.get('fullName')?.dirty ||  registerForm.get('fullName')?.touched) ? 'ng-invalid ng-dirty' : '' }}">
 
 
 
-            <label for="password1" class="block text-900 font-medium mb-2">Password</label>
-            <input formControlName="pass" id="password1" type="password" placeholder="Password" pInputText class="w-full mb-3">
+            </div>
+
+            <div class="mb-2">
+              <div class="flex align-items-center justify-content-between mb-1">
+                <label for="email1" class="block text-900 font-medium ">Email <span style="color: rgb(225, 0, 0);">*
+                  </span>
+                </label>
+                <div
+                  *ngIf="registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)">
+                  <div *ngIf="registerForm.get('email')?.errors?.['required']">
+                    <p class="block text-xs font-200 " style="color: rgb(225, 0, 0);">&nbsp; This field must be filled.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <input formControlName="email" id="email1" type="email" placeholder="Email address" pInputText
+                class="w-full {{registerForm.get('email')
+                  ?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched) ? 'ng-invalid ng-dirty' : '' }}">
+
+            </div>
+
+            <div class="mb-2">
+              <div class="flex align-items-center justify-content-between mb-1">
+                <label for="password1"
+                  class="block text-900 font-medium mb-1 {{registerForm.get('pass')
+                ?.invalid && (registerForm.get('pass')?.dirty || registerForm.get('pass')?.touched) ? 'ng-invalid ng-dirty' : '' }}">Password
+                  <span style="color: rgb(225, 0, 0);">* </span></label>
+
+                <div
+                  *ngIf="registerForm.get('pass')?.invalid && (registerForm.get('pass')?.dirty || registerForm.get('pass')?.touched)">
+                  <div *ngIf="registerForm.get('pass')?.errors?.['required']" class="mb-2">
+                    <p class="block text-xs font-200 " style="color: rgb(225, 0, 0);">&nbsp; This field must be filled.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <input formControlName="pass" id="password1" type="password" placeholder="Password" pInputText
+                class="w-full">
+
+            </div>
             <div>
 
               <div class="flex justify-content-center">
@@ -32,28 +84,91 @@
                   <span style="color: #137C3B; font-weight: 700;" routerLink="/login">Sign In</span> Here</a>
               </div>
               <div class="justify-content-center flex">
-                <button pButton pRipple label="Next" icon="pi pi-angle-right" style=" background-color: #137C3B; "
+                <button pButton pRipple label="Next"
+                  [disabled]="!registerForm.get('fullName')?.value || !registerForm.get('email')?.value || !registerForm.get('pass')?.value"
+                  icon="pi pi-angle-right" style=" background-color: #137C3B; "
                   class="p-button-raised p-button-success w-full" (click)="showDetails()"></button>
               </div>
             </div>
           </div>
           <div class="col-10" *ngIf="registDetail == 2">
 
-            <label for="email1" class="block text-900 font-medium mb-2">Phone Number</label>
-            <input formControlName="phoneNumber" id="email1" type="number" placeholder="Phone number" pInputText class="w-full mb-3">
+            <div class="mb-2">
+              <div class="flex align-items-center justify-content-between mb-1">
+                <label for="phoneNum" class="block text-900 font-medium">Phone Number</label>
 
-            <label for="event-title" class="block text-900 font-medium mb-2">Address</label>
-            <input formControlName="address" id="event-title" type="text" placeholder="Home address" pInputText class="w-full mb-3 rounded">
-            <label for="event-title" class="block text-900 font-medium mb-2">Company</label>
-            <input formControlName="companyName" id="event-title" type="text" placeholder="Company name" pInputText class="w-full mb-3 rounded">
-            <div class="flex">
+                <div
+                  *ngIf="registerForm.get('phoneNumber')?.invalid && (registerForm.get('phoneNumber')?.dirty || registerForm.get('phoneNumber')?.touched)">
+                  <div *ngIf="registerForm.get('phoneNumber')?.errors?.['required']">
+                    <p class="block text-xs font-200 " style="color: rgb(225, 0, 0);">&nbsp; This field must be filled.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <input formControlName="phoneNumber" id="phoneNum" type="number" placeholder="Phone number" pInputText
+                class="w-full {{ registerForm.get('phoneNumber')
+                ?.invalid && ( registerForm.get('phoneNumber')?.dirty ||  registerForm.get('phoneNumber')?.touched) ? 'ng-invalid ng-dirty' : '' }}">
+            </div>
+
+            <div class="mb-2">
+              <div class="flex align-items-center justify-content-between mb-1">
+                <label for="address" class="block text-900 font-medium ">Address</label>
+
+                <div
+                  *ngIf="showMb2 && registerForm.get('address')?.invalid && (registerForm.get('address')?.dirty || registerForm.get('address')?.touched)">
+                  <div *ngIf="registerForm.get('address')?.errors?.['required']">
+                    <p class="block text-xs font-200 " style="color: rgb(225, 0, 0);">&nbsp; This field must be filled.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+
+
+              <input formControlName="address" id="address" type="text" placeholder="Home address" pInputText
+                class="w-full rounded {{ registerForm.get('address')
+                ?.invalid && ( registerForm.get('address')?.dirty ||  registerForm.get('address')?.touched) ? 'ng-invalid ng-dirty' : '' }}">
+
+            </div>
+
+
+            <div class="mb-2">
+
+              <div class="flex align-items-center justify-content-between mb-1">
+
+                <label for="company" class="block text-900 font-medium ">Company</label>
+
+                <div
+                  *ngIf="showMb2 && registerForm.get('companyName')?.invalid && (registerForm.get('companyName')?.dirty || registerForm.get('companyName')?.touched)">
+                  <div *ngIf="registerForm.get('companyName')?.errors?.['required']">
+                    <p class="block text-xs font-200 " style="color: rgb(225, 0, 0);">&nbsp; This field must be filled.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <input formControlName="companyName" id="company" type="text" placeholder="Company name" pInputText
+                class="w-full rounded {{ registerForm.get('companyName')
+                ?.invalid && ( registerForm.get('companyName')?.dirty || registerForm.get('companyName')?.touched) ? 'ng-invalid ng-dirty' : '' }}">
+            </div>
+
+            <div class="flex flex-wrap">
               <div class="col p-0">
-                <p-dropdown styleClass="w-full" placeholder="Industry" [options]="industryList" formControlName="industryId" optionValue="id" optionLabel="industryName" [showClear]="true">
+                <p-dropdown styleClass="w-10rem"
+                  class="{{registerForm.get('industryId')
+                ?.invalid && (registerForm.get('industryId')?.dirty || registerForm.get('industryId')?.touched) ? 'ng-invalid ng-dirty' : '' }}"
+                  placeholder="Industry" [options]="industryList" formControlName="industryId" optionValue="id"
+                  optionLabel="industryName" [showClear]="true">
                 </p-dropdown>
               </div>
               <div class="mx-1"></div>
               <div class="col p-0">
-                <p-dropdown styleClass="w-full" placeholder="Position" [options]="positionList" formControlName="positionId" optionValue="id" optionLabel="positionName" [showClear]="true">
+                <p-dropdown styleClass="w-10rem"
+                  class="{{registerForm.get('positionId')
+                ?.invalid && (registerForm.get('positionId')?.dirty || registerForm.get('positionId')?.touched) ? 'ng-invalid ng-dirty' : '' }}"
+                  placeholder="Position" [options]="positionList" formControlName="positionId" optionValue="id"
+                  optionLabel="positionName" [showClear]="true">
                 </p-dropdown>
               </div>
             </div>
@@ -67,7 +182,9 @@
               <div class="mx-5"></div>
 
               <div class="col p-0 justify-content-end">
-                <button pButton pRipple label="Next" icon="pi pi-angle-right" style=" background-color: #137C3B; "
+                <button
+                  [disabled]="!registerForm.get('phoneNumber')?.value || !registerForm.get('address')?.value || !registerForm.get('companyName')?.value  || !registerForm.get('positionId')?.value  || !registerForm.get('industryId')?.value"
+                  pButton pRipple label="Next" icon="pi pi-angle-right" style=" background-color: #137C3B; "
                   class="p-button-raised p-button-success w-full button-sm" styleClass="p-button-sm"
                   (click)="showDetails()" (click)="onVerification()"></button>
               </div>
@@ -77,10 +194,11 @@
           </div>
 
           <div class="col-10" *ngIf="registDetail == 3">
-            <label for="email1" class="block text-900 font-medium mb-2 text-center">Enter 6-Digit Verification Code Sent
+            <label for="email1" class="block text-900 font-medium mb-2 text-center">Enter 6-Digit Verification Code
+              Sent
               to Your Email</label>
-            <input id="email1" formControlName="verificationCode" type="text" placeholder="6 Digit Code" class="text-center" pInputText
-              class="w-full mb-3">
+            <input id="email1" formControlName="verificationCode" type="text" placeholder="6 Digit Code"
+              class="text-center" pInputText class="w-full mb-3">
 
             <div class="flex align-items-center mt-3">
               <div class="col p-0 justify-content-start">
@@ -92,7 +210,7 @@
               <div class="mx-5"></div>
 
               <div class="col p-0 justify-content-end">
-                <button pButton pRipple label="Next" icon="pi pi-user-plus" style=" background-color: #137C3B; "
+                <button pButton pRipple label="Confirm" icon="pi pi-user-plus" style=" background-color: #137C3B; "
                   class="p-button-raised p-button-success w-full button-sm" styleClass="p-button-sm"
                   (click)="showModalDialog()" (click)="onRegister()"></button>
 
@@ -120,16 +238,11 @@
           </div>
         </form>
 
-
-        <!-- <div class="justify-content-center flex">
-          <div class="col-10">
-            
-          </div>
-        </div> -->
-
-        <div class="justify-content-center flex mt-2 position bottom-0">
-          <div class="col-11 p-0">
-            <p-steps [model]="items" [activeIndex]="activeIndex"></p-steps>
+        <div class="flex-column align-items-end">
+          <div class="justify-content-center flex mt-2 position bottom-0">
+            <div class="col-11 p-0  ">
+              <p-steps [model]="items" [activeIndex]="activeIndex"></p-steps>
+            </div>
           </div>
         </div>
       </div>
