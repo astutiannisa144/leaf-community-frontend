@@ -199,7 +199,7 @@ export class EventUpdateComponent implements OnInit, AfterContentChecked {
         }
         activity.schedule = [...this.schedules.value]
         this.activityService.update(activity).subscribe(result=>{
-
+            this.router.navigateByUrl('/activities/event/'+this.activity?.activityTypeId)
         })
     }
 

@@ -109,7 +109,7 @@ export class PremiumPaymentComponent {
             const user = this.userService.user
             user.isPremium = true
             this.userService.saveDataLogin(user)
-            this.router.navigateByUrl(' /home')
+            this.router.navigateByUrl('/home')
         })
     }
 

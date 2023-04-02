@@ -219,6 +219,7 @@ export class ProfileComponent {
         }
         this.profileService.update(data).subscribe(result => {
             this.profileService.photo(this.profileForm.value.src!)
+            this.router.navigateByUrl('/profile')
         })
     }
     displayModal!: boolean
