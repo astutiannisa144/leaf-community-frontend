@@ -117,7 +117,7 @@ export class MyCourseComponent {
     this.page = 1
     if (!this.categories.length) {
 
-      this.course$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page, ACTIVITY_TYPE.CO).subscribe(result => {
+      this.course$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page, ACTIVITY_TYPE.CO, undefined, ACTIVITY_CODE.PROFILE).subscribe(result => {
         this.courseList = result
       })
     } else {
@@ -127,6 +127,7 @@ export class MyCourseComponent {
         category: [...this.categories],
         limit: ACTIVITY_LIMIT,
         page: this.page,
+        code: ACTIVITY_CODE.PURCHASE
       }
       // this.categoryTemp=temp
       //   this.course$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.CO,temp).subscribe(result => {
@@ -154,6 +155,7 @@ export class MyCourseComponent {
         category: [...this.categoriesCreated],
         limit: ACTIVITY_LIMIT,
         page: this.pageCreated,
+        code: ACTIVITY_CODE.PROFILE
       }
 
       this.courseCreated$ = this.activityService.getActivityByListCategory(data).subscribe(result => {
@@ -167,7 +169,7 @@ export class MyCourseComponent {
 
   onScroll(): void {
     if (!this.categories.length) {
-      this.course$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page = this.page + 1, ACTIVITY_TYPE.CO).subscribe(result => {
+      this.course$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page = this.page + 1, ACTIVITY_TYPE.CO, undefined, ACTIVITY_CODE.PURCHASE).subscribe(result => {
         if (result) {
 
           if (this.courseList.length) {
@@ -184,6 +186,8 @@ export class MyCourseComponent {
         category: [...this.categories],
         limit: ACTIVITY_LIMIT,
         page: this.page,
+        code: ACTIVITY_CODE.PURCHASE
+
       }
       this.course$ = this.activityService.getActivityByListCategory(data).subscribe(result => {
         if (result) {
@@ -201,7 +205,7 @@ export class MyCourseComponent {
 
   onScrollCreated(): void {
     if (!this.categoriesCreated.length) {
-      this.course$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page = this.page + 1, ACTIVITY_TYPE.CO).subscribe(result => {
+      this.course$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page = this.page + 1, ACTIVITY_TYPE.CO,undefined,ACTIVITY_CODE.PROFILE).subscribe(result => {
         if (result) {
 
           if (this.courseList.length) {
@@ -218,6 +222,7 @@ export class MyCourseComponent {
         category: [...this.categoriesCreated],
         limit: ACTIVITY_LIMIT,
         page: this.pageCreated,
+        code:ACTIVITY_CODE.PROFILE
       }
       this.courseCreated$ = this.activityService.getActivityByListCategory(data).subscribe(result => {
         if (result) {

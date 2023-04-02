@@ -34,8 +34,9 @@
             </div>
             <div class="justify-content-center flex">
               <img *ngIf="profile?.file?.fileId||this.profileForm.value.file!.fileContent" class="border-circle border-1" src="{{profileForm.value.src}}" style="width: 100px; height: 100px;"  alt="profile">
-              <p-button *ngIf="!profile?.file?.fileId &&!this.profileForm.value.file!.fileContent"  class="mr-2" icon="pi pi-user"  styleClass="p-button-rounded p-button-info p-button-outlined"></p-button>
-              
+              <i *ngIf="!profile?.file?.fileId &&!this.profileForm.value.file!.fileContent"   class="pi pi-user border-1 border-circle flex align-items-center justify-content-center bg-gray-50"
+              style="font-size: 2.5rem; color: #a6a8a7; height: 103px; width: 103px;"></i>
+             
               <!-- <p-image  height="250 " width="250"  alt="Red dot" /> -->
 
             </div>

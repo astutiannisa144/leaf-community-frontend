@@ -5,7 +5,7 @@
       <span>Article</span>
     </div>
 
-    <div class="grid justify-content-between">
+    <div class="grid justify-content-between"  infinite-scroll (scrolled)="onScroll()">
       <div class="md:col-6 lg:col-4" *ngFor="let art of articleList">
         <div class="card-hover
          surface-card p-3 shadow-2 border-round hover cursor-pointer" routerLink="/articles/detail/{{art.articleId}}">
@@ -14,7 +14,7 @@
           <p class="my-1" style="font-weight: 600; font-size: 16px; text-align: justify;">{{art.title}}</p>
 
           <p class="my-1" style="font-weight: 400; font-size: 14px; text-align: justify;">
-            {{art.content| slice:0:200}}<span class="cursor-pointer" routerLink="/articles/detail/{{art.articleId}}"
+            {{art.content| slice:0:400}}<span class="cursor-pointer" routerLink="/articles/detail/{{art.articleId}}"
               style="color: #137C3B; font-weight: 700;"> ...See More </span> </p>
         </div>
       </div>
@@ -22,12 +22,16 @@
     </div>
   </div>
 
+
   <div class="hidden md:block md:col-3 lg:col-2 md:pl-3">
+
     <div class="md:text-sm lg:text-xl font-medium text-900 mb-3 align-items-center flex">
       <i class="pi pi-calendar mr-2" style="font-size: 1.2rem; color: #22C55E;"></i>
-      <span>Training & Events</span>
+      <span>Courses & Events</span>
     </div>
+
     <div class="card-hover cursor-pointer surface-card p-3 shadow-2 border-round m-0 mt-3" *ngFor="let ac of activityList"  routerLink="/activities/event-detail/{{ac.id}}">
+
       <img alt="Logo Class" src="http://localhost:1214/files/{{ac.fileId}}" class="w-full">
 
       <div class="grid my-0">
@@ -72,4 +76,6 @@
       </div>
     </div>
   </div>
+  <p-scrollTop target="window" styleClass="custom-scrolltop" [threshold]="100" icon="pi pi-arrow-up"></p-scrollTop>
+
 </div>
