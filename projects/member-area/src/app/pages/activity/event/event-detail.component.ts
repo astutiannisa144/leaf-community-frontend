@@ -70,6 +70,9 @@ export class EventDetailComponent implements OnInit {
 
     activityId!: string
     memberId!: string
+
+    isLoading  = true
+
     constructor(
         private router: Router,
         private activityService: ActivityService,
@@ -92,6 +95,7 @@ export class EventDetailComponent implements OnInit {
                 }
 
             })
+            this.isLoading = false
 
         })
 

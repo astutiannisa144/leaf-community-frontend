@@ -26,7 +26,26 @@
     </div>
 
     <div class="grid grid-nogutter justify-content-center">
-      <div class="surface-card p-1 lg:p-3 shadow-2 border-round ">
+      <div class="surface-card  shadow-2 border-round w-full p-4 " *ngIf="isLoading">
+        <div class="grid formgrid">
+          <div class="field col-8 pl-6">
+            <p-skeleton styleClass="mb-2" height="25rem"></p-skeleton>
+
+          </div>
+          <div class="field col-4 px-6">
+            <p-skeleton width="100%" height="25px" styleClass="border-round-sm mt-2"></p-skeleton>
+            <p-skeleton width="70px" height="25px" styleClass="border-round-sm mt-2"></p-skeleton>
+            <p-skeleton width="180px" height="25px" styleClass="border-round-sm mt-2"></p-skeleton>
+            <p-skeleton width="180px" height="25px" styleClass="border-round-sm mt-2"></p-skeleton>
+            <p-skeleton width="155px" height="25px" styleClass="border-round-sm mt-2"></p-skeleton>
+            <p-skeleton width="125px" height="25px" styleClass="border-round-sm mt-2"></p-skeleton>
+            <p-skeleton width="180px" height="25px" styleClass="border-round-sm mt-2"></p-skeleton>
+            <p-skeleton width="180px" height="25px" styleClass="border-round-sm mt-2"></p-skeleton>
+          </div>
+        </div>
+      </div>
+
+      <div class="surface-card p-1 lg:p-3 shadow-2 border-round " *ngIf="!isLoading">
         <div class="col-12 lg:justify-content-center grid grid-nogutter">
           <div class="col-12 lg:col-8 md:col-8 mr-0 lg:mr-3" *ngIf="event">
             <img alt="Logo Class" src="http://localhost:1214/files/{{event.fileId}}"
@@ -53,7 +72,7 @@
                     <p class="my-3 align-items-center flex" style="font-size: 16px; font-weight: 400;"
                       *ngFor="let sch of event?.schedule"> <i class="pi pi-calendar mr-3"
                         style="font-size: 22px; font-weight: 400; color: #4CAF50;"></i>{{sch.scheduleDate | date :
-                        'fullDate' }}
+                      'fullDate' }}
                     </p>
                     <p class="my-3 align-items-center flex" style="font-size: 16px; font-weight: 400;"> <i
                         class="pi pi-clock mr-3"
@@ -189,7 +208,8 @@
                         'fullDate' }}
                       </p>
                       <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"> <i
-                          class="pi pi-clock mr-2" style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>{{'0000-00-00T'+
+                          class="pi pi-clock mr-2"
+                          style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>{{'0000-00-00T'+
                         cl.timeStart | date: 'shortTime'}}
                         - {{'0000-00-00T'+ cl.timeEnd | date: 'shortTime'}}
                       </p>
