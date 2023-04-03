@@ -59,6 +59,8 @@ export class CourseDetailComponent implements OnInit{
     memberId!:string
     page = 1
 
+    isLoading  = true
+
     constructor(
         private router: Router,
         private activityService:ActivityService,
@@ -81,6 +83,7 @@ export class CourseDetailComponent implements OnInit{
                     }
                     
                 })
+                this.isLoading = false
               
             })
 
