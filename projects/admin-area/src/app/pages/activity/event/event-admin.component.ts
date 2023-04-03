@@ -55,6 +55,8 @@ export class EventAdminComponent implements OnInit,OnDestroy {
                 }
                 this.userActivityService.approve(data).subscribe(result => {
                     this.userActivityDataList[i].isApprove = true
+                    this.getAll(this.startPage,this.maxPage,this.query)
+
                 })
 
 
@@ -77,6 +79,7 @@ export class EventAdminComponent implements OnInit,OnDestroy {
                 }
                 this.userActivityService.approve(data).subscribe(result => {
                     this.userActivityDataList[i].isApprove = false
+                    this.getAll(this.startPage,this.maxPage,this.query)
                 })
 
             },

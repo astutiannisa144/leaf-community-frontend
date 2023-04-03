@@ -54,7 +54,7 @@ export const memberRoutes: Routes = [
     loadChildren: () => import("./pages/article/article.module").then(c => c.ArticleModule),
     component: NavbarComponent,
     canActivate : [ AuthRoleGuard ],
-    data : [ Role.Member ]
+    data : [ Role.Member , Role.Admin]
   },
 
   {

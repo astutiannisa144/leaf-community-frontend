@@ -1,11 +1,12 @@
 <div class="justify-content-center flex">
-  <div class="col-10 justify-content-start mt-3 flex p-0">
-    <div class="col-11 md:col-6 lg:col-4 justify-content-start flex p-0 mb-3">
+  <div class="col-11 justify-content-start mt-3 flex p-0">
+    <div class="col-11 md:col-6 lg:col-5 justify-content-start flex p-0 mb-3 ml-3">
 
       <div class="align-items-center flex">
-        <button pButton pRipple type="button" icon="pi pi-arrow-left" class="p-button-rounded p-button-primary"
-          routerLink="/article/admin"></button>
-
+        <button *ngIf="role=='AD'" pButton pRipple type="button" icon="pi pi-arrow-left" class="p-button-rounded p-button-primary"
+          routerLink="/articles/admin"></button>
+          <button *ngIf="role=='MB'" pButton pRipple type="button" icon="pi pi-arrow-left" class="p-button-rounded p-button-primary"
+          routerLink="/articles/"></button>
         <ul class="list-none p-0 m-0 flex align-items-center font-medium ml-3">
           <li>
             <a class="text-500 no-underline line-height-3 cursor-pointer">Articles</a>
@@ -24,7 +25,7 @@
 </div>
 
 <div class="flex justify-content-center">
-  <div class="col-11 md:col-10 lg:col-7">
+  <div class="col-11 md:col-10 lg:col-8">
     <div class="text-xl font-medium text-900 mb-2 align-items-center flex ml-1">
       <i class="pi pi-book mr-2" style="font-size: 1.4rem; color: #22C55E;"></i>
       <span>Article</span>
@@ -35,7 +36,7 @@
         <div class="surface-card p-3 shadow-2 border-round">
           <div class="flex justify-content-center mt-4">
             <div class="col-11" *ngIf="article?.file">
-              <img alt="Logo Class" src="http://localhost:1214/files/{{article?.file?.fileId}}" class="w-full h-15rem ">
+              <img alt="Logo Class" src="http://localhost:1214/files/{{article?.file?.fileId}}" class="w-full h-21rem ">
 
             </div>
           </div>
@@ -60,7 +61,7 @@
       <i class="pi pi-calendar mr-2" style="font-size: 1.4rem; color: #22C55E;"></i>
       <span>Training & Events</span>
     </div>
-    <div class="surface-card p-3 shadow-2 border-round m-0 mt-3" *ngFor="let ac of activityList"
+    <div class="card-hover surface-card p-3 shadow-2 border-round m-0 mt-3 cursor-pointer" *ngFor="let ac of activityList"
       routerLink="/activities/course-detail/{{ac.id}}">
       <img alt="Logo Class" src="http://localhost:1214/files/{{ac.fileId}}" class="w-full">
 

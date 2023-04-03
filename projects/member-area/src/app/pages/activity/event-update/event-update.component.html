@@ -108,7 +108,7 @@
                 <div class="p-inputgroup">
                   <div class="block"></div>
                   <span class="p-inputgroup-addon">$</span>
-                  <input formControlName="price" id="eventPrice" type="number" pInputText placeholder="Price">
+                  <p-inputNumber pInputNumber formControlName="price" id="coursePrice" mode="decimal" [maxFractionDigits]="5"  placeholder="Price"></p-inputNumber>
                   <span class="p-inputgroup-addon">.00</span>
                 </div>
               </div>

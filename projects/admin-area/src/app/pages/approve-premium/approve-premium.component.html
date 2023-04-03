@@ -43,9 +43,9 @@
             </td>
             <td>
               <p-tag [rounded]="true"
-                severity="{{item.isApprove==true?'success':item.isApprove==false?'danger':'warning'}}" class="ml-3 ">
+                severity="{{item.isActive==true?'success':item.isActive==false?'danger':'warning'}}" class="ml-3 ">
                 <p class="my-0 mx-1" style="font-size: 12px; font-weight: 500; ">
-                  {{item.isApprove==true?'Approved':item.isApprove==false?'Reject':'Pending'}}</p>
+                  {{item.isActive==true?'Approved':item.isActive==false?'Reject':'Pending'}}</p>
               </p-tag>
             </td>
             <td>

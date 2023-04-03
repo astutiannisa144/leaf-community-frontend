@@ -25,6 +25,11 @@ import { Subscription } from "rxjs";
        
      },
 
+     .card-hover:hover {
+  box-shadow: 0px 30px 18px -8px rgba(0, 0, 0,0.1);
+    transform: scale(1.02, 1.02);
+},
+
      :host ::ng-deep .p-checkbox .p-checkbox-box {
     border: 2px solid #ced4da;
     background: #ffffff;
@@ -78,8 +83,8 @@ export class EventDetailComponent implements OnInit {
         private activityService: ActivityService,
         private activatedRoute: ActivatedRoute,
         private userService: UserService,
-        private confirmationService:ConfirmationService,
-        private messageService:MessageService,
+        private confirmationService: ConfirmationService,
+        private messageService: MessageService,
         private title: Title
 
     ) {
@@ -117,15 +122,15 @@ export class EventDetailComponent implements OnInit {
     onUpdate() {
         this.router.navigateByUrl('/activities/event-update/' + this.event?.id)
     }
-    onDelete(){
+    onDelete() {
         this.confirmationService.confirm({
             message: 'Do you want to delete this Event?',
             header: 'Delete Confirmation',
             icon: 'pi pi-info-circle',
 
             accept: () => {
-                this.activityService.delete(this.activityId).subscribe(result=>{
-                    this.router.navigateByUrl("/activities/event/"+this.event?.activityTypeId)
+                this.activityService.delete(this.activityId).subscribe(result => {
+                    this.router.navigateByUrl("/activities/event/" + this.event?.activityTypeId)
                 })
                 // this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' });
             },

@@ -59,6 +59,11 @@ import { Subscription } from "rxjs";
   transform: translateY(-5px);
 }
 
+.card-hover:hover {
+  box-shadow: 0px 30px 18px -8px rgba(0, 0, 0,0.1);
+    transform: scale(1.02, 1.02);
+}
+
 
 
     :host ::ng-deep .menubar {
@@ -127,8 +132,6 @@ export class EventComponent implements OnInit {
     })
     this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page, ACTIVITY_TYPE.EV).subscribe(result => {
       this.eventList = result
-
-
     })
     this.category$ = this.categoryService.getCategory().subscribe(result => {
       this.categoryList = result
@@ -161,9 +164,8 @@ export class EventComponent implements OnInit {
         this.eventList = result
       })
     }
-
-
   }
+  
   onScroll(): void {
     if (!this.categories.length) {
       this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page = this.page + 1, ACTIVITY_TYPE.EV).subscribe(result => {

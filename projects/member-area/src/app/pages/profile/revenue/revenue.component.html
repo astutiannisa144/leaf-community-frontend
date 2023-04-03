@@ -83,7 +83,7 @@
                 <td>{{i+1}}</td>
                 <td>{{item.activityType}}</td>
                 <td>{{item.title}}</td>
-                <td>{{item.totalIncome}}</td>
+                <td>{{item.totalIncome | currency: 'Rp ' :'symbol':'1.2-2'}}</td>
               </tr>
             </ng-template>
             <ng-template pTemplate="summary">

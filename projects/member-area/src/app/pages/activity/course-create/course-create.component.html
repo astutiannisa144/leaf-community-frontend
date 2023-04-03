@@ -24,33 +24,54 @@
   </div>
 </div>
 
-<div class="flex justify-content-center" [formGroup]="activityForm">
+<div class="flex justify-content-center" [formGroup]="activityForm" (ngSubmit)="insert()">
   <div class="col-8 justify-content-center flex align-items-center">
     <div class="surface-card p-4 shadow-2 border-round w-full justify-content-center flex">
       <div class="col-10 p-4">
         <div>
-          <label for="course-title" class="block text-900 font-medium mb-2">Course Title</label>
-          <input id="course-title" formControlName="title" type="text" placeholder="Course title" pInputText
-            class="w-full mb-3 rounded">
 
-            <label for="course-title" class="block text-900 font-medium mb-2">Category</label>
+          <label for="course-title" class="block text-900 font-medium mb-2">
+            <span style="color: rgb(225, 0, 0);">*
+            </span>
+          </label>
+
+          <input id="course-title" formControlName="title" type="text" placeholder="Course title" pInputText
+            class="w-full mb-3 rounded"  maxlength="50">
+
+
+            <label for="course-title" class="block text-900 font-medium mb-2">Category
+              <span style="color: rgb(225, 0, 0);">*
+              </span>
+            </label>
             <p-dropdown [options]="categoryList" formControlName="categoryId" optionValue="id" optionLabel="categoryName">
             </p-dropdown>
-          <label for="description" class="block text-900 font-medium mb-2 mt-3">Course Desctiption</label>
+          <label for="description" class="block text-900 font-medium mb-2 mt-3">Course Desctiption
+            <span style="color: rgb(225, 0, 0);">*
+            </span>
+          </label>
+
           <textarea id="description" rows="5" placeholder="Course description" cols="30" pInputTextarea
             [autoResize]="true" formControlName="description" class="w-full mb-3 rounded"></textarea>
 
           <div class="flex p-0">
             <div class="col pl-0">
-              <label for="provider" class="block text-900 font-medium mb-2">Provider Name</label>
+              <label for="provider" class="block text-900 font-medium mb-2">Provider Name
+                <span style="color: rgb(225, 0, 0);">*
+                </span>
+              </label>
               <input id="provider" formControlName="provider" type="text" placeholder="Course provider" pInputText
-                class="w-full mb-3 rounded">
+                class="w-full mb-3 rounded"  maxlength="30">
             </div>
 
             <div class="col pr-0">
-              <label for="provider-address" class="block text-900 font-medium mb-2">Location</label>
+
+              <label for="provider-address" class="block text-900 font-medium mb-2">Location
+                <span style="color: rgb(225, 0, 0);">*
+                </span>
+              </label>
+
               <input id="provider-address" formControlName="locationAddress" type="text" placeholder="Course location"
-                pInputText class="w-full mb-3 rounded">
+                pInputText class="w-full mb-3 rounded"  maxlength="30">
             </div>
           </div>
 
@@ -58,42 +79,48 @@
             <div class="col pl-0">
               <div class="flex">
                 <div class="col p-0 justify-content-start">
+
                   <label for="calendar-start"  class="block text-900 font-medium mb-2">Course
-                    Date</label>
+                    Date
+                    <span style="color: rgb(225, 0, 0);">*
+                    </span></label>
+
                 </div>
                 <div class="col p-0 flex justify-content-end">
                   <button pButton pRipple label="Schedule" (click)="addSchedule()" icon="pi pi-plus"
                     class="w-8 justify-content-center p-button-info p-button-sm top-2"></button>
                 </div>
               </div>
-             
-                <div *ngFor="let d of schedules.controls; let i=index" class="mt-3" formArrayName="schedules" >
-                  <div [formGroupName]="i">
-                    <div class="field col-12 p-0">
-                      <p-calendar styleClass="w-full" id="calendar-start" placeholder="Course date"
-                       (onSelect)="onChangeScheduleDate(i)" formControlName="scheduleDateUtc" [showIcon]="true" ></p-calendar>
-                    </div>
-                    <div class="field col-12 p-0">
-                      <button type="button" pButton pRipple (click)="removeSchedule(i)" icon="pi pi-filter" class="w-8 justify-content-center p-button-info p-button-sm top-2">Remove</button>
+
+              <div *ngFor="let d of schedules.controls; let i=index" class="mt-3" formArrayName="schedules">
+                <div [formGroupName]="i">
+                  <div class="field col-12 p-0">
+                    <p-calendar styleClass="w-full" id="calendar-start"  placeholder="Course date"
+                      (onSelect)="onChangeScheduleDate(i)" formControlName="scheduleDateUtc" [showIcon]="true">
+                    </p-calendar> 
                   </div>
+                  <div class="field col-12 p-0">
+                    <button type="button" pButton pRipple (click)="removeSchedule(i)" icon="pi pi-filter"
+                      class="w-8 justify-content-center p-button-info p-button-sm top-2">Remove</button>
                   </div>
-               
+                </div>
+
               </div>
             </div>
 
             <div class="col p-0 mt-1">
               <div class="field col-12">
-                <label for="timeOnly" class="block text-900 font-medium mb-2">Course Time Start</label>
-                <p-calendar styleClass="w-full" formControlName="timeStartUtc" (click)="onChangeScheduleTimeStart()"  icon="pi pi-plus" placeholder="Course time"
-                  [timeOnly]="true" inputId="timeonly"></p-calendar>
+                <label for="timeOnly" class="block text-900 font-medium mb-2">Course Time Start<span style="color: rgba(255, 0, 0, 0.792);">*</span></label>
+                <p-calendar styleClass="w-full" formControlName="timeStartUtc" (click)="onChangeScheduleTimeStart()"
+                  icon="pi pi-plus" placeholder="Course time" [timeOnly]="true" inputId="timeonly"></p-calendar>
               </div>
               <div class="field col-12">
-                <label for="timeOnly" class="block text-900 font-medium mb-2">Course Time End</label>
-                <p-calendar styleClass="w-full" formControlName="timeEndUtc" (click)="onChangeScheduleTimeEnd()"  icon="pi pi-plus" placeholder="Course time"
-                  [timeOnly]="true" inputId="timeonly"></p-calendar>
+                <label for="timeOnly" class="block text-900 font-medium mb-2">Course Time End<span style="color: rgba(255, 0, 0, 0.792);">*</span></label>
+                <p-calendar styleClass="w-full" formControlName="timeEndUtc" (click)="onChangeScheduleTimeEnd()"
+                  icon="pi pi-plus" placeholder="Course time" [timeOnly]="true" inputId="timeonly"></p-calendar>
               </div>
             </div>
-           
+
           </div>
 
           <div class="flex">
@@ -102,7 +129,7 @@
                 <label for="coursePrice" class="block text-900 font-medium mb-2">Course Price</label>
                 <div class="p-inputgroup">
                   <div class="block"></div>
-                  <span class="p-inputgroup-addon">$</span>
+                  <span class="p-inputgroup-addon">Rp</span>
                   <p-inputNumber pInputNumber formControlName="price" id="coursePrice" mode="decimal" [maxFractionDigits]="5"  placeholder="Price"></p-inputNumber>
                   <span class="p-inputgroup-addon">.00</span>
                 </div>
@@ -112,8 +139,8 @@
               <div class="block p-0">
                 <label for="coursePrice" class="block text-900 font-medium mb-2">Course Photo</label>
                 <div class="file-btn-container block">
-                  <p-fileUpload chooseIcon="pi pi-fw pi-upload" chooseLabel="Upload" mode="basic" [customUpload]="true" 
-                    name="myFile[]"  accept="image/*" (onSelect)="fileUpload($event)">
+                  <p-fileUpload chooseIcon="pi pi-fw pi-upload" chooseLabel="Upload" mode="basic" [customUpload]="true"
+                    name="myFile[]" accept="image/*" (onSelect)="fileUpload($event)">
                   </p-fileUpload>
                 </div>
               </div>
@@ -122,7 +149,8 @@
           </div>
 
           <div class="flex justify-content-center mt-5 ">
-            <button pButton type="button" (click)="insert()" pRipple label="Create New Course" icon="pi pi-calendar-plus" class="w-full"></button>
+            <button pButton type="submit" (click)="insert()" pRipple label="Create New Course" icon="pi pi-calendar-plus"
+              class="w-full"></button>
           </div>
         </div>
       </div>
