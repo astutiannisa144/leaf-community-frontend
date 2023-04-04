@@ -42,9 +42,7 @@
         <p-fileUpload (onSelect)="onUpload($event)" (onRemove)="onRemove($event)" (onClear)="onClear()"
           [multiple]="true" accept="image/*">
           <ng-template pTemplate="content">
-            <!-- <ul *ngIf="uploadedFiles.length">
-              <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
-            </ul> -->
+          
           </ng-template>
         </p-fileUpload>
       </div>

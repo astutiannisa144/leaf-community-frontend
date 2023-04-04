@@ -1,4 +1,4 @@
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest, HttpResponse } from "@angular/common/http";
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { MessageService } from "primeng/api";
@@ -15,11 +15,11 @@ export class ResponInterceptor implements HttpInterceptor{
                 next: (event)=>{
                     if(event instanceof HttpResponse){
                         if(event.body.message &&event.body.codeWarning && event.body.codeWarning==1){
-                            this.messageService.add({severity:'warn', summary:'Service Message', detail:event.body.message});
+                            this.messageService.add({severity:'warn', detail:event.body.message});
 
                         }
                         else if(event.body.message){
-                            this.messageService.add({severity:'success', summary:'Service Message', detail:event.body.message});
+                            this.messageService.add({severity:'success', detail:event.body.message});
                         }   
                            
                     }
@@ -27,10 +27,10 @@ export class ResponInterceptor implements HttpInterceptor{
                 error: (event)=>{
                     if(event instanceof HttpErrorResponse){
                         if(event.status==400 && event.error.codeWarning){
-                            this.messageService.add({severity:'warn', summary:'Service Message', detail:event.error.codeWarning});              
+                            this.messageService.add({severity:'warn', detail:event.error.codeWarning});              
                         }
                         else{
-                            this.messageService.add({severity:'error', summary:'Service Message', detail:event.error.message}); 
+                            this.messageService.add({severity:'error', detail:event.error.message}); 
                             if(event.status==401){
                                 this.router.navigateByUrl('/login')
                             }    

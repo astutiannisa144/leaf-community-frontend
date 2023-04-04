@@ -20,13 +20,7 @@
           <div class="flex align-items-Start ">
             Total Transaction : {{totalData}}
           </div>
-          <div class="flex">
-            <span class="p-input-icon-left ml-auto">
-              <i class="pi pi-search"></i>
-              <input pInputText #searchText type="text" (input)="dt1.filterGlobal(searchText.value, 'contains')"
-                placeholder="Search keyword" />
-            </span>
-          </div>
+        
         </ng-template>
         <ng-template pTemplate="header">
           <tr>
@@ -45,11 +39,10 @@
             <td>{{item.activityName}}</td>
 
             <td>
-              <p-button styleClass="px-3 w-3 justify-content-center" pTooltip="Download Evidence"
-                tooltipPosition="bottom">
+              <p-button styleClass="px-3 w-3 justify-content-center" >
                 <ng-template pTemplate="content">
-                  <i class="pi pi-download"><a icon="pi pi-check"
-                      href="http://localhost:1214/files/{{item.fileId}}"></a></i>
+                <a
+                      href="http://localhost:1214/files/{{item.fileId}}" style="color: white;">  <i class="pi pi-download"  ></i></a>
                 </ng-template>
               </p-button>
             </td>
@@ -60,9 +53,7 @@
                   {{item.isApprove==true?'Approved':item.isApprove==false?'Reject':'Pending'}}</p>
               </p-tag>
             </td>
-            <!-- <td ngIf="!item.isApprove">Pending</td> -->
-            <!-- <td ngIf="item.isApprove==true">Approved</td>
-            <td ngIf="item.isApprove==false">Reject</td> -->
+        
             <td>
               <div class="justify-content-center flex gap-1">
                 <button pButton pRipple type="button" icon="pi pi-check" (click)="onApprove($event,item.id,i)"

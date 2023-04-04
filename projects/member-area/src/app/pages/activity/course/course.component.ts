@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { FormArray, FormBuilder, FormControl } from "@angular/forms";
+import { FormBuilder } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ActivityReqGet } from "@dto/activity/activity-req-get";
@@ -7,7 +7,6 @@ import { ActivityRes } from "@dto/activity/activity-res";
 import { CategoryRes } from "@dto/category/category-res";
 import { ActivityService } from "@service/activity.service";
 import { CategoryService } from "@service/category.service";
-import { LazyLoadEvent } from "primeng/api";
 import { ACTIVITY_LIMIT } from "projects/base-area/src/app/constant/activity-limit";
 import { ACTIVITY_TYPE } from "projects/base-area/src/app/constant/activity-type";
 import { Subscription } from "rxjs";
@@ -19,6 +18,11 @@ import { Subscription } from "rxjs";
     <div (mouseenter)="onHover()" (mouseleave)="onLeave()" class="hoverable-element">Hover me!</div>
     `,
     styles: [`
+
+.card-hover:hover {
+  box-shadow: 0px 30px 18px -8px rgba(0, 0, 0,0.1);
+    transform: scale(1.02, 1.02);
+}
      .hoverable-element {
        background-color: #fff;
      }
@@ -27,6 +31,8 @@ import { Subscription } from "rxjs";
        color: #fff;
        
      },
+
+
 
      .courses {
   transition: transform .5s;
@@ -100,13 +106,11 @@ export class CourseComponent implements OnInit{
     categoryList : CategoryRes[]=[]
     activityTypeId!:string
     page = 1
-    // categories=this.fb.group({
-    //     category:[[]],
-    // })
+  
     categories:string[]=[]
 
     categoryTemp!:string
-    // category=new FormControl('')
+
     
 
     constructor(
@@ -152,10 +156,7 @@ export class CourseComponent implements OnInit{
                 limit: ACTIVITY_LIMIT,
                 page: this.page,
               }
-              // this.categoryTemp=temp
-              //   this.course$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.CO,temp).subscribe(result => {
-              //       this.courseList = result
-              //   })
+           
                   this.course$ = this.activityService.getActivityByListCategory(data).subscribe(result => {
                     this.courseList = result
                 })

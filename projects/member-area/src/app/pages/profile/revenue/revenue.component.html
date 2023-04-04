@@ -8,34 +8,6 @@
     </div>
 
     <div class="surface-card p-3 shadow-2 border-round m-0">
-      <!-- <div
-        class="grid grid-nogutter justify-content-center lg:ml-3 md:ml-3 lg:justify-content-start md:justify-content-start">
-        <div class="col-11 lg:col-3 md:col-5">
-          <div class="surface-card p-3 border-1 border-round" style="border-radius: 6px; color:rgb(202, 202, 202);">
-            <i class="pi pi-money-bill mr-2 flex mb-1" style="font-size: 20px; color: #000000ba;"></i>
-            <div class="flex justify-content-between">
-              <label class="" for="icon" style="font-size: 1rem; font-weight: 400; color: #000000;">Total Income</label>
-              <p style="font-size:  1rem; font-weight: 500; color: #000000;">
-                Rp 120.000
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-11 lg:col-3 md:col-4 lg:ml-3 md:ml-3">
-          <div class="surface-card p-3 border-1 border-round" style="border-radius: 6px; color:rgb(202, 202, 202);">
-            <i class="pi pi-users mr-2 flex mb-1" style="font-size: 20px; color: #000000ba;"></i>
-            <div class="flex justify-content-between">
-              <label class="" for="icon" style="font-size: 1rem; font-weight: 400; color: #000000;">Total
-                Participants</label>
-              <p style="font-size:  1rem; font-weight: 500; color: #000000;">
-                122
-              </p>
-            </div>
-          </div>
-        </div>
-
-      </div> -->
 
       <p-tabView styleClass="tabview-custom" class="p-0 mt-3" [formGroup]="scheduleForm">
         <p-tabPanel>
@@ -112,7 +84,7 @@
               <a href="http://localhost:1214/user-activity/report/activity-participants?dateStart={{scheduleForm.value.dateStart}}&dateEnd={{scheduleForm.value.dateEnd}}"
                 class="col justify-content-end align-items-end lg:flex md:flex mt-3">
                 <button pButton pRipple label="Export history" icon="pi pi-upload"
-                  class="p-button-help w-full lg:w-5 md:w-5 "></button>
+                  class="p-button-help w-full lg:w-5 md:w-5 " [loading]="loading[0]" (onClick)="load()"></button>
               </a>
             </div>
           </p-toolbar>

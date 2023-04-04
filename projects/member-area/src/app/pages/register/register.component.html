@@ -126,9 +126,9 @@
 
 
 
-              <input formControlName="address" id="address" type="text" placeholder="Home address" pInputText
+              <textarea [autoResize]="true" formControlName="address" id="address" type="text" placeholder="Home address" pInputTextarea
                 class="w-full rounded {{ registerForm.get('address')
-                ?.invalid && ( registerForm.get('address')?.dirty ||  registerForm.get('address')?.touched) ? 'ng-invalid ng-dirty' : '' }}">
+                ?.invalid && ( registerForm.get('address')?.dirty ||  registerForm.get('address')?.touched) ? 'ng-invalid ng-dirty' : '' }}"></textarea>
 
             </div>
 
@@ -153,19 +153,23 @@
                 ?.invalid && ( registerForm.get('companyName')?.dirty || registerForm.get('companyName')?.touched) ? 'ng-invalid ng-dirty' : '' }}">
             </div>
 
-            <div class="flex flex-wrap">
+            <div class="flex flex-wrap justify-content-between">
 
               <div class="col p-0">
-                <p-dropdown styleClass="w-10rem"
+                <label for="industry" class="block text-900 font-medium mb-1">Industry</label>
+
+                <p-dropdown id="industry" styleClass="w-12"
                   class="{{registerForm.get('industryId')
                 ?.invalid && (registerForm.get('industryId')?.dirty || registerForm.get('industryId')?.touched) ? 'ng-invalid ng-dirty' : '' }}"
                   placeholder="Industry" [options]="industryList" formControlName="industryId" optionValue="id"
                   optionLabel="industryName" [showClear]="true">
                 </p-dropdown>
               </div>
-              <div class="mx-1"></div>
+              <div class="mx-3"></div>
               <div class="col p-0">
-                <p-dropdown styleClass="w-10rem"
+                <label for="position" class="block text-900 font-medium mb-1">Position</label>
+                
+                <p-dropdown id="position" styleClass="w-12"
                   class="{{registerForm.get('positionId')
                 ?.invalid && (registerForm.get('positionId')?.dirty || registerForm.get('positionId')?.touched) ? 'ng-invalid ng-dirty' : '' }}"
                   placeholder="Position" [options]="positionList" formControlName="positionId" optionValue="id"

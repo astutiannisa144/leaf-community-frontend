@@ -1,10 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
-import { ActivatedRoute, Router } from "@angular/router";
-import { PostRes } from "@dto/post/post-res";
-import { PostService } from "@service/post.service";
-import { POST_LIMIT } from "projects/base-area/src/app/constant/post-limit";
+import {  Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { MenuItem, MessageService } from 'primeng/api';
 import { ProfileRes } from "@dto/profile/profile-res";
@@ -16,7 +13,6 @@ import { IndustryService } from "@service/industry.service";
 import { PositionService } from "@service/position.service";
 import { SocialMediaRes } from "@dto/social-media/social-media-res";
 import { SocialMediaServiceService } from "@service/social-media.service";
-import { LoginComponent } from "../../login/login.component";
 import { ProfileReq } from "@dto/profile/profile-req";
 import { UserReq } from "@dto/user/user-req";
 import { BASE_URL } from "projects/base-area/src/app/constant/base.service";
@@ -42,7 +38,6 @@ export class ProfileComponent {
     socialMedia$?: Subscription
     socialMediaList: SocialMediaRes[] = []
     email!: string
-    // disabled: boolean = true;
     passwordForm = this.fb.group({
         email: this.userService.email,
         oldPass: ['', Validators.required],
@@ -113,7 +108,6 @@ export class ProfileComponent {
                     ver: String(this.profile.file?.ver)
                 }
             })
-            console.log(this.profile.profileSocialMedia.length);
             for (let i = 0; i < this.profile.profileSocialMedia.length; i++) {
 
 

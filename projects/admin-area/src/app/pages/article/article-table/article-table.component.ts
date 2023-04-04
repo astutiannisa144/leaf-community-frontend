@@ -1,6 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { Title } from "@angular/platform-browser";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Router } from "@angular/router";
 import { ArticleRes } from "@dto/article/article-res";
 import { ArticleService } from "@service/article.service";
 
@@ -15,6 +15,11 @@ import { Subscription } from "rxjs";
         :host ::ng-deep .p-chip.custom-chip {
     background: var(--primary-color);
     color: var(--primary-color-text);
+}
+
+.card-hover:hover {
+  box-shadow: 0px 30px 18px -8px rgba(0, 0, 0,0.1);
+    transform: scale(1.02, 1.02);
 }
     `
     ],

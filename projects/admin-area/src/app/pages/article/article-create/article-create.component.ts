@@ -1,10 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { FormBuilder } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
-import { ActivatedRoute, Router } from "@angular/router";
+import {  Router } from "@angular/router";
 import { ArticleReq } from "@dto/article/article-req";
 import { ArticleService } from "@service/article.service";
-import { Subscription } from "rxjs";
 
 @Component({
     selector: 'app-article-create',

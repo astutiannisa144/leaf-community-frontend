@@ -7,7 +7,7 @@
     <ng-template pTemplate="end">
       <div class="grid grid-nogutter align-items-center">
 
-        <p-button class="hidden lg:block md:block"
+        <p-button *ngIf="roleCode=='MB'&&!premium" class="hidden lg:block md:block"
           styleClass="p-button-outlined p-button-rounded p-button-warning p-button-sm mr-4" routerLink="/premium">
           <i class="pi pi-bolt font-semibold"></i>
           <p class="ml-2 font-medium" style="color: black;">Try Premium</p>

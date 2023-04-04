@@ -125,7 +125,7 @@
                     </p-calendar>
                   </div>
                   <div class="field col-12 p-0">
-                    <button type="button" pButton pRipple (click)="removeSchedule(i)" icon="pi pi-filter"
+                    <button *ngIf="schedules.length>1" type="button" pButton pRipple (click)="removeSchedule(i)" icon="pi pi-filter"
                       class="w-8 justify-content-center p-button-info p-button-sm top-2">Remove</button>
                   </div>
                 </div>
@@ -169,8 +169,8 @@
                   <div class="block"></div>
                   <span class="p-inputgroup-addon">Rp</span>
 
-                  <input formControlName="price" id="eventPrice" type="number" mode="decimal" inputId="locale-user"
-                    pInputNumber mode="currency" inputId="currency-indonesia" currency="IDR" placeholder="Price">
+                  <p-inputNumber formControlName="price" id="eventPrice" type="number" mode="decimal" inputId="locale-user"
+                    pInputNumber mode="decimal" [maxFractionDigits]="5"  placeholder="Price"></p-inputNumber>
 
                   <span class="p-inputgroup-addon">.00</span>
                 </div>

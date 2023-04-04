@@ -33,11 +33,10 @@
             <td>{{item.memberName}}</td>
             <td>{{item.premiumName}}</td>
             <td>
-              <p-button styleClass="px-3 w-3 justify-content-center" pTooltip="Download Evidence"
-                tooltipPosition="bottom">
+              <p-button styleClass="px-3 w-3 justify-content-center" >
                 <ng-template pTemplate="content">
-                  <i class="pi pi-download"><a icon="pi pi-check"
-                      href="http://localhost:1214/files/{{item.fileId}}"></a></i>
+                <a
+                      href="http://localhost:1214/files/{{item.fileId}}" style="color: white;">  <i class="pi pi-download"  ></i></a>
                 </ng-template>
               </p-button>
             </td>

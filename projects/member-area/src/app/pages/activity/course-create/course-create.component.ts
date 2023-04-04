@@ -61,7 +61,6 @@ export class CourseCreateComponent implements OnInit, AfterContentChecked {
 
     ngOnInit() {
         this.activatedRoute.params.subscribe(result => {
-            console.log(result['id']);
             this.activityForm.patchValue({
                 activityTypeId: result['id']
             })
@@ -78,6 +77,7 @@ export class CourseCreateComponent implements OnInit, AfterContentChecked {
         ];
 
         this.home = { icon: 'pi pi-home', routerLink: '/posts' };
+        this.addSchedule()
     }
     get schedules() {
         return this.activityForm.get('schedules') as FormArray
@@ -168,7 +168,7 @@ export class CourseCreateComponent implements OnInit, AfterContentChecked {
         }
         activity.schedule = [...this.schedules.value]
         this.activityService.insert(activity).subscribe(result => {
-            this.router.navigateByUrl('/activities/event/' + this.activityForm.value.activityTypeId)
+            this.router.navigateByUrl('/activities/course/' + this.activityForm.value.activityTypeId)
 
         })
     }

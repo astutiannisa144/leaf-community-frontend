@@ -7,4 +7,5 @@ export interface UserPremiumRes{
 	  expireDate:string;
 	  ver:number;
 	  isActive:boolean;
+	  fileId:string
 }

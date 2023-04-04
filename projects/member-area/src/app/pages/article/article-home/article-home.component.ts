@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Title } from "@angular/platform-browser";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Router } from "@angular/router";
 import { ActivityRes } from "@dto/activity/activity-res";
 import { ArticleRes } from "@dto/article/article-res";
 import { ActivityService } from "@service/activity.service";

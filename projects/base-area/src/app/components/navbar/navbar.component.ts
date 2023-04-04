@@ -35,7 +35,7 @@ export class NavbarComponent {
   src!: string
   fileId!: string
   res!: string
-
+  premium!:boolean
   constructor(
     private router: Router,
     private activityService: ActivityService,
@@ -205,6 +205,7 @@ export class NavbarComponent {
   ]
 
   ngOnInit(): void {
+    this.premium=this.userService.user.isPremium
     this.profileService.profileImage$?.subscribe(result => {
       this.src = result
     })

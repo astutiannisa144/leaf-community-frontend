@@ -1,7 +1,7 @@
 import { Component, HostListener, OnInit } from "@angular/core";
 import { FormArray, FormBuilder, Validators } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
-import { ActivatedRoute, Router } from "@angular/router";
+import {  Router } from "@angular/router";
 import { PostRes } from "@dto/post/post-res";
 import { PostService } from "@service/post.service";
 import { POST_LIMIT } from "projects/base-area/src/app/constant/post-limit";
@@ -316,6 +316,10 @@ export class PostHomeComponent implements OnInit {
         result.map(p => {
           p.showComment = false
           p.showEdit = false
+          if (p.isPremium) {
+            p.contentFull = p.content
+            p.content = p.content.substring(0, 320)
+          }
         })
         if (this.postList.length) {
           this.postList = [...this.postList, ...result]
@@ -663,10 +667,6 @@ export class PostHomeComponent implements OnInit {
 
   insertPostValidation() {
     if (this.post.value.isPremium && this.post.value.content!.length < 500) {
-      // this.post.get('content')?.addValidators([Validators.minLength(500)])
-      // this.post.get('content')?.markAsTouched()
-      // this.post.updateValueAndValidity()
-      // console.log('.......');
 
     } else {
       this.insertPost()
@@ -713,7 +713,6 @@ export class PostHomeComponent implements OnInit {
   }
 
   insertUserPolling(id: string, idx: number) {
-    console.log(idx)
     this.userPolling$ = this.userPollingService.insertUserPolling({ pollingDetailId: id }).subscribe(result => {
       this.postList[idx].polling!.userPollingId = result.id
 
@@ -763,7 +762,7 @@ export class PostHomeComponent implements OnInit {
       header: 'Delete Post',
       icon: 'pi pi-info-circle',
       accept: () => {
-        this.deleteComment()
+        this.deletePost()
       }
     });
   }
@@ -774,7 +773,7 @@ export class PostHomeComponent implements OnInit {
       header: 'Delete Comment',
       icon: 'pi pi-info-circle',
       accept: () => {
-        this.deletePost()
+        this.deleteComment()
       }
     });
   }
