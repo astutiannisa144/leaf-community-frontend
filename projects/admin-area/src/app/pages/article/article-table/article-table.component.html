@@ -16,12 +16,12 @@
 
       <div class="grid justify-content-center">
         <div class="col-12">
-          <div class="grid justify-content-start" infinite-scroll (scrolled)="onScroll()" >
-            <div class="col-4">
-              <div class="surface-card p-3 shadow-1 border-round hover" *ngFor="let art of articleList ; index as i">
+          <div class="grid justify-content-between grid-nogutter" infinite-scroll (scrolled)="onScroll()" >
+            <div class="col-4  pb-3 pr-4" *ngFor="let art of articleList ; index as i" >
+              <div class="card-hover surface-card p-3 shadow-1 border-round " >
                 <img alt="Logo Class"
                   src="http://localhost:1214/files/{{art.fileId}}"
-                  class="w-full">
+                  class="w-full" style="height: 270px;">
 
                 <p class="my-1" style="font-weight: 600; font-size: 16px; text-align: justify;">{{art.title}}</p>
 

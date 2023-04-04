@@ -1,13 +1,10 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Title } from "@angular/platform-browser";
-import { ActivatedRoute, Router } from "@angular/router";
 import { UserActivityDataRes } from "@dto/user-activity/user-activity-data-res";
 import { UserActivityReq } from "@dto/user-activity/user-activity-req";
-import { UserActivityRes } from "@dto/user-activity/user-activity-res";
 import { UserActivityService } from "@service/user.activity.service";
 import { ConfirmationService, LazyLoadEvent } from "primeng/api";
 import { ACTIVITY_TYPE } from "projects/base-area/src/app/constant/activity-type";
-import { USER_ACTIVITY_LIMIT } from "projects/base-area/src/app/constant/user-activity-limit";
 import { Subscription } from "rxjs";
 
 @Component({
@@ -32,7 +29,6 @@ export class EventAdminComponent implements OnInit,OnDestroy {
     query?: string
     loading: boolean = true
     constructor(
-        private router: Router,
         private userActivityService: UserActivityService,
         private confirmationService: ConfirmationService,
         private title: Title,
@@ -123,7 +119,6 @@ export class EventAdminComponent implements OnInit,OnDestroy {
             this.userActivityDataList = resultData.data
             this.loading = false
             this.totalData = resultData.total
-            console.log(resultData);
 
         })
     }

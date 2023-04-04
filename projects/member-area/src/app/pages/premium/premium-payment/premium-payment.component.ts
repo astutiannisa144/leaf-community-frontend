@@ -1,16 +1,13 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
-import { ActivityRes } from "@dto/activity/activity-res";
 import { BankAccountRes } from "@dto/bank-account/bank-account-res";
 import { PremiumRes } from "@dto/premium/premium-res";
 import { UserPremiumReq } from "@dto/user-premium/user-premium-req";
-import { ActivityService } from "@service/activity.service";
 import { PremiumService } from "@service/premium.service";
 import { UserPremiumService } from "@service/user-premium.service";
 import { UserService } from "@service/user-service";
-import { ACTIVITY_LIMIT } from "projects/base-area/src/app/constant/activity-limit";
 import { Subscription } from "rxjs";
 
 @Component({
@@ -106,9 +103,9 @@ export class PremiumPaymentComponent {
             }
         }
         this.userPremiumService.insert(data).subscribe(result => {
-            const user = this.userService.user
-            user.isPremium = true
-            this.userService.saveDataLogin(user)
+            // const user = this.userService.user
+            // user.isPremium = true
+            // this.userService.saveDataLogin(user)
             this.router.navigateByUrl('/home')
         })
     }

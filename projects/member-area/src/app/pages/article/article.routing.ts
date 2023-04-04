@@ -14,10 +14,6 @@ const articleRoutes : Routes = [
         component : ArticleDetailComponent
     },
 
-    // {   
-    //     path : 'create',
-    //     component : PostCreateComponent
-    // },
     
 ]   
 

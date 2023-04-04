@@ -11,12 +11,12 @@
     </section>
   </div>
   <div class="hidden lg:block md:block col-12 md:col-6 overflow-hidden overflow-x: hidden;">
-    <img src="https://buildwithangga.com/storage/assets/thumbnails/thumbnail_vue_starter.png" alt="Image"
-      class="md:ml-auto block md:h-full" style="clip-path: polygon(8% 0, 100% 0%, 100% 100%, 0 100%)">
+    <img src="https://raw.githubusercontent.com/astutiannisa144/leaf-community-frontend/b2a07b773ce88805e0da1fbe2e96665075137943/thumbnail_vue_starter%20(1).png" alt="Image"
+      class="md:ml-auto block md:h-full" style="clip-path: polygon(6% 0, 100% 0%, 100% 100%, 0 100%)">
   </div>
 </div>
 
-<div class="grid justify-content-center flex mt-6">
+<div class="grid grid-nogutter justify-content-center flex mt-6">
   <div class="col-11 justify-content-center align-items-center ">
     <div class="card">
 
@@ -61,7 +61,7 @@
                 <div class="col-11 lg:col-4 md:col-6 pr-0 lg:pr-5 md:pr-5 pb-4 cursor-pointer" *ngFor="let cl of courseList" routerLink="/activities/course-detail/{{cl.id}}">
                   <div class="card-hover surface-card p-3 shadow-2 border-round m-0 ">
                     <img alt="Logo Class" src="http://localhost:1214/files/{{cl.fileId}}"
-                      class="w-full border-round-sm">
+                      class="w-full border-round-sm" style="height: 160px;">
 
                     <div class="grid my-0">
                       <div class="col flex my-0 align-items-center">
@@ -108,65 +108,14 @@
                         <p-tag [rounded]="true" severity="{{cl.isApprove==true?'success':cl.isApprove==false?'warning':'info'}}" class="ml-3 ">
                           <p class="my-0 mx-1" style="font-size: 12px; font-weight: 500; ">{{cl.isApprove==true?'Approved':cl.isApprove==false?'Reject':'Pending'}}</p>
                         </p-tag>
-                        <!-- <p-chip styleClass="custom-chip" class="ml-3"  >
-                          <p  class="my-1"  style="font-size: 12px; font-weight: 500; ">{{cl.isApprove==true?'Approved':cl.isApprove==false?'Reject':'Pending'}}</p>
-                        </p-chip> -->
+                      
                       </div>
                     </div>
                   </div>
                 </div>
 
               </div>
-              <!-- <div
-                class="flex flex-wrap justify-content-center lg:justify-content-start md:justify-content-start gap-5 lg:gap-5 md:gap-3">
-                <div class="surface-card p-3 mt-3 shadow-2 border-round m-0" *ngFor="let cl of courseList">
-                  <img alt="Logo Class" src="http://localhost:1214/files/{{cl.fileId}}" class="w-15rem">
-
-                  <div class="grid my-0">
-                    <div class="col flex my-0">
-                      <i class="pi pi-building mb-2 mr-1" style="font-size: 20px; color: #a4a4a4;"></i>
-                      <p style="font-size: 14px; font-weight: 400;">{{cl.provider}}</p>
-
-                    </div>
-                    <div class="col justify-content-end flex my-0">
-                      <i class="pi pi-calendar mb-2 mr-1" style="font-size: 20px; color: #a4a4a4;"></i>
-                      <p style="font-size: 14px; font-weight: 400;">{{cl.activityTypeName}}</p>
-                    </div>
-                  </div>
-
-                  <p class="my-1" style="font-weight: 700; font-size: 20px;">{{cl.title}}</p>
-
-                  <div class="grid">
-                    <div class="col align-items-center">
-                      <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"> <i
-                          class="pi pi-map-marker mr-2"
-                          style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>{{cl.locationAddress}}</p>
-                      <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"
-                        *ngFor="let sch of cl.schedule"> <i class="pi pi-calendar mr-2"
-                          style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>{{sch.scheduleDate|date:'fullDate'}}
-                      </p>
-                      <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"> <i
-                          class="pi pi-clock mr-2"
-                          style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>{{cl.timeStart }}
-                        - {{cl.timeEnd}}
-                      </p>
-                      <p class="my-3 align-items-center flex" style="font-size: 14px; font-weight: 400;"> <i
-                          class="pi pi-money-bill mr-2"
-                          style="font-size: 20px; font-weight: 400; color: #a4a4a4;"></i>Rp {{cl.price}}
-                      </p>
-
-                      <p-chip styleClass="custom-chip">
-                        <p class="my-1" style="font-size: 12px; font-weight: 500;">{{cl.categoryName}}</p>
-                      </p-chip>
-
-                      <p-chip styleClass="custom-chip">
-                        <p class="my-1" style="font-size: 12px; font-weight: 500;">{{cl.isApprove==true?"Approved":cl.isApprove==false?"Reject":"Pending"}}</p>
-                      </p-chip>
-                    </div>
-                  </div>
-                </div>
-
-              </div> -->
+             
             </div>
 
           </div>
@@ -213,7 +162,7 @@
                 <div class="col-11 lg:col-4 md:col-6 pr-0 lg:pr-5 md:pr-5 pb-4 cursor-pointer" *ngFor="let cl of courseListCreated" routerLink="/activities/course-detail/{{cl.id}}">
                   <div class="card-hover surface-card p-3 shadow-2 border-round m-0 ">
                     <img alt="Logo Class" src="http://localhost:1214/files/{{cl.fileId}}"
-                      class="w-full border-round-sm">
+                      class="w-full border-round-sm" style="height: 160px;">
 
                     <div class="grid my-0">
                       <div class="col flex my-0 align-items-center">

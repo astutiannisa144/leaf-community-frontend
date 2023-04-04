@@ -6,7 +6,6 @@ import { ActivityService } from "@service/activity.service";
 import { UserService } from "@service/user-service";
 import { ConfirmationService, ConfirmEventType, MessageService } from "primeng/api";
 import { ACTIVITY_LIMIT } from "projects/base-area/src/app/constant/activity-limit";
-import { ACTIVITY_TYPE } from "projects/base-area/src/app/constant/activity-type";
 import { Subscription } from "rxjs";
 
 @Component({

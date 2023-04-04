@@ -357,11 +357,11 @@
           </div>
           <div class="flex align-items-center">
 
-            <img *ngIf="pl.fileId" src="http://localhost:1214/files/{{ pl.fileId }}" class="border-circle mr-2"
+            <img *ngIf="src" src="{{src}}" class="border-circle mr-2"
               style="object-fit : cover; height: 45px; width: 45px;" alt="profile">
-            <p-button *ngIf="!pl.fileId" icon="pi pi-user" [disabled]="true"
+            <p-button *ngIf="!src" icon="pi pi-user" [disabled]="true"
               styleClass="p-button-rounded p-button-secondary p-button-outlined w-3rem h-3rem bg-gray-100 mr-2">
-            </p-button>
+            </p-button> 
             <div class="w-full">
               <div class="col-12 p-0">
                 <form class="p-inputgroup flex" [formGroup]="comment">

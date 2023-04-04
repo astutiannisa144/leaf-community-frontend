@@ -1,7 +1,6 @@
 import { Component } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
-import { Router } from "@angular/router";
 import { IndustryRes } from "@dto/industry/industry-res";
 import { PositionRes } from "@dto/position/position-res";
 import { UserReq } from "@dto/user/user-req";
@@ -54,18 +53,24 @@ export class RegisterComponent {
         private verificationService: VerificationService,
         private fb: FormBuilder,
         private title: Title,
-        private router: Router
     ) {
         this.title.setTitle('Register / Leaf')
     }
 
     ngOnInit() {
-
+        
         this.industry$ = this.industryService.getAllIndustry().subscribe(result => {
             this.industryList = result
+            this.registerForm.patchValue({
+                industryId : this.industryList[0].id
+            })
         })
         this.position$ = this.positionService.getAllPosition().subscribe(result => {
             this.positionList = result
+            this.registerForm.patchValue({  
+                positionId : this.positionList[0].id
+            })
+
         })
         this.items = [{
             label: 'Sign Up',
@@ -92,9 +97,7 @@ export class RegisterComponent {
         this.activeIndex--
     }
 
-    onActiveIndexChange(event: any) {
-        console.log("Active index changed to: ", event.index);
-    }
+  
     onVerification() {
         const data: VerificationReq = {
             email: this.registerForm.value.email!

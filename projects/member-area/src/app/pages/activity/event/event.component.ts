@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { FormArray, FormBuilder, FormControl } from "@angular/forms";
+import { FormBuilder } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ActivityReqGet } from "@dto/activity/activity-req-get";
@@ -7,7 +7,6 @@ import { ActivityRes } from "@dto/activity/activity-res";
 import { CategoryRes } from "@dto/category/category-res";
 import { ActivityService } from "@service/activity.service";
 import { CategoryService } from "@service/category.service";
-import { LazyLoadEvent } from "primeng/api";
 import { ACTIVITY_LIMIT } from "projects/base-area/src/app/constant/activity-limit";
 import { ACTIVITY_TYPE } from "projects/base-area/src/app/constant/activity-type";
 import { Subscription } from "rxjs";
@@ -106,13 +105,10 @@ export class EventComponent implements OnInit {
   categoryList: CategoryRes[] = []
   activityTypeId!: string
   page = 1
-  // categories=this.fb.group({
-  //     category:[[]],
-  // })
+
   categories: string[] = []
 
   categoryTemp!: string
-  // category=new FormControl('')
 
 
   constructor(
@@ -156,10 +152,7 @@ export class EventComponent implements OnInit {
         limit: ACTIVITY_LIMIT,
         page: this.page,
       }
-      // this.categoryTemp=temp
-      //   this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.EV,temp).subscribe(result => {
-      //       this.eventList = result
-      //   })
+
       this.event$ = this.activityService.getActivityByListCategory(data).subscribe(result => {
         this.eventList = result
       })

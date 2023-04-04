@@ -1,7 +1,7 @@
 import { Component, HostListener, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
-import { ActivatedRoute, Router } from "@angular/router";
+import {  Router } from "@angular/router";
 import { PostRes } from "@dto/post/post-res";
 import { PostService } from "@service/post.service";
 import { POST_LIMIT } from "projects/base-area/src/app/constant/post-limit";
@@ -216,6 +216,10 @@ export class ProfilePostComponent implements OnInit {
       result.map(p => {
         p.showComment = false
         p.showEdit = false
+        if (p.isPremium) {
+          p.contentFull = p.content
+          p.content = p.content.substring(0, 320)
+        }
       })
       this.postList = result
       this.postPage += POST_LIMIT
@@ -261,7 +265,6 @@ export class ProfilePostComponent implements OnInit {
   }
 
   insertUserPolling(id: string, idx: number) {
-    console.log(idx)
     this.userPolling$ = this.userPollingService.insertUserPolling({ pollingDetailId: id }).subscribe(result => {
       this.postList[idx].polling!.userPollingId = result.id
 
@@ -414,7 +417,6 @@ export class ProfilePostComponent implements OnInit {
   }
 
   changeTab(event: any) {
-    console.log(event.index)
     if (event.index == 0) {
       this.postCode = POST_CODE.PROFILE
     } else if (event.index == 1) {
@@ -430,6 +432,10 @@ export class ProfilePostComponent implements OnInit {
         result.map(p => {
           p.showComment = false
           p.showEdit = false
+          if (p.isPremium) {
+            p.contentFull = p.content
+            p.content = p.content.substring(0, 320)
+          }
         })
         this.postList = result
         this.postPage += POST_LIMIT
@@ -443,6 +449,10 @@ export class ProfilePostComponent implements OnInit {
         result.map(p => {
           p.showComment = false
           p.showEdit = false
+          if (p.isPremium) {
+            p.contentFull = p.content
+            p.content = p.content.substring(0, 320)
+          }
         })
         if (this.postList.length) {
           this.postList = [...this.postList, ...result]
@@ -487,6 +497,14 @@ export class ProfilePostComponent implements OnInit {
 
   @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(evt: KeyboardEvent) {
     this.previewImage = false
+  }
+
+  showFullContent(idx: number) {
+    if (this.userService.user.isPremium) {
+      this.postList[idx].content = this.postList[idx].contentFull
+    } else {
+      this.router.navigateByUrl('/premium')
+    }
   }
 
   ngOnDestroy(): void {

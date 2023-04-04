@@ -1,7 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { FormBuilder } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
-import { ActivatedRoute, Router } from "@angular/router";
+import {  Router } from "@angular/router";
 import { ActivityReqGet } from "@dto/activity/activity-req-get";
 import { ActivityRes } from "@dto/activity/activity-res";
 import { CategoryRes } from "@dto/category/category-res";
@@ -69,16 +69,10 @@ export class MyEventComponent {
   categoryListCreated: CategoryRes[] = []
   page = 1
   pageCreated = 1
-  // categories=this.fb.group({
-  //     category:[[]],
 
-  // })
   categories: string[] = []
 
-  // categoriesCreated=this.fb.group({
-  //     categoryCreated:[[]],
 
-  // })
   categoriesCreated: string[] = []
 
   constructor(
@@ -128,10 +122,7 @@ export class MyEventComponent {
         limit: ACTIVITY_LIMIT,
         page: this.page,
       }
-      // this.categoryTemp=temp
-      //   this.event$ = this.activityService.getActivityByType(ACTIVITY_LIMIT, this.page,ACTIVITY_TYPE.EV,temp).subscribe(result => {
-      //       this.eventList = result
-      //   })
+
       this.event$ = this.activityService.getActivityByListCategory(data).subscribe(result => {
         this.eventList = result
       })

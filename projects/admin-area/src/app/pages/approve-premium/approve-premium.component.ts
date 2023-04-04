@@ -1,12 +1,10 @@
 
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { Title } from "@angular/platform-browser";
-import { ActivatedRoute, Router } from "@angular/router";
 import { UserPremiumReq } from "@dto/user-premium/user-premium-req";
 import { UserPremiumRes } from "@dto/user-premium/user-premium-res";
 import { UserPremiumService } from "@service/user-premium.service";
 import { ConfirmationService, LazyLoadEvent } from "primeng/api";
-import { USER_PREMIUM_LIMIT } from "projects/base-area/src/app/constant/user-premium-limit";
 import { Subscription } from "rxjs";
 
 @Component({
@@ -31,7 +29,6 @@ export class PremiumTableComponent {
     query?: string
     loading: boolean = true
     constructor(
-        private router: Router,
         private userPremiumService: UserPremiumService,
         private confirmationService: ConfirmationService, 
         private title: Title,
